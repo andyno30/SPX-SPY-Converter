@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPX-SPY Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1em;
+        }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+        li {
+            float: left;
+        }
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        li a:hover {
+            background-color: #111;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="relationship.html">Relationship</a></li>
+    </ul>
+    <h1>SPX-SPY Converter</h1>
+    <p>Conversion ratio last updated: 5/3/23</p>
+    <p><small style="color: red;">*note: ratio may not remain constant over time, as it can be affected by factors such as dividends, stock splits, or changes in the index composition.</small></p>
+
+    <h3>SPX to SPY</h3>
+    <p>Enter SPX value:</p>
+    <input type="number" id="spxInput" step="0.01">
+    <button onclick="convertSpxToSpy()">Convert</button>
+    <p id="spxToSpyOutput"></p>
+    
+    <h3>SPY to SPX</h3>
+    <p>Enter SPY value:</p>
+    <input type="number" id="spyInput" step="0.01">
+    <button onclick="convertSpyToSpx()">Convert</button>
+    <p id="spyToSpxOutput"></p>
+
+    <script>
+        const ratio = 10.02;
+
+        function convertSpxToSpy() {
+            const spxValue = parseFloat(document.getElementById("spxInput").value);
+            const spyValue = (spxValue / ratio).toFixed(2);
+            document.getElementById("spxToSpyOutput").innerHTML = `SPY Value: ${spyValue}`;
+        }
+
+        function convertSpyToSpx() {
+            const spyValue = parseFloat(document.getElementById("spyInput").value);
+            const spxValue = (spyValue * ratio).toFixed(2);
+            document.getElementById("spyToSpxOutput").innerHTML = `SPX Value: ${spxValue}`;
+        }
+    </script>
+</body>
+</html>
+
