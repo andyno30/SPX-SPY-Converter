@@ -122,7 +122,9 @@ body {
     height: 250px; 
   }
 
-  .allignmentleft {
-    display:flex;
-    justify-content: left
-  }
+  .alignleft {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+ }
