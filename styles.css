@@ -125,6 +125,5 @@ body {
   .alignleft {
     position: fixed;
     left: 0;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 0;
  }
