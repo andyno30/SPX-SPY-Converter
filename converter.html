@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES-SPY & QQQ-NQ-NDX Converter</title>
+    <link rel="stylesheet" href="styles.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2918914879248661" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <nav>
+        <a href="#" class="logo"><h4>spyconverter.com</h4></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="relationship.html">Relationship</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li class="dropdown">
+                <a href="aboutus.html">About Us</a>
+                <div class="dropdown-content">
+                    <a href="aboutus.html#about-us">About Us</a>
+                    <a href="aboutus.html#privacy-policy">Privacy Policy</a>
+                    <a href="aboutus.html#contact-us">Contact Us</a>
+                    <a href="aboutus.html#disclaimer">Disclaimer</a>
+                    <a href="aboutus.html#terms-and-conditions">Terms and Conditions</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="main-container">
+        <h1>ES-SPY & QQQ-NQ-NDX Converter</h1>
+        <p>Conversion ratio last updated: 8/14/23</p>
+        <p><small id="conversion-ratio">*note: ratio may not remain constant over time, as it can be affected by factors such as dividends, stock splits, or changes in the index composition.</small></p>
+
+        <div class="conversion-grid2">
+            <div class="conversion-section2">
+                <h3>/ES to SPY</h3>
+                <p>Enter /ES value:</p>
+                <input type="number" id="esInput" step="0.01">
+                <button onclick="convertEsToSpy()">Convert</button>
+                <p id="esToSpyOutput"></p>
+            </div>
+            
+            <div class="conversion-section2">
+                <!-- QQQ to /NQ -->
+                <h3>QQQ to /NQ</h3>
+                <p>Enter QQQ value:</p>
+                <input type="number" id="qqqInput" step="0.01">
+                <button onclick="convertQqqToNq()">Convert</button>
+                <p id="qqqToNqOutput"></p>
+            </div>
+
+            <div class="conversion-section2">
+                <!-- QQQ to NDX -->
+                <h3>QQQ to NDX</h3>
+                <p>Enter QQQ value:</p>
+                <input type="number" id="qqqToNdxInput1" step="0.01">
+                <button onclick="convertQqqToNdx()">Convert</button>
+                <p id="qqqToNdxOutput1"></p>
+            </div>
+    
+            <div class="conversion-section2">
+                <!-- SPY to /ES -->
+                <h3>SPY to /ES</h3>
+                <p>Enter SPY value:</p>
+                <input type="number" id="spyToEsInput" step="0.01">
+                <button onclick="convertSpyToEs()">Convert</button>
+                <p id="spyToEsOutput"></p>
+            </div>
+    
+            <div class="conversion-section2">
+                <!-- /NQ to QQQ -->
+                <h3>/NQ to QQQ</h3>
+                <p>Enter /NQ value:</p>
+                <input type="number" id="nqToQqqInput" step="0.01">
+                <button onclick="convertNqToQqq()">Convert</button>
+                <p id="nqToQqqOutput"></p>
+            </div>
+    
+            <div class="conversion-section2">
+                <!-- NDX to QQQ -->
+                <h3>NDX to QQQ</h3>
+                <p>Enter NDX value:</p>
+                <input type="number" id="ndxToQqqInput" step="0.01">
+                <button onclick="convertNdxToQqq()">Convert</button>
+                <p id="ndxToQqqOutput"></p>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h4>By utilizing the ES-SPY & QQQ-NQ-NDX Converter, you can easily and accurately convert prices between</h4>
+            <h4>ES-SPY & QQQ-NQ-NDX, saving time and gaining valuable insights into the conversion process.</h4>
+            <ul>
+                <li>(test section)</p>
+                <li>(spyconverter.com)'s conversion ratio is regularly updated, ensuring accurate and up-to-date</li>
+                <p>conversion results.</p>
+                <li>Instead of manually calculating the conversion, the website automates the</li>
+                <p>process, saving you time and effort.</p>
+                <li>The website is accessible from any device with an internet connection, allowing you to</li>
+                <p>perform conversions on the go.</p>
+                <li>spyconverter.com provides an informative note regarding the potential factors that may impact the</li> 
+                <p>conversion ratio, increasing your understanding of the conversion process.</p>
+                <li>spyconverter.com is free to use, providing a reliable conversion tool without any hidden costs or fees.</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 spyconverter.com. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // /ES to SPY ratio
+        const esToSpyRatio = 10.0650589;
+
+        // /NQ to QQQ ratio
+        const nqToQqqRatio = 41.2614498;
+
+        // NDX to QQQ ratio
+        const ndxToQqqRatio = 41.0472871;
+
+        function convertEsToSpy() {
+            const esValue = parseFloat(document.getElementById("esInput").value);
+            const spyValue = (esValue / esToSpyRatio).toFixed(2);
+            document.getElementById("esToSpyOutput").innerHTML = `SPY Value: ${spyValue}`;
+        }
+
+        function convertSpyToEs() {
+            const spyValue = parseFloat(document.getElementById("spyToEsInput").value);
+            const esValue = (spyValue * esToSpyRatio).toFixed(2);
+            document.getElementById("spyToEsOutput").innerHTML = `/ES Value: ${esValue}`;
+        }
+
+        function convertQqqToNq() {
+            const qqqValue = parseFloat(document.getElementById("qqqInput").value);
+            const nqValue = (qqqValue * nqToQqqRatio).toFixed(2);
+            document.getElementById("qqqToNqOutput").innerHTML = `/NQ Value: ${nqValue}`;
+        }
+
+        function convertNdxToQqq() {
+            const ndxValue = parseFloat(document.getElementById("ndxToQqqInput").value);
+            const qqqValue = (ndxValue / ndxToQqqRatio).toFixed(2);
+            document.getElementById("ndxToQqqOutput").innerHTML = `QQQ Value: ${qqqValue}`;
+        }
+
+        function convertQqqToNdx() {
+            const qqqValue = parseFloat(document.getElementById("qqqToNdxInput1").value);
+            const ndxValue = (qqqValue * ndxToQqqRatio).toFixed(2);
+            document.getElementById("qqqToNdxOutput1").innerHTML = `NDX Value: ${ndxValue}`;
+        }
+
+        function convertNqToQqq() {
+            const nqValue = parseFloat(document.getElementById("nqToQqqInput").value);
+            const qqqValue = (nqValue / nqToQqqRatio).toFixed(2);
+            document.getElementById("nqToQqqOutput").innerHTML = `QQQ Value: ${qqqValue}`;
+        }
+    </script>
+</body>
+</html>
