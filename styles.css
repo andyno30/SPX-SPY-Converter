@@ -170,3 +170,21 @@ body {
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
+.conversion-grid2 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    grid-gap: 20px; 
+}
+
+.conversion-section2 {
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    background-color: #c4c4c4;
+}
+
+.green-italic {
+    color: green;
+    font-style: italic;
+}
