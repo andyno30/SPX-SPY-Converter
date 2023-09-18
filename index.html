@@ -92,20 +92,26 @@
         <p>&copy; 2023 spyconverter.com. All rights reserved.</p>
     </footer>
 
-    <script>
-        const ratio = 10.0031535;
+<script>
+    // This JavaScript block fetches the live ratio and updates the page
+    function fetchLiveRatio() {
+        // Fetch the live ratio from your Python script using an API or other means
+        // Replace 'YOUR_API_ENDPOINT' with the actual API endpoint to fetch the ratio
+        fetch('YOUR_API_ENDPOINT')
+            .then(response => response.json())
+            .then(data => {
+                const liveRatio = data.liveRatio;
+                // Update the content with the live ratio
+                document.getElementById("conversion-ratio-note").innerHTML = `*note: ratio may not remain constant over time, as it can be affected by factors such as dividends, stock splits, or changes in the index composition. Current Ratio: ${liveRatio}`;
+            })
+            .catch(error => {
+                console.error('Error fetching live ratio:', error);
+            });
+    }
 
-        function convertSpxToSpy() {
-            const spxValue = parseFloat(document.getElementById("spxInput").value);
-            const spyValue = (spxValue / ratio).toFixed(2);
-            document.getElementById("spxToSpyOutput").innerHTML = `SPY Value: ${spyValue}`;
-        }
-
-        function convertSpyToSpx() {
-            const spyValue = parseFloat(document.getElementById("spyInput").value);
-            const spxValue = (spyValue * ratio).toFixed(2);
-            document.getElementById("spyToSpxOutput").innerHTML = `SPX Value: ${spxValue}`;
-        }
-    </script>
+    // Call fetchLiveRatio() to update the page with the live ratio when the page loads
+    window.addEventListener('load', fetchLiveRatio);
+</script>
+	
 </body>
 </html>
