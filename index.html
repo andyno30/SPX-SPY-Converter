@@ -93,16 +93,15 @@
     </footer>
 
 <script>
-    // This JavaScript block fetches the live ratio and updates the page
+    // This JavaScript block fetches the live ratio from your local server and updates the page
     function fetchLiveRatio() {
-        // Fetch the live ratio from your Python script using an API or other means
-        // Replace 'YOUR_API_ENDPOINT' with the actual API endpoint to fetch the ratio
-        fetch('YOUR_API_ENDPOINT')
+        // Make an HTTP GET request to your local server
+        fetch("http://localhost:5000/get_live_ratio")
             .then(response => response.json())
             .then(data => {
                 const liveRatio = data.liveRatio;
                 // Update the content with the live ratio
-                document.getElementById("conversion-ratio-note").innerHTML = `*note: ratio may not remain constant over time, as it can be affected by factors such as dividends, stock splits, or changes in the index composition. Current Ratio: ${liveRatio}`;
+                document.getElementById("conversion-ratio-note").innerHTML = `*note: ratio may not remain constant over time, as it can be affected by factors such as dividends, stock splits, or changes in the index composition. Current Ratio: ${liveRatio.toFixed(7)}`;
             })
             .catch(error => {
                 console.error('Error fetching live ratio:', error);
