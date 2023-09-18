@@ -14,6 +14,5 @@ spy_price = spy_data["Close"].iloc[0]
 # Calculate the ratio
 ratio = spx_price / spy_price
 
-# Print the ratio (you can also store it in a variable or file)
 print(f"SPX/SPY Ratio: {ratio:.7f}")
 
