@@ -1,10 +1,10 @@
-import yfinance as yf
 from flask import Flask, jsonify
+import yfinance as yf
 
 app = Flask(__name__)
 
-@app.route("/get_live_ratio", methods=["GET"])
-def get_live_ratio():
+@app.route('/get_live_price')
+def get_live_price():
     spx_ticker = "^SPX"
     spy_ticker = "SPY"
 
@@ -19,8 +19,8 @@ def get_live_ratio():
     # Calculate the ratio
     ratio = spx_price / spy_price
 
-    # Return the ratio as JSON
-    return jsonify({"liveRatio": ratio})
+    return jsonify({"ratio": ratio})
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+if __name__ == '__main__':
+    app.run(debug=True)
+
