@@ -1,6 +1,7 @@
 // Function to fetch the ratio from the server
 function fetchRatio() {
-    fetch('/get_live_price')
+    // Replace 'https://your-server-url.com' with the actual URL of your Flask server
+    fetch('https://your-server-url.com/get_live_price')
         .then(response => response.json())
         .then(data => {
             const ratio = data.ratio;
