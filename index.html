@@ -91,20 +91,7 @@
     <footer>
         <p>&copy; 2023 spyconverter.com. All rights reserved.</p>
     </footer>
-      <script>
-            const ratio = 10.0425495;
+    <script src="script.js"></script>
 
-            function convertSpxToSpy() {
-                const spxValue = parseFloat(document.getElementById("spxInput").value);
-                const spyValue = (spxValue / ratio).toFixed(2);
-                document.getElementById("spxToSpyOutput").innerHTML = `SPY Value: ${spyValue}`;
-            }
-
-            function convertSpyToSpx() {
-                const spyValue = parseFloat(document.getElementById("spyInput").value);
-                const spxValue = (spyValue * ratio).toFixed(2);
-                document.getElementById("spyToSpxOutput").innerHTML = `SPX Value: ${spxValue}`;
-            }
-        </script>
 </body>
 </html>
