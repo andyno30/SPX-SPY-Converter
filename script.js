@@ -1,7 +1,6 @@
 // Function to fetch the ratio from the server
 function fetchRatio() {
-    // Replace 'https://your-server-url.com' with the actual URL of your Flask server
-    fetch('https://your-server-url.com/get_live_price')
+    fetch('/get_live_price')
         .then(response => response.json())
         .then(data => {
             const ratio = data.ratio;
@@ -30,3 +29,14 @@ function convertSpyToSpx() {
     const spxValue = (spyValue * ratio).toFixed(2);
     document.getElementById("spyToSpxOutput").innerText = `SPX Value: ${spxValue}`;
 }
+
+// Add an event listener to the conversion button
+document.getElementById("convertButton").addEventListener("click", function() {
+    // Call the appropriate conversion function based on user input
+    const conversionType = document.querySelector('input[name="conversionType"]:checked').value;
+    if (conversionType === "spxToSpy") {
+        convertSpxToSpy();
+    } else if (conversionType === "spyToSpx") {
+        convertSpyToSpx();
+    }
+});
