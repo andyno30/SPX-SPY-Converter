@@ -1,10 +1,11 @@
-// Function to fetch the ratio from the server
+// Function to fetch the ratio and last updated date from the server
 function fetchRatio() {
     fetch('/get_live_price')
         .then(response => response.json())
         .then(data => {
             const ratio = data.ratio;
-            document.getElementById("ratio").textContent = `Conversion ratio last updated: ${new Date().toLocaleDateString()} - SPX/SPY Ratio: ${ratio.toFixed(7)}`;
+            const lastUpdated = data.last_updated;
+            document.getElementById("ratio").textContent = `Conversion ratio last updated: ${lastUpdated} - SPX/SPY Ratio: ${ratio.toFixed(7)}`;
         })
         .catch(error => {
             console.error('Error fetching ratio:', error);
@@ -40,3 +41,4 @@ document.getElementById("convertButton").addEventListener("click", function() {
         convertSpyToSpx();
     }
 });
+
