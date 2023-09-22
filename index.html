@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPX-SPY Converter</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script> <!-- Include the updated script.js file here -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2918914879248661" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -29,8 +30,8 @@
 
     <div class="main-container">
         <h1>SPX-SPY Converter</h1>
-        <p id="conversion-ratio">Conversion ratio last updated: Loading...</p>
-        <p><small>*note: ratio may not remain constant over time, as it can be affected by factors such as dividends, stock splits, or changes in the index composition.</small></p>
+        <p id="ratio">Conversion ratio last updated: Loading...</p> <!-- Initialize with "Loading..." -->
+        <p><small id="conversion-ratio">*note: ratio may not remain constant over time, as it can be affected by factors such as dividends, stock splits, or changes in the index composition.</small></p>
 
         <div class="conversion-section">
             <h3>SPX to SPY</h3>
@@ -48,77 +49,48 @@
             <p id="spyToSpxOutput"></p>
         </div>
 
-        <h4 class="green-italic"><a href="converter.html">/ES to SPY and QQQ to /NQ to NDX converter</a></h4>
+	<h4 class="green-italic"><a href="converter.html">/ES to SPY and QQQ to /NQ to NDX converter</a></h4>
 	    
         <div class="middle-section">       
             <a href="https://www.amazon.com/dp/B094YWT9FD/ref=as_sl_pc_as_ss_li_til?tag=tordycapital-20&linkCode=w00&linkId=a65b3bca31324b19f2dc89d3091b355a&creativeASIN=B094YWT9FD">Recommended book of the week</a>
         </div>
 
-        <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-2M5FE2EC3Q"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
+     <script src="//z-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&Operation=GetScript&ID=OneJS&WS=1"></script>
 
-          gtag('config', 'G-2M5FE2EC3Q');
-        </script>
+	   <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2M5FE2EC3Q"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-2M5FE2EC3Q');
+</script>
     </div>
 
-    <div class="test-section">
-        <h4>By utilizing the SPX-SPY Converter website, you can easily and accurately convert prices between</h4>
-        <h4>SPX and SPY, saving time and gaining valuable insights into the conversion process.</h4>
-        <ul>
-            <li>spyconverter.com provides a user-friendly interface to quickly convert prices between</li>
-            <p>SPX (S&P 500 Index) and SPY (S&P 500 ETF).</p>
-            <li>(spyconverter.com)'s conversion ratio is regularly updated, ensuring accurate and up-to-date</li>
-            <p>conversion results.</p>
-            <li>Instead of manually calculating the conversion, the website automates the</li>
-            <p>process, saving you time and effort.</p>
-            <li>The website is accessible from any device with an internet connection, allowing you to</li>
-            <p>perform conversions on the go.</p>
-            <li>spyconverter.com provides an informative note regarding the potential factors that may impact the</li> 
-            <p>conversion ratio, increasing your understanding of the conversion process.</p>
-            <li>spyconverter.com is free to use, providing a reliable conversion tool without any hidden costs or fees.</li>
-        </ul>
+        <div class="test-section">
+            <h4>By utilizing the SPX-SPY Converter website, you can easily and accurately convert prices between</h4>
+            <h4>SPX and SPY, saving time and gaining valuable insights into the conversion process.</h4>
+            <ul>
+                <li>spyconverter.com provides a user-friendly interface to quickly convert prices between</li>
+                <p>SPX (S&P 500 Index) and SPY (S&P 500 ETF).</p>
+                <li>(spyconverter.com)'s conversion ratio is regularly updated, ensuring accurate and up-to-date</li>
+                <p>conversion results.</p>
+                <li>Instead of manually calculating the conversion, the website automates the</li>
+                <p>process, saving you time and effort.</p>
+                <li>The website is accessible from any device with an internet connection, allowing you to</li>
+                <p>perform conversions on the go.</p>
+                <li>spyconverter.com provides an informative note regarding the potential factors that may impact the</li> 
+                <p>conversion ratio, increasing your understanding of the conversion process.</p>
+                <li>spyconverter.com is free to use, providing a reliable conversion tool without any hidden costs or fees.</li>
+            </ul>
+        </div>
     </div>
 
     <footer>
         <p>&copy; 2023 spyconverter.com. All rights reserved.</p>
     </footer>
-
-    <script>
-        // Function to fetch the ratio and last updated date from the server
-        function fetchRatio() {
-            fetch('/get_live_price')
-                .then(response => response.json())
-                .then(data => {
-                    const ratio = data.ratio;
-                    const lastUpdated = data.last_updated;
-                    document.getElementById("conversion-ratio").textContent = `Conversion ratio last updated: ${lastUpdated} - SPX/SPY Ratio: ${ratio.toFixed(7)}`;
-                })
-                .catch(error => {
-                    console.error('Error fetching ratio:', error);
-                });
-        }
-
-        // Initial fetch of the ratio when the page loads
-        fetchRatio();
-
-        function convertSpxToSpy() {
-            const spxValue = parseFloat(document.getElementById("spxInput").value);
-            const ratio = parseFloat(document.getElementById("ratio").textContent.split(":")[1].trim());
-            const spyValue = (spxValue / ratio).toFixed(2);
-            document.getElementById("spxToSpyOutput").innerHTML = `SPY Value: ${spyValue}`;
-        }
-
-        function convertSpyToSpx() {
-            const spyValue = parseFloat(document.getElementById("spyInput").value);
-            const ratio = parseFloat(document.getElementById("ratio").textContent.split(":")[1].trim());
-            const spxValue = (spyValue * ratio).toFixed(2);
-            document.getElementById("spyToSpxOutput").innerHTML = `SPX Value: ${spxValue}`;
-        }
-    </script>
 </body>
 </html>
+
 
