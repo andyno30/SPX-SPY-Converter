@@ -1,5 +1,6 @@
 from flask import Flask, jsonify
 import yfinance as yf
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -19,7 +20,12 @@ def get_live_price():
     # Calculate the ratio
     ratio = spx_price / spy_price
 
-    return jsonify({"ratio": ratio})
+    # Get the current date and time in the desired format (MM/DD/YY HH:MM)
+    current_datetime = datetime.now().strftime("%m/%d/%y %H:%M")
+
+    # Return the ratio and last updated date
+    return jsonify({"ratio": ratio, "last_updated": current_datetime})
 
 if __name__ == '__main__':
-   app.run(debug=True, port=8000)
+    app.run(debug=True, port=8000)
+
