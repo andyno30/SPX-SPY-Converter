@@ -5,6 +5,8 @@ function fetchRatio() {
         .then(data => {
             const ratio = data.ratio;
             const lastUpdated = data.last_updated;
+            
+            // Update the HTML elements with the fetched data
             document.getElementById("ratio").textContent = `Conversion ratio last updated: ${lastUpdated} - SPX/SPY Ratio: ${ratio.toFixed(7)}`;
         })
         .catch(error => {
@@ -32,7 +34,7 @@ function convertSpyToSpx() {
 }
 
 // Add an event listener to the conversion button
-document.getElementById("convertButton").addEventListener("click", function() {
+document.getElementById("convertButton").addEventListener("click", function () {
     // Call the appropriate conversion function based on user input
     const conversionType = document.querySelector('input[name="conversionType"]:checked').value;
     if (conversionType === "spxToSpy") {
@@ -41,4 +43,5 @@ document.getElementById("convertButton").addEventListener("click", function() {
         convertSpyToSpx();
     }
 });
+
 
