@@ -128,7 +128,7 @@
     
         // Function to fetch the latest ratio from backend
         function updateRatio() {
-            fetch('http://127.0.0.1:8000/get_live_price')
+            fetch('https://utility-trees-399601.wl.r.appspot.com/')
                 .then(response => response.json())
                 .then(data => {
                     es_spy_ratio = data["ES/SPY Ratio"];
