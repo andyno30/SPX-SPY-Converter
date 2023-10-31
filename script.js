@@ -1,48 +1,42 @@
-// Function to fetch the ratio and last updated date from the server
-function fetchRatio() {
-    fetch('/get_live_price')
-        .then(response => response.json())
-        .then(data => {
-            const ratio = data.ratio;
-            const lastUpdated = data.last_updated;
-            
-            // Update the HTML elements with the fetched data
-            document.getElementById("ratio").textContent = `Conversion ratio last updated: ${lastUpdated} - SPX/SPY Ratio: ${ratio.toFixed(7)}`;
-        })
-        .catch(error => {
-            console.error('Error fetching ratio:', error);
-        });
+// Global variable to hold the SPX/SPY Ratio
+let ratio = 10.003055193074559; // Initial value, will be updated
+
+// Function to fetch and update the SPX/SPY Ratio
+function updateRatio() {
+    fetch('https://utility-trees-399601.wl.r.appspot.com/')
+    .then(response => response.json())
+    .then(data => {
+        ratio = data["SPX/SPY Ratio"];
+        console.log("Updated ratio:", ratio);  // Debugging output
+    })
+    .catch(error => {
+        console.error('Error fetching the data:', error);
+    });
 }
 
-// Initial fetch of the ratio when the page loads
-fetchRatio();
-
-// Function to convert SPX to SPY
-function convertSpxToSpy() {
-    const spxValue = parseFloat(document.getElementById("spxInput").value);
-    const ratio = parseFloat(document.getElementById("ratio").textContent.split(":")[1].trim());
-    const spyValue = (spxValue / ratio).toFixed(2);
-    document.getElementById("spxToSpyOutput").innerText = `SPY Value: ${spyValue}`;
+// Function to update and display the live time based on the user's local time zone
+function updateLocalDateTime() {
+    const currentDate = new Date();
+    const options = {
+        year: "2-digit",
+        month: "numeric",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true
+    };
+    const formattedDateTime = currentDate.toLocaleString('en-US', options);
+    document.getElementById("conversionDate").textContent = formattedDateTime;
 }
 
-// Function to convert SPY to SPX
-function convertSpyToSpx() {
-    const spyValue = parseFloat(document.getElementById("spyInput").value);
-    const ratio = parseFloat(document.getElementById("ratio").textContent.split(":")[1].trim());
-    const spxValue = (spyValue * ratio).toFixed(2);
-    document.getElementById("spyToSpxOutput").innerText = `SPX Value: ${spxValue}`;
-}
+// Event listener to run the initialization code once the DOM is fully loaded
+document.addEventListener("DOMContentLoaded", function() {
+    // Initially fetch the ratio and display the local date-time
+    updateRatio();
+    updateLocalDateTime();
 
-// Add an event listener to the conversion button
-document.getElementById("convertButton").addEventListener("click", function () {
-    // Call the appropriate conversion function based on user input
-    const conversionType = document.querySelector('input[name="conversionType"]:checked').value;
-    if (conversionType === "spxToSpy") {
-        convertSpxToSpy();
-    } else if (conversionType === "spyToSpx") {
-        convertSpyToSpx();
-    }
+    // Set intervals to fetch the ratio and update the local date-time every minute
+    setInterval(updateRatio, 60000); // Update every 60 seconds
+    setInterval(updateLocalDateTime, 60000);
 });
-
-
 
