@@ -40,7 +40,7 @@
 
     <div class="main-container">
         <h1>ES-SPY & QQQ-NQ-NDX Converter</h1>
-        <p>Conversion ratio last updated: 10/31/23</p>
+        <p>Conversion ratio last updated: <span id="lastUpdated">Loading...</span></p>
         <p><small id="conversion-ratio">*note: ratio may not remain constant over time, as it can be affected by factors such as dividends, stock splits, or changes in the index composition.</small></p>
 
         <div class="conversion-grid2">
@@ -102,6 +102,7 @@
             <h4>By utilizing the ES-SPY & QQQ-NQ-NDX Converter, you can easily and accurately convert prices between</h4>
             <h4>ES-SPY & QQQ-NQ-NDX, saving time and gaining valuable insights into the conversion process.</h4>
             <ul>
+                <li>(test section)</p>
                 <li>(spyconverter.com)'s conversion ratio is regularly updated, ensuring accurate and up-to-date</li>
                 <p>conversion results.</p>
                 <li>Instead of manually calculating the conversion, the website automates the</li>
@@ -120,50 +121,89 @@
     </footer>
 
     <script>
-        // /ES to SPY ratio
-        const esToSpyRatio = 10.055104421656079;
-
-        // /NQ to QQQ ratio
-        const nqToQqqRatio = 41.18880003926146;
-
-        // NDX to QQQ ratio
-        const ndxToQqqRatio = 41.05303083028997;
-
+        // Global variable for the ratios
+        let es_spy_ratio = 10.0650589;
+        let nq_qqq_ratio = 41.2614498;
+        let ndx_qqq_ratio = 41.0472871;
+    
+        // Function to fetch the latest ratio from backend
+        function updateRatio() {
+            fetch('http://127.0.0.1:8000/get_live_price')
+                .then(response => response.json())
+                .then(data => {
+                    es_spy_ratio = data["ES/SPY Ratio"];
+                    nq_qqq_ratio = data["NQ/QQQ Ratio"];
+                    ndx_qqq_ratio = data["NDX/QQQ Ratio"];
+                    
+                    // Update the conversion ratio display time
+                    updateLocalDateTime();
+                })
+                .catch(error => {
+                    console.error("Error fetching the data:", error);
+                });
+        }
+    
+        // Function to display the local date and time based on the user's locale
+        function updateLocalDateTime() {
+            const currentDate = new Date();
+            const options = {
+                year: "2-digit",
+                month: "numeric",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true
+            };
+            const formattedDateTime = currentDate.toLocaleString('en-US', options);
+            document.getElementById("lastUpdated").textContent = `${formattedDateTime}`;
+        }
+    
+        // Function to periodically fetch the latest ratio
+        function liveTimeUpdate() {
+            setInterval(updateRatio, 60000);
+        }    
+        
+        // Conversion functions for ES/SPY
         function convertEsToSpy() {
             const esValue = parseFloat(document.getElementById("esInput").value);
-            const spyValue = (esValue / esToSpyRatio).toFixed(2);
-            document.getElementById("esToSpyOutput").innerHTML = `SPY Value: ${spyValue}`;
+            const spyValue = (esValue / es_spy_ratio).toFixed(2);
+            document.getElementById("esToSpyOutput").innerText = `SPY Value: ${spyValue}`;
         }
-
+        
         function convertSpyToEs() {
             const spyValue = parseFloat(document.getElementById("spyToEsInput").value);
-            const esValue = (spyValue * esToSpyRatio).toFixed(2);
-            document.getElementById("spyToEsOutput").innerHTML = `/ES Value: ${esValue}`;
+            const esValue = (spyValue * es_spy_ratio).toFixed(2);
+            document.getElementById("spyToEsOutput").innerText = `/ES Value: ${esValue}`;
         }
-
+        
+        // Conversion functions for QQQ to /NQ
         function convertQqqToNq() {
             const qqqValue = parseFloat(document.getElementById("qqqInput").value);
-            const nqValue = (qqqValue * nqToQqqRatio).toFixed(2);
-            document.getElementById("qqqToNqOutput").innerHTML = `/NQ Value: ${nqValue}`;
+            const nqValue = (qqqValue * nq_qqq_ratio).toFixed(2);
+            document.getElementById("qqqToNqOutput").innerText = `/NQ Value: ${nqValue}`;
         }
-
+        
         function convertNdxToQqq() {
             const ndxValue = parseFloat(document.getElementById("ndxToQqqInput").value);
-            const qqqValue = (ndxValue / ndxToQqqRatio).toFixed(2);
-            document.getElementById("ndxToQqqOutput").innerHTML = `QQQ Value: ${qqqValue}`;
+            const qqqValue = (ndxValue / ndx_qqq_ratio).toFixed(2);
+            document.getElementById("ndxToQqqOutput").innerText = `QQQ Value: ${qqqValue}`;
         }
-
+        
         function convertQqqToNdx() {
             const qqqValue = parseFloat(document.getElementById("qqqToNdxInput1").value);
-            const ndxValue = (qqqValue * ndxToQqqRatio).toFixed(2);
-            document.getElementById("qqqToNdxOutput1").innerHTML = `NDX Value: ${ndxValue}`;
+            const ndxValue = (qqqValue * ndx_qqq_ratio).toFixed(2);
+            document.getElementById("qqqToNdxOutput1").innerText = `NDX Value: ${ndxValue}`;
         }
-
+        
         function convertNqToQqq() {
             const nqValue = parseFloat(document.getElementById("nqToQqqInput").value);
-            const qqqValue = (nqValue / nqToQqqRatio).toFixed(2);
-            document.getElementById("nqToQqqOutput").innerHTML = `QQQ Value: ${qqqValue}`;
+            const qqqValue = (nqValue / nq_qqq_ratio).toFixed(2);
+            document.getElementById("nqToQqqOutput").innerText = `QQQ Value: ${qqqValue}`;
         }
-    </script>
-</body>
-</html>
+        
+        // Call the functions when the page loads
+        updateRatio();
+        liveTimeUpdate();
+            </script>
+        </body>
+        </html>
