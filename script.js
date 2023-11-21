@@ -3,7 +3,7 @@ let ratio = 10.003055193074559; // Initial value, will be updated
 
 // Function to fetch and update the SPX/SPY Ratio
 function updateRatio() {
-    fetch('https://utility-trees-399601.wl.r.appspot.com/')
+    fetch('https://utility-trees-399601.wl.r.appspot.com')
     .then(response => response.json())
     .then(data => {
         ratio = data["SPX/SPY Ratio"];
