@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>/ES to SPX Conversion Tool</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 100px;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        nav {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            left: 0%; /* Adjust this value to shift the nav left */
+            right: 10%; /* Adjust this value to ensure proper alignment */
+            box-sizing: border-box;
+        }
+
+        .logo h4 {
+            margin: 0;
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        .nav-links li {
+            position: relative;
+            margin-left: 20px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            color: #333;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            top: 100%;
+            left: 0;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 80px auto 20px auto;
+            text-align: center;
+            position: relative;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin: 5px 0;
+            color: #666;
+        }
+
+        #lastUpdated {
+            font-weight: bold;
+            color: #444;
+        }
+
+        .conversion-section {
+            margin-top: 20px;
+        }
+
+        .conversion-section h3 {
+            color: #444;
+            margin-bottom: 10px;
+        }
+
+        input[type="number"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 1em;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 1em;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #conversion-options {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        #conversion-options li {
+            cursor: pointer;
+            color: #007bff;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        #conversion-options li.active {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        #esToSpxOutput, #spxToEsOutput {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .adsbygoogle {
+            margin: 20px 0;
+        }
+    </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2918914879248661" crossorigin="anonymous"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-2918914879248661",
+            enable_page_level_ads: true
+        });
+    </script>
+</head>
+<body>
+
+    <nav>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="relationship.html">Relationship</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li class="dropdown">
+                <a href="aboutus.html">About Us</a>
+                <div class="dropdown-content">
+                    <a href="aboutus.html#about-us">About Us</a>
+                    <a href="aboutus.html#privacy-policy">Privacy Policy</a>
+                    <a href="aboutus.html#contact-us">Contact Us</a>
+                    <a href="aboutus.html#disclaimer">Disclaimer</a>
+                    <a href="aboutus.html#terms-and-conditions">Terms and Conditions</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2>/ES to SPX Conversion Tool</h2>
+        <p>Last updated: <span id="lastUpdated"></span></p>
+
+        <ul id="conversion-options">
+            <li onclick="showEsToSpx()" class="active">/ES to SPX</li>
+            <li onclick="showSpxToEs()">SPX to /ES</li>
+        </ul>
+
+        <div class="conversion-section" id="esToSpxSection">
+            <h3>/ES to SPX</h3>
+            <input type="number" id="esToSpxInput" placeholder="Enter /ES value">
+            <button onclick="convertEsToSpx()">Convert</button>
+            <p id="esToSpxOutput"></p>
+        </div>
+
+        <div class="conversion-section" id="spxToEsSection" style="display:none;">
+            <h3>SPX to /ES</h3>
+            <input type="number" id="spxToEsInput" placeholder="Enter SPX value">
+            <button onclick="convertSpxToEs()">Convert</button>
+            <p id="spxToEsOutput"></p>
+        </div>
+
+        <div class="adsbygoogle">
+            <!-- Example ad unit -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-2918914879248661"
+                data-ad-slot="your-ad-slot-id"
+                data-ad-format="auto"></ins>
+        </div>
+    </div>
+
+    <script>
+        // Global variable for the ratios
+        let es_spx_ratio = 10.0650589; // Example ratio, should be updated from the backend
+
+        // Function to fetch the latest ratio from backend
+        function updateRatio() {
+            fetch('http://127.0.0.1:8000/get_live_price')
+                .then(response => response.json())
+                .then(data => {
+                    es_spx_ratio = data["ES/SPX Ratio"];
+                    updateLocalDateTime();
+                })
+                .catch(error => {
+                    console.error("Error fetching the data:", error);
+                });
+        }
+
+        // Function to display the local date and time based on the user's locale
+        function updateLocalDateTime() {
+            const currentDate = new Date();
+            const options = {
+                year: "2-digit",
+                month: "numeric",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true
+            };
+            const formattedDateTime = currentDate.toLocaleString('en-US', options);
+            document.getElementById("lastUpdated").textContent = `${formattedDateTime}`;
+        }
+
+        // Conversion functions for ES/SPX
+        function convertEsToSpx() {
+            const esValue = parseFloat(document.getElementById("esToSpxInput").value);
+            const spxValue = (esValue / es_spx_ratio).toFixed(2);
+            document.getElementById("esToSpxOutput").innerText = `SPX Value: ${spxValue}`;
+        }
+
+        function convertSpxToEs() {
+            const spxValue = parseFloat(document.getElementById("spxToEsInput").value);
+            const esValue = (spxValue * es_spx_ratio).toFixed(2);
+            document.getElementById("spxToEsOutput").innerText = `/ES Value: ${esValue}`;
+        }
+
+        // Function to switch between conversion sections
+        function showEsToSpx() {
+            document.getElementById("esToSpxSection").style.display = "block";
+            document.getElementById("spxToEsSection").style.display = "none";
+            document.getElementById("conversion-options").children[0].classList.add("active");
+            document.getElementById("conversion-options").children[1].classList.remove("active");
+        }
+
+        function showSpxToEs() {
+            document.getElementById("esToSpxSection").style.display = "none";
+            document.getElementById("spxToEsSection").style.display = "block";
+            document.getElementById("conversion-options").children[0].classList.remove("active");
+            document.getElementById("conversion-options").children[1].classList.add("active");
+        }
+
+        // Event listener to run the initialization code once the DOM is fully loaded
+        document.addEventListener("DOMContentLoaded", function() {
+            updateRatio();
+            updateLocalDateTime();
+        });
+    </script>
+</body>
+</html>
