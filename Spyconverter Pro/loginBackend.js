@@ -11,7 +11,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-// MongoDB connection (removed deprecated options)
+// MongoDB connection
 mongoose.connect('mongodb+srv://andyno30:jmRH2kOt84mHP5KY@spyconverterpro.a8m8g.mongodb.net/spyconverterDB?retryWrites=true&w=majority&appName=spyconverterpro')
     .then(() => console.log("Connected to MongoDB"))
     .catch((err) => console.log("Error connecting to MongoDB:", err));
@@ -103,6 +103,21 @@ app.delete('/delete-account', authenticateToken, async (req, res) => {
         res.json({ message: 'Account deleted successfully' });
     } catch (error) {
         console.log("Delete account error:", error.message);
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+});
+
+// New User Info endpoint
+app.get('/user', authenticateToken, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.userId);
+        if (!user) {
+            console.log("User not found for ID:", req.user.userId);
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.json({ email: user.email, isSubscribed: user.isSubscribed });
+    } catch (error) {
+        console.log("User fetch error:", error.message);
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 });
