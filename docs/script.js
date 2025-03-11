@@ -58,7 +58,6 @@ async function emailLoginSignup() {
 // Delete Account
 async function deleteAccount() {
     const token = localStorage.getItem("authToken");
-    console.log("Token being sent:", token);
     if (!token) {
         document.getElementById('delete-feedback').textContent = 'You must be logged in to delete your account.';
         return;
@@ -72,7 +71,6 @@ async function deleteAccount() {
             }
         });
         const data = await response.json();
-        console.log("Response from server:", data);
         if (response.ok) {
             localStorage.removeItem("authToken");
             document.getElementById('delete-feedback').textContent = 'Account deleted successfully. Redirecting...';
@@ -92,7 +90,7 @@ function googleLoginSignup() {
     console.log("Google Login/Signup clicked - requires Firebase setup.");
 }
 
-// Fetch User Info (Updated for separate lines)
+// Fetch User Info
 async function fetchUserInfo() {
     const token = localStorage.getItem("authToken");
     if (!token) {
@@ -111,6 +109,7 @@ async function fetchUserInfo() {
             const subscriptionStatus = data.isSubscribed ? 'Subscribed' : 'Not Subscribed';
             document.getElementById('user-email').textContent = `Email: ${data.email}`;
             document.getElementById('user-status').textContent = `Status: ${subscriptionStatus}`;
+            document.getElementById('subscribe-btn').style.display = data.isSubscribed ? 'none' : 'inline-block';
         } else {
             document.getElementById('user-email').textContent = data.message || 'Failed to fetch user info';
             document.getElementById('user-status').textContent = '';
@@ -119,5 +118,32 @@ async function fetchUserInfo() {
         console.error('Fetch user info error:', error);
         document.getElementById('user-email').textContent = 'Server error. Please try again.';
         document.getElementById('user-status').textContent = '';
+    }
+}
+
+// Subscribe Function
+async function subscribe() {
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+        document.getElementById('delete-feedback').textContent = 'You must be logged in to subscribe.';
+        return;
+    }
+    try {
+        const response = await fetch(`${backendURL}/subscribe`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        const data = await response.json();
+        if (response.ok) {
+            window.location.href = data.url; // Redirect to Stripe Checkout
+        } else {
+            document.getElementById('delete-feedback').textContent = data.message || 'Subscription failed';
+        }
+    } catch (error) {
+        console.error('Subscribe error:', error);
+        document.getElementById('delete-feedback').textContent = 'Server error. Please try again.';
     }
 }
