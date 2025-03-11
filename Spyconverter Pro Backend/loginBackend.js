@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
-const stripe = require('stripe')('your-stripe-secret-key'); // Replace with your Stripe Secret Key
+const stripe = require('stripe')('your-stripe-secret-key'); // Replace with YOUR Stripe Secret Key
 
 const app = express();
 
@@ -41,7 +41,7 @@ const authenticateToken = (req, res, next) => {
 // Test Route
 app.get("/", (req, res) => res.send("Server is running successfully!"));
 
-// Registration endpoint (Pre-set andyno30@gmail.com)
+// Registration endpoint
 app.post('/register', async (req, res) => {
     const { email, password } = req.body;
     console.log(`Received Registration Attempt: Email: ${email}`);
@@ -49,9 +49,10 @@ app.post('/register', async (req, res) => {
         const existingUser = await User.findOne({ email });
         if (existingUser) return res.status(400).json({ message: 'User already exists' });
         const hashedPassword = await bcrypt.hash(password, 10);
-        const isSubscribed = email === 'andyno30@gmail.com'; // Your account is subscribed
+        const isSubscribed = email.toLowerCase() === 'andyno30@gmail.com'; // Case-insensitive
         const newUser = new User({ email, password: hashedPassword, isSubscribed });
         await newUser.save();
+        console.log(`User registered: ${email}, Subscribed: ${isSubscribed}`);
         res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
         console.log("Registration error:", error.message);
@@ -119,9 +120,10 @@ app.post('/subscribe', authenticateToken, async (req, res) => {
             mode: 'payment',
             success_url: `https://spyconverter.com/docs/dashboard.html?success=true`,
             cancel_url: `https://spyconverter.com/docs/dashboard.html?cancel=true`,
-            metadata: { userId: req.user.userId },
+            metadata: { userId: req.user.userId.toString() }, // Ensure string
         });
 
+        console.log(`Stripe session created for ${user.email}: ${session.url}`);
         res.json({ url: session.url });
     } catch (error) {
         console.log("Subscribe error:", error.message);
@@ -132,7 +134,7 @@ app.post('/subscribe', authenticateToken, async (req, res) => {
 // Webhook to confirm payment (Stripe)
 app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
     const sig = req.headers['stripe-signature'];
-    const endpointSecret = 'your-stripe-webhook-secret'; // From Stripe Dashboard
+    const endpointSecret = 'your-stripe-webhook-secret'; // Replace with YOUR Stripe Webhook Secret
 
     try {
         const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
