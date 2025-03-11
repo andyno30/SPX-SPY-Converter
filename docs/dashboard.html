@@ -9,8 +9,9 @@
     <div class="main-container">
         <h1>Welcome to Spyconverter Pro!</h1>
         <p>You are logged in.</p>
-        <p id="user-email"></p> <!-- Email on its own line -->
-        <p id="user-status"></p> <!-- Status on a new line -->
+        <p id="user-email"></p>
+        <p id="user-status"></p>
+        <button id="subscribe-btn">Subscribe</button>
         <button id="delete-account-btn">Delete Account</button>
         <p id="delete-feedback"></p>
     </div>
@@ -21,7 +22,17 @@
                 deleteAccount();
             }
         });
-        fetchUserInfo(); // Fetch user info on page load
+        document.getElementById('subscribe-btn').addEventListener('click', subscribe);
+        fetchUserInfo();
+
+        // Check URL params for payment feedback
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('success')) {
+            document.getElementById('delete-feedback').textContent = 'Payment successful! Subscription activated.';
+            setTimeout(fetchUserInfo, 1000); // Refresh status
+        } else if (urlParams.get('cancel')) {
+            document.getElementById('delete-feedback').textContent = 'Payment canceled.';
+        }
     </script>
 </body>
 </html>
