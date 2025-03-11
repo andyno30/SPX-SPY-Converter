@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
-const stripe = require('stripe')('sk_test_...'); // Replace with YOUR Stripe Secret Key
+const stripe = require('stripe')('sk_test_51MqL3m2mY7zktgIWmVU2SOayxmR8mzB4jkGU7NDeURDufBlBAq2McwNsCw9tYltg83BguEX888A3XTk5JH7uRtPN00I8c1joeC');
 
 const app = express();
 
@@ -49,7 +49,7 @@ app.post('/register', async (req, res) => {
         const existingUser = await User.findOne({ email });
         if (existingUser) return res.status(400).json({ message: 'User already exists' });
         const hashedPassword = await bcrypt.hash(password, 10);
-        const isSubscribed = email.toLowerCase().trim() === 'andyno30@gmail.com'; // Case-insensitive, trim whitespace
+        const isSubscribed = email.toLowerCase().trim() === 'andyno30@gmail.com';
         const newUser = new User({ email, password: hashedPassword, isSubscribed });
         await newUser.save();
         console.log(`User registered: ${email}, Subscribed: ${isSubscribed}`);
@@ -134,7 +134,7 @@ app.post('/subscribe', authenticateToken, async (req, res) => {
 // Webhook to confirm payment (Stripe)
 app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
     const sig = req.headers['stripe-signature'];
-    const endpointSecret = 'your-stripe-webhook-secret'; // Replace with YOUR Stripe Webhook Secret
+    const endpointSecret = 'whsec_aad8426792958e094b6b8396fc482dd4954957bd95a19a4cb59e4aeaacddca91'; // Replace with YOUR Stripe Webhook Secret
 
     try {
         const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
