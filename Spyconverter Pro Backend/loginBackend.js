@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
+const stripe = require('stripe')('your-stripe-secret-key'); // Replace with your Stripe Secret Key
 
 const app = express();
 
@@ -29,37 +30,27 @@ const User = mongoose.model('User', userSchema);
 const authenticateToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
-    if (!token) {
-        console.log("No token provided in request");
-        return res.status(401).json({ message: 'No token provided' });
-    }
+    if (!token) return res.status(401).json({ message: 'No token provided' });
     jwt.verify(token, 'your-secret-key', (err, user) => {
-        if (err) {
-            console.log("Token verification failed:", err.message);
-            return res.status(403).json({ message: 'Invalid or expired token' });
-        }
+        if (err) return res.status(403).json({ message: 'Invalid or expired token' });
         req.user = user;
-        console.log("Token verified, user:", user);
         next();
     });
 };
 
 // Test Route
-app.get("/", (req, res) => {
-    res.send("Server is running successfully!");
-});
+app.get("/", (req, res) => res.send("Server is running successfully!"));
 
-// Registration endpoint
+// Registration endpoint (Pre-set andyno30@gmail.com)
 app.post('/register', async (req, res) => {
     const { email, password } = req.body;
-    console.log(`Received Registration Attempt: Email: ${email}, Password: ${password}`);
+    console.log(`Received Registration Attempt: Email: ${email}`);
     try {
         const existingUser = await User.findOne({ email });
-        if (existingUser) {
-            return res.status(400).json({ message: 'User already exists' });
-        }
+        if (existingUser) return res.status(400).json({ message: 'User already exists' });
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new User({ email, password: hashedPassword });
+        const isSubscribed = email === 'andyno30@gmail.com'; // Your account is subscribed
+        const newUser = new User({ email, password: hashedPassword, isSubscribed });
         await newUser.save();
         res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
@@ -71,16 +62,11 @@ app.post('/register', async (req, res) => {
 // Login endpoint
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
-    console.log(`Received Login Attempt: Email: ${email}, Password: ${password}`);
     try {
         const user = await User.findOne({ email });
-        if (!user) {
-            return res.status(400).json({ message: 'User not found' });
-        }
+        if (!user) return res.status(400).json({ message: 'User not found' });
         const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            return res.status(400).json({ message: 'Invalid credentials' });
-        }
+        if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
         const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
         res.json({ message: 'Login successful', token });
     } catch (error) {
@@ -92,14 +78,8 @@ app.post('/login', async (req, res) => {
 // Delete account endpoint
 app.delete('/delete-account', authenticateToken, async (req, res) => {
     try {
-        const userId = req.user.userId;
-        console.log("Attempting to delete user with ID:", userId);
-        const user = await User.findByIdAndDelete(userId);
-        if (!user) {
-            console.log("User not found for ID:", userId);
-            return res.status(404).json({ message: 'User not found' });
-        }
-        console.log("User deleted successfully:", user.email);
+        const user = await User.findByIdAndDelete(req.user.userId);
+        if (!user) return res.status(404).json({ message: 'User not found' });
         res.json({ message: 'Account deleted successfully' });
     } catch (error) {
         console.log("Delete account error:", error.message);
@@ -107,14 +87,11 @@ app.delete('/delete-account', authenticateToken, async (req, res) => {
     }
 });
 
-// New User Info endpoint
+// User Info endpoint
 app.get('/user', authenticateToken, async (req, res) => {
     try {
         const user = await User.findById(req.user.userId);
-        if (!user) {
-            console.log("User not found for ID:", req.user.userId);
-            return res.status(404).json({ message: 'User not found' });
-        }
+        if (!user) return res.status(404).json({ message: 'User not found' });
         res.json({ email: user.email, isSubscribed: user.isSubscribed });
     } catch (error) {
         console.log("User fetch error:", error.message);
@@ -122,8 +99,56 @@ app.get('/user', authenticateToken, async (req, res) => {
     }
 });
 
+// Subscribe endpoint (Stripe Checkout)
+app.post('/subscribe', authenticateToken, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.userId);
+        if (!user) return res.status(404).json({ message: 'User not found' });
+        if (user.isSubscribed) return res.status(400).json({ message: 'Already subscribed' });
+
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items: [{
+                price_data: {
+                    currency: 'usd',
+                    product_data: { name: 'Spyconverter Pro Subscription' },
+                    unit_amount: 1000, // $10.00
+                },
+                quantity: 1,
+            }],
+            mode: 'payment',
+            success_url: `https://spyconverter.com/docs/dashboard.html?success=true`,
+            cancel_url: `https://spyconverter.com/docs/dashboard.html?cancel=true`,
+            metadata: { userId: req.user.userId },
+        });
+
+        res.json({ url: session.url });
+    } catch (error) {
+        console.log("Subscribe error:", error.message);
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+});
+
+// Webhook to confirm payment (Stripe)
+app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
+    const sig = req.headers['stripe-signature'];
+    const endpointSecret = 'your-stripe-webhook-secret'; // From Stripe Dashboard
+
+    try {
+        const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+        if (event.type === 'checkout.session.completed') {
+            const session = event.data.object;
+            const userId = session.metadata.userId;
+            await User.findByIdAndUpdate(userId, { isSubscribed: true });
+            console.log(`User ${userId} subscribed successfully`);
+        }
+        res.status(200).send('Webhook received');
+    } catch (error) {
+        console.log("Webhook error:", error.message);
+        res.status(400).send(`Webhook Error: ${error.message}`);
+    }
+});
+
 // Start the server
 const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
