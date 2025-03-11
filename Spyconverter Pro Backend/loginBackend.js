@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
-const stripe = require('stripe')('your-stripe-secret-key'); // Replace with YOUR Stripe Secret Key
+const stripe = require('stripe')('sk_test_...'); // Replace with YOUR Stripe Secret Key
 
 const app = express();
 
@@ -49,7 +49,7 @@ app.post('/register', async (req, res) => {
         const existingUser = await User.findOne({ email });
         if (existingUser) return res.status(400).json({ message: 'User already exists' });
         const hashedPassword = await bcrypt.hash(password, 10);
-        const isSubscribed = email.toLowerCase() === 'andyno30@gmail.com'; // Case-insensitive
+        const isSubscribed = email.toLowerCase().trim() === 'andyno30@gmail.com'; // Case-insensitive, trim whitespace
         const newUser = new User({ email, password: hashedPassword, isSubscribed });
         await newUser.save();
         console.log(`User registered: ${email}, Subscribed: ${isSubscribed}`);
@@ -120,7 +120,7 @@ app.post('/subscribe', authenticateToken, async (req, res) => {
             mode: 'payment',
             success_url: `https://spyconverter.com/docs/dashboard.html?success=true`,
             cancel_url: `https://spyconverter.com/docs/dashboard.html?cancel=true`,
-            metadata: { userId: req.user.userId.toString() }, // Ensure string
+            metadata: { userId: req.user.userId.toString() },
         });
 
         console.log(`Stripe session created for ${user.email}: ${session.url}`);
