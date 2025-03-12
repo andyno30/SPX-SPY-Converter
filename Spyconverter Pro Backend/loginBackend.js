@@ -44,12 +44,14 @@ app.get("/", (req, res) => res.send("Server is running successfully!"));
 // Registration endpoint
 app.post('/register', async (req, res) => {
     const { email, password } = req.body;
-    console.log(`Received Registration Attempt: Email: ${email}`);
+    console.log(`Received Registration Attempt: Email: "${email}"`);
     try {
         const existingUser = await User.findOne({ email });
         if (existingUser) return res.status(400).json({ message: 'User already exists' });
         const hashedPassword = await bcrypt.hash(password, 10);
-        const isSubscribed = email.toLowerCase().trim() === 'andyno30@gmail.com';
+        const normalizedEmail = email.toLowerCase().trim();
+        const isSubscribed = normalizedEmail === 'andyno30@gmail.com';
+        console.log(`Normalized Email: "${normalizedEmail}", Should Subscribe: ${isSubscribed}`);
         const newUser = new User({ email, password: hashedPassword, isSubscribed });
         await newUser.save();
         console.log(`User registered: ${email}, Subscribed: ${isSubscribed}`);
@@ -106,6 +108,7 @@ app.post('/subscribe', authenticateToken, async (req, res) => {
         const user = await User.findById(req.user.userId);
         if (!user) return res.status(404).json({ message: 'User not found' });
         if (user.isSubscribed) return res.status(400).json({ message: 'Already subscribed' });
+        console.log(`Attempting Stripe session for ${user.email}`);
 
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
@@ -134,7 +137,7 @@ app.post('/subscribe', authenticateToken, async (req, res) => {
 // Webhook to confirm payment (Stripe)
 app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
     const sig = req.headers['stripe-signature'];
-    const endpointSecret = 'whsec_aad8426792958e094b6b8396fc482dd4954957bd95a19a4cb59e4aeaacddca91'; // Replace with YOUR Stripe Webhook Secret
+    const endpointSecret = 'whsec_...'; // Replace with YOUR Stripe Webhook Secret
 
     try {
         const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
