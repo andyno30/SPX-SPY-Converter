@@ -8,7 +8,7 @@ const stripe = require('stripe')('sk_test_51MqL3m2mY7zktgIWmVU2SOayxmR8mzB4jkGU7
 
 const app = express();
 
-// Middleware
+// Middleware (apply JSON parsing for most routes)
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -137,15 +137,18 @@ app.post('/subscribe', authenticateToken, async (req, res) => {
 // Webhook to confirm payment (Stripe)
 app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
     const sig = req.headers['stripe-signature'];
-    const endpointSecret = 'whsec_...'; // Replace with YOUR Stripe Webhook Secret
+    const endpointSecret = 'whsec_H5LbI8hNHaySrYiSxgcRwFDRoeFGIzpS'; // Your new webhook secret
 
+    console.log('Webhook received, processing...');
     try {
         const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+        console.log(`Webhook event type: ${event.type}`);
         if (event.type === 'checkout.session.completed') {
             const session = event.data.object;
             const userId = session.metadata.userId;
-            await User.findByIdAndUpdate(userId, { isSubscribed: true });
-            console.log(`User ${userId} subscribed successfully`);
+            console.log(`Processing checkout.session.completed for userId: ${userId}`);
+            const user = await User.findByIdAndUpdate(userId, { isSubscribed: true }, { new: true });
+            console.log(`User ${userId} subscribed successfully, updated: ${user.isSubscribed}`);
         }
         res.status(200).send('Webhook received');
     } catch (error) {
