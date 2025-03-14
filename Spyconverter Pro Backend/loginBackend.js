@@ -14,7 +14,7 @@ app.use(cors());
 // Webhook route (before bodyParser.json())
 app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
     const sig = req.headers['stripe-signature'];
-    const endpointSecret = 'whsec_H5LbI8hNHaySrYiSxgcRwFDRoeFGIzpS'; // Your webhook secret
+    const endpointSecret = 'whsec_H5LbI8hNHaySrYiSxgcRwFDRoeFGIzpS'; // Replace with correct test mode secret if different
 
     console.log('Webhook received, processing...');
     console.log('Request body type:', Buffer.isBuffer(req.body) ? 'Buffer' : typeof req.body);
