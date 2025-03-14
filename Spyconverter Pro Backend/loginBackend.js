@@ -8,7 +8,7 @@ const stripe = require('stripe')('sk_test_51MqL3m2mY7zktgIWmVU2SOayxmR8mzB4jkGU7
 
 const app = express();
 
-// Middleware (apply JSON parsing for most routes)
+// Middleware
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -71,7 +71,7 @@ app.post('/login', async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
         const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
-        res.json({ message: 'Login successful', token });
+        res.json({ message: 'Login successful', token, isSubscribed: user.isSubscribed });
     } catch (error) {
         console.log("Login error:", error.message);
         res.status(500).json({ message: 'Server error', error: error.message });
@@ -126,7 +126,7 @@ app.post('/subscribe', authenticateToken, async (req, res) => {
             metadata: { userId: req.user.userId.toString() },
         });
 
-        console.log(`Stripe session created for ${user.email}: ${session.url}`);
+        console.log(`Stripe session created for ${user.email}: ${session.url}, UserID: ${req.user.userId}`);
         res.json({ url: session.url });
     } catch (error) {
         console.log("Subscribe error:", error.message);
@@ -137,18 +137,32 @@ app.post('/subscribe', authenticateToken, async (req, res) => {
 // Webhook to confirm payment (Stripe)
 app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
     const sig = req.headers['stripe-signature'];
-    const endpointSecret = 'whsec_H5LbI8hNHaySrYiSxgcRwFDRoeFGIzpS'; // Your new webhook secret
+    const endpointSecret = 'whsec_H5LbI8hNHaySrYiSxgcRwFDRoeFGIzpS'; // Your confirmed webhook secret
 
     console.log('Webhook received, processing...');
     try {
         const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
         console.log(`Webhook event type: ${event.type}`);
+        
         if (event.type === 'checkout.session.completed') {
             const session = event.data.object;
-            const userId = session.metadata.userId;
+            console.log('Session Data:', JSON.stringify(session)); // Log full session for debugging
+            const userId = session.metadata?.userId;
             console.log(`Processing checkout.session.completed for userId: ${userId}`);
-            const user = await User.findByIdAndUpdate(userId, { isSubscribed: true }, { new: true });
-            console.log(`User ${userId} subscribed successfully, updated: ${user.isSubscribed}`);
+
+            if (!userId) {
+                console.log('Error: userId missing in session metadata');
+                return res.status(400).send('Webhook Error: Missing userId in metadata');
+            }
+
+            const user = await User.findById(userId);
+            if (!user) {
+                console.log(`Error: User ${userId} not found in database`);
+                return res.status(404).send('Webhook Error: User not found');
+            }
+
+            const updatedUser = await User.findByIdAndUpdate(userId, { isSubscribed: true }, { new: true });
+            console.log(`User ${userId} subscribed successfully, updated: ${updatedUser.isSubscribed}`);
         }
         res.status(200).send('Webhook received');
     } catch (error) {
