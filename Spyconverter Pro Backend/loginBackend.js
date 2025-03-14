@@ -8,22 +8,25 @@ const stripe = require('stripe')('sk_test_51MqL3m2mY7zktgIWmVU2SOayxmR8mzB4jkGU7
 
 const app = express();
 
-// Middleware for CORS
+// Middleware for CORS (safe to apply globally)
 app.use(cors());
 
-// Webhook route with raw body parser (BEFORE bodyParser.json())
+// Webhook route (MUST come before bodyParser.json() to preserve raw body)
 app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
     const sig = req.headers['stripe-signature'];
     const endpointSecret = 'whsec_H5LbI8hNHaySrYiSxgcRwFDRoeFGIzpS'; // Your webhook secret
 
     console.log('Webhook received, processing...');
+    console.log('Request body type:', Buffer.isBuffer(req.body) ? 'Buffer' : typeof req.body);
+    console.log('Raw body length:', req.body.length);
+
     try {
         const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
         console.log(`Webhook event type: ${event.type}`);
-        
+        console.log('Event data:', JSON.stringify(event.data.object, null, 2));
+
         if (event.type === 'checkout.session.completed') {
             const session = event.data.object;
-            console.log('Session Data:', JSON.stringify(session));
             const userId = session.metadata?.userId;
 
             if (!userId) {
@@ -37,17 +40,21 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
                 return res.status(404).send('Webhook Error: User not found');
             }
 
-            const updatedUser = await User.findByIdAndUpdate(userId, { isSubscribed: true }, { new: true });
+            const updatedUser = await User.findByIdAndUpdate(
+                userId,
+                { isSubscribed: true },
+                { new: true }
+            );
             console.log(`User ${userId} subscribed successfully, updated: ${updatedUser.isSubscribed}`);
         }
         res.status(200).send('Webhook received');
     } catch (error) {
-        console.log("Webhook error:", error.message);
+        console.log('Webhook error:', error.message);
         res.status(400).send(`Webhook Error: ${error.message}`);
     }
 });
 
-// Apply bodyParser.json() for other routes AFTER webhook
+// Apply bodyParser.json() AFTER webhook route for other endpoints
 app.use(bodyParser.json());
 
 // MongoDB connection
