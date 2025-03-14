@@ -11,56 +11,30 @@ const app = express();
 // Middleware for CORS
 app.use(cors());
 
-// Webhook route (before bodyParser.json())
+// Webhook route (must come before bodyParser.json() to preserve raw body)
 app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
     const sig = req.headers['stripe-signature'];
-    const endpointSecret = 'whsec_H5LbI8hNHaySrYiSxgcRwFDRoeFGIzpS'; // Replace with correct test mode secret if different
+    const endpointSecret = 'whsec_WAscj1OAPl2ITWHTPYa4bFHzJtoFPWuf'; // Test mode webhook secret
 
     console.log('Webhook received, processing...');
-    console.log('Request body type:', Buffer.isBuffer(req.body) ? 'Buffer' : typeof req.body);
-    console.log('Raw body length:', req.body.length);
-    console.log('Signature header:', sig || 'Not found');
-
-    if (!sig) {
-        console.log('Error: Stripe signature header missing');
-        return res.status(400).send('Webhook Error: Missing stripe-signature header');
-    }
-
     try {
         const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
         console.log(`Webhook event type: ${event.type}`);
-        console.log('Event data:', JSON.stringify(event.data.object, null, 2));
-
         if (event.type === 'checkout.session.completed') {
             const session = event.data.object;
-            const userId = session.metadata?.userId;
-
-            if (!userId) {
-                console.log('Error: userId missing in session metadata');
-                return res.status(400).send('Webhook Error: Missing userId in metadata');
-            }
-
-            const user = await User.findById(userId);
-            if (!user) {
-                console.log(`Error: User ${userId} not found in database`);
-                return res.status(404).send('Webhook Error: User not found');
-            }
-
-            const updatedUser = await User.findByIdAndUpdate(
-                userId,
-                { isSubscribed: true },
-                { new: true }
-            );
-            console.log(`User ${userId} subscribed successfully, updated: ${updatedUser.isSubscribed}`);
+            const userId = session.metadata.userId;
+            console.log(`Processing checkout.session.completed for userId: ${userId}`);
+            const user = await User.findByIdAndUpdate(userId, { isSubscribed: true }, { new: true });
+            console.log(`User ${userId} subscribed successfully, updated: ${user.isSubscribed}`);
         }
         res.status(200).send('Webhook received');
     } catch (error) {
-        console.log('Webhook error:', error.message);
+        console.log("Webhook error:", error.message);
         res.status(400).send(`Webhook Error: ${error.message}`);
     }
 });
 
-// Apply bodyParser.json() AFTER webhook route
+// Apply bodyParser.json() for other routes AFTER webhook
 app.use(bodyParser.json());
 
 // MongoDB connection
