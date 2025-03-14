@@ -8,10 +8,10 @@ const stripe = require('stripe')('sk_test_51MqL3m2mY7zktgIWmVU2SOayxmR8mzB4jkGU7
 
 const app = express();
 
-// Middleware for CORS (safe to apply globally)
+// Middleware for CORS
 app.use(cors());
 
-// Webhook route (MUST come before bodyParser.json() to preserve raw body)
+// Webhook route (before bodyParser.json())
 app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
     const sig = req.headers['stripe-signature'];
     const endpointSecret = 'whsec_H5LbI8hNHaySrYiSxgcRwFDRoeFGIzpS'; // Your webhook secret
@@ -19,6 +19,12 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
     console.log('Webhook received, processing...');
     console.log('Request body type:', Buffer.isBuffer(req.body) ? 'Buffer' : typeof req.body);
     console.log('Raw body length:', req.body.length);
+    console.log('Signature header:', sig || 'Not found');
+
+    if (!sig) {
+        console.log('Error: Stripe signature header missing');
+        return res.status(400).send('Webhook Error: Missing stripe-signature header');
+    }
 
     try {
         const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
@@ -54,7 +60,7 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
     }
 });
 
-// Apply bodyParser.json() AFTER webhook route for other endpoints
+// Apply bodyParser.json() AFTER webhook route
 app.use(bodyParser.json());
 
 // MongoDB connection
