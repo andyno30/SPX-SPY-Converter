@@ -8,9 +8,47 @@ const stripe = require('stripe')('sk_test_51MqL3m2mY7zktgIWmVU2SOayxmR8mzB4jkGU7
 
 const app = express();
 
-// Middleware
-app.use(bodyParser.json());
+// Middleware for CORS
 app.use(cors());
+
+// Webhook route with raw body parser (BEFORE bodyParser.json())
+app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
+    const sig = req.headers['stripe-signature'];
+    const endpointSecret = 'whsec_H5LbI8hNHaySrYiSxgcRwFDRoeFGIzpS'; // Your webhook secret
+
+    console.log('Webhook received, processing...');
+    try {
+        const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+        console.log(`Webhook event type: ${event.type}`);
+        
+        if (event.type === 'checkout.session.completed') {
+            const session = event.data.object;
+            console.log('Session Data:', JSON.stringify(session));
+            const userId = session.metadata?.userId;
+
+            if (!userId) {
+                console.log('Error: userId missing in session metadata');
+                return res.status(400).send('Webhook Error: Missing userId in metadata');
+            }
+
+            const user = await User.findById(userId);
+            if (!user) {
+                console.log(`Error: User ${userId} not found in database`);
+                return res.status(404).send('Webhook Error: User not found');
+            }
+
+            const updatedUser = await User.findByIdAndUpdate(userId, { isSubscribed: true }, { new: true });
+            console.log(`User ${userId} subscribed successfully, updated: ${updatedUser.isSubscribed}`);
+        }
+        res.status(200).send('Webhook received');
+    } catch (error) {
+        console.log("Webhook error:", error.message);
+        res.status(400).send(`Webhook Error: ${error.message}`);
+    }
+});
+
+// Apply bodyParser.json() for other routes AFTER webhook
+app.use(bodyParser.json());
 
 // MongoDB connection
 mongoose.connect('mongodb+srv://andyno30:jmRH2kOt84mHP5KY@spyconverterpro.a8m8g.mongodb.net/spyconverterDB?retryWrites=true&w=majority&appName=spyconverterpro')
@@ -131,43 +169,6 @@ app.post('/subscribe', authenticateToken, async (req, res) => {
     } catch (error) {
         console.log("Subscribe error:", error.message);
         res.status(500).json({ message: 'Server error', error: error.message });
-    }
-});
-
-// Webhook to confirm payment (Stripe)
-app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
-    const sig = req.headers['stripe-signature'];
-    const endpointSecret = 'whsec_H5LbI8hNHaySrYiSxgcRwFDRoeFGIzpS'; // Your confirmed webhook secret
-
-    console.log('Webhook received, processing...');
-    try {
-        const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
-        console.log(`Webhook event type: ${event.type}`);
-        
-        if (event.type === 'checkout.session.completed') {
-            const session = event.data.object;
-            console.log('Session Data:', JSON.stringify(session)); // Log full session for debugging
-            const userId = session.metadata?.userId;
-            console.log(`Processing checkout.session.completed for userId: ${userId}`);
-
-            if (!userId) {
-                console.log('Error: userId missing in session metadata');
-                return res.status(400).send('Webhook Error: Missing userId in metadata');
-            }
-
-            const user = await User.findById(userId);
-            if (!user) {
-                console.log(`Error: User ${userId} not found in database`);
-                return res.status(404).send('Webhook Error: User not found');
-            }
-
-            const updatedUser = await User.findByIdAndUpdate(userId, { isSubscribed: true }, { new: true });
-            console.log(`User ${userId} subscribed successfully, updated: ${updatedUser.isSubscribed}`);
-        }
-        res.status(200).send('Webhook received');
-    } catch (error) {
-        console.log("Webhook error:", error.message);
-        res.status(400).send(`Webhook Error: ${error.message}`);
     }
 });
 
