@@ -1,155 +1,147 @@
+// Import required modules
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
-const stripe = require('stripe')('sk_test_51MqL3m2mY7zktgIWmVU2SOayxmR8mzB4jkGU7NDeURDufBlBAq2McwNsCw9tYltg83BguEX888A3XTk5JH7uRtPN00I8c1joeC');
+const stripe = require('stripe')('your-stripe-secret-key'); // Replace with your actual Stripe secret key
 
+// Initialize the Express app
 const app = express();
 
-// Middleware (apply JSON parsing for most routes)
+// Middleware
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors()); // Allows frontend to communicate with backend
 
 // MongoDB connection
-mongoose.connect('mongodb+srv://andyno30:jmRH2kOt84mHP5KY@spyconverterpro.a8m8g.mongodb.net/spyconverterDB?retryWrites=true&w=majority&appName=spyconverterpro')
-    .then(() => console.log("Connected to MongoDB"))
-    .catch((err) => console.log("Error connecting to MongoDB:", err));
+mongoose.connect('mongodb+srv://andyno30:jmRH2kOt84mHP5KY@spyconverterpro.a8m8g.mongodb.net/spyconverterDB?retryWrites=true&w=majority&appName=spyconverterpro', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => console.log("Connected to MongoDB"))
+.catch((err) => console.log("Error connecting to MongoDB:", err));
 
-// User schema
+// Create a user schema
 const userSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     isSubscribed: { type: Boolean, default: false }
 });
 
+// Create a user model
 const User = mongoose.model('User', userSchema);
 
-// Middleware to verify JWT token
-const authenticateToken = (req, res, next) => {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-    if (!token) return res.status(401).json({ message: 'No token provided' });
-    jwt.verify(token, 'your-secret-key', (err, user) => {
-        if (err) return res.status(403).json({ message: 'Invalid or expired token' });
-        req.user = user;
-        next();
-    });
-};
-
-// Test Route
-app.get("/", (req, res) => res.send("Server is running successfully!"));
+// Test Route (to check if server is running)
+app.get("/", (req, res) => {
+    res.send("Server is running successfully!");
+});
 
 // Registration endpoint
 app.post('/register', async (req, res) => {
     const { email, password } = req.body;
-    console.log(`Received Registration Attempt: Email: "${email}"`);
+    console.log(`Received Registration Attempt: Email: ${email}, Password: ${password}`); // Log to terminal
+
     try {
+        // Check if the user already exists
         const existingUser = await User.findOne({ email });
-        if (existingUser) return res.status(400).json({ message: 'User already exists' });
+        if (existingUser) {
+            return res.status(400).json({ message: 'User already exists' });
+        }
+
+        // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
-        const normalizedEmail = email.toLowerCase().trim();
-        const isSubscribed = normalizedEmail === 'andyno30@gmail.com';
-        console.log(`Normalized Email: "${normalizedEmail}", Should Subscribe: ${isSubscribed}`);
-        const newUser = new User({ email, password: hashedPassword, isSubscribed });
+
+        // Save the new user to the database
+        const newUser = new User({ email, password: hashedPassword });
         await newUser.save();
-        console.log(`User registered: ${email}, Subscribed: ${isSubscribed}`);
+
         res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
-        console.log("Registration error:", error.message);
-        res.status(500).json({ message: 'Server error', error: error.message });
+        res.status(500).json({ message: 'Server error' });
     }
 });
 
 // Login endpoint
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
+    console.log(`Received Login Attempt: Email: ${email}, Password: ${password}`); // Log to terminal
+
     try {
+        // Find the user
         const user = await User.findOne({ email });
-        if (!user) return res.status(400).json({ message: 'User not found' });
+        if (!user) {
+            return res.status(400).json({ message: 'User not found' });
+        }
+
+        // Check the password
         const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Invalid credentials' });
+        }
+
+        // Generate a JWT token
         const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
-        res.json({ message: 'Login successful', token });
+
+        res.json({ message: 'Login successful', token, isSubscribed: user.isSubscribed });
     } catch (error) {
-        console.log("Login error:", error.message);
-        res.status(500).json({ message: 'Server error', error: error.message });
+        res.status(500).json({ message: 'Server error' });
     }
 });
 
-// Delete account endpoint
-app.delete('/delete-account', authenticateToken, async (req, res) => {
+// Stripe Subscription Endpoint
+app.post('/subscribe', async (req, res) => {
+    const { token, userId } = req.body;
+    
     try {
-        const user = await User.findByIdAndDelete(req.user.userId);
-        if (!user) return res.status(404).json({ message: 'User not found' });
-        res.json({ message: 'Account deleted successfully' });
-    } catch (error) {
-        console.log("Delete account error:", error.message);
-        res.status(500).json({ message: 'Server error', error: error.message });
-    }
-});
-
-// User Info endpoint
-app.get('/user', authenticateToken, async (req, res) => {
-    try {
-        const user = await User.findById(req.user.userId);
-        if (!user) return res.status(404).json({ message: 'User not found' });
-        res.json({ email: user.email, isSubscribed: user.isSubscribed });
-    } catch (error) {
-        console.log("User fetch error:", error.message);
-        res.status(500).json({ message: 'Server error', error: error.message });
-    }
-});
-
-// Subscribe endpoint (Stripe Checkout)
-app.post('/subscribe', authenticateToken, async (req, res) => {
-    try {
-        const user = await User.findById(req.user.userId);
-        if (!user) return res.status(404).json({ message: 'User not found' });
-        if (user.isSubscribed) return res.status(400).json({ message: 'Already subscribed' });
-        console.log(`Attempting Stripe session for ${user.email}`);
-
-        const session = await stripe.checkout.sessions.create({
-            payment_method_types: ['card'],
-            line_items: [{
-                price_data: {
-                    currency: 'usd',
-                    product_data: { name: 'Spyconverter Pro Subscription' },
-                    unit_amount: 1000, // $10.00
-                },
-                quantity: 1,
-            }],
-            mode: 'payment',
-            success_url: `https://spyconverter.com/docs/dashboard.html?success=true`,
-            cancel_url: `https://spyconverter.com/docs/dashboard.html?cancel=true`,
-            metadata: { userId: req.user.userId.toString() },
+        // Create a customer in Stripe
+        const customer = await stripe.customers.create({
+            email: 'user-email@example.com', // Replace with actual user email
+            source: token,
         });
 
-        console.log(`Stripe session created for ${user.email}: ${session.url}`);
-        res.json({ url: session.url });
+        // Create a subscription
+        const subscription = await stripe.subscriptions.create({
+            customer: customer.id,
+            items: [{ price: 'your-stripe-price-id' }], // Replace with your Stripe price ID
+            metadata: { userId } // Store user ID for webhook processing
+        });
+
+        // Respond with subscription confirmation
+        res.json({ message: 'Subscription successful', subscriptionId: subscription.id });
     } catch (error) {
-        console.log("Subscribe error:", error.message);
-        res.status(500).json({ message: 'Server error', error: error.message });
+        console.error('Stripe Subscription Error:', error);
+        res.status(500).json({ message: 'Subscription failed' });
     }
 });
 
-// Webhook to confirm payment (Stripe)
+// Stripe Webhook Endpoint
+const endpointSecret = 'your-webhook-secret'; // Replace with actual Stripe webhook secret
+
 app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
     const sig = req.headers['stripe-signature'];
-    const endpointSecret = 'whsec_H5LbI8hNHaySrYiSxgcRwFDRoeFGIzpS'; // Your new webhook secret
 
     console.log('Webhook received, processing...');
+
     try {
         const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
         console.log(`Webhook event type: ${event.type}`);
+
         if (event.type === 'checkout.session.completed') {
             const session = event.data.object;
-            const userId = session.metadata.userId;
+            console.log('Session Data:', session); // Debugging output
+
+            const userId = session.metadata?.userId;
             console.log(`Processing checkout.session.completed for userId: ${userId}`);
-            const user = await User.findByIdAndUpdate(userId, { isSubscribed: true }, { new: true });
-            console.log(`User ${userId} subscribed successfully, updated: ${user.isSubscribed}`);
+
+            if (userId) {
+                const user = await User.findByIdAndUpdate(userId, { isSubscribed: true }, { new: true });
+                console.log(`User ${userId} subscribed successfully, updated: ${user?.isSubscribed}`);
+            } else {
+                console.log('User ID is missing in session metadata.');
+            }
         }
+
         res.status(200).send('Webhook received');
     } catch (error) {
         console.log("Webhook error:", error.message);
@@ -159,4 +151,6 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
 
 // Start the server
 const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
