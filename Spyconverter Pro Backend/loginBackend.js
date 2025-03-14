@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
-const stripe = require('stripe')('your-stripe-secret-key'); // Replace with your actual Stripe secret key
+const stripe = require('stripe')('sk_test_51MqL3m2mY7zktgIWmVU2SOayxmR8mzB4jkGU7NDeURDufBlBAq2McwNsCw9tYltg83BguEX888A3XTk5JH7uRtPN00I8c1joeC'); 
 
 // Initialize the Express app
 const app = express();
@@ -116,7 +116,7 @@ app.post('/subscribe', async (req, res) => {
 });
 
 // Stripe Webhook Endpoint
-const endpointSecret = 'your-webhook-secret'; // Replace with actual Stripe webhook secret
+const endpointSecret = 'whsec_H5LbI8hNHaySrYiSxgcRwFDRoeFGIzpS'; 
 
 app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
     const sig = req.headers['stripe-signature'];
