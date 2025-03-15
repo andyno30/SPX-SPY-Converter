@@ -2,44 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spyconverter Pro</title>
-    <link rel="stylesheet" href="styles.css">
+    <link href="styles.css" rel="stylesheet">
 </head>
 <body>
-    <main>
-        <div class="main-container">
-            <h1>Spyconverter Pro</h1>
-            <p>Welcome to the premium Spyconverter Pro experience!</p>
-            <p>This is your exclusive access page for subscribed users.</p>
-            <button id="logoutBtn">Logout</button>
-        </div>
-    </main>
-
+    <div class="main-container">
+        <h1>Spyconverter Pro</h1>
+        <p>Welcome to the premium Spyconverter Pro experience!</p>
+        <p>This is your exclusive access page for subscribed users.</p>
+        <button id="premium-feature-btn">Access Premium Feature</button>
+        <button id="logout-btn">Logout</button>
+        <p id="feature-feedback"></p>
+    </div>
+    <script src="script.js"></script>
     <script>
-        const token = localStorage.getItem('token');
-        if (!token) window.location.href = 'login.html';
-
-        async function checkSubscription() {
-            try {
-                const response = await fetch('https://spx-spy-converter.onrender.com/user', {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                const data = await response.json();
-                if (!response.ok || !data.isSubscribed) {
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+            window.location.href = 'login.html';
+        } else {
+            // Check subscription status
+            fetch(`${backendURL}/user`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (!data.isSubscribed) {
                     window.location.href = 'dashboard.html';
+                } else {
+                    // If subscribed, ensure premium button is visible
+                    document.getElementById('premium-feature-btn').style.display = 'inline-block';
                 }
-            } catch (error) {
+            })
+            .catch(error => {
+                console.error('Error checking subscription:', error);
                 window.location.href = 'dashboard.html';
-            }
+            });
         }
 
-        document.getElementById('logoutBtn').addEventListener('click', () => {
-            localStorage.removeItem('token');
-            window.location.href = 'login.html';
+        document.getElementById('premium-feature-btn').addEventListener('click', function() {
+            document.getElementById('feature-feedback').textContent = 'Premium feature accessed! (Placeholder action)';
         });
 
-        checkSubscription();
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            localStorage.removeItem('authToken');
+            window.location.href = 'login.html';
+        });
     </script>
 </body>
 </html>
