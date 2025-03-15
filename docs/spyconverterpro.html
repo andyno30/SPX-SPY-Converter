@@ -4,24 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spyconverter Pro</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
-        h1 { color: #2c3e50; }
-        .message { color: #27ae60; }
-    </style>
+    <link rel="stylesheet" href="/docs/styles.css">
 </head>
 <body>
-    <h1>Spyconverter Pro</h1>
-    <p class="message">Welcome to the premium Spyconverter Pro experience!</p>
-    <p>This is your exclusive access page for subscribed users.</p>
-    <!-- Placeholder for future functionality -->
-    <button id="logoutBtn">Logout</button>
+    <main>
+        <div class="main-container">
+            <h1>Spyconverter Pro</h1>
+            <p>Welcome to the premium Spyconverter Pro experience!</p>
+            <p>This is your exclusive access page for subscribed users.</p>
+            <button id="logoutBtn">Logout</button>
+        </div>
+    </main>
 
+    <script src="/docs/script.js"></script>
     <script>
         const token = localStorage.getItem('token');
-        if (!token) {
-            window.location.href = '/login.html'; // Redirect if no token
-        }
+        if (!token) window.location.href = '/docs/login.html';
 
         async function checkSubscription() {
             try {
@@ -30,17 +28,16 @@
                 });
                 const data = await response.json();
                 if (!response.ok || !data.isSubscribed) {
-                    window.location.href = '/dashboard.html'; // Redirect if not subscribed
+                    window.location.href = '/docs/dashboard.html';
                 }
             } catch (error) {
-                console.error('Error checking subscription:', error);
-                window.location.href = '/dashboard.html';
+                window.location.href = '/docs/dashboard.html';
             }
         }
 
         document.getElementById('logoutBtn').addEventListener('click', () => {
             localStorage.removeItem('token');
-            window.location.href = '/login.html';
+            window.location.href = '/docs/login.html';
         });
 
         checkSubscription();
