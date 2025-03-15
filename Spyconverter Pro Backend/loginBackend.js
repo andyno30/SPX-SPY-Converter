@@ -5,8 +5,12 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const stripe = require('stripe')('sk_test_51MqL3m2mY7zktgIWmVU2SOayxmR8mzB4jkGU7NDeURDufBlBAq2McwNsCw9tYltg83BguEX888A3XTk5JH7uRtPN00I8c1joeC');
+const path = require('path');
 
 const app = express();
+
+// Serve static files from the 'public' folder
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Middleware for CORS
 app.use(cors());
@@ -146,8 +150,8 @@ app.post('/subscribe', authenticateToken, async (req, res) => {
                 quantity: 1,
             }],
             mode: 'payment',
-            success_url: `https://spyconverter.com/docs/dashboard.html?success=true`,
-            cancel_url: `https://spyconverter.com/docs/dashboard.html?cancel=true`,
+            success_url: `https://spx-spy-converter.onrender.com/dashboard.html?success=true`,
+            cancel_url: `https://spx-spy-converter.onrender.com/dashboard.html?cancel=true`,
             metadata: { userId: req.user.userId.toString() },
         });
 
