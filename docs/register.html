@@ -4,21 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Spyconverter Pro</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-        input { margin: 10px; padding: 5px; }
-        button { padding: 10px 20px; }
-        .error { color: red; }
-    </style>
+    <link rel="stylesheet" href="/docs/styles.css">
 </head>
 <body>
-    <h1>Register for Spyconverter Pro</h1>
-    <input type="email" id="email" placeholder="Email" required>
-    <input type="password" id="password" placeholder="Password" required>
-    <button onclick="register()">Register</button>
-    <p>Already have an account? <a href="/login.html">Login here</a></p>
-    <p id="message" class="error"></p>
+    <div class="auth-section">
+        <h1>Register for Spyconverter Pro</h1>
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Email" required>
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Password" required>
+        <button onclick="register()">Register</button>
+        <p>Already have an account? <a href="/docs/login.html">Login here</a></p>
+        <p id="message" class="error"></p>
+    </div>
 
+    <script src="/docs/script.js"></script>
     <script>
         async function register() {
             const email = document.getElementById('email').value;
@@ -35,13 +35,12 @@
 
                 if (response.ok) {
                     message.textContent = 'Registration successful! Redirecting to login...';
-                    setTimeout(() => window.location.href = '/login.html', 2000);
+                    setTimeout(() => window.location.href = '/docs/login.html', 2000);
                 } else {
                     message.textContent = data.message || 'Registration failed';
                 }
             } catch (error) {
                 message.textContent = 'Error connecting to server';
-                console.error('Register error:', error);
             }
         }
     </script>
