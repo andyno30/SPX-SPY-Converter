@@ -90,7 +90,7 @@ function googleLoginSignup() {
     console.log("Google Login/Signup clicked - requires Firebase setup.");
 }
 
-// Fetch User Info
+// Fetch User Info (Updated for Dashboard)
 async function fetchUserInfo() {
     const token = localStorage.getItem("authToken");
     if (!token) {
@@ -110,6 +110,7 @@ async function fetchUserInfo() {
             document.getElementById('user-email').textContent = `Email: ${data.email}`;
             document.getElementById('user-status').textContent = `Status: ${subscriptionStatus}`;
             document.getElementById('subscribe-btn').style.display = data.isSubscribed ? 'none' : 'inline-block';
+            document.getElementById('access-spyconverterpro-btn').style.display = data.isSubscribed ? 'inline-block' : 'none';
         } else {
             document.getElementById('user-email').textContent = data.message || 'Failed to fetch user info';
             document.getElementById('user-status').textContent = '';
