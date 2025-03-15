@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Spyconverter Pro</title>
-    <link rel="stylesheet" href="/docs/styles.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="auth-section">
@@ -14,11 +14,10 @@
         <label for="password">Password</label>
         <input type="password" id="password" placeholder="Password" required>
         <button onclick="login()">Login</button>
-        <p>Not registered? <a href="/docs/register.html">Sign up here</a></p>
+        <p>Not registered? <a href="register.html">Sign up here</a></p>
         <p id="message" class="error"></p>
     </div>
 
-    <script src="/docs/script.js"></script>
     <script>
         async function login() {
             const email = document.getElementById('email').value;
@@ -35,7 +34,7 @@
 
                 if (response.ok) {
                     localStorage.setItem('token', data.token);
-                    window.location.href = '/docs/dashboard.html';
+                    window.location.href = 'dashboard.html';
                 } else {
                     message.textContent = data.message || 'Login failed';
                 }
