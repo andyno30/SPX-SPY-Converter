@@ -1,49 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spyconverter Pro Login</title>
-    <link href="styles.css" rel="stylesheet">
-    <script async crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2918914879248661"></script>
+    <title>Login - Spyconverter Pro</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+        input { margin: 10px; padding: 5px; }
+        button { padding: 10px 20px; }
+        .error { color: red; }
+    </style>
 </head>
 <body>
-<nav>
-    <a class="logo" href="#"><h4>spyconverter.com</h4></a>
-    <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="relationship.html">Relationship</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li class="dropdown">
-            <a href="aboutus.html">About Us</a>
-            <div class="dropdown-content">
-                <a href="aboutus.html#about-us">About Us</a>
-                <a href="aboutus.html#privacy-policy">Privacy Policy</a>
-                <a href="aboutus.html#contact-us">Contact Us</a>
-                <a href="aboutus.html#disclaimer">Disclaimer</a>
-                <a href="aboutus.html#terms-and-conditions">Terms and Conditions</a>
-            </div>
-        </li>
-        <li><a href="#auth-section">Login</a></li>
-    </ul>
-</nav>
-<div class="main-container">
-    <div class="auth-section" id="auth-section">
-        <h2>User Authentication</h2>
-        <label for="email-input">Email:</label>
-        <input type="email" id="email-input" placeholder="Enter your email" required>
-        <label for="password-input">Password:</label>
-        <input type="password" id="password-input" placeholder="Enter your password" required>
-        <button onclick="emailLoginSignup()">Sign Up</button>
-        <button onclick="emailLogin()">Log In</button>
-        <button onclick="googleLoginSignup()">Login/Signup with Google</button>
-        <div id="feedback"></div>
-    </div>
-    <h1>SPX-SPY Converter</h1>
-</div>
-<footer>
-    <p>© 2023 spyconverter.com. All rights reserved.</p>
-</footer>
-<script src="script.js"></script>
+    <h1>Login to Spyconverter Pro</h1>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button onclick="login()">Login</button>
+    <p>Not registered? <a href="/docs/register.html">Sign up here</a></p>
+    <p id="message" class="error"></p>
+
+    <script>
+        async function login() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const message = document.getElementById('message');
+
+            try {
+                const response = await fetch('https://spx-spy-converter.onrender.com/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem('token', data.token);
+                    window.location.href = '/docs/dashboard.html'; // GitHub Pages path
+                } else {
+                    message.textContent = data.message || 'Login failed';
+                }
+            } catch (error) {
+                message.textContent = 'Error connecting to server';
+                console.error('Login error:', error);
+            }
+        }
+    </script>
 </body>
 </html>
