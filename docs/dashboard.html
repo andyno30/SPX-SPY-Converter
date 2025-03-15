@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spyconverter Pro Dashboard</title>
-    <link rel="stylesheet" href="/docs/styles.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <main>
@@ -20,10 +20,9 @@
         </div>
     </main>
 
-    <script src="/docs/script.js"></script>
     <script>
         const token = localStorage.getItem('token');
-        if (!token) window.location.href = '/docs/login.html';
+        if (!token) window.location.href = 'login.html';
 
         async function loadUserData() {
             try {
@@ -56,6 +55,8 @@
                     } else if (urlParams.get('cancel') === 'true') {
                         document.getElementById('message').textContent = 'Payment canceled.';
                     }
+                } else {
+                    console.error('Error fetching user data:', data.message);
                 }
             } catch (error) {
                 console.error('Fetch error:', error);
@@ -72,7 +73,7 @@
         });
 
         document.getElementById('spyconverterProBtn').addEventListener('click', () => {
-            window.location.href = '/docs/spyconverterpro.html';
+            window.location.href = 'spyconverterpro.html';
         });
 
         document.getElementById('deleteBtn').addEventListener('click', async () => {
@@ -84,7 +85,7 @@
                 const data = await response.json();
                 if (response.ok) {
                     localStorage.removeItem('token');
-                    window.location.href = '/docs/login.html';
+                    window.location.href = 'login.html';
                 } else {
                     alert(data.message);
                 }
