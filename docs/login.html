@@ -7,12 +7,16 @@
     <link rel="stylesheet" href="/docs/styles.css">
 </head>
 <body>
-    <h1>Login to Spyconverter Pro</h1>
-    <input type="email" id="email" placeholder="Email" required>
-    <input type="password" id="password" placeholder="Password" required>
-    <button onclick="login()">Login</button>
-    <p>Not registered? <a href="/docs/register.html">Sign up here</a></p>
-    <p id="message"></p>
+    <div class="auth-section">
+        <h1>Login to Spyconverter Pro</h1>
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Email" required>
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Password" required>
+        <button onclick="login()">Login</button>
+        <p>Not registered? <a href="/docs/register.html">Sign up here</a></p>
+        <p id="message" class="error"></p>
+    </div>
 
     <script src="/docs/script.js"></script>
     <script>
@@ -34,11 +38,9 @@
                     window.location.href = '/docs/dashboard.html';
                 } else {
                     message.textContent = data.message || 'Login failed';
-                    message.style.color = 'red';
                 }
             } catch (error) {
                 message.textContent = 'Error connecting to server';
-                message.style.color = 'red';
             }
         }
     </script>
