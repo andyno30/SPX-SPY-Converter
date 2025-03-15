@@ -4,12 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Spyconverter Pro</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-        input { margin: 10px; padding: 5px; }
-        button { padding: 10px 20px; }
-        .error { color: red; }
-    </style>
+    <link rel="stylesheet" href="/docs/styles.css">
 </head>
 <body>
     <h1>Login to Spyconverter Pro</h1>
@@ -17,8 +12,9 @@
     <input type="password" id="password" placeholder="Password" required>
     <button onclick="login()">Login</button>
     <p>Not registered? <a href="/docs/register.html">Sign up here</a></p>
-    <p id="message" class="error"></p>
+    <p id="message"></p>
 
+    <script src="/docs/script.js"></script>
     <script>
         async function login() {
             const email = document.getElementById('email').value;
@@ -35,13 +31,14 @@
 
                 if (response.ok) {
                     localStorage.setItem('token', data.token);
-                    window.location.href = '/docs/dashboard.html'; // GitHub Pages path
+                    window.location.href = '/docs/dashboard.html';
                 } else {
                     message.textContent = data.message || 'Login failed';
+                    message.style.color = 'red';
                 }
             } catch (error) {
                 message.textContent = 'Error connecting to server';
-                console.error('Login error:', error);
+                message.style.color = 'red';
             }
         }
     </script>
