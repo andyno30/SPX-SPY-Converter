@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spyconverter Pro Dashboard</title>
-    <style>
-        .hidden { display: none; }
-    </style>
+    <link rel="stylesheet" href="/docs/styles.css">
 </head>
 <body>
     <h1>Welcome to Spyconverter Pro!</h1>
@@ -18,11 +16,10 @@
     <button id="deleteBtn">Delete Account</button>
     <p id="message"></p>
 
+    <script src="/docs/script.js"></script>
     <script>
-        const token = localStorage.getItem('token'); // Assumes token saved on login
-        if (!token) {
-            window.location.href = '/login.html'; // Redirect if not logged in
-        }
+        const token = localStorage.getItem('token');
+        if (!token) window.location.href = '/docs/login.html';
 
         async function loadUserData() {
             try {
@@ -49,15 +46,12 @@
                         deleteBtn.classList.add('hidden');
                     }
 
-                    // Check URL for payment success/cancel
                     const urlParams = new URLSearchParams(window.location.search);
                     if (urlParams.get('success') === 'true') {
                         document.getElementById('message').textContent = 'Payment successful! Subscription activated.';
                     } else if (urlParams.get('cancel') === 'true') {
                         document.getElementById('message').textContent = 'Payment canceled.';
                     }
-                } else {
-                    console.error('Error fetching user data:', data.message);
                 }
             } catch (error) {
                 console.error('Fetch error:', error);
@@ -70,13 +64,11 @@
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             const data = await response.json();
-            if (response.ok) {
-                window.location.href = data.url; // Redirect to Stripe Checkout
-            }
+            if (response.ok) window.location.href = data.url;
         });
 
         document.getElementById('spyconverterProBtn').addEventListener('click', () => {
-            window.location.href = '/spyconverterpro.html'; // Redirect to Spyconverter Pro page
+            window.location.href = '/docs/spyconverterpro.html';
         });
 
         document.getElementById('deleteBtn').addEventListener('click', async () => {
@@ -88,7 +80,7 @@
                 const data = await response.json();
                 if (response.ok) {
                     localStorage.removeItem('token');
-                    window.location.href = '/login.html';
+                    window.location.href = '/docs/login.html';
                 } else {
                     alert(data.message);
                 }
