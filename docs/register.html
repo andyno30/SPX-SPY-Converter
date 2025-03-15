@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Spyconverter Pro</title>
-    <link rel="stylesheet" href="/docs/styles.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="auth-section">
@@ -14,11 +14,10 @@
         <label for="password">Password</label>
         <input type="password" id="password" placeholder="Password" required>
         <button onclick="register()">Register</button>
-        <p>Already have an account? <a href="/docs/login.html">Login here</a></p>
+        <p>Already have an account? <a href="login.html">Login here</a></p>
         <p id="message" class="error"></p>
     </div>
 
-    <script src="/docs/script.js"></script>
     <script>
         async function register() {
             const email = document.getElementById('email').value;
@@ -35,7 +34,7 @@
 
                 if (response.ok) {
                     message.textContent = 'Registration successful! Redirecting to login...';
-                    setTimeout(() => window.location.href = '/docs/login.html', 2000);
+                    setTimeout(() => window.location.href = 'login.html', 2000);
                 } else {
                     message.textContent = data.message || 'Registration failed';
                 }
