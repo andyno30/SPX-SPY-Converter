@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Conversion Tool - Spyconverter Pro</title>
+    <link href="pro_styles.css" rel="stylesheet"> <!-- Links to pro_styles.css -->
+    <script async crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2918914879248661"></script>
+</head>
+<body>
+    <nav>
+        <a class="logo" href="#"><h4>spyconverter.com</h4></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="relationship.html">Relationship</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li class="dropdown">
+                <a href="aboutus.html">About Us</a>
+                <div class="dropdown-content">
+                    <a href="aboutus.html#about-us">About Us</a>
+                    <a href="aboutus.html#privacy-policy">Privacy Policy</a>
+                    <a href="aboutus.html#contact-us">Contact Us</a>
+                    <a href="aboutus.html#disclaimer">Disclaimer</a>
+                    <a href="aboutus.html#terms-and-conditions">Terms and Conditions</a>
+                </div>
+            </li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+        </ul>
+    </nav>
+    <div class="premium-container">
+        <h1>Premium Conversion Tool</h1>
+        <p>Conversion data last updated: <span id="conversionDate">Loading...</span></p>
+        <div id="premium-conversion">
+            <div class="conversion-controls">
+                <select id="from-ticker">
+                    <option value="">From</option>
+                    <option value="^SPX">SPX</option>
+                    <option value="SPY">SPY</option>
+                    <option value="ES=F">ES</option>
+                    <option value="NQ=F">NQ</option>
+                    <option value="QQQ">QQQ</option>
+                    <option value="^NDX">NDX</option>
+                </select>
+                <select id="to-ticker">
+                    <option value="">To</option>
+                    <option value="^SPX">SPX</option>
+                    <option value="SPY">SPY</option>
+                    <option value="ES=F">ES</option>
+                    <option value="NQ=F">NQ</option>
+                    <option value="QQQ">QQQ</option>
+                    <option value="^NDX">NDX</option>
+                </select>
+                <input type="number" id="convert-input" placeholder="Enter value" step="0.01">
+                <button onclick="convertPremium()">Convert</button>
+            </div>
+            <p id="convert-output"></p>
+            <div id="current-prices">
+                <h3>Live Prices</h3>
+                <p>SPX: $<span id="price-spx">Loading...</span></p>
+                <p>SPY: $<span id="price-spy">Loading...</span></p>
+                <p>ES: $<span id="price-es">Loading...</span></p>
+                <p>NQ: $<span id="price-nq">Loading...</span></p>
+                <p>QQQ: $<span id="price-qqq">Loading...</span></p>
+                <p>NDX: $<span id="price-ndx">Loading...</span></p>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>© 2023 spyconverter.com. All rights reserved.</p>
+    </footer>
+    <script src="pro_script.js"></script>
+    <script>
+        const token = localStorage.getItem('authToken');
+        const backendURL = "https://spx-spy-converter.onrender.com";
+
+        if (!token) {
+            window.location.href = 'login.html';
+        } else {
+            fetch(`${backendURL}/user`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (!data.isSubscribed) {
+                    window.location.href = 'dashboard.html';
+                }
+            })
+            .catch(error => {
+                console.error('Error checking subscription:', error);
+                window.location.href = 'dashboard.html';
+            });
+        }
+    </script>
+</body>
+</html>
