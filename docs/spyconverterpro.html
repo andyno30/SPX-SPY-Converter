@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spyconverter Pro</title>
     <link href="styles.css" rel="stylesheet">
 </head>
@@ -10,26 +11,31 @@
         <h1>Spyconverter Pro</h1>
         <p>Welcome to the premium Spyconverter Pro experience!</p>
         <p>This is your exclusive access page for subscribed users.</p>
-        <button id="premium-feature-btn">Access Premium Feature</button>
+        <button id="premium-feature-btn" style="display: none;">Access Premium Feature</button>
         <button id="logout-btn">Logout</button>
         <p id="feature-feedback"></p>
     </div>
-    <script src="script.js"></script>
+
     <script>
         const token = localStorage.getItem('authToken');
+        const backendURL = "https://spx-spy-converter.onrender.com";
+
         if (!token) {
             window.location.href = 'login.html';
         } else {
-            // Check subscription status
             fetch(`${backendURL}/user`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch user data');
+                }
+                return response.json();
+            })
             .then(data => {
                 if (!data.isSubscribed) {
                     window.location.href = 'dashboard.html';
                 } else {
-                    // If subscribed, ensure premium button is visible
                     document.getElementById('premium-feature-btn').style.display = 'inline-block';
                 }
             })
@@ -39,14 +45,17 @@
             });
         }
 
-        document.getElementById('premium-feature-btn').addEventListener('click', function() {
-            document.getElementById('feature-feedback').textContent = 'Premium feature accessed! (Placeholder action)';
+        // Redirect to premium-feature.html on button click
+        document.getElementById('premium-feature-btn').addEventListener('click', () => {
+            window.location.href = 'premium-feature.html';
         });
 
-        document.getElementById('logout-btn').addEventListener('click', function() {
+        // Logout function
+        document.getElementById('logout-btn').addEventListener('click', () => {
             localStorage.removeItem('authToken');
             window.location.href = 'login.html';
         });
     </script>
 </body>
 </html>
+
