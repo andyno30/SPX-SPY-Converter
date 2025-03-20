@@ -2,6 +2,7 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 import yfinance as yf
 from datetime import datetime
+import os  # Added to handle environment variables
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "https://spyconverter.com"}})
@@ -43,5 +44,6 @@ def health_check():
     return jsonify({"message": "Premium Conversion API is running!"})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=10000)  # Render uses 0.0.0.0 for public access
-
+    # Use the PORT environment variable provided by Render, default to 10000 locally
+    port = int(os.environ.get('PORT', 10000))
+    app.run(host='0.0.0.0', port=port)
