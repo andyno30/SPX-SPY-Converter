@@ -3,9 +3,8 @@ from flask_cors import CORS
 import yfinance as yf
 from datetime import datetime
 import os
-import logging  # Added for debugging
+import logging
 
-# Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -21,14 +20,16 @@ def get_live_price_pro():
         for ticker in tickers:
             stock = yf.Ticker(ticker)
             try:
-                price = stock.fast_info["last_price"]
-                prices[ticker] = price
-                logger.info(f"Successfully fetched price for {ticker}: {price}")
+                prices[ticker] = stock.fast_info["last_price"]
+                logger.info(f"Successfully fetched fast_info price for {ticker}: {prices[ticker]}")
             except (KeyError, AttributeError, Exception) as e:
-                prices[ticker] = None
-                logger.error(f"Failed to fetch price for {ticker}: {str(e)}")
+                try:
+                    prices[ticker] = stock.info["regularMarketPrice"]
+                    logger.info(f"Fallback fetched info price for {ticker}: {prices[ticker]}")
+                except (KeyError, Exception) as e:
+                    prices[ticker] = None
+                    logger.error(f"No price data for {ticker}: {str(e)}")
             
-        # Calculate ratios
         ratios = {
             "SPX/SPY Ratio": prices["^SPX"] / prices["SPY"] if prices["SPY"] else None,
             "ES/SPY Ratio": prices["ES=F"] / prices["SPY"] if prices["SPY"] else None,
