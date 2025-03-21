@@ -15,20 +15,14 @@ def get_live_price_pro():
     try:
         for ticker in tickers:
             stock = yf.Ticker(ticker)
-            # Use history() to get the latest price (last 1 day, closing price)
-            hist = stock.history(period="1d")
-            if not hist.empty:
-                prices[ticker] = hist["Close"].iloc[-1]  # Latest closing price
-            else:
-                prices[ticker] = None
+            prices[ticker] = stock.fast_info["last_price"]
 
-        # Calculate ratios
         ratios = {
-            "SPX/SPY Ratio": prices["^SPX"] / prices["SPY"] if prices.get("SPY") else None,
-            "ES/SPY Ratio": prices["ES=F"] / prices["SPY"] if prices.get("SPY") else None,
-            "NQ/QQQ Ratio": prices["NQ=F"] / prices["QQQ"] if prices.get("QQQ") else None,
-            "NDX/QQQ Ratio": prices["^NDX"] / prices["QQQ"] if prices.get("QQQ") else None,
-            "ES/SPX Ratio": prices["ES=F"] / prices["^SPX"] if prices.get("^SPX") else None,
+            "SPX/SPY Ratio": prices["^SPX"] / prices["SPY"] if prices["SPY"] else None,
+            "ES/SPY Ratio": prices["ES=F"] / prices["SPY"] if prices["SPY"] else None,
+            "NQ/QQQ Ratio": prices["NQ=F"] / prices["QQQ"] if prices["QQQ"] else None,
+            "NDX/QQQ Ratio": prices["^NDX"] / prices["QQQ"] if prices["QQQ"] else None,
+            "ES/SPX Ratio": prices["ES=F"] / prices["^SPX"] if prices["^SPX"] else None,
         }
 
         return jsonify({
