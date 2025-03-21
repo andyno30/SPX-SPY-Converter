@@ -1,9 +1,8 @@
-const proBackendURL = "https://spx-spy-converter.onrender.com/get_live_price_pro"; // Render backend
+const proBackendURL = "https://spx-spy-converter-pro.onrender.com/get_live_price_pro"; // Updated Render backend
 
 let prices = {};
 let ratios = {};
 
-// Function to fetch and update the live prices
 function updateProPrices() {
     document.getElementById("conversionDate").textContent = "Loading...";
 
@@ -15,7 +14,7 @@ function updateProPrices() {
         return response.json();
     })
     .then(data => {
-        console.log("Received data:", data); // Debugging output
+        console.log("Received data:", data);
 
         if (!data || !data.prices || !data.ratios) {
             throw new Error("Invalid data format received from backend.");
@@ -31,11 +30,9 @@ function updateProPrices() {
     });
 }
 
-// Update prices every 60 seconds
 setInterval(updateProPrices, 60000);
 updateProPrices();
 
-// Function to convert values based on market data
 function convertPremium() {
     const fromTicker = document.getElementById("from-ticker").value;
     const toTicker = document.getElementById("to-ticker").value;
@@ -64,7 +61,6 @@ function convertPremium() {
     document.getElementById("convert-output").textContent = `${displayName}: ${convertedValue.toFixed(2)}`;
 }
 
-// Function to display real-time prices on the UI
 function updatePriceDisplay() {
     const tickers = ["^SPX", "SPY", "ES=F", "NQ=F", "QQQ", "^NDX"];
     
@@ -76,5 +72,4 @@ function updatePriceDisplay() {
     });
 }
 
-// Update displayed prices every second
 setInterval(updatePriceDisplay, 1000);
