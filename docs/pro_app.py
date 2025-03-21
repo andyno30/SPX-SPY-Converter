@@ -18,7 +18,7 @@ CORS(app)
 # In-memory cache
 price_cache = {}
 cache_lock = Lock()
-CACHE_TIMEOUT = 300  # 5 minutes, increased from 60s for fewer API calls
+CACHE_TIMEOUT = 300  # 5 minutes
 
 def fetch_price_with_retry(stock, max_retries=3, backoff_factor=2):
     for attempt in range(max_retries):
@@ -29,14 +29,14 @@ def fetch_price_with_retry(stock, max_retries=3, backoff_factor=2):
         except Exception as e:
             if "429" in str(e):
                 wait_time = backoff_factor ** attempt + random.uniform(0, 1)
-                logger.warning(f"Rate limit for {stock.ticker}. Waiting {wait_time:.2f}s (attempt {attempt+1}/{max_retries})")
+                logger.warning(f"Rate limit for {stock.ticker}. Waiting {wait_time:.2f}s (attempt {attempt+1})")
                 time.sleep(wait_time)
             else:
                 logger.error(f"fast_info failed for {stock.ticker}: {str(e)}")
                 # Fallback to stock.info
                 try:
                     price = stock.info["regularMarketPrice"]
-                    logger.info(f"Fallback to info succeeded for {stock.ticker}: {price}")
+                    logger.info(f"Fallback info succeeded for {stock.ticker}: {price}")
                     return price
                 except (KeyError, Exception) as e2:
                     logger.error(f"stock.info failed for {stock.ticker}: {str(e2)}")
@@ -81,7 +81,7 @@ def get_live_price_pro():
             return jsonify(ratios)
 
     except Exception as e:
-        logger.error(f"Unexpected error in get_live_price_pro: {str(e)}")
+        logger.error(f"Unexpected error: {str(e)}")
         return jsonify({"error": f"Failed to fetch data: {str(e)}"}), 500
 
 if __name__ == '__main__':
