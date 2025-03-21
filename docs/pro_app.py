@@ -1,47 +1,57 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
 import yfinance as yf
-from datetime import datetime
+from datetime import datetime, timedelta
 import os
 import logging
 
-# Initialize Flask app
-app = Flask(__name__)
-CORS(app)
-
-# Enable logging
+# Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+app = Flask(__name__)
+CORS(app)
+
+# Cache storage
+cached_data = {"prices": {}, "ratios": {}, "last_updated": None}
+CACHE_DURATION = timedelta(minutes=10)  # Cache for 10 minutes
+
 @app.route('/get_live_price_pro')
 def get_live_price_pro():
+    global cached_data
     tickers = ["^SPX", "SPY", "ES=F", "NQ=F", "QQQ", "^NDX"]
-    prices = {}
+    
+    # Check if cache is valid
+    if cached_data["last_updated"] and datetime.now() - cached_data["last_updated"] < CACHE_DURATION:
+        logger.info("Serving cached data")
+        return jsonify(cached_data)
 
+    # Fetch fresh data
+    prices = {}
     try:
         for ticker in tickers:
             stock = yf.Ticker(ticker)
             try:
-                prices[ticker] = stock.info.get("previousClose")  # Fetch last close price
-                if prices[ticker] is None:
-                    raise ValueError("previousClose data is missing")
+                prices[ticker] = stock.history(period="1d")["Close"].iloc[-1]  # Alternative method
                 logger.info(f"Successfully fetched price for {ticker}: {prices[ticker]}")
             except Exception as e:
                 prices[ticker] = None
                 logger.error(f"Failed to fetch price for {ticker}: {str(e)}")
 
-        # Compute ratios only if prices exist
+        # Calculate ratios
         ratios = {
-            "SPX/SPY Ratio": (prices["^SPX"] / prices["SPY"]) if prices.get("^SPX") and prices.get("SPY") else None,
-            "ES/SPY Ratio": (prices["ES=F"] / prices["SPY"]) if prices.get("ES=F") and prices.get("SPY") else None,
-            "NQ/QQQ Ratio": (prices["NQ=F"] / prices["QQQ"]) if prices.get("NQ=F") and prices.get("QQQ") else None,
-            "NDX/QQQ Ratio": (prices["^NDX"] / prices["QQQ"]) if prices.get("^NDX") and prices.get("QQQ") else None,
-            "ES/SPX Ratio": (prices["ES=F"] / prices["^SPX"]) if prices.get("ES=F") and prices.get("^SPX") else None,
+            "SPX/SPY Ratio": prices["^SPX"] / prices["SPY"] if prices["SPY"] else None,
+            "ES/SPY Ratio": prices["ES=F"] / prices["SPY"] if prices["SPY"] else None,
+            "NQ/QQQ Ratio": prices["NQ=F"] / prices["QQQ"] if prices["QQQ"] else None,
+            "NDX/QQQ Ratio": prices["^NDX"] / prices["QQQ"] if prices["QQQ"] else None,
+            "ES/SPX Ratio": prices["ES=F"] / prices["^SPX"] if prices["^SPX"] else None,
             "Datetime": datetime.now().strftime("%m/%d/%y %H:%M")
         }
 
-        logger.info(f"Returning ratios: {ratios}")
-        return jsonify({"prices": prices, "ratios": ratios})
+        # Cache the response
+        cached_data = {"prices": prices, "ratios": ratios, "last_updated": datetime.now()}
+        logger.info(f"Updated cached data at {cached_data['last_updated']}")
+        return jsonify(cached_data)
 
     except Exception as e:
         logger.error(f"Unexpected error: {str(e)}")
