@@ -5,8 +5,7 @@ from datetime import datetime
 import os
 import logging
 import time
-import random
-from threading import Lock
+import threading
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -15,75 +14,74 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 CORS(app)
 
-# In-memory cache
+# Global cache
 price_cache = {}
-cache_lock = Lock()
-CACHE_TIMEOUT = 300  # 5 minutes
+cache_lock = threading.Lock()
+last_update = 0
+UPDATE_INTERVAL = 3600  # 1 hour in seconds
 
-def fetch_price_with_retry(stock, max_retries=3, backoff_factor=2):
-    for attempt in range(max_retries):
-        try:
-            price = stock.fast_info["last_price"]
-            logger.info(f"fast_info succeeded for {stock.ticker}: {price}")
-            return price
-        except Exception as e:
-            if "429" in str(e):
-                wait_time = backoff_factor ** attempt + random.uniform(0, 1)
-                logger.warning(f"Rate limit for {stock.ticker}. Waiting {wait_time:.2f}s (attempt {attempt+1})")
-                time.sleep(wait_time)
-            else:
-                logger.error(f"fast_info failed for {stock.ticker}: {str(e)}")
-                # Fallback to stock.info
+def update_prices():
+    global price_cache, last_update
+    tickers = ["^SPX", "SPY", "ES=F", "NQ=F", "QQQ", "^NDX"]
+    new_prices = {}
+    
+    try:
+        for ticker in tickers:
+            stock = yf.Ticker(ticker)
+            try:
+                price = stock.fast_info["last_price"]
+                new_prices[ticker] = price
+                logger.info(f"Fetched fast_info price for {ticker}: {price}")
+            except (KeyError, AttributeError, Exception) as e:
                 try:
                     price = stock.info["regularMarketPrice"]
-                    logger.info(f"Fallback info succeeded for {stock.ticker}: {price}")
-                    return price
+                    new_prices[ticker] = price
+                    logger.info(f"Fallback info price for {ticker}: {price}")
                 except (KeyError, Exception) as e2:
-                    logger.error(f"stock.info failed for {stock.ticker}: {str(e2)}")
-                    if attempt == max_retries - 1:
-                        return None
-                    time.sleep(1)  # Short delay before retry
-    return None
+                    new_prices[ticker] = None
+                    logger.error(f"No price for {ticker}: {str(e2)}")
+            time.sleep(1)  # Delay between requests
+        
+        with cache_lock:
+            price_cache = new_prices
+            last_update = time.time()
+            logger.info(f"Updated cache: {price_cache}")
+    except Exception as e:
+        logger.error(f"Update failed: {str(e)}")
+
+def start_update_thread():
+    def run():
+        while True:
+            update_prices()
+            time.sleep(UPDATE_INTERVAL)
+    
+    thread = threading.Thread(target=run, daemon=True)
+    thread.start()
 
 @app.route('/get_live_price_pro')
 def get_live_price_pro():
-    tickers = ["^SPX", "SPY", "ES=F", "NQ=F", "QQQ", "^NDX"]
-    prices = {}
+    global last_update
     current_time = time.time()
+    
+    with cache_lock:
+        if not price_cache or (current_time - last_update) > UPDATE_INTERVAL:
+            update_prices()
+        
+        prices = price_cache.copy()
+        
+        ratios = {
+            "SPX/SPY Ratio": prices["^SPX"] / prices["SPY"] if prices.get("^SPX") and prices.get("SPY") else None,
+            "ES/SPY Ratio": prices["ES=F"] / prices["SPY"] if prices.get("ES=F") and prices.get("SPY") else None,
+            "NQ/QQQ Ratio": prices["NQ=F"] / prices["QQQ"] if prices.get("NQ=F") and prices.get("QQQ") else None,
+            "NDX/QQQ Ratio": prices["^NDX"] / prices["QQQ"] if prices.get("^NDX") and prices.get("QQQ") else None,
+            "ES/SPX Ratio": prices["ES=F"] / prices["^SPX"] if prices.get("ES=F") and prices.get("^SPX") else None,
+            "Datetime": datetime.now().strftime("%m/%d/%y %H:%M")
+        }
 
-    try:
-        with cache_lock:
-            for ticker in tickers:
-                if ticker in price_cache and (current_time - price_cache[ticker]["timestamp"]) < CACHE_TIMEOUT:
-                    prices[ticker] = price_cache[ticker]["price"]
-                    logger.info(f"Using cached price for {ticker}: {prices[ticker]}")
-                else:
-                    stock = yf.Ticker(ticker)
-                    price = fetch_price_with_retry(stock)
-                    if price is not None:
-                        prices[ticker] = price
-                        price_cache[ticker] = {"price": price, "timestamp": current_time}
-                        logger.info(f"Cached new price for {ticker}: {price}")
-                    else:
-                        prices[ticker] = None
-                        logger.warning(f"No price fetched for {ticker}")
-
-            ratios = {
-                "SPX/SPY Ratio": prices["^SPX"] / prices["SPY"] if prices["^SPX"] and prices["SPY"] else None,
-                "ES/SPY Ratio": prices["ES=F"] / prices["SPY"] if prices["ES=F"] and prices["SPY"] else None,
-                "NQ/QQQ Ratio": prices["NQ=F"] / prices["QQQ"] if prices["NQ=F"] and prices["QQQ"] else None,
-                "NDX/QQQ Ratio": prices["^NDX"] / prices["QQQ"] if prices["^NDX"] and prices["QQQ"] else None,
-                "ES/SPX Ratio": prices["ES=F"] / prices["^SPX"] if prices["ES=F"] and prices["^SPX"] else None,
-                "Datetime": datetime.now().strftime("%m/%d/%y %H:%M")
-            }
-
-            logger.info(f"Returning ratios: {ratios}")
-            return jsonify(ratios)
-
-    except Exception as e:
-        logger.error(f"Unexpected error: {str(e)}")
-        return jsonify({"error": f"Failed to fetch data: {str(e)}"}), 500
+        logger.info(f"Returning ratios: {ratios}")
+        return jsonify(ratios)
 
 if __name__ == '__main__':
+    start_update_thread()
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port)
