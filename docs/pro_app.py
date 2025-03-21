@@ -21,19 +21,32 @@ def get_live_price_pro():
     global cached_data
     tickers = ["^SPX", "SPY", "ES=F", "NQ=F", "QQQ", "^NDX"]
     
-    # Check if cache is valid
+    # Use cached data if it's still fresh
     if cached_data["last_updated"] and datetime.now() - cached_data["last_updated"] < CACHE_DURATION:
         logger.info("Serving cached data")
         return jsonify(cached_data)
 
-    # Fetch fresh data
     prices = {}
     try:
         for ticker in tickers:
             stock = yf.Ticker(ticker)
             try:
-                prices[ticker] = stock.history(period="1d")["Close"].iloc[-1]  # Alternative method
-                logger.info(f"Successfully fetched price for {ticker}: {prices[ticker]}")
+                # Try multiple methods to get stock price
+                price = None
+                if "last_price" in stock.fast_info:
+                    price = stock.fast_info["last_price"]
+                elif "regularMarketPrice" in stock.info:
+                    price = stock.info["regularMarketPrice"]
+                elif not stock.history(period="1d").empty:
+                    price = stock.history(period="1d")["Close"].iloc[-1]
+
+                if price is not None:
+                    prices[ticker] = price
+                    logger.info(f"Successfully fetched price for {ticker}: {price}")
+                else:
+                    prices[ticker] = None
+                    logger.warning(f"No price found for {ticker}")
+
             except Exception as e:
                 prices[ticker] = None
                 logger.error(f"Failed to fetch price for {ticker}: {str(e)}")
