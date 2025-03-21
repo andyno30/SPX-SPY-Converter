@@ -1,5 +1,5 @@
 Flask==2.0.1
 gunicorn==20.1.0
-yfinance==0.2.18  # Stick with this for now
+yfinance==0.2.18
 flask-cors==5.0.0
 Werkzeug==2.0.3
