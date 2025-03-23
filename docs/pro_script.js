@@ -1,9 +1,8 @@
-const proBackendURL = "https://spx-spy-converter-pro.onrender.com/get_live_price_pro";
+const proBackendURL = "https://spx-spy-converter-pro.onrender.com/get_live_price_pro"; // Updated Render backend
 
 let prices = {};
-let ratios = {};
+let lastPrices = {};  // Stores the last known price for each ticker
 
-// Function to fetch and update the live prices
 function updateProPrices() {
     document.getElementById("conversionDate").textContent = "Loading...";
 
@@ -17,21 +16,21 @@ function updateProPrices() {
     .then(data => {
         console.log("Received data:", data);
 
-        if (!data || !data.Prices) {  // Correcting the reference
+        if (!data || !data.prices) {
             throw new Error("Invalid data format received from backend.");
         }
 
-        prices = data.Prices;  // Updating prices
-        ratios = {
-            "SPX/SPY Ratio": data["SPX/SPY Ratio"],
-            "ES/SPY Ratio": data["ES/SPY Ratio"],
-            "NQ/QQQ Ratio": data["NQ/QQQ Ratio"],
-            "NDX/QQQ Ratio": data["NDX/QQQ Ratio"],
-            "ES/SPX Ratio": data["ES/SPX Ratio"]
-        };
+        // Store the latest fetched prices
+        prices = data.prices;
 
-        document.getElementById("conversionDate").textContent = data.Datetime || "Unknown";
-        updatePriceDisplay();  // Ensure UI updates
+        // Update last known valid prices for each ticker
+        Object.keys(prices).forEach(ticker => {
+            if (prices[ticker] !== null && prices[ticker] !== undefined) {
+                lastPrices[ticker] = prices[ticker];  // Store valid price
+            }
+        });
+
+        document.getElementById("conversionDate").textContent = data.datetime || "Unknown";
     })
     .catch(error => {
         console.error('Error fetching premium data:', error);
@@ -39,49 +38,28 @@ function updateProPrices() {
     });
 }
 
-// Update prices every 60 seconds
-setInterval(updateProPrices, 60000);
-updateProPrices();
-
-// Function to display real-time prices on the UI
+// Function to display prices on the UI
 function updatePriceDisplay() {
     const tickers = ["^SPX", "SPY", "ES=F", "NQ=F", "QQQ", "^NDX"];
 
     tickers.forEach(ticker => {
         const priceElement = document.getElementById(`price-${ticker.toLowerCase().replace(/[^a-z]/g, "")}`);
         if (priceElement) {
-            priceElement.textContent = prices[ticker] ? `$${prices[ticker].toFixed(2)}` : "N/A";
+            if (prices[ticker] !== undefined && prices[ticker] !== null) {
+                lastPrices[ticker] = prices[ticker];  // Store latest valid price
+                priceElement.textContent = `$${prices[ticker].toFixed(2)}`;
+            } else if (lastPrices[ticker] !== undefined) {
+                priceElement.textContent = `$${lastPrices[ticker].toFixed(2)}`;  // Use last known price
+            } else {
+                priceElement.textContent = "N/A";  // No last price available
+            }
         }
     });
 }
 
-// Function to convert values based on market data
-function convertPremium() {
-    const fromTicker = document.getElementById("from-ticker").value;
-    const toTicker = document.getElementById("to-ticker").value;
-    const value = parseFloat(document.getElementById("convert-input").value);
+// Fetch prices every 60 seconds
+setInterval(updateProPrices, 60000);
+updateProPrices();
 
-    if (!fromTicker || !toTicker || isNaN(value)) {
-        document.getElementById("convert-output").textContent = "Please select tickers and enter a value.";
-        return;
-    }
-
-    if (!prices[fromTicker] || !prices[toTicker]) {
-        document.getElementById("convert-output").textContent = "Prices are still loading. Please wait a moment.";
-        return;
-    }
-
-    const convertedValue = (prices[toTicker] / prices[fromTicker]) * value;
-    const tickerNames = {
-        "^SPX": "SPX",
-        "SPY": "SPY",
-        "ES=F": "ES",
-        "NQ=F": "NQ",
-        "QQQ": "QQQ",
-        "^NDX": "NDX"
-    };
-    const displayName = tickerNames[toTicker] || toTicker;
-    document.getElementById("convert-output").textContent = `${displayName}: ${convertedValue.toFixed(2)}`;
-}
-
+// Update displayed prices every second
 setInterval(updatePriceDisplay, 1000);
