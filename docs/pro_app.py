@@ -27,9 +27,10 @@ def get_live_price_pro():
                 prices[ticker] = None
                 logger.error(f"Failed to fetch price for {ticker}: {str(e)}")
 
-        # Construct the response without nested dictionaries
+        # Construct the response with both live prices and ratios
         response_data = {
             "Datetime": datetime.now().strftime("%m/%d/%y %H:%M"),
+            "Prices": prices,  # Added Prices so pro_script.js can access them
             "SPX/SPY Ratio": prices["^SPX"] / prices["SPY"] if prices["SPY"] else None,
             "ES/SPY Ratio": prices["ES=F"] / prices["SPY"] if prices["SPY"] else None,
             "NQ/QQQ Ratio": prices["NQ=F"] / prices["QQQ"] if prices["QQQ"] else None,
@@ -37,7 +38,7 @@ def get_live_price_pro():
             "ES/SPX Ratio": prices["ES=F"] / prices["^SPX"] if prices["^SPX"] else None,
         }
 
-        logger.info(f"Returning ratios: {response_data}")
+        logger.info(f"Returning data: {response_data}")
         return jsonify(response_data)
 
     except Exception as e:
