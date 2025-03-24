@@ -1,7 +1,7 @@
 const proBackendURL = "https://spx-spy-converter-pro.onrender.com/get_live_price_pro"; // Updated Render backend
 
 let prices = {};
-let lastPrices = {};  // Stores the last known price for each ticker
+let lastPrices = {}; // Stores last known price
 
 function updateProPrices() {
     document.getElementById("conversionDate").textContent = "Loading...";
@@ -14,23 +14,23 @@ function updateProPrices() {
         return response.json();
     })
     .then(data => {
-        console.log("Received data:", data);
+        console.log("Received data:", data); // Debugging output
 
-        if (!data || !data.prices) {
+        if (!data || !data.Prices) {
             throw new Error("Invalid data format received from backend.");
         }
 
-        // Store the latest fetched prices
-        prices = data.prices;
+        // Correctly reference "Prices" from JSON
+        prices = data.Prices;  
 
-        // Update last known valid prices for each ticker
+        // Update last known valid prices
         Object.keys(prices).forEach(ticker => {
             if (prices[ticker] !== null && prices[ticker] !== undefined) {
                 lastPrices[ticker] = prices[ticker];  // Store valid price
             }
         });
 
-        document.getElementById("conversionDate").textContent = data.datetime || "Unknown";
+        document.getElementById("conversionDate").textContent = data.Datetime || "Unknown";
     })
     .catch(error => {
         console.error('Error fetching premium data:', error);
@@ -40,10 +40,17 @@ function updateProPrices() {
 
 // Function to display prices on the UI
 function updatePriceDisplay() {
-    const tickers = ["^SPX", "SPY", "ES=F", "NQ=F", "QQQ", "^NDX"];
+    const tickers = {
+        "^SPX": "spx",
+        "SPY": "spy",
+        "ES=F": "es",
+        "NQ=F": "nq",
+        "QQQ": "qqq",
+        "^NDX": "ndx"
+    };
 
-    tickers.forEach(ticker => {
-        const priceElement = document.getElementById(`price-${ticker.toLowerCase().replace(/[^a-z]/g, "")}`);
+    Object.keys(tickers).forEach(ticker => {
+        const priceElement = document.getElementById(`price-${tickers[ticker]}`);
         if (priceElement) {
             if (prices[ticker] !== undefined && prices[ticker] !== null) {
                 lastPrices[ticker] = prices[ticker];  // Store latest valid price
@@ -51,7 +58,7 @@ function updatePriceDisplay() {
             } else if (lastPrices[ticker] !== undefined) {
                 priceElement.textContent = `$${lastPrices[ticker].toFixed(2)}`;  // Use last known price
             } else {
-                priceElement.textContent = "N/A";  // No last price available
+                priceElement.textContent = "N/A";  // No price available
             }
         }
     });
