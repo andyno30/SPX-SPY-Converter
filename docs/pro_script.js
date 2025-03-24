@@ -1,8 +1,9 @@
-const proBackendURL = "https://spx-spy-converter-pro.onrender.com/get_live_price_pro"; // Updated Render backend
+const proBackendURL = "https://spx-spy-converter-pro.onrender.com/get_live_price_pro";
 
 let prices = {};
-let lastPrices = {}; // Stores last known price
+let ratios = {};
 
+// Function to fetch and update the live prices
 function updateProPrices() {
     document.getElementById("conversionDate").textContent = "Loading...";
 
@@ -14,23 +15,23 @@ function updateProPrices() {
         return response.json();
     })
     .then(data => {
-        console.log("Received data:", data); // Debugging output
+        console.log("Received data:", data);
 
-        if (!data || !data.Prices) {
+        if (!data || !data.Prices) {  // Correcting the reference
             throw new Error("Invalid data format received from backend.");
         }
 
-        // Correctly reference "Prices" from JSON
-        prices = data.Prices;  
-
-        // Update last known valid prices
-        Object.keys(prices).forEach(ticker => {
-            if (prices[ticker] !== null && prices[ticker] !== undefined) {
-                lastPrices[ticker] = prices[ticker];  // Store valid price
-            }
-        });
+        prices = data.Prices;  // Updating prices
+        ratios = {
+            "SPX/SPY Ratio": data["SPX/SPY Ratio"],
+            "ES/SPY Ratio": data["ES/SPY Ratio"],
+            "NQ/QQQ Ratio": data["NQ/QQQ Ratio"],
+            "NDX/QQQ Ratio": data["NDX/QQQ Ratio"],
+            "ES/SPX Ratio": data["ES/SPX Ratio"]
+        };
 
         document.getElementById("conversionDate").textContent = data.Datetime || "Unknown";
+        updatePriceDisplay();  // Ensure UI updates
     })
     .catch(error => {
         console.error('Error fetching premium data:', error);
@@ -38,35 +39,49 @@ function updateProPrices() {
     });
 }
 
-// Function to display prices on the UI
-function updatePriceDisplay() {
-    const tickers = {
-        "^SPX": "spx",
-        "SPY": "spy",
-        "ES=F": "es",
-        "NQ=F": "nq",
-        "QQQ": "qqq",
-        "^NDX": "ndx"
-    };
+// Update prices every 60 seconds
+setInterval(updateProPrices, 60000);
+updateProPrices();
 
-    Object.keys(tickers).forEach(ticker => {
-        const priceElement = document.getElementById(`price-${tickers[ticker]}`);
+// Function to display real-time prices on the UI
+function updatePriceDisplay() {
+    const tickers = ["^SPX", "SPY", "ES=F", "NQ=F", "QQQ", "^NDX"];
+
+    tickers.forEach(ticker => {
+        const priceElement = document.getElementById(`price-${ticker.toLowerCase().replace(/[^a-z]/g, "")}`);
         if (priceElement) {
-            if (prices[ticker] !== undefined && prices[ticker] !== null) {
-                lastPrices[ticker] = prices[ticker];  // Store latest valid price
-                priceElement.textContent = `$${prices[ticker].toFixed(2)}`;
-            } else if (lastPrices[ticker] !== undefined) {
-                priceElement.textContent = `$${lastPrices[ticker].toFixed(2)}`;  // Use last known price
-            } else {
-                priceElement.textContent = "N/A";  // No price available
-            }
+            priceElement.textContent = prices[ticker] ? `$${prices[ticker].toFixed(2)}` : "N/A";
         }
     });
 }
 
-// Fetch prices every 60 seconds
-setInterval(updateProPrices, 60000);
-updateProPrices();
+// Function to convert values based on market data
+function convertPremium() {
+    const fromTicker = document.getElementById("from-ticker").value;
+    const toTicker = document.getElementById("to-ticker").value;
+    const value = parseFloat(document.getElementById("convert-input").value);
 
-// Update displayed prices every second
+    if (!fromTicker || !toTicker || isNaN(value)) {
+        document.getElementById("convert-output").textContent = "Please select tickers and enter a value.";
+        return;
+    }
+
+    if (!prices[fromTicker] || !prices[toTicker]) {
+        document.getElementById("convert-output").textContent = "Prices are still loading. Please wait a moment.";
+        return;
+    }
+
+    const convertedValue = (prices[toTicker] / prices[fromTicker]) * value;
+    const tickerNames = {
+        "^SPX": "SPX",
+        "SPY": "SPY",
+        "ES=F": "ES",
+        "NQ=F": "NQ",
+        "QQQ": "QQQ",
+        "^NDX": "NDX"
+    };
+    const displayName = tickerNames[toTicker] || toTicker;
+    document.getElementById("convert-output").textContent = `${displayName}: ${convertedValue.toFixed(2)}`;
+}
+
 setInterval(updatePriceDisplay, 1000);
