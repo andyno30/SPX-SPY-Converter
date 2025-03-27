@@ -45,6 +45,12 @@
                 </select>
                 <select id="to-ticker">
                     <option value="">To</option>
+                    <option value="SPX">SPX</option>
+                    <option value="SPY">SPY</option>
+                    <option value="ES">ES</option>
+                    <option value="NQ">NQ</option>
+                    <option value="QQQ">QQQ</option>
+                    <option value="NDX">NDX</option>
                 </select>
                 <input type="number" id="convert-input" placeholder="Enter value" step="0.01">
                 <button onclick="convertPremium()">Convert</button>
@@ -55,6 +61,7 @@
         <div id="current-ratios">
             <h3>Live Ratios</h3>
             <p>SPX/SPY Ratio: <span id="ratio-spx-spy">Loading...</span></p>
+            <p>SPY/SPX Ratio: <span id="ratio-spy-spx">Loading...</span></p>
             <p>ES/SPY Ratio: <span id="ratio-es-spy">Loading...</span></p>
             <p>NQ/QQQ Ratio: <span id="ratio-nq-qqq">Loading...</span></p>
             <p>NDX/QQQ Ratio: <span id="ratio-ndx-qqq">Loading...</span></p>
