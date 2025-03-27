@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Premium Conversion Tool - Spyconverter Pro</title>
-    <link href="pro_styles.css" rel="stylesheet"> <!-- Links to pro_styles.css -->
+    <link href="pro_styles.css" rel="stylesheet">
     <script async crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2918914879248661"></script>
 </head>
 <body>
@@ -59,13 +59,13 @@
         </div>
 
         <div id="current-ratios">
-            <h3>Live Ratios</h3>
-            <p>SPX/SPY Ratio: <span id="ratio-spx-spy">Loading...</span></p>
-            <p>SPY/SPX Ratio: <span id="ratio-spy-spx">Loading...</span></p>
-            <p>ES/SPY Ratio: <span id="ratio-es-spy">Loading...</span></p>
-            <p>NQ/QQQ Ratio: <span id="ratio-nq-qqq">Loading...</span></p>
-            <p>NDX/QQQ Ratio: <span id="ratio-ndx-qqq">Loading...</span></p>
-            <p>ES/SPX Ratio: <span id="ratio-es-spx">Loading...</span></p>
+            <h3>Live Ratios (8 Decimal Places)</h3>
+            <p>SPX to SPY: <span id="ratio-spx-spy">Loading...</span></p>
+            <p>SPY to SPX: <span id="ratio-spy-spx">Loading...</span></p>
+            <p>ES to SPY: <span id="ratio-es-spy">Loading...</span></p>
+            <p>NQ to QQQ: <span id="ratio-nq-qqq">Loading...</span></p>
+            <p>NDX to QQQ: <span id="ratio-ndx-qqq">Loading...</span></p>
+            <p>ES to SPX: <span id="ratio-es-spx">Loading...</span></p>
         </div>
     </div>
 
@@ -95,6 +95,26 @@
                 window.location.href = 'dashboard.html';
             });
         }
+
+        // Fetch live ratios
+        function fetchLiveRatios() {
+            fetch(`${backendURL}/get_live_price`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("ratio-spx-spy").innerText = parseFloat(data["SPX/SPY"]).toFixed(8);
+                    document.getElementById("ratio-spy-spx").innerText = parseFloat(data["SPY/SPX"]).toFixed(8);
+                    document.getElementById("ratio-es-spy").innerText = parseFloat(data["ES/SPY"]).toFixed(8);
+                    document.getElementById("ratio-nq-qqq").innerText = parseFloat(data["NQ/QQQ"]).toFixed(8);
+                    document.getElementById("ratio-ndx-qqq").innerText = parseFloat(data["NDX/QQQ"]).toFixed(8);
+                    document.getElementById("ratio-es-spx").innerText = parseFloat(data["ES/SPX"]).toFixed(8);
+                })
+                .catch(error => console.error("Error fetching live ratios:", error));
+        }
+
+        fetchLiveRatios();
+        setInterval(fetchLiveRatios, 5000); // Refresh every 5 seconds
+
     </script>
 </body>
 </html>
+
