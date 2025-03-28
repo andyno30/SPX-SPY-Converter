@@ -1,138 +1,164 @@
 const proBackendURL = "https://spx-spy-converter-pro.onrender.com/get_live_price_pro"; // Updated Render backend
 
-let prices = {};
-let lastPrices = {}; // Stores last known valid prices
-let ratios = {};
+let prices = {};     // Holds the latest market prices
+let lastPrices = {}; // Holds the last known valid prices
+let ratios = {};     // Holds the latest conversion ratios
 
-// Fetch and update the live ratios from the backend
+// Define valid conversion pairs
+const validConversions = {
+  "SPX": ["SPY", "ES"],
+  "SPY": ["SPX", "ES"],
+  "ES": ["SPY", "SPX"],
+  "NQ": ["QQQ"],
+  "QQQ": ["NQ", "NDX"],
+  "NDX": ["QQQ"]
+};
+
+// Fetch live ratios and prices from the backend
 function updateProRatios() {
-    document.getElementById("conversionDate").textContent = "Loading...";
+  document.getElementById("conversionDate").textContent = "Loading...";
 
-    fetch(proBackendURL)
+  fetch(proBackendURL)
     .then(response => {
-        if (!response.ok) {
-            throw new Error(`Network response was not ok: ${response.statusText}`);
-        }
-        return response.json();
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.statusText}`);
+      }
+      return response.json();
     })
     .then(data => {
-        console.log("Received data:", data); // Debugging output
+      console.log("Received data:", data);
+      if (!data || !data.Prices) {
+        throw new Error("Invalid data format received from backend.");
+      }
 
-        if (!data || !data.Prices) {
-            throw new Error("Invalid data format received from backend.");
+      // Store latest prices
+      prices = data.Prices;
+
+      // Update last known valid prices
+      Object.keys(prices).forEach(ticker => {
+        if (prices[ticker] !== null && prices[ticker] !== undefined) {
+          lastPrices[ticker] = prices[ticker];
         }
+      });
 
-        // Update prices from the backend JSON (which now comes under "Prices")
-        prices = data.Prices;
+      // Store latest ratios
+      ratios = {
+        "SPX/SPY": data["SPX/SPY Ratio"],
+        "ES/SPY": data["ES/SPY Ratio"],
+        "NQ/QQQ": data["NQ/QQQ Ratio"],
+        "NDX/QQQ": data["NDX/QQQ Ratio"],
+        "ES/SPX": data["ES/SPX Ratio"]
+      };
 
-        // Update last known valid prices
-        Object.keys(prices).forEach(ticker => {
-            if (prices[ticker] !== null && prices[ticker] !== undefined) {
-                lastPrices[ticker] = prices[ticker];
-            }
-        });
-
-        // Set the ratios directly from data
-        ratios = {
-            "SPX/SPY": data["SPX/SPY Ratio"],
-            "ES/SPY": data["ES/SPY Ratio"],
-            "NQ/QQQ": data["NQ/QQQ Ratio"],
-            "NDX/QQQ": data["NDX/QQQ Ratio"],
-            "ES/SPX": data["ES/SPX Ratio"]
-        };
-
-        document.getElementById("conversionDate").textContent = data.Datetime || "Unknown";
-
-        // Update dropdown options based on valid conversions
-        updateDropdownOptions();
+      document.getElementById("conversionDate").textContent = data.Datetime || "Unknown";
+      updateDropdownOptions();
     })
     .catch(error => {
-        console.error('Error fetching premium data:', error);
-        document.getElementById("conversionDate").textContent = "Failed to load data. Please try again later.";
+      console.error('Error fetching premium data:', error);
+      document.getElementById("conversionDate").textContent = "Failed to load data. Please try again later.";
     });
 }
 
-// Function to update dropdown options based on selected "From" ticker
+// Update the "To" dropdown based on the selected "From" ticker
 function updateDropdownOptions() {
-    const fromDropdown = document.getElementById("from-ticker");
-    const toDropdown = document.getElementById("to-ticker");
+  const fromDropdown = document.getElementById("from-ticker");
+  const toDropdown = document.getElementById("to-ticker");
+  toDropdown.innerHTML = '<option value="">To</option>';
+  const fromValue = fromDropdown.value;
 
-    // Define valid conversion pairs.
-    // This ensures that for "SPX" only "SPY" is allowed and vice versa.
-    const validConversions = {
-        "SPX": ["SPY"],
-        "SPY": ["SPX"],
-        "ES": ["SPY", "SPX"],
-        "NQ": ["QQQ"],
-        "QQQ": ["NQ", "NDX"],
-        "NDX": ["QQQ"]
-    };
-
-    const fromValue = fromDropdown.value;
-    toDropdown.innerHTML = '<option value="">To</option>'; // Reset 'to' dropdown
-
-    if (fromValue && validConversions[fromValue]) {
-        validConversions[fromValue].forEach(ticker => {
-            const option = document.createElement("option");
-            option.value = ticker;
-            option.textContent = ticker;
-            toDropdown.appendChild(option);
-        });
-    }
-}
-
-// Function to update displayed ratios on the UI
-function updateRatioDisplay() {
-    // We assume the ratios are keyed as follows:
-    // "SPX/SPY", "ES/SPY", "NQ/QQQ", "NDX/QQQ", "ES/SPX"
-    const ratioMapping = {
-        "SPX/SPY": "ratio-spx-spy",
-        "ES/SPY": "ratio-es-spy",
-        "NQ/QQQ": "ratio-nq-qqq",
-        "NDX/QQQ": "ratio-ndx-qqq",
-        "ES/SPX": "ratio-es-spx"
-    };
-
-    Object.keys(ratioMapping).forEach(key => {
-        const element = document.getElementById(ratioMapping[key]);
-        if (element) {
-            element.textContent = ratios[key] !== undefined && ratios[key] !== null 
-                ? ratios[key].toFixed(8)
-                : "N/A";
-        }
+  if (fromValue && validConversions[fromValue]) {
+    validConversions[fromValue].forEach(optionValue => {
+      const option = document.createElement("option");
+      option.value = optionValue;
+      option.textContent = optionValue;
+      toDropdown.appendChild(option);
     });
+  }
 }
 
-// Conversion function based on ratios
+document.getElementById("from-ticker").addEventListener("change", updateDropdownOptions);
+
+// Conversion function using ratios
 function convertPremium() {
-    const fromTicker = document.getElementById("from-ticker").value;
-    const toTicker = document.getElementById("to-ticker").value;
-    const value = parseFloat(document.getElementById("convert-input").value);
+  const fromTicker = document.getElementById("from-ticker").value;
+  const toTicker = document.getElementById("to-ticker").value;
+  const inputValue = parseFloat(document.getElementById("convert-input").value);
 
-    if (!fromTicker || !toTicker || isNaN(value)) {
-        document.getElementById("convert-output").textContent = "Please select tickers and enter a value.";
-        return;
-    }
+  if (!fromTicker || !toTicker || isNaN(inputValue)) {
+    document.getElementById("convert-output").textContent = "Please select valid tickers and enter a value.";
+    return;
+  }
 
-    const ratioKey = `${fromTicker}/${toTicker}`;
-    const inverseRatioKey = `${toTicker}/${fromTicker}`;
-    let convertedValue;
+  const conversionMapping = {
+    "SPX->SPY": (v) => v / ratios["SPX/SPY"],
+    "SPY->SPX": (v) => v * ratios["SPX/SPY"],
+    "ES->SPY":  (v) => v / ratios["ES/SPY"],
+    "SPY->ES":  (v) => v * ratios["ES/SPY"],
+    "ES->SPX":  (v) => v / ratios["ES/SPX"],
+    "SPX->ES":  (v) => v * ratios["ES/SPX"],
+    "QQQ->NQ":  (v) => v * ratios["NQ/QQQ"],
+    "NQ->QQQ":  (v) => v / ratios["NQ/QQQ"],
+    "QQQ->NDX": (v) => v * ratios["NDX/QQQ"],
+    "NDX->QQQ": (v) => v / ratios["NDX/QQQ"]
+  };
 
-    if (ratios[ratioKey] !== undefined && ratios[ratioKey] !== null) {
-        convertedValue = value * ratios[ratioKey];
-    } else if (ratios[inverseRatioKey] !== undefined && ratios[inverseRatioKey] !== null) {
-        convertedValue = value / ratios[inverseRatioKey];
-    } else {
-        document.getElementById("convert-output").textContent = "Invalid conversion.";
-        return;
-    }
+  const key = `${fromTicker}->${toTicker}`;
+  const conversionFunction = conversionMapping[key];
 
-    document.getElementById("convert-output").textContent = `${toTicker}: ${convertedValue.toFixed(8)}`;
+  if (!conversionFunction || conversionFunction(inputValue) === undefined) {
+    document.getElementById("convert-output").textContent = "Invalid conversion.";
+    return;
+  }
+
+  const convertedValue = conversionFunction(inputValue);
+  document.getElementById("convert-output").textContent = `${toTicker}: ${convertedValue.toFixed(8)}`;
 }
 
-// Fetch ratios every 60 seconds
+// Update displayed ratios on the UI
+function updateRatioDisplay() {
+  const ratioMapping = {
+    "SPX/SPY": "ratio-spx-spy",
+    "ES/SPY": "ratio-es-spy",
+    "NQ/QQQ": "ratio-nq-qqq",
+    "NDX/QQQ": "ratio-ndx-qqq",
+    "ES/SPX": "ratio-es-spx"
+  };
+
+  Object.keys(ratioMapping).forEach(key => {
+    const element = document.getElementById(ratioMapping[key]);
+    if (element) {
+      element.textContent = (ratios[key] !== undefined && ratios[key] !== null)
+        ? ratios[key].toFixed(8)
+        : "N/A";
+    }
+  });
+}
+
+// Update displayed prices on the UI (Future Use)
+function updatePriceDisplay() {
+  const priceMapping = {
+    "SPX": "price-spx",
+    "SPY": "price-spy",
+    "ES": "price-es",
+    "NQ": "price-nq",
+    "QQQ": "price-qqq",
+    "NDX": "price-ndx"
+  };
+
+  Object.keys(priceMapping).forEach(ticker => {
+    const element = document.getElementById(priceMapping[ticker]);
+    if (element) {
+      element.textContent = (prices[ticker] !== undefined && prices[ticker] !== null)
+        ? `$${prices[ticker].toFixed(2)}`
+        : (lastPrices[ticker] !== undefined ? `$${lastPrices[ticker].toFixed(2)}` : "N/A");
+    }
+  });
+}
+
+// Automatically update the UI every second
+setInterval(updateRatioDisplay, 1000);
+setInterval(updatePriceDisplay, 1000);
+
+// Fetch new data every 60 seconds
 setInterval(updateProRatios, 60000);
 updateProRatios();
-
-// Update ratio display every second
-setInterval(updateRatioDisplay, 1000);
