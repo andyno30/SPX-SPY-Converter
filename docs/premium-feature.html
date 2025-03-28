@@ -1,166 +1,93 @@
-const proBackendURL = "https://spx-spy-converter-pro.onrender.com/get_live_price_pro"; // Updated Render backend
-
-let prices = {};
-let lastPrices = {}; // Stores last known valid prices
-let ratios = {};
-
-// Mapping to convert option values to normalized ticker symbols
-const tickerMapping = {
-    "^SPX": "SPX",
-    "SPY": "SPY",
-    "ES=F": "ES",
-    "NQ=F": "NQ",
-    "QQQ": "QQQ",
-    "^NDX": "NDX"
-};
-
-// Define valid conversion pairs based on normalized ticker symbols
-const validConversions = {
-    "SPX": ["SPY"],
-    "SPY": ["SPX"],
-    "ES": ["SPY", "SPX"],
-    "NQ": ["QQQ"],
-    "QQQ": ["NQ", "NDX"],
-    "NDX": ["QQQ"]
-};
-
-function updateProRatios() {
-    document.getElementById("conversionDate").textContent = "Loading...";
-
-    fetch(proBackendURL)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`Network response was not ok: ${response.statusText}`);
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log("Received data:", data);
-
-        if (!data || !data.Prices) {
-            throw new Error("Invalid data format received from backend.");
-        }
-
-        // Update prices from the backend JSON (which is under "Prices")
-        prices = data.Prices;
-
-        // Update last known valid prices
-        Object.keys(prices).forEach(ticker => {
-            if (prices[ticker] !== null && prices[ticker] !== undefined) {
-                lastPrices[ticker] = prices[ticker];
-            }
-        });
-
-        // Set ratios directly from backend data
-        ratios = {
-            "SPX/SPY": data["SPX/SPY Ratio"],
-            "ES/SPY": data["ES/SPY Ratio"],
-            "NQ/QQQ": data["NQ/QQQ Ratio"],
-            "NDX/QQQ": data["NDX/QQQ Ratio"],
-            "ES/SPX": data["ES/SPX Ratio"]
-        };
-
-        document.getElementById("conversionDate").textContent = data.Datetime || "Unknown";
-
-        // Update dropdown options based on the selected "From" ticker
-        updateDropdownOptions();
-    })
-    .catch(error => {
-        console.error('Error fetching premium data:', error);
-        document.getElementById("conversionDate").textContent = "Failed to load data. Please try again later.";
-    });
-}
-
-// Function to update dropdown options based on selected "From" ticker
-function updateDropdownOptions() {
-    const fromDropdown = document.getElementById("from-ticker");
-    const toDropdown = document.getElementById("to-ticker");
-
-    // Reset 'to' dropdown
-    toDropdown.innerHTML = '<option value="">To</option>';
-
-    const fromValueRaw = fromDropdown.value;
-    // Normalize the selected ticker (if available)
-    const fromValue = tickerMapping[fromValueRaw];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Conversion Tool - Spyconverter Pro</title>
+    <link href="pro_styles.css" rel="stylesheet"> <!-- Links to pro_styles.css -->
+    <script async crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2918914879248661"></script>
+</head>
+<body>
+    <nav>
+        <a class="logo" href="#"><h4>spyconverter.com</h4></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="relationship.html">Relationship</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li class="dropdown">
+                <a href="aboutus.html">About Us</a>
+                <div class="dropdown-content">
+                    <a href="aboutus.html#about-us">About Us</a>
+                    <a href="aboutus.html#privacy-policy">Privacy Policy</a>
+                    <a href="aboutus.html#contact-us">Contact Us</a>
+                    <a href="aboutus.html#disclaimer">Disclaimer</a>
+                    <a href="aboutus.html#terms-and-conditions">Terms and Conditions</a>
+                </div>
+            </li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+        </ul>
+    </nav>
     
-    if (fromValue && validConversions[fromValue]) {
-        validConversions[fromValue].forEach(normalizedTicker => {
-            // Find the corresponding raw ticker from our mapping
-            // In this simple case, assume raw value is the same as normalized for SPX and SPY,
-            // but for others you might need a reverse mapping if they differ.
-            // We'll assume:
-            // "ES" corresponds to "ES=F", "NQ" to "NQ=F", and "NDX" to "^NDX".
-            let rawTicker = normalizedTicker;
-            if (normalizedTicker === "ES") rawTicker = "ES=F";
-            if (normalizedTicker === "NQ") rawTicker = "NQ=F";
-            if (normalizedTicker === "NDX") rawTicker = "^NDX";
-            
-            const option = document.createElement("option");
-            option.value = rawTicker;
-            option.textContent = normalizedTicker;
-            toDropdown.appendChild(option);
-        });
-    }
-}
+    <div class="premium-container">
+        <h1>Premium Conversion Tool</h1>
+        <p>Conversion data last updated: <span id="conversionDate">Loading...</span></p>
+        
+        <div id="premium-conversion">
+            <div class="conversion-controls">
+                <select id="from-ticker">
+                    <option value="">From</option>
+                    <option value="SPX">SPX</option>
+                    <option value="SPY">SPY</option>
+                    <option value="ES">ES</option>
+                    <option value="NQ">NQ</option>
+                    <option value="QQQ">QQQ</option>
+                    <option value="NDX">NDX</option>
+                </select>
+                <select id="to-ticker">
+                    <option value="">To</option>
+                </select>
+                <input type="number" id="convert-input" placeholder="Enter value" step="0.01">
+                <button onclick="convertPremium()">Convert</button>
+            </div>
+            <p id="convert-output"></p>
+        </div>
 
-// Event listener: update 'to' dropdown when 'from' changes
-document.getElementById("from-ticker").addEventListener("change", updateDropdownOptions);
+        <div id="current-ratios">
+            <h3>Live Ratios</h3>
+            <p>SPX/SPY Ratio: <span id="ratio-spx-spy">Loading...</span></p>
+            <p>ES/SPY Ratio: <span id="ratio-es-spy">Loading...</span></p>
+            <p>NQ/QQQ Ratio: <span id="ratio-nq-qqq">Loading...</span></p>
+            <p>NDX/QQQ Ratio: <span id="ratio-ndx-qqq">Loading...</span></p>
+            <p>ES/SPX Ratio: <span id="ratio-es-spx">Loading...</span></p>
+        </div>
+    </div>
 
-// Function to update displayed ratios on the UI
-function updateRatioDisplay() {
-    // Define mapping of ratio keys to element IDs (use normalized ticker pairs)
-    const ratioMapping = {
-        "SPX/SPY": "ratio-spx-spy",
-        "ES/SPY": "ratio-es-spy",
-        "NQ/QQQ": "ratio-nq-qqq",
-        "NDX/QQQ": "ratio-ndx-qqq",
-        "ES/SPX": "ratio-es-spx"
-    };
-
-    Object.keys(ratioMapping).forEach(key => {
-        const element = document.getElementById(ratioMapping[key]);
-        if (element) {
-            element.textContent = ratios[key] !== undefined && ratios[key] !== null 
-                ? ratios[key].toFixed(8)
-                : "N/A";
-        }
-    });
-}
-
-// Conversion function based on ratios
-function convertPremium() {
-    const fromTickerRaw = document.getElementById("from-ticker").value;
-    const toTickerRaw = document.getElementById("to-ticker").value;
-    const value = parseFloat(document.getElementById("convert-input").value);
-
-    if (!fromTickerRaw || !toTickerRaw || isNaN(value)) {
-        document.getElementById("convert-output").textContent = "Please select tickers and enter a value.";
-        return;
-    }
-
-    // Normalize tickers
-    const fromTicker = tickerMapping[fromTickerRaw] || fromTickerRaw;
-    const toTicker = tickerMapping[toTickerRaw] || toTickerRaw;
+    <footer>
+        <p>© 2023 spyconverter.com. All rights reserved.</p>
+    </footer>
     
-    const ratioKey = `${fromTicker}/${toTicker}`;
-    const inverseRatioKey = `${toTicker}/${fromTicker}`;
-    let convertedValue;
+    <script src="pro_script.js"></script>
+    <script>
+        const token = localStorage.getItem('authToken');
+        const backendURL = "https://spx-spy-converter.onrender.com";
 
-    if (ratios[ratioKey] !== undefined && ratios[ratioKey] !== null) {
-        convertedValue = value * ratios[ratioKey];
-    } else if (ratios[inverseRatioKey] !== undefined && ratios[inverseRatioKey] !== null) {
-        convertedValue = value / ratios[inverseRatioKey];
-    } else {
-        document.getElementById("convert-output").textContent = "Invalid conversion.";
-        return;
-    }
-
-    document.getElementById("convert-output").textContent = `${toTicker}: ${convertedValue.toFixed(8)}`;
-}
-
-// Fetch ratios every 60 seconds
-setInterval(updateProRatios, 60000);
-updateProRatios();
-
-// Update displayed ratios every second
-setInterval(updateRatioDisplay, 1000);
+        if (!token) {
+            window.location.href = 'login.html';
+        } else {
+            fetch(`${backendURL}/user`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (!data.isSubscribed) {
+                    window.location.href = 'dashboard.html';
+                }
+            })
+            .catch(error => {
+                console.error('Error checking subscription:', error);
+                window.location.href = 'dashboard.html';
+            });
+        }
+    </script>
+</body>
+</html>
