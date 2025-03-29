@@ -21,29 +21,32 @@ CACHE_DURATION = timedelta(seconds=60)  # Cache data for 60 seconds
 def get_live_price_pro():
     global cached_data, cache_timestamp
 
-    # If cached data exists and is fresh, return it.
-    if cached_data is not None and cache_timestamp is not None:
-        if datetime.now() - cache_timestamp < CACHE_DURATION:
-            logger.info("Serving data from cache")
-            return jsonify(cached_data)
+    # Serve cached data if it's still fresh
+    if cached_data and cache_timestamp and (datetime.now() - cache_timestamp < CACHE_DURATION):
+        logger.info("Serving data from cache")
+        return jsonify(cached_data)
 
-    # Otherwise, fetch new data from yfinance
     tickers = ["^SPX", "SPY", "ES=F", "NQ=F", "QQQ", "^NDX"]
-    prices = {}
 
     try:
+        # Batch fetch using yf.download
+        data = yf.download(tickers, period="1d", interval="1m", group_by="ticker")
+        prices = {}
         for ticker in tickers:
-            stock = yf.Ticker(ticker)
-            try:
-                prices[ticker] = stock.fast_info["last_price"]
+            # If multiple tickers are returned, data[ticker] is a DataFrame;
+            # otherwise, for a single ticker, data itself is the DataFrame.
+            ticker_data = data[ticker] if ticker in data else data
+            # Get the last close price if available
+            if not ticker_data.empty:
+                prices[ticker] = ticker_data["Close"].iloc[-1]
                 logger.info(f"Successfully fetched price for {ticker}: {prices[ticker]}")
-            except (KeyError, AttributeError, Exception) as e:
+            else:
                 prices[ticker] = None
-                logger.error(f"Failed to fetch price for {ticker}: {str(e)}")
+                logger.error(f"No price data found for {ticker}")
 
         response_data = {
             "Datetime": datetime.now().strftime("%m/%d/%y %H:%M"),
-            "Prices": prices,  # Provide prices for potential live price display later
+            "Prices": prices,
             "SPX/SPY Ratio": prices["^SPX"] / prices["SPY"] if prices["SPY"] else None,
             "ES/SPY Ratio": prices["ES=F"] / prices["SPY"] if prices["SPY"] else None,
             "NQ/QQQ Ratio": prices["NQ=F"] / prices["QQQ"] if prices["QQQ"] else None,
