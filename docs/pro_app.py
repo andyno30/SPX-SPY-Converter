@@ -16,7 +16,7 @@ CORS(app)
 # Caching settings
 cached_data = None
 cache_timestamp = None
-CACHE_DURATION = timedelta(seconds=60)  # Cache data for 60 seconds
+CACHE_DURATION = timedelta(seconds=30)  # Cache data for 30 seconds
 
 @app.route('/get_live_price_pro')
 def get_live_price_pro():
