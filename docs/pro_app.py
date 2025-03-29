@@ -21,32 +21,29 @@ CACHE_DURATION = timedelta(seconds=60)  # Cache data for 60 seconds
 def get_live_price_pro():
     global cached_data, cache_timestamp
 
-    # Serve cached data if it's still fresh
-    if cached_data and cache_timestamp and (datetime.now() - cache_timestamp < CACHE_DURATION):
-        logger.info("Serving data from cache")
-        return jsonify(cached_data)
+    # If cached data exists and is fresh, return it.
+    if cached_data is not None and cache_timestamp is not None:
+        if datetime.now() - cache_timestamp < CACHE_DURATION:
+            logger.info("Serving data from cache")
+            return jsonify(cached_data)
 
+    # Otherwise, fetch new data from yfinance
     tickers = ["^SPX", "SPY", "ES=F", "NQ=F", "QQQ", "^NDX"]
+    prices = {}
 
     try:
-        # Batch fetch using yf.download
-        data = yf.download(tickers, period="1d", interval="1m", group_by="ticker")
-        prices = {}
         for ticker in tickers:
-            # If multiple tickers are returned, data[ticker] is a DataFrame;
-            # otherwise, for a single ticker, data itself is the DataFrame.
-            ticker_data = data[ticker] if ticker in data else data
-            # Get the last close price if available
-            if not ticker_data.empty:
-                prices[ticker] = ticker_data["Close"].iloc[-1]
+            stock = yf.Ticker(ticker)
+            try:
+                prices[ticker] = stock.fast_info["last_price"]
                 logger.info(f"Successfully fetched price for {ticker}: {prices[ticker]}")
-            else:
+            except (KeyError, AttributeError, Exception) as e:
                 prices[ticker] = None
-                logger.error(f"No price data found for {ticker}")
+                logger.error(f"Failed to fetch price for {ticker}: {str(e)}")
 
         response_data = {
             "Datetime": datetime.now().strftime("%m/%d/%y %H:%M"),
-            "Prices": prices,
+            "Prices": prices,  # Provide prices for potential live price display later
             "SPX/SPY Ratio": prices["^SPX"] / prices["SPY"] if prices["SPY"] else None,
             "ES/SPY Ratio": prices["ES=F"] / prices["SPY"] if prices["SPY"] else None,
             "NQ/QQQ Ratio": prices["NQ=F"] / prices["QQQ"] if prices["QQQ"] else None,
@@ -58,7 +55,7 @@ def get_live_price_pro():
         cached_data = response_data
         cache_timestamp = datetime.now()
 
-        logger.info(f"Returning fresh data: {response_data}")
+        logger.info(f"Returning data: {response_data}")
         return jsonify(response_data)
 
     except Exception as e:
