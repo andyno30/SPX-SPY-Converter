@@ -4,6 +4,7 @@ import yfinance as yf
 from datetime import datetime, timedelta
 import os
 import logging
+import pandas as pd
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -12,39 +13,45 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 CORS(app)
 
-# Caching settings: cache the data for 60 seconds
+# Caching settings
 cached_data = None
 cache_timestamp = None
-CACHE_DURATION = timedelta(seconds=60)
+CACHE_DURATION = timedelta(seconds=60)  # Cache data for 60 seconds
 
 @app.route('/get_live_price_pro')
 def get_live_price_pro():
     global cached_data, cache_timestamp
 
-    # If cached data is fresh, return it immediately
+    # If cached data exists and is fresh, return it
     if cached_data is not None and cache_timestamp is not None:
         if datetime.now() - cache_timestamp < CACHE_DURATION:
             logger.info("Serving data from cache")
             return jsonify(cached_data)
 
-    # Define tickers using their raw symbols for yfinance
+    # Define tickers
     tickers = ["^SPX", "SPY", "ES=F", "NQ=F", "QQQ", "^NDX"]
     prices = {}
 
     try:
-        # Batch fetch data for all tickers at once
+        # Batch fetch data for all tickers in one request
         data = yf.download(tickers, period="1d", interval="1m", group_by="ticker")
         logger.info("Batch data downloaded successfully")
-        
+
         for ticker in tickers:
             ticker_data = data[ticker] if ticker in data else data
-            if ticker_data is not None and not ticker_data.empty:
-                prices[ticker] = ticker_data["Close"].iloc[-1]
-                logger.info(f"Fetched {ticker}: {prices[ticker]}")
+            if ticker_data is not None and not ticker_data.empty and "Close" in ticker_data.columns:
+                # Get the last non-NaN closing price
+                last_close = ticker_data["Close"].dropna().iloc[-1] if not ticker_data["Close"].isna().all() else None
+                prices[ticker] = last_close
+                if last_close is not None:
+                    logger.info(f"Fetched {ticker}: {prices[ticker]}")
+                else:
+                    logger.error(f"No valid price data found for {ticker}")
             else:
                 prices[ticker] = None
-                logger.error(f"No data found for {ticker}")
-        
+                logger.error(f"No data or Close column for {ticker}")
+
+        # Construct response
         response_data = {
             "Datetime": datetime.now().strftime("%m/%d/%y %H:%M"),
             "Prices": prices,
@@ -55,7 +62,7 @@ def get_live_price_pro():
             "ES/SPX Ratio": prices["ES=F"] / prices["^SPX"] if prices["^SPX"] else None,
         }
 
-        # Update the cache
+        # Update cache
         cached_data = response_data
         cache_timestamp = datetime.now()
 
