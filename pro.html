@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPY Converter Pro - Professional Financial Conversion Tools</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://js.stripe.com/v3/"></script> <!-- Stripe.js -->
     <style>
         /* Reset and Base Styles */
         * {
@@ -13,13 +14,11 @@
             box-sizing: border-box;
             font-family: 'Arial', sans-serif;
         }
-
         body {
             line-height: 1.6;
             color: #333;
             background-color: #f8f9fa;
         }
-
         /* Header Styles */
         .header {
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
@@ -30,7 +29,6 @@
             top: 0;
             z-index: 1000;
         }
-
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -38,25 +36,21 @@
             justify-content: space-between;
             align-items: center;
         }
-
         .logo {
             font-size: 1.5rem;
             font-weight: bold;
             text-decoration: none;
             color: white;
         }
-
         .nav-links {
             display: flex;
             gap: 2rem;
         }
-
         .nav-links a {
             color: white;
             text-decoration: none;
             font-weight: 500;
         }
-
         /* Hero Section */
         .hero {
             padding: 8rem 2rem 4rem;
@@ -64,12 +58,10 @@
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
         }
-
         .hero h1 {
             font-size: 2.5rem;
             margin-bottom: 1.5rem;
         }
-
         .hero p {
             font-size: 1.2rem;
             margin-bottom: 2rem;
@@ -77,28 +69,27 @@
             margin-left: auto;
             margin-right: auto;
         }
-
         .cta-button {
             display: inline-block;
             padding: 1rem 2rem;
+            font-size: 1.2rem;
             background-color: #4CAF50;
             color: white;
             text-decoration: none;
             border-radius: 5px;
             font-weight: bold;
             transition: transform 0.3s ease;
+            cursor: pointer;
+            border: none;
         }
-
         .cta-button:hover {
             transform: translateY(-2px);
         }
-
         /* Features Section */
         .features {
             padding: 4rem 2rem;
             background-color: white;
         }
-
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -106,26 +97,22 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-
         .feature-card {
             padding: 2rem;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
-
         .feature-icon {
             font-size: 2.5rem;
             color: #1e3c72;
             margin-bottom: 1rem;
         }
-
         /* Pricing Section */
         .pricing {
             padding: 4rem 2rem;
             text-align: center;
         }
-
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -133,26 +120,22 @@
             max-width: 1200px;
             margin: 2rem auto;
         }
-
         .price-card {
             background: white;
             padding: 2rem;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-
         .price-card h3 {
             color: #1e3c72;
             margin-bottom: 1rem;
         }
-
         .price {
             font-size: 2.5rem;
             font-weight: bold;
             margin: 1rem 0;
             color: #4CAF50;
         }
-
         /* Footer */
         .footer {
             background-color: #1e3c72;
@@ -160,12 +143,10 @@
             padding: 2rem;
             text-align: center;
         }
-
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
             }
-            
             .hero h1 {
                 font-size: 2rem;
             }
@@ -221,7 +202,8 @@
                     <li>✔ Real-Time Ratio Updates</li>
                     <li>✔ Email Support</li>
                 </ul>
-                <a href="https://spyconverter.com/docs/login.html" class="cta-button">Subscribe</a>
+                <!-- Subscribe button calls subscribe function with 'monthly' plan -->
+                <button class="cta-button" onclick="subscribe('monthly')">Subscribe</button>
             </div>
             <div class="price-card">
                 <h3>6-Months</h3>
@@ -232,7 +214,8 @@
                     <li>✔ Real-Time Ratio Updates</li>
                     <li>✔ Email Support</li>
                 </ul>
-                <a href="https://spyconverter.com/docs/login.html" class="cta-button">Subscribe</a>
+                <!-- Subscribe button calls subscribe function with 'six_months' plan -->
+                <button class="cta-button" onclick="subscribe('six_months')">Subscribe</button>
             </div>
         </div>
     </section>
@@ -244,5 +227,39 @@
             <a href="aboutus.html#terms-and-conditions" style="color: white; margin: 0 1rem;">Terms and Conditions</a>
         </div>
     </footer>
+
+    <script>
+        // Initialize Stripe with your publishable key (make sure it's a string)
+        const stripe = Stripe("pk_live_51MqL3m2mY7zktgIWWFuF9bIJrCYE0ybD66xazAVmsTZQFU1hYOEk3KsMQ0qB92LCqEMxBjymYDAi33U8kIhdvqvM00NaRSJIoe");
+        const backendURL = "https://spx-spy-converter.onrender.com";
+
+        async function subscribe(plan) {
+            const token = localStorage.getItem("authToken");
+            if (!token) {
+                // If not logged in, redirect to login page
+                window.location.href = "https://spyconverter.com/docs/login.html";
+                return;
+            }
+            try {
+                const response = await fetch(`${backendURL}/subscribe`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ plan: plan })
+                });
+                const data = await response.json();
+                if (response.ok && data.url) {
+                    window.location.href = data.url; // Redirect to Stripe Checkout
+                } else {
+                    alert(data.message || "Subscription failed. Please try again.");
+                }
+            } catch (error) {
+                console.error("Subscribe error:", error);
+                alert("Server error. Please try again.");
+            }
+        }
+    </script>
 </body>
 </html>
