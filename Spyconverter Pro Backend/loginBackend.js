@@ -23,15 +23,30 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
         console.log(`Webhook event type: ${event.type}`);
         if (event.type === 'checkout.session.completed') {
             const session = event.data.object;
-            const userId = session.metadata.userId;
-            console.log(`Processing checkout.session.completed for userId: ${userId}`);
+            const userId = session.metadata?.userId;
+            console.log(`Processing checkout.session.completed - Session ID: ${session.id}, User ID from metadata: ${userId}`);
+
+            if (!userId) {
+                console.error('No userId found in session metadata');
+                return res.status(400).send('Webhook Error: Missing userId in metadata');
+            }
+
             // Mark user as subscribed
-            const user = await User.findByIdAndUpdate(userId, { isSubscribed: true }, { new: true });
-            console.log(`User ${userId} subscribed successfully, updated: ${user.isSubscribed}`);
+            const user = await User.findByIdAndUpdate(
+                userId,
+                { isSubscribed: true },
+                { new: true }
+            );
+
+            if (user) {
+                console.log(`User ${userId} subscribed successfully - Updated isSubscribed: ${user.isSubscribed}`);
+            } else {
+                console.error(`User not found for userId: ${userId}`);
+            }
         }
         res.status(200).send('Webhook received');
     } catch (error) {
-        console.error("Webhook error:", error.message);
+        console.error('Webhook error:', error.message);
         res.status(400).send(`Webhook Error: ${error.message}`);
     }
 });
@@ -41,8 +56,8 @@ app.use(bodyParser.json());
 
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://andyno30:jmRH2kOt84mHP5KY@spyconverterpro.a8m8g.mongodb.net/spyconverterDB?retryWrites=true&w=majority&appName=spyconverterpro')
-    .then(() => console.log("Connected to MongoDB"))
-    .catch((err) => console.error("Error connecting to MongoDB:", err));
+    .then(() => console.log('Connected to MongoDB'))
+    .catch((err) => console.error('Error connecting to MongoDB:', err));
 
 // Define User schema and model
 const userSchema = new mongoose.Schema({
@@ -65,7 +80,7 @@ const authenticateToken = (req, res, next) => {
 };
 
 // Test Route
-app.get("/", (req, res) => res.send("Server is running successfully!"));
+app.get('/', (req, res) => res.send('Server is running successfully!'));
 
 // Registration endpoint
 app.post('/register', async (req, res) => {
@@ -83,7 +98,7 @@ app.post('/register', async (req, res) => {
         console.log(`User registered: ${email}, Subscribed: ${isSubscribed}`);
         res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
-        console.error("Registration error:", error.message);
+        console.error('Registration error:', error.message);
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 });
@@ -99,7 +114,7 @@ app.post('/login', async (req, res) => {
         const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
         res.json({ message: 'Login successful', token, isSubscribed: user.isSubscribed });
     } catch (error) {
-        console.error("Login error:", error.message);
+        console.error('Login error:', error.message);
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 });
@@ -111,7 +126,7 @@ app.delete('/delete-account', authenticateToken, async (req, res) => {
         if (!user) return res.status(404).json({ message: 'User not found' });
         res.json({ message: 'Account deleted successfully' });
     } catch (error) {
-        console.error("Delete account error:", error.message);
+        console.error('Delete account error:', error.message);
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 });
@@ -123,7 +138,7 @@ app.get('/user', authenticateToken, async (req, res) => {
         if (!user) return res.status(404).json({ message: 'User not found' });
         res.json({ email: user.email, isSubscribed: user.isSubscribed });
     } catch (error) {
-        console.error("User fetch error:", error.message);
+        console.error('User fetch error:', error.message);
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 });
@@ -135,8 +150,6 @@ const PRICE_IDS = {
 };
 
 // Subscribe endpoint (Stripe Checkout)
-// This route creates a Stripe Checkout session for subscriptions and returns its URL.
-// Note: Users must be logged in (i.e., have a valid token) to access this endpoint.
 app.post('/subscribe', authenticateToken, async (req, res) => {
     try {
         const user = await User.findById(req.user.userId);
@@ -155,15 +168,15 @@ app.post('/subscribe', authenticateToken, async (req, res) => {
                 quantity: 1,
             }],
             mode: 'subscription',
-            success_url: `https://spyconverter.com/docs/dashboard.html?success=true`,
-            cancel_url: `https://spyconverter.com/docs/dashboard.html?cancel=true`,
+            success_url: 'https://spyconverter.com/docs/dashboard.html?success=true',
+            cancel_url: 'https://spyconverter.com/docs/dashboard.html?cancel=true',
             metadata: { userId: req.user.userId.toString() },
         });
 
         console.log(`Stripe session created for ${user.email}: ${session.url}, UserID: ${req.user.userId}`);
         res.json({ url: session.url });
     } catch (error) {
-        console.error("Subscribe error:", error.message);
+        console.error('Subscribe error:', error.message);
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 });
