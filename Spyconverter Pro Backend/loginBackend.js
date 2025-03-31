@@ -8,11 +8,10 @@ const stripe = require('stripe')('sk_test_51MqL3m2mY7zktgIWmVU2SOayxmR8mzB4jkGU7
 
 const app = express();
 
-// Enable CORS and JSON body parsing (note: webhook uses raw body)
+// Enable CORS for all routes
 app.use(cors());
-app.use(bodyParser.json());
 
-// Webhook route (must come before bodyParser.json() for other routes)
+// Webhook route - Must come BEFORE bodyParser.json() to receive raw body
 app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
     const sig = req.headers['stripe-signature'];
     const endpointSecret = 'whsec_WAscj1OAPl2ITWHTPYa4bFHzJtoFPWuf'; // Test mode webhook secret
@@ -51,7 +50,7 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
     }
 });
 
-// Apply JSON body parser for all other routes
+// Apply JSON body parser for all other routes AFTER webhook
 app.use(bodyParser.json());
 
 // Connect to MongoDB
