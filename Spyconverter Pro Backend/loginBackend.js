@@ -8,10 +8,11 @@ const stripe = require('stripe')('sk_test_51MqL3m2mY7zktgIWmVU2SOayxmR8mzB4jkGU7
 
 const app = express();
 
-// Middleware for CORS
+// Enable CORS and JSON body parsing (note: webhook uses raw body)
 app.use(cors());
+app.use(bodyParser.json());
 
-// Webhook route (must come before bodyParser.json() to preserve raw body)
+// Webhook route (must come before bodyParser.json() for other routes)
 app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
     const sig = req.headers['stripe-signature'];
     const endpointSecret = 'whsec_WAscj1OAPl2ITWHTPYa4bFHzJtoFPWuf'; // Test mode webhook secret
@@ -24,31 +25,31 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
             const session = event.data.object;
             const userId = session.metadata.userId;
             console.log(`Processing checkout.session.completed for userId: ${userId}`);
+            // Mark user as subscribed
             const user = await User.findByIdAndUpdate(userId, { isSubscribed: true }, { new: true });
             console.log(`User ${userId} subscribed successfully, updated: ${user.isSubscribed}`);
         }
         res.status(200).send('Webhook received');
     } catch (error) {
-        console.log("Webhook error:", error.message);
+        console.error("Webhook error:", error.message);
         res.status(400).send(`Webhook Error: ${error.message}`);
     }
 });
 
-// Apply bodyParser.json() for other routes AFTER webhook
+// Apply JSON body parser for all other routes
 app.use(bodyParser.json());
 
-// MongoDB connection
+// Connect to MongoDB
 mongoose.connect('mongodb+srv://andyno30:jmRH2kOt84mHP5KY@spyconverterpro.a8m8g.mongodb.net/spyconverterDB?retryWrites=true&w=majority&appName=spyconverterpro')
     .then(() => console.log("Connected to MongoDB"))
-    .catch((err) => console.log("Error connecting to MongoDB:", err));
+    .catch((err) => console.error("Error connecting to MongoDB:", err));
 
-// User schema
+// Define User schema and model
 const userSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     isSubscribed: { type: Boolean, default: false }
 });
-
 const User = mongoose.model('User', userSchema);
 
 // Middleware to verify JWT token
@@ -82,7 +83,7 @@ app.post('/register', async (req, res) => {
         console.log(`User registered: ${email}, Subscribed: ${isSubscribed}`);
         res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
-        console.log("Registration error:", error.message);
+        console.error("Registration error:", error.message);
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 });
@@ -98,7 +99,7 @@ app.post('/login', async (req, res) => {
         const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
         res.json({ message: 'Login successful', token, isSubscribed: user.isSubscribed });
     } catch (error) {
-        console.log("Login error:", error.message);
+        console.error("Login error:", error.message);
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 });
@@ -110,7 +111,7 @@ app.delete('/delete-account', authenticateToken, async (req, res) => {
         if (!user) return res.status(404).json({ message: 'User not found' });
         res.json({ message: 'Account deleted successfully' });
     } catch (error) {
-        console.log("Delete account error:", error.message);
+        console.error("Delete account error:", error.message);
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 });
@@ -122,30 +123,38 @@ app.get('/user', authenticateToken, async (req, res) => {
         if (!user) return res.status(404).json({ message: 'User not found' });
         res.json({ email: user.email, isSubscribed: user.isSubscribed });
     } catch (error) {
-        console.log("User fetch error:", error.message);
+        console.error("User fetch error:", error.message);
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 });
 
+// Define Price IDs for subscription plans
+const PRICE_IDS = {
+    monthly: 'price_1R8asf2mY7zktgIWwfJrm6og',   // $4 per month
+    six_months: 'price_1R8asf2mY7zktgIWEr7PXKK2' // $18 every 6 months
+};
+
 // Subscribe endpoint (Stripe Checkout)
+// This route creates a Stripe Checkout session for subscriptions and returns its URL.
+// Note: Users must be logged in (i.e., have a valid token) to access this endpoint.
 app.post('/subscribe', authenticateToken, async (req, res) => {
     try {
         const user = await User.findById(req.user.userId);
         if (!user) return res.status(404).json({ message: 'User not found' });
         if (user.isSubscribed) return res.status(400).json({ message: 'Already subscribed' });
-        console.log(`Attempting Stripe session for ${user.email}`);
+
+        const plan = req.body.plan;
+        if (!plan || !PRICE_IDS[plan]) return res.status(400).json({ message: 'Invalid plan' });
+
+        console.log(`Attempting Stripe session for ${user.email} with plan ${plan}`);
 
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: [{
-                price_data: {
-                    currency: 'usd',
-                    product_data: { name: 'Spyconverter Pro Subscription' },
-                    unit_amount: 1000, // $10.00
-                },
+                price: PRICE_IDS[plan],
                 quantity: 1,
             }],
-            mode: 'payment',
+            mode: 'subscription',
             success_url: `https://spyconverter.com/docs/dashboard.html?success=true`,
             cancel_url: `https://spyconverter.com/docs/dashboard.html?cancel=true`,
             metadata: { userId: req.user.userId.toString() },
@@ -154,11 +163,10 @@ app.post('/subscribe', authenticateToken, async (req, res) => {
         console.log(`Stripe session created for ${user.email}: ${session.url}, UserID: ${req.user.userId}`);
         res.json({ url: session.url });
     } catch (error) {
-        console.log("Subscribe error:", error.message);
+        console.error("Subscribe error:", error.message);
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 });
 
-// Start the server
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
