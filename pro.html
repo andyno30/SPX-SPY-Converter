@@ -160,7 +160,7 @@
             <div class="nav-links">
                 <a href="#features">Features</a>
                 <a href="#pricing">Pricing</a>
-                <a href="https://spyconverter.com/docs/login.html">Login</a>
+                <a href="https://spyconverter.com/docs/login.html" id="auth-link">Login</a>
             </div>
         </nav>
     </header>
@@ -202,7 +202,6 @@
                     <li>✔ Real-Time Ratio Updates</li>
                     <li>✔ Email Support</li>
                 </ul>
-                <!-- Subscribe button calls subscribe function with 'monthly' plan -->
                 <button class="cta-button" onclick="subscribe('monthly')">Subscribe</button>
             </div>
             <div class="price-card">
@@ -214,7 +213,6 @@
                     <li>✔ Real-Time Ratio Updates</li>
                     <li>✔ Email Support</li>
                 </ul>
-                <!-- Subscribe button calls subscribe function with 'six_months' plan -->
                 <button class="cta-button" onclick="subscribe('six_months')">Subscribe</button>
             </div>
         </div>
@@ -229,14 +227,35 @@
     </footer>
 
     <script>
-        // Initialize Stripe with your publishable key (make sure it's a string)
+        // Initialize Stripe with your publishable key
         const stripe = Stripe("pk_live_51MqL3m2mY7zktgIWWFuF9bIJrCYE0ybD66xazAVmsTZQFU1hYOEk3KsMQ0qB92LCqEMxBjymYDAi33U8kIhdvqvM00NaRSJIoe");
         const backendURL = "https://spx-spy-converter.onrender.com";
+
+        // Check login status and update nav link on page load
+        function updateAuthLink() {
+            const token = localStorage.getItem("authToken");
+            const authLink = document.getElementById("auth-link");
+            if (token) {
+                authLink.textContent = "Logout";
+                authLink.href = "#"; // Prevent default navigation
+                authLink.onclick = function() {
+                    localStorage.removeItem("authToken");
+                    window.location.href = "https://spyconverter.com/docs/login.html";
+                    return false; // Prevent link default behavior
+                };
+            } else {
+                authLink.textContent = "Login";
+                authLink.href = "https://spyconverter.com/docs/login.html";
+                authLink.onclick = null; // Clear any previous onclick
+            }
+        }
+
+        // Run on page load
+        document.addEventListener("DOMContentLoaded", updateAuthLink);
 
         async function subscribe(plan) {
             const token = localStorage.getItem("authToken");
             if (!token) {
-                // If not logged in, redirect to login page
                 window.location.href = "https://spyconverter.com/docs/login.html";
                 return;
             }
