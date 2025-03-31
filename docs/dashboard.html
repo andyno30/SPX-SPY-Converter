@@ -18,15 +18,19 @@
     </div>
     <script src="script.js"></script>
     <script>
+        function loadUserInfo() {
+            fetchUserInfo(); // Fetch user info immediately on load
+            if (window.location.search.includes('success=true')) {
+                document.getElementById('user-status').textContent = 'Processing subscription...';
+                setTimeout(fetchUserInfo, 3000); // Refetch after 3s to catch webhook update
+            }
+        }
+
         const token = localStorage.getItem('authToken');
         if (!token) {
             window.location.href = 'login.html';
         } else {
-            fetchUserInfo();
-            if (window.location.search.includes('success=true')) {
-                document.getElementById('user-status').textContent = 'Processing subscription...';
-                setTimeout(fetchUserInfo, 3000);
-            }
+            loadUserInfo();
         }
 
         document.getElementById('subscribe-btn').addEventListener('click', function() {
