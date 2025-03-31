@@ -23,6 +23,10 @@
             window.location.href = 'login.html';
         } else {
             fetchUserInfo();
+            if (window.location.search.includes('success=true')) {
+                document.getElementById('user-status').textContent = 'Processing subscription...';
+                setTimeout(fetchUserInfo, 3000);
+            }
         }
 
         document.getElementById('subscribe-btn').addEventListener('click', function() {
