@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
-const stripe = require('stripe')('sk_test_51MqL3m2mY7zktgIWmVU2SOayxmR8mzB4jkGU7NDeURDufBlBAq2McwNsCw9tYltg83BguEX888A3XTk5JH7uRtPN00I8c1joeC');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
 
@@ -14,7 +14,7 @@ app.use(cors());
 // Webhook route - Must come BEFORE bodyParser.json() to receive raw body
 app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
     const sig = req.headers['stripe-signature'];
-    const endpointSecret = 'whsec_WAscj1OAPl2ITWHTPYa4bFHzJtoFPWuf'; // Test mode webhook secret
+    const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
     console.log('Webhook received, processing...');
     try {
@@ -30,7 +30,6 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
                 return res.status(400).send('Webhook Error: Missing userId in metadata');
             }
 
-            // Mark user as subscribed
             const user = await User.findByIdAndUpdate(
                 userId,
                 { isSubscribed: true },
@@ -71,7 +70,7 @@ const authenticateToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
     if (!token) return res.status(401).json({ message: 'No token provided' });
-    jwt.verify(token, 'your-secret-key', (err, user) => {
+    jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key', (err, user) => {
         if (err) return res.status(403).json({ message: 'Invalid or expired token' });
         req.user = user;
         next();
@@ -110,7 +109,7 @@ app.post('/login', async (req, res) => {
         if (!user) return res.status(400).json({ message: 'User not found' });
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
-        const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET || 'your-secret-key', { expiresIn: '1h' });
         res.json({ message: 'Login successful', token, isSubscribed: user.isSubscribed });
     } catch (error) {
         console.error('Login error:', error.message);
@@ -144,8 +143,8 @@ app.get('/user', authenticateToken, async (req, res) => {
 
 // Define Price IDs for subscription plans
 const PRICE_IDS = {
-    monthly: 'price_1R8asf2mY7zktgIWwfJrm6og',   // $4 per month
-    six_months: 'price_1R8asf2mY7zktgIWEr7PXKK2' // $18 every 6 months
+    monthly: 'price_1R8cFp2mY7zktgIWDmDVEhZA',   // $4 per month
+    six_months: 'price_1R8cFp2mY7zktgIWS8YzDrb7' // $18 every 6 months
 };
 
 // Subscribe endpoint (Stripe Checkout)
