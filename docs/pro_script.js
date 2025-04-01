@@ -50,7 +50,27 @@ function updateProRatios() {
         "ES/SPX": data["ES/SPX Ratio"]
       };
 
-      document.getElementById("conversionDate").textContent = data.Datetime || "Unknown";
+      // Convert server timestamp to user's local time
+      let localDate;
+      if (data.Datetime && data.Datetime !== "Unknown") {
+        // Assuming format "MM/DD/YY HH:MM" like "04/01/25 23:46"
+        const [datePart, timePart] = data.Datetime.split(' ');
+        const [month, day, year] = datePart.split('/');
+        const [hour, minute] = timePart.split(':');
+        const serverDate = new Date(`20${year}-${month}-${day}T${hour}:${minute}:00`);
+        localDate = serverDate.toLocaleString('en-US', {
+          month: 'numeric',
+          day: 'numeric',
+          year: 'numeric',
+          hour: 'numeric',
+          minute: 'numeric',
+          hour12: true
+        });
+      } else {
+        localDate = "Unknown";
+      }
+      document.getElementById("conversionDate").textContent = localDate;
+
       updateDropdownOptions();
     })
     .catch(error => {
