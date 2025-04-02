@@ -10,56 +10,50 @@ import pandas as pd
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Initialize Flask app
 app = Flask(__name__)
-CORS(app)  # Enable CORS for cross-origin requests
+CORS(app)
 
 # Caching settings
 cached_data = None
 cache_timestamp = None
-CACHE_DURATION = timedelta(seconds=45)  # Cache data for 45 seconds
+CACHE_DURATION = timedelta(seconds=60)  # Cache data for 60 seconds
 
 @app.route('/get_live_price_pro')
 def get_live_price_pro():
     global cached_data, cache_timestamp
 
-    # Check if cached data exists and is still fresh (within 45 seconds)
+    # If cached data exists and is fresh, return it
     if cached_data is not None and cache_timestamp is not None:
         if datetime.now() - cache_timestamp < CACHE_DURATION:
             logger.info("Serving data from cache")
             return jsonify(cached_data)
 
-    # Define the list of tickers to fetch
+    # Define tickers
     tickers = ["^SPX", "SPY", "ES=F", "NQ=F", "QQQ", "^NDX"]
     prices = {}
 
     try:
-        # Fetch data for all tickers in one batch request
+        # Batch fetch data for all tickers in one request
         data = yf.download(tickers, period="1d", interval="1m", group_by="ticker")
         logger.info("Batch data downloaded successfully")
 
-        # Process data for each ticker
         for ticker in tickers:
             ticker_data = data[ticker] if ticker in data else data
             if ticker_data is not None and not ticker_data.empty and "Close" in ticker_data.columns:
                 # Get the last non-NaN closing price
                 last_close = ticker_data["Close"].dropna().iloc[-1] if not ticker_data["Close"].isna().all() else None
+                prices[ticker] = last_close
                 if last_close is not None:
-                    prices[ticker] = last_close
+                    logger.info(f"Fetched {ticker}: {prices[ticker]}")
                 else:
-                    # Fallback to previous close if no valid intraday data
-                    stock = yf.Ticker(ticker)
-                    prices[ticker] = stock.info.get("previousClose", None)
-                    logger.info(f"Fallback to previous close for {ticker}: {prices[ticker]}")
+                    logger.error(f"No valid price data found for {ticker}")
             else:
-                # Fallback if no intraday data is available
-                stock = yf.Ticker(ticker)
-                prices[ticker] = stock.info.get("previousClose", None)
-                logger.info(f"Fallback to previous close for {ticker}: {prices[ticker]}")
+                prices[ticker] = None
+                logger.error(f"No data or Close column for {ticker}")
 
-        # Construct the response with prices and calculated ratios
+        # Construct response
         response_data = {
-            "Datetime": datetime.utcnow().isoformat() + "Z",  # UTC timestamp in ISO format
+            "Datetime": datetime.utcnow().isoformat() + "Z",  # Updated to UTC in ISO format
             "Prices": prices,
             "SPX/SPY Ratio": prices["^SPX"] / prices["SPY"] if prices["SPY"] else None,
             "ES/SPY Ratio": prices["ES=F"] / prices["SPY"] if prices["SPY"] else None,
@@ -68,7 +62,7 @@ def get_live_price_pro():
             "ES/SPX Ratio": prices["ES=F"] / prices["^SPX"] if prices["^SPX"] else None,
         }
 
-        # Update cache with fresh data
+        # Update cache
         cached_data = response_data
         cache_timestamp = datetime.now()
 
@@ -76,11 +70,9 @@ def get_live_price_pro():
         return jsonify(response_data)
 
     except Exception as e:
-        # Handle any errors during data fetching
         logger.error(f"Unexpected error: {str(e)}")
         return jsonify({"error": f"Failed to fetch data: {str(e)}"}), 500
 
 if __name__ == '__main__':
-    # Run the Flask app on the specified port (default 10000)
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port)
