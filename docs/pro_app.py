@@ -1,178 +1,88 @@
-const proBackendURL = "https://spx-spy-converter-pro.onrender.com/get_live_price_pro"; // Updated Render backend
+from flask import Flask, jsonify
+from flask_cors import CORS
+import yfinance as yf
+from datetime import datetime, timedelta
+import os
+import logging
+import pandas as pd
 
-let prices = {};     // Holds the latest market prices
-let lastPrices = {}; // Holds the last known valid prices
-let ratios = {};     // Holds the latest conversion ratios
-let lastValidDate = "Unknown"; // Store the last successful timestamp
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-// Define valid conversion pairs
-const validConversions = {
-  "SPX": ["SPY", "ES"],
-  "SPY": ["SPX", "ES"],
-  "ES": ["SPY", "SPX"],
-  "NQ": ["QQQ"],
-  "QQQ": ["NQ", "NDX"],
-  "NDX": ["QQQ"]
-};
+# Initialize Flask app
+app = Flask(__name__)
+CORS(app)  # Enable CORS for cross-origin requests
 
-// Fetch live ratios and prices from the backend
-function updateProRatios() {
-  document.getElementById("conversionDate").textContent = "Loading...";
+# Caching settings
+cached_data = None
+cache_timestamp = None
+CACHE_DURATION = timedelta(seconds=60)  # Cache data for 1 minute
 
-  fetch(proBackendURL)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.statusText}`);
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log("Received data:", data);
-      if (!data || !data.Prices) {
-        throw new Error("Invalid data format received from backend.");
-      }
+@app.route('/get_live_price_pro')
+def get_live_price_pro():
+    global cached_data, cache_timestamp
 
-      // Store latest prices
-      prices = data.Prices;
+    # Check if cached data exists and is still fresh (within 1 minute)
+    if cached_data is not None and cache_timestamp is not None:
+        if datetime.now() - cache_timestamp < CACHE_DURATION:
+            logger.info("Serving data from cache")
+            return jsonify(cached_data)
 
-      // Update last known valid prices
-      Object.keys(prices).forEach(ticker => {
-        if (prices[ticker] !== null && prices[ticker] !== undefined) {
-          lastPrices[ticker] = prices[ticker];
+    # Define the list of tickers to fetch
+    tickers = ["^SPX", "SPY", "ES=F", "NQ=F", "QQQ", "^NDX"]
+    prices = {}
+
+    try:
+        # Fetch data for all tickers in one batch request
+        data = yf.download(tickers, period="1d", interval="1m", group_by="ticker")
+        logger.info("Batch data downloaded successfully")
+
+        # Process data for each ticker
+        for ticker in tickers:
+            ticker_data = data[ticker] if ticker in data else data
+            if ticker_data is not None and not ticker_data.empty and "Close" in ticker_data.columns:
+                last_close = ticker_data["Close"].dropna().iloc[-1] if not ticker_data["Close"].isna().all() else None
+                if last_close is not None:
+                    prices[ticker] = last_close
+                else:
+                    # Fallback to previous close if no valid intraday data
+                    stock = yf.Ticker(ticker)
+                    prices[ticker] = stock.info.get("previousClose", None)
+                    logger.info(f"Fallback to previous close for {ticker}: {prices[ticker]}")
+            else:
+                # Fallback if no intraday data is available
+                stock = yf.Ticker(ticker)
+                prices[ticker] = stock.info.get("previousClose", None)
+                logger.info(f"Fallback to previous close for {ticker}: {prices[ticker]}")
+
+        # Construct the response with prices and calculated ratios
+        response_data = {
+            "Datetime": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),  # UTC timestamp without microseconds
+            "Prices": prices,
+            "SPX/SPY Ratio": prices["^SPX"] / prices["SPY"] if prices["SPY"] else None,
+            "ES/SPY Ratio": prices["ES=F"] / prices["SPY"] if prices["SPY"] else None,
+            "NQ/QQQ Ratio": prices["NQ=F"] / prices["QQQ"] if prices["QQQ"] else None,
+            "NDX/QQQ Ratio": prices["^NDX"] / prices["QQQ"] if prices["QQQ"] else None,
+            "ES/SPX Ratio": prices["ES=F"] / prices["^SPX"] if prices["^SPX"] else None,
         }
-      });
 
-      // Store latest ratios
-      ratios = {
-        "SPX/SPY": data["SPX/SPY Ratio"],
-        "ES/SPY": data["ES/SPY Ratio"],
-        "NQ/QQQ": data["NQ/QQQ Ratio"],
-        "NDX/QQQ": data["NDX/QQQ Ratio"],
-        "ES/SPX": data["ES/SPX Ratio"]
-      };
+        # Update cache with fresh data
+        cached_data = response_data
+        cache_timestamp = datetime.now()
 
-      // Parse the UTC timestamp and convert to local time
-      if (data.Datetime) {
-        const serverDateUTC = new Date(data.Datetime);  // Parses ISO UTC timestamp
-        lastValidDate = serverDateUTC.toLocaleString('en-US', {
-          month: 'numeric',
-          day: 'numeric',
-          year: 'numeric',
-          hour: 'numeric',
-          minute: 'numeric',
-          hour12: true
-        });
-      }
-      document.getElementById("conversionDate").textContent = lastValidDate;
+        logger.info(f"Returning fresh data: {response_data}")
+        return jsonify(response_data)
 
-      updateDropdownOptions();
-    })
-    .catch(error => {
-      console.error('Error fetching premium data:', error);
-      document.getElementById("conversionDate").textContent = lastValidDate; // Use last valid timestamp
-    });
-}
+    except Exception as e:
+        logger.error(f"Unexpected error: {str(e)}")
+        # Use cached data if available, otherwise return an error
+        if cached_data is not None:
+            logger.info("Serving cached data due to fetch error")
+            return jsonify(cached_data)
+        return jsonify({"error": f"Failed to fetch data: {str(e)}"}), 500
 
-// Update the "To" dropdown based on the selected "From" ticker
-function updateDropdownOptions() {
-  const fromDropdown = document.getElementById("from-ticker");
-  const toDropdown = document.getElementById("to-ticker");
-  toDropdown.innerHTML = '<option value="">To</option>';
-  const fromValue = fromDropdown.value;
-
-  if (fromValue && validConversions[fromValue]) {
-    validConversions[fromValue].forEach(optionValue => {
-      const option = document.createElement("option");
-      option.value = optionValue;
-      option.textContent = optionValue;
-      toDropdown.appendChild(option);
-    });
-  }
-}
-
-document.getElementById("from-ticker").addEventListener("change", updateDropdownOptions);
-
-// Conversion function using ratios
-function convertPremium() {
-  const fromTicker = document.getElementById("from-ticker").value;
-  const toTicker = document.getElementById("to-ticker").value;
-  const inputValue = parseFloat(document.getElementById("convert-input").value);
-
-  if (!fromTicker || !toTicker || isNaN(inputValue)) {
-    document.getElementById("convert-output").textContent = "Please select valid tickers and enter a value.";
-    return;
-  }
-
-  const conversionMapping = {
-    "SPX->SPY": (v) => v / ratios["SPX/SPY"],
-    "SPY->SPX": (v) => v * ratios["SPX/SPY"],
-    "ES->SPY":  (v) => v / ratios["ES/SPY"],
-    "SPY->ES":  (v) => v * ratios["ES/SPY"],
-    "ES->SPX":  (v) => v / ratios["ES/SPX"],
-    "SPX->ES":  (v) => v * ratios["ES/SPX"],
-    "QQQ->NQ":  (v) => v * ratios["NQ/QQQ"],
-    "NQ->QQQ":  (v) => v / ratios["NQ/QQQ"],
-    "QQQ->NDX": (v) => v * ratios["NDX/QQQ"],
-    "NDX->QQQ": (v) => v / ratios["NDX/QQQ"]
-  };
-
-  const key = `${fromTicker}->${toTicker}`;
-  const conversionFunction = conversionMapping[key];
-
-  if (!conversionFunction || conversionFunction(inputValue) === undefined) {
-    document.getElementById("convert-output").textContent = "Invalid conversion.";
-    return;
-  }
-
-  const convertedValue = conversionFunction(inputValue);
-  document.getElementById("convert-output").textContent = `${toTicker}: ${convertedValue.toFixed(8)}`;
-}
-
-// Update displayed ratios on the UI
-function updateRatioDisplay() {
-  const ratioMapping = {
-    "SPX/SPY": "ratio-spx-spy",
-    "ES/SPY": "ratio-es-spy",
-    "NQ/QQQ": "ratio-nq-qqq",
-    "NDX/QQQ": "ratio-ndx-qqq",
-    "ES/SPX": "ratio-es-spx"
-  };
-
-  Object.keys(ratioMapping).forEach(key => {
-    const element = document.getElementById(ratioMapping[key]);
-    if (element) {
-      element.textContent = (ratios[key] !== undefined && ratios[key] !== null)
-        ? ratios[key].toFixed(8)
-        : "N/A";
-    }
-  });
-}
-
-// Update displayed prices on the UI (Future Use)
-function updatePriceDisplay() {
-  const priceMapping = {
-    "SPX": "price-spx",
-    "SPY": "price-spy",
-    "ES": "price-es",
-    "NQ": "price-nq",
-    "QQQ": "price-qqq",
-    "NDX": "price-ndx"
-  };
-
-  Object.keys(priceMapping).forEach(ticker => {
-    const element = document.getElementById(priceMapping[ticker]);
-    if (element) {
-      element.textContent = (prices[ticker] !== undefined && prices[ticker] !== null)
-        ? `$${prices[ticker].toFixed(2)}`
-        : (lastPrices[ticker] !== undefined ? `$${lastPrices[ticker].toFixed(2)}` : "N/A");
-    }
-  });
-}
-
-// Automatically update the UI every second
-setInterval(updateRatioDisplay, 1000);
-setInterval(updatePriceDisplay, 1000);
-
-// Fetch new data every 60 seconds
-setInterval(updateProRatios, 60000);
-updateProRatios();
+if __name__ == '__main__':
+    # Run the Flask app on the specified port (default 10000)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host='0.0.0.0', port=port)
