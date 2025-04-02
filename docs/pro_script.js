@@ -3,6 +3,7 @@ const proBackendURL = "https://spx-spy-converter-pro.onrender.com/get_live_price
 let prices = {};     // Holds the latest market prices
 let lastPrices = {}; // Holds the last known valid prices
 let ratios = {};     // Holds the latest conversion ratios
+let lastValidDate = "Unknown"; // Store the last successful timestamp
 
 // Define valid conversion pairs
 const validConversions = {
@@ -50,12 +51,25 @@ function updateProRatios() {
         "ES/SPX": data["ES/SPX Ratio"]
       };
 
-      document.getElementById("conversionDate").textContent = data.Datetime || "Unknown";
+      // Parse the UTC timestamp and convert to local time
+      if (data.Datetime) {
+        const serverDateUTC = new Date(data.Datetime);  // Parses ISO UTC timestamp
+        lastValidDate = serverDateUTC.toLocaleString('en-US', {
+          month: 'numeric',
+          day: 'numeric',
+          year: 'numeric',
+          hour: 'numeric',
+          minute: 'numeric',
+          hour12: true
+        });
+      }
+      document.getElementById("conversionDate").textContent = lastValidDate;
+
       updateDropdownOptions();
     })
     .catch(error => {
       console.error('Error fetching premium data:', error);
-      document.getElementById("conversionDate").textContent = "Failed to load data. Please try again later.";
+      document.getElementById("conversionDate").textContent = lastValidDate; // Use last valid timestamp
     });
 }
 
