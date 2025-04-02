@@ -50,23 +50,7 @@ function updateProRatios() {
         "ES/SPX": data["ES/SPX Ratio"]
       };
 
-      // Parse the UTC timestamp and convert to local time
-      let localDate;
-      if (data.Datetime) {
-        const serverDateUTC = new Date(data.Datetime);  // Parses ISO UTC timestamp (e.g., "2025-04-02T00:26:16Z")
-        localDate = serverDateUTC.toLocaleString('en-US', {
-          month: 'numeric',
-          day: 'numeric',
-          year: 'numeric',
-          hour: 'numeric',
-          minute: 'numeric',
-          hour12: true
-        });
-      } else {
-        localDate = "Unknown";
-      }
-      document.getElementById("conversionDate").textContent = localDate;
-
+      document.getElementById("conversionDate").textContent = data.Datetime || "Unknown";
       updateDropdownOptions();
     })
     .catch(error => {
