@@ -50,16 +50,11 @@ function updateProRatios() {
         "ES/SPX": data["ES/SPX Ratio"]
       };
 
-      // Parse the server's Datetime and convert to local time
+      // Parse the UTC timestamp and convert to local time
       let localDate;
-      if (data.Datetime && data.Datetime !== "Unknown") {
-        // Assuming format "MM/DD/YY HH:MM" like "04/01/25 23:46"
-        const [datePart, timePart] = data.Datetime.split(' ');
-        const [month, day, year] = datePart.split('/');
-        const [hour, minute] = timePart.split(':');
-        // Create a Date object (JavaScript will interpret as local time)
-        const serverDate = new Date(`20${year}-${month}-${day}T${hour}:${minute}:00`);
-        localDate = serverDate.toLocaleString('en-US', {
+      if (data.Datetime) {
+        const serverDateUTC = new Date(data.Datetime);  // Parses ISO UTC timestamp (e.g., "2025-04-02T00:26:16Z")
+        localDate = serverDateUTC.toLocaleString('en-US', {
           month: 'numeric',
           day: 'numeric',
           year: 'numeric',
