@@ -59,7 +59,7 @@ def get_live_price_pro():
 
         # Construct the response with prices and calculated ratios
         response_data = {
-            "Datetime": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),  # UTC timestamp without microseconds
+            "Datetime": datetime.now().strftime("%m/%d/%y %H:%M"),
             "Prices": prices,
             "SPX/SPY Ratio": prices["^SPX"] / prices["SPY"] if prices["SPY"] else None,
             "ES/SPY Ratio": prices["ES=F"] / prices["SPY"] if prices["SPY"] else None,
