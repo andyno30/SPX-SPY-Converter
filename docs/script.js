@@ -4,10 +4,19 @@ const backendURL = "https://spx-spy-converter.onrender.com";
 async function emailLogin() {
     const email = document.getElementById('email-input').value;
     const password = document.getElementById('password-input').value;
+    const feedback = document.getElementById('feedback');
+    const loginStatus = document.getElementById('login-status'); // Reference to new status element
+
     if (!email || !password) {
-        document.getElementById('feedback').textContent = 'Please enter both email and password.';
+        feedback.textContent = 'Please enter both email and password.';
         return;
     }
+
+    // Show connecting message immediately
+    loginStatus.style.display = 'block';
+    loginStatus.textContent = 'Connecting to the server, please wait...';
+    feedback.textContent = ''; // Clear any previous feedback
+
     try {
         const response = await fetch(`${backendURL}/login`, {
             method: 'POST',
@@ -15,16 +24,21 @@ async function emailLogin() {
             body: JSON.stringify({ email, password })
         });
         const data = await response.json();
+
+        // Hide connecting message once response is received
+        loginStatus.style.display = 'none';
+
         if (response.ok) {
             localStorage.setItem('authToken', data.token);
             alert('Login successful! Redirecting...');
             setTimeout(() => window.location.href = 'dashboard.html', 2000);
         } else {
-            document.getElementById('feedback').textContent = data.message || 'Login failed';
+            feedback.textContent = data.message || 'Login failed';
         }
     } catch (error) {
         console.error('Login error:', error);
-        document.getElementById('feedback').textContent = 'Server error. Please try again.';
+        loginStatus.style.display = 'none'; // Hide on error too
+        feedback.textContent = 'Server error. Please try again.';
     }
 }
 
