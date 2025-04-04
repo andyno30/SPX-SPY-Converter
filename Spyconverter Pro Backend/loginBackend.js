@@ -62,7 +62,7 @@ const userSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     isSubscribed: { type: Boolean, default: false },
-    subscriptionId: { type: String, default: null } // Add field to store Stripe subscription ID
+    subscriptionId: { type: String, default: null } // Added to store Stripe subscription ID
 });
 const User = mongoose.model('User', userSchema);
 
