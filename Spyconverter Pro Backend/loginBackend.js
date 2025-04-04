@@ -32,12 +32,12 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
 
             const user = await User.findByIdAndUpdate(
                 userId,
-                { isSubscribed: true },
+                { isSubscribed: true, subscriptionId: session.subscription }, // Store subscription ID
                 { new: true }
             );
 
             if (user) {
-                console.log(`User ${userId} subscribed successfully - Updated isSubscribed: ${user.isSubscribed}`);
+                console.log(`User ${userId} subscribed successfully - Updated isSubscribed: ${user.isSubscribed}, Subscription ID: ${user.subscriptionId}`);
             } else {
                 console.error(`User not found for userId: ${userId}`);
             }
@@ -53,7 +53,7 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
 app.use(bodyParser.json());
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://andyno30:jmRH2kOt84mHP5KY@spyconverterpro.a8m8g.mongodb.net/spyconverterDB?retryWrites=true&w=majority&appName=spyconverterpro')
+mongoose.connect(process.env.MONGO_URI || 'mongodb+srv://andyno30:jmRH2kOt84mHP5KY@spyconverterpro.a8m8g.mongodb.net/spyconverterDB?retryWrites=true&w=majority&appName=spyconverterpro')
     .then(() => console.log('Connected to MongoDB'))
     .catch((err) => console.error('Error connecting to MongoDB:', err));
 
@@ -61,7 +61,8 @@ mongoose.connect('mongodb+srv://andyno30:jmRH2kOt84mHP5KY@spyconverterpro.a8m8g.
 const userSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    isSubscribed: { type: Boolean, default: false }
+    isSubscribed: { type: Boolean, default: false },
+    subscriptionId: { type: String, default: null } // Add field to store Stripe subscription ID
 });
 const User = mongoose.model('User', userSchema);
 
@@ -120,9 +121,23 @@ app.post('/login', async (req, res) => {
 // Delete account endpoint
 app.delete('/delete-account', authenticateToken, async (req, res) => {
     try {
-        const user = await User.findByIdAndDelete(req.user.userId);
+        const user = await User.findById(req.user.userId);
         if (!user) return res.status(404).json({ message: 'User not found' });
-        res.json({ message: 'Account deleted successfully' });
+
+        // Cancel Stripe subscription if it exists
+        if (user.isSubscribed && user.subscriptionId) {
+            try {
+                await stripe.subscriptions.del(user.subscriptionId);
+                console.log(`Subscription ${user.subscriptionId} canceled successfully for user ${user.email}`);
+            } catch (stripeError) {
+                console.error('Stripe error during cancellation:', stripeError.message);
+                return res.status(500).json({ message: 'Failed to cancel subscription', error: stripeError.message });
+            }
+        }
+
+        // Delete user from database
+        await User.findByIdAndDelete(req.user.userId);
+        res.json({ message: 'Account and subscription deleted successfully' });
     } catch (error) {
         console.error('Delete account error:', error.message);
         res.status(500).json({ message: 'Server error', error: error.message });
