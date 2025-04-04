@@ -127,7 +127,7 @@ app.delete('/delete-account', authenticateToken, async (req, res) => {
         // Cancel Stripe subscription if it exists
         if (user.isSubscribed && user.subscriptionId) {
             try {
-                await stripe.subscriptions.del(user.subscriptionId);
+                await stripe.subscriptions.cancel(user.subscriptionId); // Fixed from 'del' to 'cancel'
                 console.log(`Subscription ${user.subscriptionId} canceled successfully for user ${user.email}`);
             } catch (stripeError) {
                 console.error('Stripe error during cancellation:', stripeError.message);
