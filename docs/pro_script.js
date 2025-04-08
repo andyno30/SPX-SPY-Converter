@@ -58,8 +58,8 @@ function updateProRatios() {
           month: 'numeric',
           day: 'numeric',
           year: 'numeric',
-          hour: 'numeric',
-          minute: 'numeric',
+          hour: "2-digit",
+          minute: "2-digit",
           hour12: true
         });
       }
