@@ -21,9 +21,6 @@ function updateLocalDateTime() {
         year: "2-digit",
         month: "numeric",
         day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true
     };
     const formattedDateTime = currentDate.toLocaleString('en-US', options);
     document.getElementById("conversionDate").textContent = formattedDateTime;
