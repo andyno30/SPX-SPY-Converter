@@ -40,7 +40,7 @@
 
     <div class="main-container">
         <h1>ES-SPY & QQQ-NQ-NDX Converter</h1>
-        <p>Conversion ratio last updated: 4/8/25</p>
+        <p>Conversion ratio last updated: <span id="lastUpdated"></span></p>
         <p><small id="conversion-ratio">*note: ratio may not remain constant over time, as it can be affected by factors such as dividends, stock splits, or changes in the index composition.</small></p>
 
         <div class="conversion-grid2">
@@ -150,9 +150,6 @@
                 year: "2-digit",
                 month: "numeric",
                 day: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
-                hour12: true
             };
             const formattedDateTime = currentDate.toLocaleString('en-US', options);
             document.getElementById("lastUpdated").textContent = `${formattedDateTime}`;
