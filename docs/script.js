@@ -42,14 +42,25 @@ async function emailLogin() {
     }
 }
 
-// Email Signup with Pop-Up
-async function emailLoginSignup() {
+// Register User with Password Confirmation
+async function registerUser() {
     const email = document.getElementById('email-input').value;
     const password = document.getElementById('password-input').value;
-    if (!email || !password) {
-        document.getElementById('feedback').textContent = 'Please enter both email and password.';
+    const confirmPassword = document.getElementById('confirm-password-input').value;
+    const feedback = document.getElementById('feedback');
+
+    if (!email || !password || !confirmPassword) {
+        feedback.textContent = 'Please fill in all fields.';
         return;
     }
+
+    if (password !== confirmPassword) {
+        feedback.textContent = 'Passwords do not match.';
+        return;
+    }
+
+    feedback.textContent = 'Registering, please wait...';
+
     try {
         const response = await fetch(`${backendURL}/register`, {
             method: 'POST',
@@ -57,15 +68,17 @@ async function emailLoginSignup() {
             body: JSON.stringify({ email, password })
         });
         const data = await response.json();
+
         if (response.ok) {
-            alert('Signup successful! Please log in.');
-            document.getElementById('feedback').textContent = 'Signup successful. Please log in.';
+            alert('Signup successful! Redirecting to login...');
+            feedback.textContent = 'Signup successful. Redirecting...';
+            setTimeout(() => window.location.href = 'login.html', 2000);
         } else {
-            document.getElementById('feedback').textContent = data.message || 'Signup failed';
+            feedback.textContent = data.message || 'Signup failed';
         }
     } catch (error) {
         console.error('Signup error:', error);
-        document.getElementById('feedback').textContent = 'Server error. Please try again.';
+        feedback.textContent = 'Server error. Please try again.';
     }
 }
 
