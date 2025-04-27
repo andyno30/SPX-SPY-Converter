@@ -265,33 +265,41 @@
         window.subscribe = async function(plan) {
             const user = auth.currentUser;
             if (!user) {
+                console.log("No user logged in, redirecting to login");
                 window.location.href = "https://spyconverter.com/docs/login.html";
                 return;
             }
 
             try {
-                const idToken = await getIdToken(user);
+                const idToken = await getIdToken(user, true); // Force refresh token
+                console.log("User email:", user.email);
+                console.log("Plan:", plan);
+                console.log("Token (first 20 chars):", idToken.substring(0, 20) + "...");
+                const payload = { email: user.email, plan };
+                console.log("Request payload:", JSON.stringify(payload));
+                
                 const response = await fetch("https://us-central1-spyconverter-pro.cloudfunctions.net/createStripeCheckout", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                         "Authorization": `Bearer ${idToken}`
                     },
-                    body: JSON.stringify({ email: user.email, plan })
+                    body: JSON.stringify(payload)
                 });
 
                 const data = await response.json();
+                console.log("Server response:", data, "Status:", response.status);
                 if (response.ok && data.url) {
-                    window.location.href = data.url; // Redirect to Stripe Checkout
+                    console.log("Redirecting to Stripe:", data.url);
+                    window.location.href = data.url;
                 } else {
-                    alert(data.message || "Subscription failed: " + JSON.stringify(data));
+                    alert(`Subscription failed: ${data.message || JSON.stringify(data)}`);
                 }
             } catch (error) {
-                console.error("Subscribe error:", error);
-                alert("Server error: " + error.message);
+                console.error("Subscribe error details:", error);
+                alert(`Server error: ${error.message} (Check console for details)`);
             }
         };
     </script>
 </body>
 </html>
-
