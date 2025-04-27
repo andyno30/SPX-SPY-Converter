@@ -1,280 +1,165 @@
-import {
-    initializeApp
-  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  
-  import {
-    getAuth,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    signOut,
-    GoogleAuthProvider,
-    signInWithPopup,
-    sendPasswordResetEmail,
-    deleteUser,
-    onAuthStateChanged
-  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-  
-  import {
-    getFirestore,
-    doc,
-    setDoc,
-    getDoc,
-    deleteDoc
-  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-  
-  // 🔥 Firebase Config
-  const firebaseConfig = {
-    apiKey: "AIzaSyDj3dhuXBQP7V9SSKtwy_NOEOEu5EjQm0k",
-    authDomain: "spyconverter-pro.firebaseapp.com",
-    projectId: "spyconverter-pro",
-    storageBucket: "spyconverter-pro.appspot.com",
-    messagingSenderId: "291409539688",
-    appId: "1:291409539688:web:b82d35e269af30af2c01dd",
-    measurementId: "G-3V14LP5T08"
-  };
-  
-  // 🔥 Initialize
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-  
-  // Expose for console/debug use
-  window.auth = auth;
-  window.db = db;
-  
-  /* ========================= LOGIN ========================= */
-  export async function emailLogin() {
-    const email = document.getElementById('email-input').value.trim();
+const backendURL = "https://spx-spy-converter.onrender.com";
+
+// Email Login with Pop-Up
+async function emailLogin() {
+    const email = document.getElementById('email-input').value;
     const password = document.getElementById('password-input').value;
     const feedback = document.getElementById('feedback');
-    const loginStatus = document.getElementById('login-status');
-  
+    const loginStatus = document.getElementById('login-status'); // Reference to new status element
+
     if (!email || !password) {
-      feedback.textContent = 'Please enter both email and password.';
-      return;
+        feedback.textContent = 'Please enter both email and password.';
+        return;
     }
-  
+
+    // Show connecting message immediately
     loginStatus.style.display = 'block';
     loginStatus.textContent = 'Connecting to the server, please wait...';
-  
+    feedback.textContent = ''; // Clear any previous feedback
+
     try {
-      const userCred = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCred.user;
-  
-      localStorage.setItem('authToken', user.accessToken);
-      loginStatus.style.display = 'none';
-      alert("Login successful!");
-      window.location.href = "dashboard.html";
-    } catch (err) {
-      loginStatus.style.display = 'none';
-      feedback.textContent = err.message;
-      console.error(err);
+        const response = await fetch(`${backendURL}/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+        const data = await response.json();
+
+        // Hide connecting message once response is received
+        loginStatus.style.display = 'none';
+
+        if (response.ok) {
+            localStorage.setItem('authToken', data.token);
+            alert('Login successful! Redirecting...');
+            setTimeout(() => window.location.href = 'dashboard.html', 2000);
+        } else {
+            feedback.textContent = data.message || 'Login failed';
+        }
+    } catch (error) {
+        console.error('Login error:', error);
+        loginStatus.style.display = 'none'; // Hide on error too
+        feedback.textContent = 'Server error. Please try again.';
     }
-  }
-  
-  /* ========================= REGISTER ========================= */
-  export async function registerUser() {
-    const email = document.getElementById('email-input').value.trim();
+}
+
+// Email Signup with Pop-Up
+async function emailLoginSignup() {
+    const email = document.getElementById('email-input').value;
     const password = document.getElementById('password-input').value;
-    const confirmPassword = document.getElementById('confirm-password-input').value;
-    const feedback = document.getElementById('feedback');
-  
-    if (!email || !password || !confirmPassword) {
-      feedback.textContent = 'Please fill in all fields.';
-      return;
+    if (!email || !password) {
+        document.getElementById('feedback').textContent = 'Please enter both email and password.';
+        return;
     }
-  
-    if (password !== confirmPassword) {
-      feedback.textContent = 'Passwords do not match.';
-      return;
-    }
-  
-    feedback.textContent = 'Registering...';
-  
     try {
-      const userCred = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCred.user;
-  
-      const autoSubscribe = email === "andyno30@gmail.com";
-  
-      await setDoc(doc(db, "users", user.uid), {
-        email,
-        isSubscribed: autoSubscribe
-      });
-  
-      alert("Signup successful! Redirecting...");
-      window.location.href = "login.html";
-    } catch (err) {
-      feedback.textContent = err.message;
-      console.error(err);
-    }
-  }
-  
-  /* ========================= FORGOT PASSWORD ========================= */
-  export async function resetPassword() {
-    const email = document.getElementById('email-input').value.trim();
-    const feedback = document.getElementById('feedback');
-  
-    if (!email) {
-      feedback.textContent = 'Please enter your email.';
-      return;
-    }
-  
-    try {
-      await sendPasswordResetEmail(auth, email);
-      feedback.textContent = 'Reset link sent to your email.';
-    } catch (err) {
-      feedback.textContent = err.message;
-      console.error(err);
-    }
-  }
-  
-  /* ========================= GOOGLE LOGIN ========================= */
-  export async function googleLoginSignup() {
-    const provider = new GoogleAuthProvider();
-    const feedback = document.getElementById('feedback');
-  
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-  
-      const docRef = doc(db, "users", user.uid);
-      const docSnap = await getDoc(docRef);
-  
-      if (!docSnap.exists()) {
-        await setDoc(docRef, {
-          email: user.email,
-          isSubscribed: user.email === "andyno30@gmail.com"
+        const response = await fetch(`${backendURL}/register`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
         });
-      }
-  
-      localStorage.setItem("authToken", "firebase");
-      alert("Google login successful!");
-      window.location.href = "dashboard.html";
-    } catch (err) {
-      feedback.textContent = err.message;
-      console.error(err);
+        const data = await response.json();
+        if (response.ok) {
+            alert('Signup successful! Please log in.');
+            document.getElementById('feedback').textContent = 'Signup successful. Please log in.';
+        } else {
+            document.getElementById('feedback').textContent = data.message || 'Signup failed';
+        }
+    } catch (error) {
+        console.error('Signup error:', error);
+        document.getElementById('feedback').textContent = 'Server error. Please try again.';
     }
-  }
-  
-  /* ========================= DASHBOARD USER INFO ========================= */
-  export async function fetchUserInfo() {
-    const user = auth.currentUser;
-    const emailEl = document.getElementById("user-email");
-    const statusEl = document.getElementById("user-status");
-  
-    if (!user) {
-      emailEl.textContent = "Not logged in.";
-      statusEl.textContent = "";
-      return;
+}
+
+// Delete Account
+async function deleteAccount() {
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+        document.getElementById('delete-feedback').textContent = 'You must be logged in to delete your account.';
+        return;
     }
-  
     try {
-      const docRef = doc(db, "users", user.uid);
-      const docSnap = await getDoc(docRef);
-  
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        emailEl.textContent = `Email: ${data.email}`;
-        statusEl.textContent = `Status: ${data.isSubscribed ? "Subscribed" : "Not Subscribed"}`;
-        document.getElementById("subscribe-btn").style.display = data.isSubscribed ? "none" : "inline-block";
-        document.getElementById("access-spyconverterpro-btn").style.display = data.isSubscribed ? "inline-block" : "none";
-      } else {
-        emailEl.textContent = "User data not found.";
-        statusEl.textContent = "";
-      }
-    } catch (err) {
-      console.error("Error loading user info:", err);
-      emailEl.textContent = "Failed to load.";
-      statusEl.textContent = "";
-    }
-  }
-  
-  /* ========================= STRIPE SUBSCRIBE ========================= */
-  export async function subscribe(plan = "monthly") {
-    const user = auth.currentUser;
-    const feedback = document.getElementById("feedback");
-  
-    if (!user) {
-      feedback.textContent = "You must be logged in.";
-      return;
-    }
-  
-    try {
-      const res = await fetch("https://us-central1-spyconverter-pro.cloudfunctions.net/createStripeCheckout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          email: user.email,
-          plan
-        })
-      });
-  
-      const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        feedback.textContent = data.message || "Failed to create Stripe session.";
-      }
-    } catch (err) {
-      feedback.textContent = "Error subscribing.";
-      console.error("Stripe error:", err);
-    }
-  }
-  
-  /* ========================= DELETE ACCOUNT ========================= */
-  export async function deleteAccount() {
-    const user = auth.currentUser;
-    const feedback = document.getElementById("delete-feedback");
-  
-    if (!user) {
-      feedback.textContent = "You must be logged in.";
-      return;
-    }
-  
-    try {
-      const docRef = doc(db, "users", user.uid);
-      const docSnap = await getDoc(docRef);
-  
-      const subscriptionId = docSnap.exists() ? docSnap.data().subscriptionId : null;
-  
-      if (subscriptionId) {
-        await fetch("https://us-central1-spyconverter-pro.cloudfunctions.net/cancelStripeSubscription", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ subscriptionId })
+        const response = await fetch(`${backendURL}/delete-account`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
         });
-      }
-  
-      await deleteDoc(doc(db, "users", user.uid));
-      await deleteUser(user);
-      localStorage.removeItem("authToken");
-  
-      feedback.textContent = "Account deleted. Redirecting...";
-      setTimeout(() => window.location.href = "login.html", 2000);
-    } catch (err) {
-      feedback.textContent = err.message;
-      console.error(err);
+        const data = await response.json();
+        if (response.ok) {
+            localStorage.removeItem("authToken");
+            document.getElementById('delete-feedback').textContent = 'Account deleted successfully. Redirecting...';
+            setTimeout(() => window.location.href = "login.html", 2000);
+        } else {
+            document.getElementById('delete-feedback').textContent = data.message || 'Error deleting account';
+        }
+    } catch (error) {
+        console.error("Fetch error:", error);
+        document.getElementById('delete-feedback').textContent = 'Server error. Please try again later.';
     }
-  }
-  
-  /* ========================= PROTECT PAGES ========================= */
-  onAuthStateChanged(auth, (user) => {
-    if (window.location.pathname.includes("dashboard.html")) {
-      if (!user) {
-        window.location.href = "login.html";
-      }
+}
+
+// Placeholder for Google Login/Signup
+function googleLoginSignup() {
+    document.getElementById('feedback').textContent = 'Google Login/Signup not implemented yet.';
+    console.log("Google Login/Signup clicked - requires Firebase setup.");
+}
+
+// Fetch User Info (Updated for Dashboard)
+async function fetchUserInfo() {
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+        document.getElementById('user-email').textContent = 'Not logged in.';
+        document.getElementById('user-status').textContent = '';
+        return;
     }
-  });
-  
-  // Expose to window
-  window.emailLogin = emailLogin;
-  window.registerUser = registerUser;
-  window.resetPassword = resetPassword;
-  window.googleLoginSignup = googleLoginSignup;
-  window.fetchUserInfo = fetchUserInfo;
-  window.deleteAccount = deleteAccount;
-  window.subscribe = subscribe;
+    document.getElementById('user-email').textContent = 'Loading...';
+    document.getElementById('user-status').textContent = '';
+    try {
+        const response = await fetch(`${backendURL}/user`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await response.json();
+        if (response.ok) {
+            const subscriptionStatus = data.isSubscribed ? 'Subscribed' : 'Not Subscribed';
+            document.getElementById('user-email').textContent = `Email: ${data.email}`;
+            document.getElementById('user-status').textContent = `Status: ${subscriptionStatus}`;
+            document.getElementById('subscribe-btn').style.display = data.isSubscribed ? 'none' : 'inline-block';
+            document.getElementById('access-spyconverterpro-btn').style.display = data.isSubscribed ? 'inline-block' : 'none';
+        } else {
+            document.getElementById('user-email').textContent = data.message || 'Failed to fetch user info';
+            document.getElementById('user-status').textContent = '';
+        }
+    } catch (error) {
+        console.error('Fetch user info error:', error);
+        document.getElementById('user-email').textContent = 'Server error. Please try again.';
+        document.getElementById('user-status').textContent = '';
+    }
+}
+
+// Subscribe Function
+async function subscribe() {
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+        document.getElementById('delete-feedback').textContent = 'You must be logged in to subscribe.';
+        return;
+    }
+    try {
+        const response = await fetch(`${backendURL}/subscribe`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        const data = await response.json();
+        if (response.ok) {
+            window.location.href = data.url; // Redirect to Stripe Checkout
+        } else {
+            document.getElementById('delete-feedback').textContent = data.message || 'Subscription failed';
+        }
+    } catch (error) {
+        console.error('Subscribe error:', error);
+        document.getElementById('delete-feedback').textContent = 'Server error. Please try again.';
+    }
+}
   
