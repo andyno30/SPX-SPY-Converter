@@ -5,30 +5,152 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPY Converter Pro - Professional Financial Conversion Tools</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://js.stripe.com/v3/"></script> <!-- Stripe.js -->
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
-        body { line-height: 1.6; color: #333; background-color: #f8f9fa; }
-        .header { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 1rem; position: fixed; width: 100%; top: 0; z-index: 1000; }
-        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.5rem; font-weight: bold; text-decoration: none; color: white; }
-        .nav-links { display: flex; gap: 2rem; }
-        .nav-links a, .nav-links button { color: white; text-decoration: none; font-weight: 500; background: none; border: none; cursor: pointer; }
-        .hero { padding: 8rem 2rem 4rem; text-align: center; background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; }
-        .hero h1 { font-size: 2.5rem; margin-bottom: 1.5rem; }
-        .hero p { font-size: 1.2rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto; }
-        .cta-button { padding: 1rem 2rem; font-size: 1.2rem; background-color: #4CAF50; color: white; border-radius: 5px; font-weight: bold; transition: transform 0.3s ease; cursor: pointer; border: none; }
-        .cta-button:hover { transform: translateY(-2px); }
-        .features { padding: 4rem 2rem; background-color: white; }
-        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
-        .feature-card { padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
-        .feature-icon { font-size: 2.5rem; color: #1e3c72; margin-bottom: 1rem; }
-        .pricing { padding: 4rem 2rem; text-align: center; }
-        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 2rem; max-width: 1200px; margin: 2rem auto; }
-        .price-card { background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .price-card h3 { color: #1e3c72; margin-bottom: 1rem; }
-        .price { font-size: 2.5rem; font-weight: bold; margin: 1rem 0; color: #4CAF50; }
-        .footer { background-color: #1e3c72; color: white; padding: 2rem; text-align: center; margin-top: 4rem; }
-        @media (max-width: 768px) { .nav-links { display: none; } .hero h1 { font-size: 2rem; } }
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        /* Hero Section */
+        .hero {
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+        /* Features Section */
+        .features {
+            padding: 4rem 2rem;
+            background-color: white;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .feature-card {
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #1e3c72;
+            margin-bottom: 1rem;
+        }
+        /* Pricing Section */
+        .pricing {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 2rem auto;
+        }
+        .price-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .price-card h3 {
+            color: #1e3c72;
+            margin-bottom: 1rem;
+        }
+        .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            color: #4CAF50;
+        }
+        /* Footer */
+        .footer {
+            background-color: #1e3c72;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -38,8 +160,7 @@
             <div class="nav-links">
                 <a href="#features">Features</a>
                 <a href="#pricing">Pricing</a>
-                <a href="#" id="auth-link">Login</a>
-                <button id="subscribe-nav" class="cta-button" style="display:none; margin-left:1rem;">Subscribe</button>
+                <a href="https://spyconverter.com/docs/login.html" id="auth-link">Login</a>
             </div>
         </nav>
     </header>
@@ -47,7 +168,7 @@
     <section class="hero">
         <h1>Professional-Grade SPX to SPY Converter</h1>
         <p>Instant, accurate conversions between SPX, SPY, ES Futures, and Nasdaq instruments/derivatives with real-time ratios</p>
-        <button class="cta-button" onclick="subscribe('monthly')">Subscribe Monthly</button>
+        <a href="#pricing" class="cta-button">Pricing</a>
     </section>
 
     <section class="features" id="features">
@@ -87,7 +208,7 @@
                 <h3>6-Months</h3>
                 <div class="price">$3<span>/mo</span></div>
                 <ul style="list-style: none; margin: 1rem 0;">
-                    <li>✔ $18 total</li>
+                    <li>✔ $18 ~ 6 months</li>
                     <li>✔ All Conversion Tools</li>
                     <li>✔ Real-Time Ratio Updates</li>
                     <li>✔ Email Support</li>
@@ -105,58 +226,59 @@
         </div>
     </footer>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged, getIdToken } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    <script>
+        // Initialize Stripe with your publishable key
+        const stripe = Stripe("pk_live_51MqL3m2mY7zktgIWWFuF9bIJrCYE0ybD66xazAVmsTZQFU1hYOEk3KsMQ0qB92LCqEMxBjymYDAi33U8kIhdvqvM00NaRSJIoe");
+        const backendURL = "https://spx-spy-converter.onrender.com";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyDj3dhuXBQP7z9S...",
-            authDomain: "spyconverter-pro.firebaseapp.com",
-            projectId: "spyconverter-pro",
-            storageBucket: "spyconverter-pro.appspot.com",
-            messagingSenderId: "291409539688",
-            appId: "1:291409539688:web:b82d35e269af30af2c01dd",
-            measurementId: "G-3V14LP5T08"
-        };
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const backendURL = "https://us-central1-spyconverter-pro.cloudfunctions.net";
-
+        // Check login status and update nav link on page load
         function updateAuthLink() {
+            const token = localStorage.getItem("authToken");
             const authLink = document.getElementById("auth-link");
-            const subscribeNav = document.getElementById("subscribe-nav");
-            onAuthStateChanged(auth, (user) => {
-                if (user) {
-                    authLink.textContent = "Logout";
-                    authLink.onclick = () => { auth.signOut().then(() => { localStorage.removeItem("authToken"); window.location.href = "https://spyconverter.com/docs/login.html"; }); return false; };
-                    subscribeNav.style.display = 'inline-block';
-                    subscribeNav.onclick = () => subscribe(defaultPlan);
-                } else {
-                    authLink.textContent = "Login";
-                    authLink.href = "https://spyconverter.com/docs/login.html";
-                    authLink.onclick = null;
-                    subscribeNav.style.display = 'none';
-                }
-            });
+            if (token) {
+                authLink.textContent = "Logout";
+                authLink.href = "#"; // Prevent default navigation
+                authLink.onclick = function() {
+                    localStorage.removeItem("authToken");
+                    window.location.href = "https://spyconverter.com/docs/login.html";
+                    return false; // Prevent link default behavior
+                };
+            } else {
+                authLink.textContent = "Login";
+                authLink.href = "https://spyconverter.com/docs/login.html";
+                authLink.onclick = null; // Clear any previous onclick
+            }
         }
 
-        let defaultPlan = 'monthly';
-        async function subscribe(plan) {
-            defaultPlan = plan;
-            const user = auth.currentUser;
-            if (!user) return window.location.href = "https://spyconverter.com/docs/login.html";
-            const idToken = await getIdToken(user, true);
-            const res = await fetch(`${backendURL}/createStripeCheckout`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json", "Authorization": `Bearer ${idToken}` },
-                body: JSON.stringify({ email: user.email, plan })
-            });
-            const data = await res.json();
-            if (res.ok && data.url) window.location.href = data.url;
-            else alert(`Subscription failed: ${data.message || JSON.stringify(data)}`);
-        }
-
+        // Run on page load
         document.addEventListener("DOMContentLoaded", updateAuthLink);
+
+        async function subscribe(plan) {
+            const token = localStorage.getItem("authToken");
+            if (!token) {
+                window.location.href = "https://spyconverter.com/docs/login.html";
+                return;
+            }
+            try {
+                const response = await fetch(`${backendURL}/subscribe`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ plan: plan })
+                });
+                const data = await response.json();
+                if (response.ok && data.url) {
+                    window.location.href = data.url; // Redirect to Stripe Checkout
+                } else {
+                    alert(data.message || "Subscription failed. Please try again.");
+                }
+            } catch (error) {
+                console.error("Subscribe error:", error);
+                alert("Server error. Please try again.");
+            }
+        }
     </script>
 </body>
 </html>
