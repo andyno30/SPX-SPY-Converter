@@ -146,7 +146,7 @@
 
       try {
         const idToken = await getIdToken(user, true); // 🔥 Force refresh ID token
-        const response = await fetch("https://us-central1-spyconverter-pro.cloudfunctions.net/createStripeCheckout", {
+        const response = await fetch("https://us-central1-spyconverter-pro.cloudfunctions.net/api/webhook", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
