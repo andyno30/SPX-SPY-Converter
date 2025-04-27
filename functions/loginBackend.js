@@ -11,13 +11,23 @@ const PRICE_IDS = {
   six_months: "price_1R8cFp2mY7zktgIWS8YzDrb7",
 };
 
-/**
- * Create Stripe Checkout
- */
-exports.createStripeCheckout = onRequest({ secrets: ["STRIPE_SECRET_KEY"] }, async (req, res) => {
-  const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+// CORS helper
+function setCorsHeaders(res) {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
+}
 
-  // Log request details for debugging
+// === CREATE STRIPE CHECKOUT ===
+exports.createStripeCheckout = onRequest({ secrets: ["STRIPE_SECRET_KEY"] }, async (req, res) => {
+  setCorsHeaders(res);
+
+  if (req.method === "OPTIONS") {
+    // Handle preflight
+    return res.status(204).send('');
+  }
+
+  const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
   logger.info("Received createStripeCheckout request", { method: req.method, body: req.body });
 
   // Authenticate
@@ -26,6 +36,7 @@ exports.createStripeCheckout = onRequest({ secrets: ["STRIPE_SECRET_KEY"] }, asy
     logger.warn("Missing or invalid authorization header");
     return res.status(401).json({ message: "Unauthorized" });
   }
+
   const idToken = authHeader.split("Bearer ")[1];
   let decodedToken;
   try {
@@ -52,7 +63,7 @@ exports.createStripeCheckout = onRequest({ secrets: ["STRIPE_SECRET_KEY"] }, asy
       success_url: "https://spyconverter.com/docs/dashboard.html?success=true",
       cancel_url: "https://spyconverter.com/docs/dashboard.html?cancel=true",
       metadata: { email },
-      customer_email: email, // Pre-fill email in Stripe Checkout
+      customer_email: email,
     });
 
     logger.info(`Checkout session created for ${email}`, { sessionId: session.id });
@@ -63,10 +74,10 @@ exports.createStripeCheckout = onRequest({ secrets: ["STRIPE_SECRET_KEY"] }, asy
   }
 });
 
-/**
- * Stripe Webhook Handler
- */
+// === HANDLE STRIPE WEBHOOK ===
 exports.handleStripeWebhook = onRequest({ secrets: ["STRIPE_SECRET_KEY", "STRIPE_WEBHOOK_SECRET"] }, async (req, res) => {
+  // No CORS needed for webhook — it's server-to-server
+
   const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
   const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
   const sig = req.headers["stripe-signature"];
@@ -116,18 +127,22 @@ exports.handleStripeWebhook = onRequest({ secrets: ["STRIPE_SECRET_KEY", "STRIPE
   res.status(200).send("Webhook processed");
 });
 
-/**
- * Cancel Stripe Subscription
- */
+// === CANCEL STRIPE SUBSCRIPTION ===
 exports.cancelStripeSubscription = onRequest({ secrets: ["STRIPE_SECRET_KEY"] }, async (req, res) => {
+  setCorsHeaders(res);
+
+  if (req.method === "OPTIONS") {
+    return res.status(204).send('');
+  }
+
   const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-  // Authenticate
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     logger.warn("Missing or invalid authorization header");
     return res.status(401).json({ message: "Unauthorized" });
   }
+
   const idToken = authHeader.split("Bearer ")[1];
   try {
     logger.info("Verifying ID token for cancellation");
