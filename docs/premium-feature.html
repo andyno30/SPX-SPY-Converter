@@ -1,51 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Premium Conversion Tool - Spyconverter Pro</title>
-  <link href="pro_styles.css" rel="stylesheet" />
-  <script async crossorigin="anonymous"
-    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2918914879248661"></script>
-
-  <!-- Firebase SDK -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyDj3dhuXBQP7V9SSKtwy_NOEOEu5EjQm0k",
-      authDomain: "spyconverter-pro.firebaseapp.com",
-      projectId: "spyconverter-pro",
-      storageBucket: "spyconverter-pro.appspot.com",
-      messagingSenderId: "291409539688",
-      appId: "1:291409539688:web:b82d35e269af30af2c01dd"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    onAuthStateChanged(auth, async (user) => {
-      if (!user) {
-        window.location.href = "login.html";
-        return;
-      }
-
-      try {
-        const userRef = doc(db, "users", user.uid);
-        const docSnap = await getDoc(userRef);
-
-        if (!docSnap.exists() || !docSnap.data().isSubscribed) {
-          window.location.href = "dashboard.html";
-        }
-      } catch (error) {
-        console.error("Subscription check failed:", error);
-        window.location.href = "dashboard.html";
-      }
-    });
-  </script>
+  <link href="pro_styles.css" rel="stylesheet">
+  <script async crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2918914879248661"></script>
 </head>
 <body>
   <nav>
@@ -65,11 +25,11 @@
       <li><a href="dashboard.html">Dashboard</a></li>
     </ul>
   </nav>
-
+  
   <div class="premium-container">
     <h1>Premium Conversion Tool</h1>
     <p>Conversion data last updated: <span id="conversionDate">Loading...</span></p>
-
+    
     <div id="premium-conversion">
       <div class="conversion-controls">
         <select id="from-ticker">
@@ -84,7 +44,7 @@
         <select id="to-ticker">
           <option value="">To</option>
         </select>
-        <input type="number" id="convert-input" placeholder="Enter value" step="0.01" />
+        <input type="number" id="convert-input" placeholder="Enter value" step="0.01">
         <button onclick="convertPremium()">Convert</button>
       </div>
       <p id="convert-output"></p>
@@ -103,8 +63,29 @@
   <footer>
     <p>© 2025 spyconverter.com. All rights reserved.</p>
   </footer>
-
+  
   <script src="pro_script.js"></script>
+  <script>
+    // Subscription check: ensure only subscribed users access the premium page
+    const token = localStorage.getItem('authToken');
+    const backendURL = "https://spx-spy-converter.onrender.com";
+    if (!token) {
+      window.location.href = 'login.html';
+    } else {
+      fetch(`${backendURL}/user`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (!data.isSubscribed) {
+          window.location.href = 'dashboard.html';
+        }
+      })
+      .catch(error => {
+        console.error('Error checking subscription:', error);
+        window.location.href = 'dashboard.html';
+      });
+    }
+  </script>
 </body>
 </html>
-
