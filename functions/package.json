@@ -1,0 +1,17 @@
+{
+  "name": "functions",
+  "main": "loginBackend.js",
+  "engines": {
+    "node": "18"
+  },
+  "scripts": {
+    "lint": "echo 'No linting configured. Skipping...'"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "firebase-functions": "^4.9.0",
+    "stripe": "^17.6.0"
+  }
+}
+
