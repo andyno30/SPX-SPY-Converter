@@ -1,52 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Spyconverter Pro Dashboard</title>
-    <link href="styles.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Spyconverter Pro Dashboard</title>
+  <link href="styles.css" rel="stylesheet">
 </head>
 <body>
-    <div class="main-container">
-        <h1>Welcome to Spyconverter Pro!</h1>
-        <p>You are logged in.</p>
-        <p id="user-email">Email: Loading...</p>
-        <p id="user-status">Status: Loading...</p>
-        <button id="subscribe-btn">Subscribe</button>
-        <button id="access-spyconverterpro-btn" style="display: none;">Go to Spyconverter Pro</button>
-        <button id="delete-account-btn">Delete Account</button>
-        <p id="delete-feedback"></p>
-        <p style="font-size: 12px; color: #666;">Deleting your account will automatically cancel your recurring subscription.</p>
-    </div>
-    <script src="script.js"></script>
-    <script>
-        function loadUserInfo() {
-            fetchUserInfo(); // Fetch user info immediately on load
-            if (window.location.search.includes('success=true')) {
-                document.getElementById('user-status').textContent = 'Processing subscription...';
-                setTimeout(fetchUserInfo, 3000); // Refetch after 3s to catch webhook update
-            }
+  <div class="main-container">
+    <h1>Welcome to Spyconverter Pro!</h1>
+    <p>You are logged in.</p>
+    <p id="user-email">Email: Loading...</p>
+    <p id="user-status">Status: Loading...</p>
+    <button id="subscribe-btn">Subscribe</button>
+    <button id="access-spyconverterpro-btn" style="display: none;">Go to Spyconverter Pro</button>
+    <button id="delete-account-btn">Delete Account</button>
+    <p id="delete-feedback"></p>
+    <p style="font-size: 12px; color: #666;">
+      Deleting your account will automatically cancel your recurring subscription.
+    </p>
+  </div>
+
+  <!-- Firebase Config -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import { fetchUserInfo, deleteAccount } from "./script.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDj3dhuXBQP7V9SSKtwy_NOEOEu5EjQm0k",
+      authDomain: "spyconverter-pro.firebaseapp.com",
+      projectId: "spyconverter-pro",
+      storageBucket: "spyconverter-pro.appspot.com",
+      messagingSenderId: "291409539688",
+      appId: "1:291409539688:web:b82d35e269af30af2c01dd",
+      measurementId: "G-3V14LP5T08"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    window.auth = auth;
+    window.db = db;
+
+    // Redirect if not logged in
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = "login.html";
+      } else {
+        fetchUserInfo();
+      }
+    });
+
+    // Event listeners
+    window.onload = () => {
+      document.getElementById('subscribe-btn').addEventListener('click', () => {
+        window.location.href = '../pro.html#pricing';
+      });
+
+      document.getElementById('access-spyconverterpro-btn').addEventListener('click', () => {
+        window.location.href = 'spyconverterpro.html';
+      });
+
+      document.getElementById('delete-account-btn').addEventListener('click', () => {
+        if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+          deleteAccount();
         }
+      });
+    };
+  </script>
 
-        const token = localStorage.getItem('authToken');
-        if (!token) {
-            window.location.href = 'login.html';
-        } else {
-            loadUserInfo();
-        }
-
-        document.getElementById('subscribe-btn').addEventListener('click', function() {
-            window.location.href = '../pro.html#pricing';
-        });
-
-        document.getElementById('access-spyconverterpro-btn').addEventListener('click', function() {
-            window.location.href = 'spyconverterpro.html';
-        });
-
-        document.getElementById('delete-account-btn').addEventListener('click', function() {
-            if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
-                deleteAccount();
-            }
-        });
-    </script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>
