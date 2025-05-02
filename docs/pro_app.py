@@ -4,7 +4,7 @@ import yfinance as yf
 from datetime import datetime, timedelta
 import os
 import logging
-import pandas as pd
+import threading
 import time
 
 # Configure logging
@@ -13,85 +13,89 @@ logger = logging.getLogger(__name__)
 
 # Initialize Flask app
 app = Flask(__name__)
-CORS(app)  # Enable CORS for cross-origin requests
+CORS(app)
 
-# Caching settings
+# Global cache
 cached_data = None
 cache_timestamp = None
-CACHE_DURATION = timedelta(seconds=60)  # Cache data for 1 minute
-request_count = 0  # Track API requests
+CACHE_DURATION = timedelta(seconds=60)
 
-@app.route('/get_live_price_pro')
-def get_live_price_pro():
-    global cached_data, cache_timestamp, request_count
+# Tickers to fetch
+TICKERS = ["^SPX", "SPY", "ES=F", "NQ=F", "QQQ", "^NDX"]
 
-    # Check cache
-    if cached_data is not None and cache_timestamp is not None:
-        if datetime.now() - cache_timestamp < CACHE_DURATION:
-            logger.info("Serving data from cache")
-            return jsonify(cached_data)
+def fetch_prices():
+    """Fetches live prices and updates global cache"""
+    global cached_data, cache_timestamp
 
-    tickers = ["^SPX", "SPY", "ES=F", "NQ=F", "QQQ", "^NDX"]
     prices = {}
-
     try:
-        # Fetch data with retry logic
-        for attempt in range(3):
-            try:
-                data = yf.download(tickers, period="1d", interval="1m", group_by="ticker")
-                request_count += 1
-                logger.info(f"Batch data downloaded successfully. Total requests: {request_count}")
-                break
-            except Exception as e:
-                if "Too Many Requests" in str(e):
-                    logger.warning(f"Rate limit hit on attempt {attempt + 1}. Waiting 10 seconds...")
-                    time.sleep(10)
-                    if attempt == 2 and cached_data is not None:
-                        logger.info("Max retries reached, serving cached data")
-                        return jsonify(cached_data)
-                    continue
-                raise e
+        logger.info("Fetching prices from Yahoo Finance...")
 
-        # Process data
-        for ticker in tickers:
-            ticker_data = data[ticker] if ticker in data else data
-            if ticker_data is not None and not ticker_data.empty and "Close" in ticker_data.columns:
-                last_close = ticker_data["Close"].dropna().iloc[-1] if not ticker_data["Close"].isna().all() else None
-                if last_close is not None:
+        # Try bulk download
+        data = None
+        try:
+            data = yf.download(TICKERS, period="1d", interval="1m", group_by="ticker", threads=False)
+            logger.info("Bulk data downloaded.")
+        except Exception as e:
+            logger.warning(f"Bulk download failed: {e}")
+
+        # Process each ticker
+        for ticker in TICKERS:
+            try:
+                if data is not None and ticker in data and "Close" in data[ticker]:
+                    last_close = data[ticker]["Close"].dropna().iloc[-1]
                     prices[ticker] = last_close
                 else:
-                    stock = yf.Ticker(ticker)
-                    prices[ticker] = stock.info.get("previousClose", None)
-                    logger.info(f"Fallback to previous close for {ticker}: {prices[ticker]}")
-            else:
-                stock = yf.Ticker(ticker)
-                prices[ticker] = stock.info.get("previousClose", None)
-                logger.info(f"Fallback to previous close for {ticker}: {prices[ticker]}")
+                    # Fallback to single-ticker fetch
+                    ticker_obj = yf.Ticker(ticker)
+                    price = ticker_obj.info.get("regularMarketPrice")
+
+                    if price is None:
+                        hist = ticker_obj.history(period="1d")
+                        price = hist["Close"].dropna().iloc[-1] if not hist.empty else None
+
+                    prices[ticker] = price
+                    logger.info(f"Used fallback for {ticker}: {price}")
+            except Exception as e:
+                prices[ticker] = None
+                logger.error(f"Failed to fetch {ticker}: {e}")
 
         # Construct response
         response_data = {
             "Datetime": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
             "Prices": prices,
-            "SPX/SPY Ratio": prices["^SPX"] / prices["SPY"] if prices["SPY"] else None,
-            "ES/SPY Ratio": prices["ES=F"] / prices["SPY"] if prices["SPY"] else None,
-            "NQ/QQQ Ratio": prices["NQ=F"] / prices["QQQ"] if prices["QQQ"] else None,
-            "NDX/QQQ Ratio": prices["^NDX"] / prices["QQQ"] if prices["QQQ"] else None,
-            "ES/SPX Ratio": prices["ES=F"] / prices["^SPX"] if prices["^SPX"] else None,
+            "SPX/SPY Ratio": prices.get("^SPX") / prices.get("SPY") if prices.get("SPY") else None,
+            "ES/SPY Ratio": prices.get("ES=F") / prices.get("SPY") if prices.get("SPY") else None,
+            "NQ/QQQ Ratio": prices.get("NQ=F") / prices.get("QQQ") if prices.get("QQQ") else None,
+            "NDX/QQQ Ratio": prices.get("^NDX") / prices.get("QQQ") if prices.get("QQQ") else None,
+            "ES/SPX Ratio": prices.get("ES=F") / prices.get("^SPX") if prices.get("^SPX") else None,
         }
 
-        # Update cache
         cached_data = response_data
         cache_timestamp = datetime.now()
-        logger.info(f"Returning fresh data: {response_data}")
-        return jsonify(response_data)
-
+        logger.info(f"Prices updated at {cache_timestamp}.")
     except Exception as e:
-        logger.error(f"Unexpected error: {str(e)}")
-        if cached_data is not None:
-            logger.info("Serving cached data due to fetch error")
-            return jsonify(cached_data)
-        return jsonify({"error": f"Failed to fetch data: {str(e)}"}), 500
+        logger.error(f"Price update failed: {e}")
+
+def background_price_updater():
+    """Background thread to update prices every 60 seconds"""
+    while True:
+        fetch_prices()
+        time.sleep(60)
+
+@app.route('/get_live_price_pro')
+def get_live_price_pro():
+    """Returns cached live prices"""
+    if cached_data:
+        return jsonify(cached_data)
+    return jsonify({"error": "Failed to fetch data: Cache not ready yet."}), 503
 
 if __name__ == '__main__':
+    # Start background thread
+    thread = threading.Thread(target=background_price_updater)
+    thread.daemon = True
+    thread.start()
+
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port)
+
