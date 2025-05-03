@@ -1,11 +1,9 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
-import yfinance as yf
+import requests
 from datetime import datetime, timedelta
 import os
 import logging
-import pandas as pd
-import time
 from threading import Lock
 
 # Configure logging
@@ -23,6 +21,24 @@ CACHE_DURATION = timedelta(seconds=60)
 request_count = 0
 cache_lock = Lock()
 is_fetching = False
+
+# Finnhub API key and base URL
+FINNHUB_API_KEY = "d0b95q1r01qo0h63g7l0d0b95q1r01qo0h63g7lg"
+FINNHUB_BASE_URL = "https://finnhub.io/api/v1/quote"
+
+# Function to fetch live prices from Finnhub
+def fetch_finnhub_prices(tickers):
+    prices = {}
+    for ticker in tickers:
+        url = f"{FINNHUB_BASE_URL}?symbol={ticker}&token={FINNHUB_API_KEY}"
+        response = requests.get(url)
+        if response.status_code == 200:
+            data = response.json()
+            prices[ticker] = data.get("c")  # "c" is the current price
+        else:
+            logger.warning(f"Failed to fetch data for {ticker}. Status code: {response.status_code}")
+            prices[ticker] = None
+    return prices
 
 @app.route('/get_live_price_pro')
 def get_live_price_pro():
@@ -49,48 +65,17 @@ def get_live_price_pro():
                     logger.info("Serving data from cache (inside lock)")
                     return jsonify(cached_data)
 
-            tickers = ["^SPX", "SPY", "ES=F", "NQ=F", "QQQ", "^NDX"]
-            prices = {}
-
-            for attempt in range(3):
-                try:
-                    data = yf.download(tickers, period="1d", interval="1m", group_by="ticker")
-                    request_count += 1
-                    logger.info(f"Batch data downloaded successfully. Total requests: {request_count}")
-                    break
-                except Exception as e:
-                    if "Too Many Requests" in str(e):
-                        logger.warning(f"Rate limit hit on attempt {attempt + 1}. Waiting 10 seconds...")
-                        time.sleep(10)
-                        if attempt == 2 and cached_data is not None:
-                            logger.info("Max retries reached, serving cached data")
-                            return jsonify(cached_data)
-                        continue
-                    raise e
-
-            for ticker in tickers:
-                ticker_data = data[ticker] if ticker in data else data
-                if ticker_data is not None and not ticker_data.empty and "Close" in ticker_data.columns:
-                    last_close = ticker_data["Close"].dropna().iloc[-1] if not ticker_data["Close"].isna().all() else None
-                    if last_close is not None:
-                        prices[ticker] = last_close
-                    else:
-                        stock = yf.Ticker(ticker)
-                        prices[ticker] = stock.info.get("previousClose", None)
-                        logger.info(f"Fallback to previous close for {ticker}: {prices[ticker]}")
-                else:
-                    stock = yf.Ticker(ticker)
-                    prices[ticker] = stock.info.get("previousClose", None)
-                    logger.info(f"Fallback to previous close for {ticker}: {prices[ticker]}")
+            tickers = ["^GSPC", "^NDX", "ES=F", "NQ=F", "QQQ"]
+            prices = fetch_finnhub_prices(tickers)
 
             response_data = {
                 "Datetime": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
                 "Prices": prices,
-                "SPX/SPY Ratio": prices["^SPX"] / prices["SPY"] if prices["SPY"] else None,
+                "SPX/SPY Ratio": prices["^GSPC"] / prices["SPY"] if prices["SPY"] else None,
                 "ES/SPY Ratio": prices["ES=F"] / prices["SPY"] if prices["SPY"] else None,
                 "NQ/QQQ Ratio": prices["NQ=F"] / prices["QQQ"] if prices["QQQ"] else None,
                 "NDX/QQQ Ratio": prices["^NDX"] / prices["QQQ"] if prices["QQQ"] else None,
-                "ES/SPX Ratio": prices["ES=F"] / prices["^SPX"] if prices["^SPX"] else None,
+                "ES/SPX Ratio": prices["ES=F"] / prices["^GSPC"] if prices["^GSPC"] else None,
             }
 
             # Update cache
@@ -120,4 +105,5 @@ def favicon():
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port)
+
 
