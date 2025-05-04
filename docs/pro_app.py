@@ -30,7 +30,7 @@ def safe_div(a, b):
         return None
 
 # Data refresh function
-def refresh_data():
+def rrefresh_data():
     global cached_data, cache_timestamp
     tickers = ["^GSPC", "^NDX", "SPY", "QQQ", "ES=F", "NQ=F"]
     logger.info("Background refresh: fetching yfinance data")
@@ -94,3 +94,4 @@ def favicon():
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port)
+
