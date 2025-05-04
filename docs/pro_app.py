@@ -22,12 +22,14 @@ cache_lock = Lock()
 # How often to refresh
 CACHE_DURATION = timedelta(seconds=60)
 
+# Safe division helper
 def safe_div(a, b):
     try:
         return round(a / b, 5) if a and b else None
     except:
         return None
 
+# Data refresh function
 def refresh_data():
     global cached_data, cache_timestamp
     tickers = ["^GSPC", "^NDX", "SPY", "QQQ", "ES=F", "NQ=F"]
@@ -44,7 +46,7 @@ def refresh_data():
         for t in tickers:
             try:
                 prices[t] = data[t]["Close"].dropna().iloc[-1]
-            except:
+            except Exception:
                 prices[t] = None
 
         new = {
@@ -64,14 +66,11 @@ def refresh_data():
     except Exception as e:
         logger.error(f"Background refresh failed: {e}")
 
-@app.before_first_request
-def start_scheduler():
-    # do one initial fetch
-    refresh_data()
-    # then schedule future fetches
-    sched = BackgroundScheduler()
-    sched.add_job(refresh_data, 'interval', seconds=CACHE_DURATION.total_seconds())
-    sched.start()
+# Start scheduler at import time
+efresh_data()
+sched = BackgroundScheduler()
+sched.add_job(refresh_data, 'interval', seconds=CACHE_DURATION.total_seconds())
+sched.start()
 
 @app.route('/get_live_price_pro')
 def get_live_price_pro():
@@ -95,4 +94,3 @@ def favicon():
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port)
-
