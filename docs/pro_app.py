@@ -15,22 +15,21 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS
 
 # Shared state for cache
+tick_lock = Lock()
 cached_data = None
 cache_timestamp = None
-cache_lock = Lock()
-
-# How often to refresh
 CACHE_DURATION = timedelta(seconds=60)
 
 # Safe division helper
 def safe_div(a, b):
     try:
-        return round(a / b, 5) if a and b else None
-    except:
+        return round(a / b, 5) if a is not None and b else None
+    except Exception as e:
+        logger.warning(f"Division error: {e}")
         return None
 
-# Data refresh function
-def rrefresh_data():
+# Function to refresh data in background
+def refresh_data():
     global cached_data, cache_timestamp
     tickers = ["^GSPC", "^NDX", "SPY", "QQQ", "ES=F", "NQ=F"]
     logger.info("Background refresh: fetching yfinance data")
@@ -49,7 +48,7 @@ def rrefresh_data():
             except Exception:
                 prices[t] = None
 
-        new = {
+        new_cache = {
             "Datetime": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
             "Prices": prices,
             "SPX/SPY Ratio": safe_div(prices["^GSPC"], prices["SPY"]),
@@ -59,23 +58,23 @@ def rrefresh_data():
             "ES/SPX Ratio": safe_div(prices["ES=F"], prices["^GSPC"]),
         }
 
-        with cache_lock:
-            cached_data = new
+        with tick_lock:
+            cached_data = new_cache
             cache_timestamp = datetime.utcnow()
         logger.info("Cache refreshed successfully")
     except Exception as e:
         logger.error(f"Background refresh failed: {e}")
 
-# Start scheduler at import time
-efresh_data()
-sched = BackgroundScheduler()
-sched.add_job(refresh_data, 'interval', seconds=CACHE_DURATION.total_seconds())
-sched.start()
+# Start scheduler and initial load
+refresh_data()
+scheduler = BackgroundScheduler()
+scheduler.add_job(refresh_data, 'interval', seconds=CACHE_DURATION.total_seconds())
+scheduler.start()
 
 @app.route('/get_live_price_pro')
 def get_live_price_pro():
-    with cache_lock:
-        if cached_data:
+    with tick_lock:
+        if cached_data is not None:
             age = (datetime.utcnow() - cache_timestamp).total_seconds()
             if age > CACHE_DURATION.total_seconds() * 1.5:
                 return jsonify({"error": "Data stale"}), 503
@@ -94,4 +93,3 @@ def favicon():
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port)
-
