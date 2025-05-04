@@ -12,72 +12,85 @@ logger = logging.getLogger(__name__)
 
 # Initialize Flask app
 app = Flask(__name__)
-CORS(app)
+CORS(app)  # Enable CORS
 
-# Caching and concurrency settings
+# Shared state for cached data
+data_lock = Lock()
 cached_data = None
 cache_timestamp = None
 CACHE_DURATION = timedelta(seconds=60)
-cache_lock = Lock()
+
+# Tracking requests for diagnostic
 request_count = 0
 
-# Scheduler to refresh data in background
-scheduler = BackgroundScheduler()
+# Tickers to fetch
+TICKERS = ["^GSPC", "SPY", "ES=F", "NQ=F", "QQQ", "^NDX"]
 
 # Safe division helper
 def safe_div(a, b):
     try:
-        return round(a / b, 5) if a is not None and b else None
+        return round(a / b, 6) if a is not None and b else None
     except Exception as e:
         logger.warning(f"Division error: {e}")
         return None
 
-# Function to fetch & cache data
+# Function to refresh data in background
 def refresh_data():
     global cached_data, cache_timestamp, request_count
-    with cache_lock:
-        try:
-            tickers = ["^GSPC", "^NDX", "SPY", "QQQ", "ES=F", "NQ=F"]
-            data = yf.download(tickers, period="1d", interval="1m", group_by="ticker", progress=False)
-            request_count += 1
-            logger.info(f"Batch data downloaded. Total requests: {request_count}")
+    logger.info("Background refresh_data triggered")
+    try:
+        # Download minute data for today
+        data = yf.download(tickers=TICKERS, period="1d", interval="1m", group_by="ticker", progress=False)
+        request_count += 1
+        logger.info(f"yfinance download succeeded. Total requests: {request_count}")
 
-            prices = {}
-            for ticker in tickers:
-                df = data[ticker] if ticker in data else data
-                if df is not None and not df.empty and "Close" in df.columns:
-                    prices[ticker] = df["Close"].dropna().iloc[-1]
-                else:
-                    prices[ticker] = None
+        prices = {}
+        for ticker in TICKERS:
+            try:
+                df = data[ticker]
+                last = df['Close'].dropna().iloc[-1]
+                prices[ticker] = float(last)
+            except Exception:
+                # fallback to previousClose
+                stock = yf.Ticker(ticker)
+                prices[ticker] = stock.info.get('previousClose')
+                logger.info(f"Fallback price for {ticker}: {prices[ticker]}")
 
-            response_data = {
-                "Datetime": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
-                "Prices": prices,
-                "SPX/SPY Ratio": safe_div(prices["^GSPC"], prices["SPY"]),
-                "ES/SPY Ratio": safe_div(prices["ES=F"], prices["SPY"]),
-                "NQ/QQQ Ratio": safe_div(prices["NQ=F"], prices["QQQ"]),
-                "NDX/QQQ Ratio": safe_div(prices["^NDX"], prices["QQQ"]),
-                "ES/SPX Ratio": safe_div(prices["ES=F"], prices["^GSPC"]),
-            }
+        # Prepare response payload
+        new_payload = {
+            "Datetime": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "Prices": prices,
+            "SPX/SPY Ratio": safe_div(prices.get("^GSPC"), prices.get("SPY")),
+            "ES/SPY Ratio": safe_div(prices.get("ES=F"), prices.get("SPY")),
+            "NQ/QQQ Ratio": safe_div(prices.get("NQ=F"), prices.get("QQQ")),
+            "NDX/QQQ Ratio": safe_div(prices.get("^NDX"), prices.get("QQQ")),
+            "ES/SPX Ratio": safe_div(prices.get("ES=F"), prices.get("^GSPC")),
+        }
 
-            cached_data = response_data
+        # Update shared cache
+        with data_lock:
+            cached_data = new_payload
             cache_timestamp = datetime.utcnow()
-            logger.info("Cache refreshed")
-        except Exception as e:
-            logger.error(f"Error refreshing data: {e}")
+        logger.info("Cached data updated")
 
-# Start scheduler: refresh immediately and then every 60s
-refresh_data()
-scheduler.add_job(func=refresh_data, trigger='interval', seconds=60)
+    except Exception as e:
+        logger.error(f"Error in background refresh: {e}")
+
+# Start scheduler
+scheduler = BackgroundScheduler()
+scheduler.add_job(refresh_data, 'interval', seconds=60, next_run_time=datetime.utcnow())
 scheduler.start()
+
+# Initial data load
+refresh_data()
 
 @app.route('/get_live_price_pro')
 def get_live_price_pro():
-    global cached_data, cache_timestamp
-    # Serve cached data if exists
-    if cached_data is not None:
-        return jsonify(cached_data)
-    return jsonify({"error": "Data not available"}), 503
+    # Return cached data if available
+    with data_lock:
+        if cached_data is not None:
+            return jsonify(cached_data)
+    return jsonify({"error": "Data not yet available"}), 503
 
 @app.route('/')
 def index():
@@ -88,5 +101,6 @@ def favicon():
     return '', 204
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 10000))
+    port = int(os.environ.get('PORT', 10000))
     app.run(host='0.0.0.0', port=port)
+
