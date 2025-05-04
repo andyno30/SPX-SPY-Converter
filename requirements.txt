@@ -6,3 +6,4 @@ Werkzeug==3.0.1
 requests==2.31.0
 pandas==2.2.1
 numpy==1.26.4
+APScheduler==3.10.1
