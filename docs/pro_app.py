@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 # Initialize Flask app
 app = Flask(__name__)
-CORS(app)  # Enable CORS
+CORS(app)
 
 # Shared state for cache
 tick_lock = Lock()
@@ -20,7 +20,6 @@ cached_data = None
 cache_timestamp = None
 CACHE_DURATION = timedelta(seconds=60)
 
-# Safe division helper
 def safe_div(a, b):
     try:
         return round(a / b, 5) if a is not None and b else None
@@ -28,7 +27,6 @@ def safe_div(a, b):
         logger.warning(f"Division error: {e}")
         return None
 
-# Function to refresh data in background
 def refresh_data():
     global cached_data, cache_timestamp
     tickers = ["^GSPC", "^NDX", "SPY", "QQQ", "ES=F", "NQ=F"]
@@ -45,7 +43,7 @@ def refresh_data():
         for t in tickers:
             try:
                 prices[t] = data[t]["Close"].dropna().iloc[-1]
-            except Exception:
+            except:
                 prices[t] = None
 
         new_cache = {
@@ -65,11 +63,15 @@ def refresh_data():
     except Exception as e:
         logger.error(f"Background refresh failed: {e}")
 
-# Start scheduler and initial load
-refresh_data()
-scheduler = BackgroundScheduler()
-scheduler.add_job(refresh_data, 'interval', seconds=CACHE_DURATION.total_seconds())
-scheduler.start()
+# **This ensures each Gunicorn worker runs the scheduler before serving**
+@app.before_serving
+def start_scheduler():
+    # initial fetch in this worker
+    refresh_data()
+    # schedule recurring refreshes
+    sched = BackgroundScheduler()
+    sched.add_job(refresh_data, 'interval', seconds=CACHE_DURATION.total_seconds())
+    sched.start()
 
 @app.route('/get_live_price_pro')
 def get_live_price_pro():
