@@ -1,6 +1,8 @@
-Flask==3.0.2                    # Web framework :contentReference[oaicite:0]{index=0}
-gunicorn==21.2.0                # WSGI server :contentReference[oaicite:1]{index=1}
-finnhub-python==2.4.23          # Official Finnhub SDK (latest) :contentReference[oaicite:2]{index=2}
-flask-cors==4.0.0               # CORS support for Flask :contentReference[oaicite:3]{index=3}
-Werkzeug==3.0.1                 # Flask dependency :contentReference[oaicite:4]{index=4}
-APScheduler==3.10.1             # Background scheduler :contentReference[oaicite:5]{index=5}
+Flask==3.0.2
+gunicorn==21.2.0
+yfinance==0.2.52
+flask-cors==4.0.0
+Werkzeug==3.0.1
+requests==2.31.0
+pandas==2.2.1
+numpy==1.26.4
