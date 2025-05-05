@@ -1,97 +1,101 @@
-from flask import Flask, jsonify
-from flask_cors import CORS
-import yfinance as yf
-from datetime import datetime, timedelta
 import os
 import logging
-import pandas as pd
-import time
+from datetime import datetime, timedelta
+from threading import Lock
 
-# Configure logging
+from flask import Flask, jsonify
+from flask_cors import CORS
+import finnhub                                # Official Finnhub Python SDK :contentReference[oaicite:0]{index=0}
+from apscheduler.schedulers.background import BackgroundScheduler
+
+# ─── Logging ───────────────────────────────────────────────────────────────────
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Initialize Flask app
+# ─── Flask app setup ──────────────────────────────────────────────────────────
 app = Flask(__name__)
-CORS(app)  # Enable CORS for cross-origin requests
+CORS(app)
 
-# Caching settings
-cached_data = None
-cache_timestamp = None
-CACHE_DURATION = timedelta(seconds=60)  # Cache data for 1 minute
-request_count = 0  # Track API requests
+# ─── Cache & Concurrency ──────────────────────────────────────────────────────
+cache_lock    = Lock()
+cached_data   = None
+cache_time    = None
+CACHE_SECONDS = 60
 
+# ─── Finnhub client ───────────────────────────────────────────────────────────
+# Use your API key (not the webhook secret) here:
+#   - API key for making requests
+#   - Webhook secret is only for validating incoming webhooks, not needed for quote calls
+FINNHUB_API_KEY = os.environ["FINNHUB_API_KEY"]  # set in Render as a secret env var :contentReference[oaicite:1]{index=1}
+finnhub_client  = finnhub.Client(api_key=FINNHUB_API_KEY)
+
+# ─── Helper functions ─────────────────────────────────────────────────────────
+def safe_div(a, b):
+    try:
+        return round(a/b, 5) if (a is not None and b) else None
+    except Exception as e:
+        logger.warning(f"Division error: {e}")
+        return None
+
+def fetch_finnhub_prices(tickers):
+    """Fetch current price (‘c’ field) for each ticker via Finnhub quote endpoint."""
+    prices = {}
+    for sym in tickers:
+        resp = finnhub_client.quote(sym)         # GET /quote → returns JSON with “c” :contentReference[oaicite:2]{index=2}
+        prices[sym] = resp.get("c")              # current price
+        logger.info(f"Fetched {sym}: {prices[sym]}")
+    return prices
+
+def refresh_cache():
+    """Background job: fetch prices, compute ratios, update in‑memory cache."""
+    global cached_data, cache_time
+    tickers = ["^GSPC", "SPY", "ES=F", "NQ=F", "QQQ", "^NDX"]  # Yahoo-style tickers for continuity :contentReference[oaicite:3]{index=3}
+    logger.info("Refreshing cache via Finnhub...")
+    prices = fetch_finnhub_prices(tickers)
+    now = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+
+    new_data = {
+        "Datetime": now,
+        "Prices": prices,
+        "SPX/SPY Ratio": safe_div(prices["^GSPC"], prices["SPY"]),
+        "ES/SPY Ratio": safe_div(prices["ES=F"], prices["SPY"]),
+        "NQ/QQQ Ratio": safe_div(prices["NQ=F"], prices["QQQ"]),
+        "NDX/QQQ Ratio": safe_div(prices["^NDX"], prices["QQQ"]),
+        "ES/SPX Ratio": safe_div(prices["ES=F"], prices["^GSPC"])
+    }
+
+    with cache_lock:
+        cached_data = new_data
+        cache_time  = datetime.utcnow()
+    logger.info("Cache updated.")
+
+# ─── Scheduler ─────────────────────────────────────────────────────────────────
+# Run initial load + schedule recurring refresh every CACHE_SECONDS
+refresh_cache()
+sched = BackgroundScheduler()
+sched.add_job(refresh_cache, 'interval', seconds=CACHE_SECONDS)
+sched.start()
+
+# ─── Flask routes ─────────────────────────────────────────────────────────────
 @app.route('/get_live_price_pro')
 def get_live_price_pro():
-    global cached_data, cache_timestamp, request_count
+    with cache_lock:
+        if not cached_data:
+            return jsonify({"error": "Data not yet available"}), 503
+        age = (datetime.utcnow() - cache_time).total_seconds()
+        if age > CACHE_SECONDS * 1.5:
+            return jsonify({"error": "Data stale"}), 503
+        return jsonify(cached_data)
 
-    # Check cache
-    if cached_data is not None and cache_timestamp is not None:
-        if datetime.now() - cache_timestamp < CACHE_DURATION:
-            logger.info("Serving data from cache")
-            return jsonify(cached_data)
+@app.route('/')
+def index():
+    return '🟢 SpyConverter Pro backend is live!'
 
-    tickers = ["^SPX", "SPY", "ES=F", "NQ=F", "QQQ", "^NDX"]
-    prices = {}
+@app.route('/favicon.ico')
+def favicon():
+    return '', 204
 
-    try:
-        # Fetch data with retry logic
-        for attempt in range(3):
-            try:
-                data = yf.download(tickers, period="1d", interval="1m", group_by="ticker")
-                request_count += 1
-                logger.info(f"Batch data downloaded successfully. Total requests: {request_count}")
-                break
-            except Exception as e:
-                if "Too Many Requests" in str(e):
-                    logger.warning(f"Rate limit hit on attempt {attempt + 1}. Waiting 10 seconds...")
-                    time.sleep(10)
-                    if attempt == 2 and cached_data is not None:
-                        logger.info("Max retries reached, serving cached data")
-                        return jsonify(cached_data)
-                    continue
-                raise e
-
-        # Process data
-        for ticker in tickers:
-            ticker_data = data[ticker] if ticker in data else data
-            if ticker_data is not None and not ticker_data.empty and "Close" in ticker_data.columns:
-                last_close = ticker_data["Close"].dropna().iloc[-1] if not ticker_data["Close"].isna().all() else None
-                if last_close is not None:
-                    prices[ticker] = last_close
-                else:
-                    stock = yf.Ticker(ticker)
-                    prices[ticker] = stock.info.get("previousClose", None)
-                    logger.info(f"Fallback to previous close for {ticker}: {prices[ticker]}")
-            else:
-                stock = yf.Ticker(ticker)
-                prices[ticker] = stock.info.get("previousClose", None)
-                logger.info(f"Fallback to previous close for {ticker}: {prices[ticker]}")
-
-        # Construct response
-        response_data = {
-            "Datetime": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
-            "Prices": prices,
-            "SPX/SPY Ratio": prices["^SPX"] / prices["SPY"] if prices["SPY"] else None,
-            "ES/SPY Ratio": prices["ES=F"] / prices["SPY"] if prices["SPY"] else None,
-            "NQ/QQQ Ratio": prices["NQ=F"] / prices["QQQ"] if prices["QQQ"] else None,
-            "NDX/QQQ Ratio": prices["^NDX"] / prices["QQQ"] if prices["QQQ"] else None,
-            "ES/SPX Ratio": prices["ES=F"] / prices["^SPX"] if prices["^SPX"] else None,
-        }
-
-        # Update cache
-        cached_data = response_data
-        cache_timestamp = datetime.now()
-        logger.info(f"Returning fresh data: {response_data}")
-        return jsonify(response_data)
-
-    except Exception as e:
-        logger.error(f"Unexpected error: {str(e)}")
-        if cached_data is not None:
-            logger.info("Serving cached data due to fetch error")
-            return jsonify(cached_data)
-        return jsonify({"error": f"Failed to fetch data: {str(e)}"}), 500
-
+# ─── Entrypoint ────────────────────────────────────────────────────────────────
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port)
