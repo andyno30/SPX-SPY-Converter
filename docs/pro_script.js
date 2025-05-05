@@ -15,9 +15,41 @@ const validConversions = {
   "NDX": ["QQQ"]
 };
 
+// Cache keys
+const CACHE_KEY = 'liveRatios';
+const CACHE_EXPIRATION = 5 * 60 * 1000; // 5 minutes in milliseconds
+
+// Helper function to get cached data
+function getCachedData() {
+  const cachedData = localStorage.getItem(CACHE_KEY);
+  if (cachedData) {
+    const { ratios, timestamp } = JSON.parse(cachedData);
+    const now = new Date().getTime();
+    if (now - timestamp < CACHE_EXPIRATION) {
+      return ratios;
+    }
+  }
+  return null;
+}
+
+// Helper function to set cached data
+function setCachedData(ratios) {
+  const now = new Date().getTime();
+  localStorage.setItem(CACHE_KEY, JSON.stringify({ ratios, timestamp: now }));
+}
+
 // Fetch live ratios and prices from the backend
 function updateProRatios() {
   document.getElementById("conversionDate").textContent = "Loading...";
+
+  // Check for cached data
+  const cachedRatios = getCachedData();
+  if (cachedRatios) {
+    ratios = cachedRatios;
+    updateRatioDisplay();
+    updatePriceDisplay();
+    document.getElementById("conversionDate").textContent = lastValidDate;
+  }
 
   fetch(proBackendURL)
     .then(response => {
@@ -64,6 +96,9 @@ function updateProRatios() {
         });
       }
       document.getElementById("conversionDate").textContent = lastValidDate;
+
+      // Cache the fresh ratios
+      setCachedData(ratios);
 
       updateDropdownOptions();
     })
