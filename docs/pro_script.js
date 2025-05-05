@@ -170,8 +170,8 @@ function updatePriceDisplay() {
 }
 
 // Automatically update the UI every second
-setInterval(updateRatioDisplay, 60000);
-setInterval(updatePriceDisplay, 60000);
+setInterval(updateRatioDisplay, 1000);
+setInterval(updatePriceDisplay, 1000);
 
 // Fetch new data every 60 seconds
 setInterval(updateProRatios, 60000);
