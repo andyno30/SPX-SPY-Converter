@@ -2,9 +2,10 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 import yfinance as yf
 from datetime import datetime, timedelta
+import os
 import logging
-from threading import Lock
-from apscheduler.schedulers.background import BackgroundScheduler
+import pandas as pd
+import time
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -12,85 +13,84 @@ logger = logging.getLogger(__name__)
 
 # Initialize Flask app
 app = Flask(__name__)
-CORS(app)
+CORS(app)  # Enable CORS for cross-origin requests
 
-# Shared state for cache
-tick_lock = Lock()
+# Caching settings
 cached_data = None
 cache_timestamp = None
-CACHE_DURATION = timedelta(seconds=60)
-
-def safe_div(a, b):
-    try:
-        return round(a / b, 5) if a is not None and b else None
-    except Exception as e:
-        logger.warning(f"Division error: {e}")
-        return None
-
-def refresh_data():
-    global cached_data, cache_timestamp
-    tickers = ["^GSPC", "^NDX", "SPY", "QQQ", "ES=F", "NQ=F"]
-    logger.info("Background refresh: fetching yfinance data")
-    try:
-        data = yf.download(
-            tickers,
-            period="1d",
-            interval="1m",
-            group_by="ticker",
-            progress=False
-        )
-        prices = {}
-        for t in tickers:
-            try:
-                prices[t] = data[t]["Close"].dropna().iloc[-1]
-            except:
-                prices[t] = None
-
-        new_cache = {
-            "Datetime": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
-            "Prices": prices,
-            "SPX/SPY Ratio": safe_div(prices["^GSPC"], prices["SPY"]),
-            "ES/SPY Ratio": safe_div(prices["ES=F"], prices["SPY"]),
-            "NQ/QQQ Ratio": safe_div(prices["NQ=F"], prices["QQQ"]),
-            "NDX/QQQ Ratio": safe_div(prices["^NDX"], prices["QQQ"]),
-            "ES/SPX Ratio": safe_div(prices["ES=F"], prices["^GSPC"]),
-        }
-
-        with tick_lock:
-            cached_data = new_cache
-            cache_timestamp = datetime.utcnow()
-        logger.info("Cache refreshed successfully")
-    except Exception as e:
-        logger.error(f"Background refresh failed: {e}")
-
-# **This ensures each Gunicorn worker runs the scheduler before serving**
-@app.before_serving
-def start_scheduler():
-    # initial fetch in this worker
-    refresh_data()
-    # schedule recurring refreshes
-    sched = BackgroundScheduler()
-    sched.add_job(refresh_data, 'interval', seconds=CACHE_DURATION.total_seconds())
-    sched.start()
+CACHE_DURATION = timedelta(seconds=60)  # Cache data for 1 minute
+request_count = 0  # Track API requests
 
 @app.route('/get_live_price_pro')
 def get_live_price_pro():
-    with tick_lock:
-        if cached_data is not None:
-            age = (datetime.utcnow() - cache_timestamp).total_seconds()
-            if age > CACHE_DURATION.total_seconds() * 1.5:
-                return jsonify({"error": "Data stale"}), 503
+    global cached_data, cache_timestamp, request_count
+
+    # Check cache
+    if cached_data is not None and cache_timestamp is not None:
+        if datetime.now() - cache_timestamp < CACHE_DURATION:
+            logger.info("Serving data from cache")
             return jsonify(cached_data)
-        else:
-            return jsonify({"error": "Data not yet available"}), 503
 
-@app.route('/')
-def index():
-    return '🟢 SpyConverter Pro backend is live!'
+    tickers = ["^SPX", "SPY", "ES=F", "NQ=F", "QQQ", "^NDX"]
+    prices = {}
 
-@app.route('/favicon.ico')
-def favicon():
-    return '', 204
+    try:
+        # Fetch data with retry logic
+        for attempt in range(3):
+            try:
+                data = yf.download(tickers, period="1d", interval="1m", group_by="ticker")
+                request_count += 1
+                logger.info(f"Batch data downloaded successfully. Total requests: {request_count}")
+                break
+            except Exception as e:
+                if "Too Many Requests" in str(e):
+                    logger.warning(f"Rate limit hit on attempt {attempt + 1}. Waiting 10 seconds...")
+                    time.sleep(10)
+                    if attempt == 2 and cached_data is not None:
+                        logger.info("Max retries reached, serving cached data")
+                        return jsonify(cached_data)
+                    continue
+                raise e
+
+        # Process data
+        for ticker in tickers:
+            ticker_data = data[ticker] if ticker in data else data
+            if ticker_data is not None and not ticker_data.empty and "Close" in ticker_data.columns:
+                last_close = ticker_data["Close"].dropna().iloc[-1] if not ticker_data["Close"].isna().all() else None
+                if last_close is not None:
+                    prices[ticker] = last_close
+                else:
+                    stock = yf.Ticker(ticker)
+                    prices[ticker] = stock.info.get("previousClose", None)
+                    logger.info(f"Fallback to previous close for {ticker}: {prices[ticker]}")
+            else:
+                stock = yf.Ticker(ticker)
+                prices[ticker] = stock.info.get("previousClose", None)
+                logger.info(f"Fallback to previous close for {ticker}: {prices[ticker]}")
+
+        # Construct response
+        response_data = {
+            "Datetime": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "Prices": prices,
+            "SPX/SPY Ratio": prices["^SPX"] / prices["SPY"] if prices["SPY"] else None,
+            "ES/SPY Ratio": prices["ES=F"] / prices["SPY"] if prices["SPY"] else None,
+            "NQ/QQQ Ratio": prices["NQ=F"] / prices["QQQ"] if prices["QQQ"] else None,
+            "NDX/QQQ Ratio": prices["^NDX"] / prices["QQQ"] if prices["QQQ"] else None,
+            "ES/SPX Ratio": prices["ES=F"] / prices["^SPX"] if prices["^SPX"] else None,
+        }
+
+        # Update cache
+        cached_data = response_data
+        cache_timestamp = datetime.now()
+        logger.info(f"Returning fresh data: {response_data}")
+        return jsonify(response_data)
+
+    except Exception as e:
+        logger.error(f"Unexpected error: {str(e)}")
+        if cached_data is not None:
+            logger.info("Serving cached data due to fetch error")
+            return jsonify(cached_data)
+        return jsonify({"error": f"Failed to fetch data: {str(e)}"}), 500
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
