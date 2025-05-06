@@ -17,7 +17,7 @@ const validConversions = {
 
 // Cache keys
 const CACHE_KEY = 'liveRatios';
-const CACHE_EXPIRATION = 5 * 60 * 1000; // 5 minutes in milliseconds
+const CACHE_EXPIRATION = 1 * 60 * 1000; // 5 minutes in milliseconds
 
 // Helper function to get cached data
 function getCachedData() {
