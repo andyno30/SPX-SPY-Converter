@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Spyconverter Pro</title>
+    <link href="styles.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="main-container">
+        <h1>Spyconverter Pro</h1>
+        <p>Welcome to the premium Spyconverter Pro experience!</p>
+        <p>This is your exclusive access page for subscribed users.</p>
+        <button id="premium-feature-btn" style="display: none;">Access Premium Feature</button>
+        <button id="logout-btn">Logout</button>
+        <p id="feature-feedback"></p>
+    </div>
+
+    <!-- Use Supabase (no layout/style changes) -->
+    <script type="module">
+        import { supabase, signOut } from './auth.js';
+
+        async function checkAccess() {
+            // Require logged-in user
+            const { data: { user }, error } = await supabase.auth.getUser();
+            if (error || !user) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Check subscription flag in profiles
+            const { data: profile, error: profileError } = await supabase
+                .from('profiles')
+                .select('is_subscribed')
+                .eq('id', user.id)
+                .single();
+
+            // Not subscribed → send back to dashboard
+            if (profileError || !profile?.is_subscribed) {
+                window.location.href = 'dashboard.html';
+                return;
+            }
+
+            // Subscribed → reveal premium button
+            const btn = document.getElementById('premium-feature-btn');
+            if (btn) btn.style.display = 'inline-block';
+        }
+
+        // Premium feature navigation (unchanged)
+        document.getElementById('premium-feature-btn').addEventListener('click', () => {
+            window.location.href = 'premium-feature.html';
+        });
+
+        // Logout (uses Supabase signOut)
+        document.getElementById('logout-btn').addEventListener('click', async () => {
+            await signOut();
+            window.location.href = 'login.html';
+        });
+
+        // Run on load
+        checkAccess();
+    </script>
+</body>
+</html>

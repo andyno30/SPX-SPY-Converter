@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium Conversion Tool - Spyconverter Pro</title>
+  <link href="pro_styles.css" rel="stylesheet">
+  <script async crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2918914879248661"></script>
+</head>
+<body>
+  <nav>
+    <a class="logo" href="https://spyconverter.com/index.html"><h4>Spyconverter Pro</h4></a>
+    <ul class="nav-links">
+      <li><a href="https://spyconverter.com/index.html">Home</a></li>
+      <li class="dropdown">
+        <a href="https://spyconverter.com/aboutus.html">About Us</a>
+        <div class="dropdown-content">
+          <a href="https://spyconverter.com/aboutus.html#about-us">About Us</a>
+          <a href="https://spyconverter.com/aboutus.html#privacy-policy">Privacy Policy</a>
+          <a href="https://spyconverter.com/aboutus.html#contact-us">Contact Us</a>
+          <a href="https://spyconverter.com/aboutus.html#disclaimer">Disclaimer</a>
+          <a href="https://spyconverter.com/aboutus.html#terms-and-conditions">Terms and Conditions</a>
+        </div>
+      </li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+    </ul>
+  </nav>
+  
+  <div class="premium-container">
+    <h1>Premium Conversion Tool</h1>
+    <p>Conversion data last updated: <span id="conversionDate">Loading...</span></p>
+    
+    <div id="premium-conversion">
+      <div class="conversion-controls">
+        <select id="from-ticker">
+          <option value="">From</option>
+          <option value="SPX">SPX</option>
+          <option value="SPY">SPY</option>
+          <option value="ES">ES</option>
+          <option value="NQ">NQ</option>
+          <option value="QQQ">QQQ</option>
+          <option value="NDX">NDX</option>
+        </select>
+        <select id="to-ticker">
+          <option value="">To</option>
+        </select>
+        <input type="number" id="convert-input" placeholder="Enter value" step="0.01">
+        <button onclick="convertPremium()">Convert</button>
+      </div>
+      <p id="convert-output"></p>
+    </div>
+
+    <div id="current-ratios">
+      <h3>Live Ratios</h3>
+      <p>SPX/SPY Ratio: <span id="ratio-spx-spy">Loading...</span></p>
+      <p>ES/SPY Ratio: <span id="ratio-es-spy">Loading...</span></p>
+      <p>NQ/QQQ Ratio: <span id="ratio-nq-qqq">Loading...</span></p>
+      <p>NDX/QQQ Ratio: <span id="ratio-ndx-qqq">Loading...</span></p>
+      <p>ES/SPX Ratio: <span id="ratio-es-spx">Loading...</span></p>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 spyconverter.com. All rights reserved.</p>
+  </footer>
+  
+  <!-- Your existing premium logic (unchanged) -->
+  <script src="pro_script.js"></script>
+
+  <!-- Supabase access gate (replaces old Render/localStorage check) -->
+  <script type="module">
+    import { supabase } from './auth.js';
+
+    async function requireSubscription() {
+      // Must be authenticated
+      const { data: { user }, error } = await supabase.auth.getUser();
+      if (error || !user) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      // Must be subscribed
+      const { data: profile, error: profileErr } = await supabase
+        .from('profiles')
+        .select('is_subscribed')
+        .eq('id', user.id)
+        .single();
+
+      if (profileErr || !profile?.is_subscribed) {
+        window.location.href = 'dashboard.html';
+        return;
+      }
+      // If we got here, user is subscribed; page stays as-is.
+    }
+
+    requireSubscription();
+  </script>
+</body>
+</html>

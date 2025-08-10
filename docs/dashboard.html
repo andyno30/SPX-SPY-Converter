@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Spyconverter Pro Dashboard</title>
+    <link href="styles.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="main-container">
+        <h1>Welcome to Spyconverter Pro!</h1>
+        <p>You are logged in.</p>
+
+        <p id="user-email">Email: Loading...</p>
+        <p id="user-status">Status: Loading...</p>
+
+        <button id="subscribe-btn">Subscribe</button>
+        <button id="access-spyconverterpro-btn" style="display: none;">Go to Spyconverter Pro</button>
+
+        <button id="delete-account-btn">Delete Account</button>
+        <p id="delete-feedback"></p>
+        <p style="font-size: 12px; color: #666;">Deleting your account will automatically cancel your recurring subscription.</p>
+    </div>
+
+    <!-- IMPORTANT: script.js is now a module because it imports ./auth.js -->
+    <script type="module" src="script.js"></script>
+
+    <!-- Page logic that keeps your same function names and button wiring -->
+    <script type="module">
+        import { supabase } from './auth.js';
+
+        async function loadUserInfo() {
+            // This calls the global function defined in script.js (we assign it to window there)
+            await window.fetchUserInfo();
+
+            // If you came back from Stripe success, refresh once to allow webhook to update
+            if (window.location.search.includes('success=true')) {
+                document.getElementById('user-status').textContent = 'Processing subscription...';
+                setTimeout(window.fetchUserInfo, 3000);
+            }
+        }
+
+        // Supabase session check (replaces localStorage authToken check)
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+            window.location.href = 'login.html';
+        } else {
+            loadUserInfo();
+        }
+
+        // Keep your original button behaviors
+        document.getElementById('subscribe-btn').addEventListener('click', function () {
+            // Same redirect as your current flow; we’ll replace with a call to the Subscribe Edge Function later
+            window.location.href = '../pro.html#pricing';
+        });
+
+        document.getElementById('access-spyconverterpro-btn').addEventListener('click', function () {
+            window.location.href = 'spyconverterpro.html';
+        });
+
+        document.getElementById('delete-account-btn').addEventListener('click', function () {
+            if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+                // Calls the global deleteAccount from script.js
+                window.deleteAccount();
+            }
+        });
+    </script>
+</body>
+</html>
