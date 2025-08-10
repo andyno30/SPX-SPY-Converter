@@ -6,7 +6,7 @@
     <title>SPY Converter Pro - Professional Financial Conversion Tools</title>
     <link rel="icon" type="image/x-icon" href="Images/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://js.stripe.com/v3/"></script> <!-- Stripe.js -->
+    <script src="https://js.stripe.com/v3/"></script> <!-- Stripe.js (not required now but safe to keep) -->
     <style>
         /* Reset and Base Styles */
         * {
@@ -227,59 +227,70 @@
         </div>
     </footer>
 
-    <script>
-        // Initialize Stripe with your publishable key
-        const stripe = Stripe("pk_live_51MqL3m2mY7zktgIWWFuF9bIJrCYE0ybD66xazAVmsTZQFU1hYOEk3KsMQ0qB92LCqEMxBjymYDAi33U8kIhdvqvM00NaRSJIoe");
-        const backendURL = "https://spx-spy-converter.onrender.com";
+    <!-- Replace old Render/localStorage logic with Supabase session + Edge Functions -->
+    <script type="module">
+        import { supabase, signOut } from './docs/auth.js';
 
-        // Check login status and update nav link on page load
-        function updateAuthLink() {
-            const token = localStorage.getItem("authToken");
+        function absoluteUrl(path) {
+          // Use the production domain for auth pages if you prefer, otherwise keep relative
+          return path.startsWith('http') ? path : `${window.location.origin}/${path.replace(/^\/+/, '')}`;
+        }
+
+        // Update nav Login/Logout based on Supabase session
+        async function updateAuthLink() {
+            const { data: { user } } = await supabase.auth.getUser();
             const authLink = document.getElementById("auth-link");
-            if (token) {
+
+            if (user) {
                 authLink.textContent = "Logout";
-                authLink.href = "#"; // Prevent default navigation
-                authLink.onclick = function() {
-                    localStorage.removeItem("authToken");
-                    window.location.href = "https://spyconverter.com/docs/login.html";
-                    return false; // Prevent link default behavior
+                authLink.href = "#";
+                authLink.onclick = async function (e) {
+                    e.preventDefault();
+                    await signOut();
+                    window.location.href = absoluteUrl('docs/login.html');
                 };
             } else {
                 authLink.textContent = "Login";
-                authLink.href = "https://spyconverter.com/docs/login.html";
-                authLink.onclick = null; // Clear any previous onclick
+                authLink.href = absoluteUrl('docs/login.html');
+                authLink.onclick = null;
             }
         }
 
-        // Run on page load
         document.addEventListener("DOMContentLoaded", updateAuthLink);
 
-        async function subscribe(plan) {
-            const token = localStorage.getItem("authToken");
+        // Subscribe using your live Supabase Edge Function
+        window.subscribe = async function subscribe(plan) {
+            const { data: { session } } = await supabase.auth.getSession();
+            const token = session?.access_token;
+
             if (!token) {
-                window.location.href = "https://spyconverter.com/docs/login.html";
+                // Not logged in → go to login
+                window.location.href = absoluteUrl('docs/login.html');
                 return;
             }
+
             try {
-                const response = await fetch(`${backendURL}/subscribe`, {
-                    method: "POST",
+                const resp = await fetch('https://isvzhpqrmjtqnqyyidxr.functions.supabase.co/subscribe', {
+                    method: 'POST',
                     headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${token}`
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ plan: plan })
+                    body: JSON.stringify({ plan }) // 'monthly' or 'six_months'
                 });
-                const data = await response.json();
-                if (response.ok && data.url) {
+
+                const data = await resp.json().catch(() => ({}));
+                if (resp.ok && data.url) {
                     window.location.href = data.url; // Redirect to Stripe Checkout
                 } else {
-                    alert(data.message || "Subscription failed. Please try again.");
+                    alert(data.message || 'Subscription failed. Please try again.');
                 }
             } catch (error) {
-                console.error("Subscribe error:", error);
-                alert("Server error. Please try again.");
+                console.error('Subscribe error:', error);
+                alert('Server error. Please try again.');
             }
-        }
+        };
     </script>
 </body>
 </html>
+
