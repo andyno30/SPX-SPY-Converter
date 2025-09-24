@@ -8,8 +8,6 @@
   <link rel="stylesheet" href="styles.css">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2918914879248661" crossorigin="anonymous"></script>
 
-  <!-- Small page-specific styles to place the video block on the right.
-       You can move these rules into styles.css if you prefer. -->
   <style>
     .content-row {
       display: flex;
@@ -41,10 +39,16 @@
       display: block;
     }
 
-    .video-side p {
-      margin: 0;
+    .video-side a.video-text {
       font-size: 0.95rem;
       line-height: 1.2;
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.2s ease;
+    }
+
+    .video-side a.video-text:hover {
+      color: #1da1f2; /* change hover color */
     }
 
     /* Make the layout stack vertically on narrower screens */
@@ -57,6 +61,20 @@
         justify-content: center;
         padding-left: 0;
       }
+    }
+
+    .test-section ul {
+      padding-left: 1.2rem;
+    }
+
+    .test-section li {
+      margin-bottom: 0.5rem;
+    }
+
+    .test-section li span {
+      display: block;
+      margin-left: 0.5rem;
+      font-size: 0.95rem;
     }
   </style>
 </head>
@@ -87,7 +105,6 @@
     <p>Conversion ratio last updated: <span id="conversionDate">Loading...</span> <span id="conversionTimePST"></span></p>
     <p><small id="conversion-ratio">*note: ratio may not remain constant over time, as it can be affected by factors such as dividends, stock splits, or changes in the index composition.</small></p>
 
-    <!-- Row with converter on the left and the Instagram/video block on the right -->
     <div class="content-row">
       <!-- Left: converter content -->
       <div class="converter-side">
@@ -112,14 +129,14 @@
         <h4 class="green-italic"><a href="EStoSPX.html">/ES to SPX converter</a></h4>
       </div>
 
-      <!-- Right: Instagram icon + short text (links to your Instagram video) -->
+      <!-- Right: Instagram icon + short text -->
       <div class="video-side">
-        <!-- Replace the href with your actual Instagram video/post link and
-             replace the src with the path to your Instagram icon image. -->
         <a href="https://www.instagram.com/reel/DPAC7BoEhpE/?utm_source=ig_web_copy_link" target="_blank" rel="noopener noreferrer" aria-label="Open Instagram video">
           <img src="Images/instagram-icon.png" alt="Instagram icon" class="instagram-icon">
         </a>
-        <p>Here is a video on how I use Spyconverter efficiently</p>
+        <a href="https://www.instagram.com/reel/DPAC7BoEhpE/?utm_source=ig_web_copy_link" target="_blank" rel="noopener noreferrer" class="video-text">
+          Here is a video on how I use Spyconverter efficiently
+        </a>
       </div>
     </div>
 
@@ -137,18 +154,24 @@
     <h4>By utilizing the SPX-SPY Converter website, you can easily and accurately convert prices between</h4>
     <h4>SPX and SPY, saving time and gaining valuable insights into the conversion process.</h4>
     <ul>
-      <li>spyconverter.com provides a user-friendly interface to quickly convert prices between</li>
-      <p>SPX (S&P 500 Index) and SPY (S&P 500 ETF).</p>
-      <li>(spyconverter.com)'s conversion ratio is regularly updated, ensuring accurate and up-to-date</li>
-      <p>conversion results.</p>
-      <li>Instead of manually calculating the conversion, the website automates the</li>
-      <p>process, saving you time and effort.</p>
-      <li>The website is accessible from any device with an internet connection, allowing you to</li>
-      <p>perform conversions on the go.</p>
-      <li>spyconverter.com provides an informative note regarding the potential factors that may impact the</li>
-      <p>conversion ratio, increasing your understanding of the conversion process.</p>
-      <li>spyconverter.com is free to use without an account, providing a reliable conversion tool</li>
-      <p>without any hidden costs or fees.</p>
+      <li>spyconverter.com provides a user-friendly interface to quickly convert prices between
+        <span>SPX (S&P 500 Index) and SPY (S&P 500 ETF).</span>
+      </li>
+      <li>(spyconverter.com)'s conversion ratio is regularly updated, ensuring accurate and up-to-date
+        <span>conversion results.</span>
+      </li>
+      <li>Instead of manually calculating the conversion, the website automates the
+        <span>process, saving you time and effort.</span>
+      </li>
+      <li>The website is accessible from any device with an internet connection, allowing you to
+        <span>perform conversions on the go.</span>
+      </li>
+      <li>spyconverter.com provides an informative note regarding the potential factors that may impact the
+        <span>conversion ratio, increasing your understanding of the conversion process.</span>
+      </li>
+      <li>spyconverter.com is free to use without an account, providing a reliable conversion tool
+        <span>without any hidden costs or fees.</span>
+      </li>
     </ul>
   </div>
 
@@ -158,8 +181,6 @@
 
   <script src="script.js"></script>
   <script>
-    // const ratio has been moved to script.js
-
     function convertSpxToSpy() {
       const spxValue = parseFloat(document.getElementById("spxInput").value);
       if (isNaN(spxValue)) {
@@ -182,3 +203,4 @@
   </script>
 </body>
 </html>
+
