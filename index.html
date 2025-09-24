@@ -9,48 +9,52 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2918914879248661" crossorigin="anonymous"></script>
 
   <style>
-    /* Layout for converter + Instagram/video block */
+    /* Make the content max-width to prevent ad shifting page */
+    .main-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 1em;
+    }
+
     .content-row {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      max-width: 800px;
-      width: 100%;
       gap: 1em;
       margin-top: 2em;
     }
+
     .converter-side {
       flex: 2;
     }
+
     .video-side {
       flex: 1;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: flex-start;
       gap: 0.75rem;
     }
+
     .instagram-icon {
       width: 48px;
       height: 48px;
+      flex: 0 0 48px;
       display: block;
     }
-    .video-side a.text-link {
+
+    .video-side a, .video-side p {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    .video-side p {
+      margin: 0;
       font-size: 0.95rem;
       line-height: 1.2;
-      color: #000;
-      text-decoration: underline;
-      text-align: center;
     }
-    /* Ad container to prevent pushing layout */
-    .ad-container {
-      width: 100%;
-      max-width: 728px;
-      margin: 20px auto;
-      overflow: hidden;
-      text-align: center;
-    }
-    /* Responsive layout */
+
     @media (max-width: 700px) {
       .content-row {
         flex-direction: column;
@@ -59,6 +63,22 @@
       .video-side {
         justify-content: center;
       }
+    }
+
+    .test-section {
+      background-color: #f1f8e9;
+      padding: 2em 1em;
+      line-height: 1.4em;
+      margin: 2em auto;
+      max-width: 800px;
+    }
+
+    .test-section ul {
+      padding-left: 1.2em;
+    }
+
+    .test-section li p {
+      margin: 0.3em 0 1em 0;
     }
   </style>
 </head>
@@ -89,9 +109,7 @@
     <p>Conversion ratio last updated: <span id="conversionDate">Loading...</span> <span id="conversionTimePST"></span></p>
     <p><small id="conversion-ratio">*note: ratio may not remain constant over time, as it can be affected by factors such as dividends, stock splits, or changes in the index composition.</small></p>
 
-    <!-- Row with converter on the left and Instagram/video block on the right -->
     <div class="content-row">
-      <!-- Left: converter content -->
       <div class="converter-side">
         <div class="conversion-section">
           <h3>SPX to SPY</h3>
@@ -112,33 +130,18 @@
         <h4 class="green-italic"><a href="https://spyconverter.com/pro.html">Spyconverter Pro</a></h4>
         <h4 class="green-italic"><a href="converter.html">/ES to SPY and QQQ to /NQ to NDX converter</a></h4>
         <h4 class="green-italic"><a href="EStoSPX.html">/ES to SPX converter</a></h4>
-
-        <!-- Safe AdSense block -->
-        <div class="ad-container">
-          <ins class="adsbygoogle"
-               style="display:block"
-               data-ad-client="ca-pub-2918914879248661"
-               data-ad-slot="XXXXXXX"
-               data-ad-format="auto"
-               data-full-width-responsive="true"></ins>
-          <script>
-              (adsbygoogle = window.adsbygoogle || []).push({});
-          </script>
-        </div>
       </div>
 
-      <!-- Right: Instagram icon + clickable text -->
       <div class="video-side">
-        <a href="https://www.instagram.com/reel/DPAC7BoEhpE/?utm_source=ig_web_copy_link" target="_blank" rel="noopener noreferrer" aria-label="Open Instagram video">
+        <a href="https://www.instagram.com/reel/DPAC7BoEhpE/?utm_source=ig_web_copy_link" target="_blank" rel="noopener noreferrer">
           <img src="Images/instagram-icon.png" alt="Instagram icon" class="instagram-icon">
         </a>
-        <a href="https://www.instagram.com/reel/DPAC7BoEhpE/?utm_source=ig_web_copy_link" target="_blank" rel="noopener noreferrer" class="text-link">
-          Here is a video on how I use Spyconverter efficiently
+        <a href="https://www.instagram.com/reel/DPAC7BoEhpE/?utm_source=ig_web_copy_link" target="_blank" rel="noopener noreferrer">
+          <p>Here is a video on how I use Spyconverter efficiently</p>
         </a>
       </div>
     </div>
 
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-2M5FE2EC3Q"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -152,23 +155,29 @@
     <h4>By utilizing the SPX-SPY Converter website, you can easily and accurately convert prices between</h4>
     <h4>SPX and SPY, saving time and gaining valuable insights into the conversion process.</h4>
     <ul>
-      <li>spyconverter.com provides a user-friendly interface to quickly convert prices between
-          <span>SPX (S&P 500 Index) and SPY (S&P 500 ETF).</span>
+      <li>
+        spyconverter.com provides a user-friendly interface to quickly convert prices between
+        <p>SPX (S&P 500 Index) and SPY (S&P 500 ETF).</p>
       </li>
-      <li>(spyconverter.com)'s conversion ratio is regularly updated, ensuring accurate and up-to-date
-          <span>conversion results.</span>
+      <li>
+        (spyconverter.com)'s conversion ratio is regularly updated, ensuring accurate and up-to-date
+        <p>conversion results.</p>
       </li>
-      <li>Instead of manually calculating the conversion, the website automates the
-          <span>process, saving you time and effort.</span>
+      <li>
+        Instead of manually calculating the conversion, the website automates the
+        <p>process, saving you time and effort.</p>
       </li>
-      <li>The website is accessible from any device with an internet connection, allowing you to
-          <span>perform conversions on the go.</span>
+      <li>
+        The website is accessible from any device with an internet connection, allowing you to
+        <p>perform conversions on the go.</p>
       </li>
-      <li>spyconverter.com provides an informative note regarding the potential factors that may impact the
-          <span>conversion ratio, increasing your understanding of the conversion process.</span>
+      <li>
+        spyconverter.com provides an informative note regarding the potential factors that may impact the
+        <p>conversion ratio, increasing your understanding of the conversion process.</p>
       </li>
-      <li>spyconverter.com is free to use without an account, providing a reliable conversion tool
-          <span>without any hidden costs or fees.</span>
+      <li>
+        spyconverter.com is free to use without an account, providing a reliable conversion tool
+        <p>without any hidden costs or fees.</p>
       </li>
     </ul>
   </div>
@@ -180,25 +189,26 @@
   <script src="script.js"></script>
   <script>
     function convertSpxToSpy() {
-        const spxValue = parseFloat(document.getElementById("spxInput").value);
-        if (isNaN(spxValue)) {
-            document.getElementById("spxToSpyOutput").innerHTML = "Please enter a valid SPX value.";
-            return;
-        }
-        const spyValue = (spxValue / ratio).toFixed(2);
-        document.getElementById("spxToSpyOutput").innerHTML = `SPY Value: ${spyValue}`;
+      const spxValue = parseFloat(document.getElementById("spxInput").value);
+      if (isNaN(spxValue)) {
+        document.getElementById("spxToSpyOutput").innerHTML = "Please enter a valid SPX value.";
+        return;
+      }
+      const spyValue = (spxValue / ratio).toFixed(2);
+      document.getElementById("spxToSpyOutput").innerHTML = `SPY Value: ${spyValue}`;
     }
 
     function convertSpyToSpx() {
-        const spyValue = parseFloat(document.getElementById("spyInput").value);
-        if (isNaN(spyValue)) {
-            document.getElementById("spyToSpxOutput").innerHTML = "Please enter a valid SPY value.";
-            return;
-        }
-        const spxValue = (spyValue * ratio).toFixed(2);
-        document.getElementById("spyToSpxOutput").innerHTML = `SPX Value: ${spxValue}`;
+      const spyValue = parseFloat(document.getElementById("spyInput").value);
+      if (isNaN(spyValue)) {
+        document.getElementById("spyToSpxOutput").innerHTML = "Please enter a valid SPY value.";
+        return;
+      }
+      const spxValue = (spyValue * ratio).toFixed(2);
+      document.getElementById("spyToSpxOutput").innerHTML = `SPX Value: ${spxValue}`;
     }
   </script>
 </body>
 </html>
+
 
