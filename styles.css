@@ -1,190 +1,235 @@
+/* General body setup */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    align-items: center;
-  }
-  
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #333;
-    color: white;
-    padding: 1em;
-    max-width: 800px;
-    width: 100%;
-  }
-  
-  .logo {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .nav-links {
-    list-style: none;
-  }
-  
-  .nav-links li {
-    display: inline-block;
-    margin-left: 2em;
-  }
-  
-  .nav-links li a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  main {
-    flex: 1;
-    padding: 1em 2em;
-    max-width: 800px;
-  }
-  
-  #conversion-ratio {
-    color: red;
-    font-size: 0.8em;
-  }
-  
-  footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 1em;
-    width: 100%;
-  }
-  
-  .blog-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 1em;
-    margin-top: 1em;
-  }
-  
-  .blog-post {
-    border: 1px solid #ccc;
-    padding: 1em;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .blog-post h2 {
-    margin: 0 0 0.5em 0;
-  }
-  
-  .blog-post p {
-    margin: 0 0 1em 0;
-  }
-  
-  .header-container {
-    max-width: 800px;
-    margin: auto;
-    width: 100%;
-  }
-  
-  .middle-section {
-    margin-top: 2em;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .latest-news-box {
-    border: 2px dotted green;
-    padding: 1em;
-    text-align: center;
-  }
-  
-  .latest-news-box h3 {
-    font-size: 1.2em;
-    margin-bottom: 0.5em;
-  }
-  
-  .test-section {
-    background-color: #f1f8e9;
-    padding: 2em;
-    padding-top: 0.5em;
-    padding-bottom: 1em;
-    margin-bottom: 1em;
-    margin-top: 1em;
-    line-height: 1em;
-  }
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  align-items: center;
+  background-color: #fff;
+}
 
-  .banner-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    height: 250px; 
-  }
-  
-  .alignleft {
-    position: fixed;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 4em
- }
+/* Navigation */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  color: white;
+  padding: 1em;
+  max-width: 800px;
+  width: 100%;
+}
 
- .image-container, .smaller-image-container {
-    display: flex;  
-    justify-content: space-between; 
-    align-items: center; 
+.logo {
+  color: white;
+  text-decoration: none;
+}
+
+.nav-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  display: inline-block;
+  margin-left: 2em;
+}
+
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+}
+
+/* Main container fixed width to avoid AdSense pushing content */
+.main-container {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1em;
+}
+
+/* Conversion ratio */
+#conversion-ratio {
+  color: red;
+  font-size: 0.8em;
+}
+
+/* Footer */
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 1em;
+  width: 100%;
+}
+
+/* Blog grid */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1em;
+  margin-top: 1em;
+}
+
+.blog-post {
+  border: 1px solid #ccc;
+  padding: 1em;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.blog-post h2 {
+  margin: 0 0 0.5em 0;
+}
+
+.blog-post p {
+  margin: 0 0 1em 0;
+}
+
+/* Test section fix */
+.test-section {
+  background-color: #f1f8e9;
+  padding: 2em 1em;
+  margin: 2em auto;
+  max-width: 800px;
+  line-height: 1.4em; /* Fix line spacing */
+}
+
+.test-section ul {
+  padding-left: 1.2em;
+  margin: 0;
+}
+
+.test-section li p {
+  margin: 0.3em 0 1em 0; /* Proper spacing under each point */
+}
+
+/* Banner container */
+.banner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 250px;
+}
+
+/* Images */
+.alignleft {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 4em;
+}
+
+.image-container, .smaller-image-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .breakout-image {
-    width: 30%;  
-    margin: 1%;  
+  width: 30%;
+  margin: 1%;
 }
 
 .smaller-breakout-image {
-    width: 15%; 
-    margin: 0.5%; 
+  width: 15%;
+  margin: 0.5%;
 }
 
+/* Dropdown menu */
 .dropdown {
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 
 .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #de87ef;
-    min-width: 160px;
-    z-index: 1;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  display: none;
+  position: absolute;
+  background-color: #de87ef;
+  min-width: 160px;
+  z-index: 1;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
 
 .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
 }
 
 .dropdown:hover .dropdown-content {
-    display: block;
+  display: block;
 }
 
+/* Conversion sections grid */
 .conversion-grid2 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-    grid-gap: 20px; 
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
 }
 
 .conversion-section2 {
-    padding: 10px;
-    border: 1px solid #e0e0e0;
-    border-radius: 5px;
-    background-color: #c4c4c4;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  background-color: #c4c4c4;
 }
 
+/* Green italic links */
 .green-italic {
-    color: green;
-    font-style: italic;
+  color: green;
+  font-style: italic;
 }
+
+/* Content row for SPX-SPY converter */
+.content-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1em;
+  margin-top: 2em;
+}
+
+.converter-side {
+  flex: 2;
+}
+
+.video-side {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.75rem;
+}
+
+.video-side a, .video-side p {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.video-side p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+
+/* Responsive adjustments */
+@media (max-width: 700px) {
+  .content-row {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .video-side {
+    justify-content: center;
+  }
+}
+
