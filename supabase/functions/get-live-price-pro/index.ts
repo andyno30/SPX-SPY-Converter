@@ -26,7 +26,7 @@ const safeDiv = (a: number | null, b: number | null) =>
 
 // Tiny in-memory cache (30s)
 let lastFetch: { at: number; body: any } | null = null;
-const TTL_MS = 30_000;
+const TTL_MS = 60_000;
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return cors(new Response(null, { status: 204 }));
