@@ -10,9 +10,9 @@ const validConversions = {
   "SPX": ["SPY", "ES"],
   "SPY": ["SPX", "ES"],
   "ES": ["SPY", "SPX"],
-  "NQ": ["QQQ"],
+  "NQ": ["QQQ", "NDX"],
   "QQQ": ["NQ", "NDX"],
-  "NDX": ["QQQ"]
+  "NDX": ["QQQ", "NQ"]
 };
 
 // Cache keys
@@ -80,7 +80,13 @@ function updateProRatios() {
         "ES/SPY": data["ES/SPY Ratio"],
         "NQ/QQQ": data["NQ/QQQ Ratio"],
         "NDX/QQQ": data["NDX/QQQ Ratio"],
-        "ES/SPX": data["ES/SPX Ratio"]
+        "ES/SPX": data["ES/SPX Ratio"],
+        "NQ/NDX":
+          (typeof prices.NQ === "number" &&
+           typeof prices.NDX === "number" &&
+           prices.NDX !== 0)
+            ? prices.NQ / prices.NDX
+            : null
       };
 
       // Parse the UTC timestamp and convert to local time
@@ -148,7 +154,9 @@ function convertPremium() {
     "QQQ->NQ":  (v) => v * ratios["NQ/QQQ"],
     "NQ->QQQ":  (v) => v / ratios["NQ/QQQ"],
     "QQQ->NDX": (v) => v * ratios["NDX/QQQ"],
-    "NDX->QQQ": (v) => v / ratios["NDX/QQQ"]
+    "NDX->QQQ": (v) => v / ratios["NDX/QQQ"],
+    "NQ->NDX":  (v) => (v / ratios["NQ/QQQ"]) * ratios["NDX/QQQ"],
+    "NDX->NQ":  (v) => (v / ratios["NDX/QQQ"]) * ratios["NQ/QQQ"]
   };
 
   const key = `${fromTicker}->${toTicker}`;
@@ -170,7 +178,8 @@ function updateRatioDisplay() {
     "ES/SPY": "ratio-es-spy",
     "NQ/QQQ": "ratio-nq-qqq",
     "NDX/QQQ": "ratio-ndx-qqq",
-    "ES/SPX": "ratio-es-spx"
+    "ES/SPX": "ratio-es-spx",
+    "NQ/NDX": "ratio-nq-ndx"
   };
 
   Object.keys(ratioMapping).forEach(key => {
