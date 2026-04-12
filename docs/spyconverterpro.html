@@ -27,6 +27,13 @@
     <script type="module">
         import { supabase, signOut } from './auth.js';
 
+        function syncActionGroupWidth() {
+            const actionGroup = document.querySelector('.pro-action-group');
+            const topActions = document.querySelector('.pro-top-actions');
+            if (!actionGroup || !topActions) return;
+            actionGroup.style.width = `${Math.ceil(topActions.getBoundingClientRect().width)}px`;
+        }
+
         async function checkAccess() {
             // Require logged-in user
             const { data: { user }, error } = await supabase.auth.getUser();
@@ -53,6 +60,9 @@
             const dowRussellBtn = document.getElementById('dow-russell-feature-btn');
             if (premiumBtn) premiumBtn.style.display = 'inline-block';
             if (dowRussellBtn) dowRussellBtn.style.display = 'block';
+
+            // Keep lower converter button width aligned with top row on all browsers.
+            requestAnimationFrame(syncActionGroupWidth);
         }
 
         // Premium feature navigation (unchanged)
@@ -72,6 +82,7 @@
 
         // Run on load
         checkAccess();
+        window.addEventListener('resize', syncActionGroupWidth);
     </script>
 </body>
 </html>

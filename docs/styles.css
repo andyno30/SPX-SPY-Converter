@@ -163,7 +163,7 @@
   }
 
   .pro-action-group {
-    width: fit-content;
+    display: inline-block;
     max-width: 100%;
     margin: 24px auto 0;
   }
@@ -173,7 +173,7 @@
     justify-content: flex-start;
     align-items: center;
     gap: 10px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     margin: 0;
   }
 
@@ -185,15 +185,15 @@
 
   .pro-feature-buttons {
     display: block;
-    width: 100%;
-    max-width: none;
     margin: 16px 0 0;
   }
 
   .pro-feature-buttons #dow-russell-feature-btn {
     width: 100%;
+    display: block;
     margin-right: 0;
     margin-top: 0;
+    white-space: normal;
   }
   
   /* Delete button styling */
