@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dow Jones and Russell 2000 Converter - Spyconverter Pro</title>
+  <link href="pro_styles.css" rel="stylesheet">
+  <script async crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2918914879248661"></script>
+</head>
+<body>
+  <nav>
+    <a class="logo" href="https://spyconverter.com/index.html"><h4>Spyconverter Pro</h4></a>
+    <ul class="nav-links">
+      <li><a href="https://spyconverter.com/index.html">Home</a></li>
+      <li class="dropdown">
+        <a href="https://spyconverter.com/aboutus.html">About Us</a>
+        <div class="dropdown-content">
+          <a href="https://spyconverter.com/aboutus.html#about-us">About Us</a>
+          <a href="https://spyconverter.com/aboutus.html#privacy-policy">Privacy Policy</a>
+          <a href="https://spyconverter.com/aboutus.html#contact-us">Contact Us</a>
+          <a href="https://spyconverter.com/aboutus.html#disclaimer">Disclaimer</a>
+          <a href="https://spyconverter.com/aboutus.html#terms-and-conditions">Terms and Conditions</a>
+        </div>
+      </li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+    </ul>
+  </nav>
+
+  <div class="premium-container">
+    <h1>Dow Jones and Russell 2000 Converter</h1>
+    <p>Conversion data last updated: <span id="conversionDate">Loading...</span></p>
+
+    <div id="premium-conversion">
+      <div class="conversion-controls">
+        <select id="from-ticker">
+          <option value="">From</option>
+          <option value="DJI">DJI</option>
+          <option value="DIA">DIA</option>
+          <option value="YM">YM</option>
+          <option value="RUT">RUT</option>
+          <option value="IWM">IWM</option>
+          <option value="RTY">RTY</option>
+        </select>
+        <select id="to-ticker">
+          <option value="">To</option>
+        </select>
+        <input type="number" id="convert-input" placeholder="Enter value" step="0.01">
+        <button onclick="convertDowRussell()">Convert</button>
+      </div>
+      <p id="convert-output"></p>
+    </div>
+
+    <div id="current-ratios">
+      <h3>Live Ratios</h3>
+      <p>DJI/DIA Ratio: <span id="ratio-dji-dia">Loading...</span></p>
+      <p>YM/DIA Ratio: <span id="ratio-ym-dia">Loading...</span></p>
+      <p>YM/DJI Ratio: <span id="ratio-ym-dji">Loading...</span></p>
+      <p>RUT/IWM Ratio: <span id="ratio-rut-iwm">Loading...</span></p>
+      <p>RTY/IWM Ratio: <span id="ratio-rty-iwm">Loading...</span></p>
+      <p>RTY/RUT Ratio: <span id="ratio-rty-rut">Loading...</span></p>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 spyconverter.com. All rights reserved.</p>
+  </footer>
+
+  <script src="dow_russell_script.js"></script>
+
+  <script type="module">
+    import { supabase } from './auth.js';
+
+    async function requireSubscription() {
+      const { data: { user }, error } = await supabase.auth.getUser();
+      if (error || !user) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      const { data: profile, error: profileErr } = await supabase
+        .from('profiles')
+        .select('is_subscribed')
+        .eq('id', user.id)
+        .single();
+
+      if (profileErr || !profile?.is_subscribed) {
+        window.location.href = 'dashboard.html';
+      }
+    }
+
+    requireSubscription();
+  </script>
+</body>
+</html>

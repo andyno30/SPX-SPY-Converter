@@ -11,8 +11,15 @@
         <h1>Spyconverter Pro</h1>
         <p>Welcome to the premium Spyconverter Pro experience!</p>
         <p>This is your exclusive access page for subscribed users.</p>
-        <button id="premium-feature-btn" style="display: none;">Access Premium Feature</button>
-        <button id="logout-btn">Logout</button>
+        <div class="pro-action-group">
+            <div class="pro-top-actions">
+                <button id="premium-feature-btn" style="display: none;">Access Premium Feature</button>
+                <button id="logout-btn">Logout</button>
+            </div>
+            <div class="pro-feature-buttons">
+                <button id="dow-russell-feature-btn" style="display: none;">Dow Jones and Russell 2000 Converter</button>
+            </div>
+        </div>
         <p id="feature-feedback"></p>
     </div>
 
@@ -41,14 +48,20 @@
                 return;
             }
 
-            // Subscribed → reveal premium button
-            const btn = document.getElementById('premium-feature-btn');
-            if (btn) btn.style.display = 'inline-block';
+            // Subscribed → reveal feature buttons
+            const premiumBtn = document.getElementById('premium-feature-btn');
+            const dowRussellBtn = document.getElementById('dow-russell-feature-btn');
+            if (premiumBtn) premiumBtn.style.display = 'inline-block';
+            if (dowRussellBtn) dowRussellBtn.style.display = 'block';
         }
 
         // Premium feature navigation (unchanged)
         document.getElementById('premium-feature-btn').addEventListener('click', () => {
             window.location.href = 'premium-feature.html';
+        });
+
+        document.getElementById('dow-russell-feature-btn').addEventListener('click', () => {
+            window.location.href = 'dow-russell-feature.html';
         });
 
         // Logout (uses Supabase signOut)

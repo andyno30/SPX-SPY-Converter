@@ -144,6 +144,57 @@
   #premium-feature-btn:hover {
     background-color: #e68900;
   }
+
+  #dow-russell-feature-btn {
+    background-color: #ff9800;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+    margin-top: 10px;
+  }
+
+  #dow-russell-feature-btn:hover {
+    background-color: #e68900;
+  }
+
+  .pro-action-group {
+    width: fit-content;
+    max-width: 100%;
+    margin: 24px auto 0;
+  }
+
+  .pro-top-actions {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 0;
+  }
+
+  .pro-top-actions #premium-feature-btn,
+  .pro-top-actions #logout-btn {
+    margin-right: 0;
+    margin-top: 0;
+  }
+
+  .pro-feature-buttons {
+    display: block;
+    width: 100%;
+    max-width: none;
+    margin: 16px 0 0;
+  }
+
+  .pro-feature-buttons #dow-russell-feature-btn {
+    width: 100%;
+    margin-right: 0;
+    margin-top: 0;
+  }
   
   /* Delete button styling */
   #delete-account-btn {
@@ -209,7 +260,7 @@
     #user-email, #user-status {
         font-size: 16px;
     }
-    #subscribe-btn, #delete-account-btn, #access-spyconverterpro-btn, #premium-feature-btn, #logout-btn {
+    #subscribe-btn, #delete-account-btn, #access-spyconverterpro-btn, #premium-feature-btn, #dow-russell-feature-btn, #logout-btn {
         padding: 10px 20px;
         font-size: 14px;
     }

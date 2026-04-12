@@ -13,7 +13,7 @@ type Ticker =
   | "RUT"
   | "IWM"
   | "RTY"
-  | "DJX"
+  | "DJI"
   | "DIA"
   | "YM";
 
@@ -30,7 +30,7 @@ const SYMBOLS: Record<Ticker, string> = {
   RUT: "^RUT",
   IWM: "IWM",
   RTY: "RTY=F", // /RTY futures
-  DJX: "DJX",
+  DJI: "^DJI",
   DIA: "DIA",
   YM: "YM=F", // /YM futures
 };
@@ -96,7 +96,7 @@ async function fetchPricesFromYahoo() {
     RUT: bySymbol[SYMBOLS.RUT] ?? null,
     IWM: bySymbol[SYMBOLS.IWM] ?? null,
     RTY: bySymbol[SYMBOLS.RTY] ?? null,
-    DJX: bySymbol[SYMBOLS.DJX] ?? null,
+    DJI: bySymbol[SYMBOLS.DJI] ?? null,
     DIA: bySymbol[SYMBOLS.DIA] ?? null,
     YM: bySymbol[SYMBOLS.YM] ?? null,
   };
