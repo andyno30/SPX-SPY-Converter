@@ -5,7 +5,9 @@ import type { CSSProperties } from "react";
 import Script from "next/script";
 
 const ADSENSE_CLIENT = "ca-pub-2918914879248661";
-const ADSENSE_SLOT = "your-ad-slot-id";
+const ADSENSE_SLOT_FOOTER = "1499711707";
+const ADSENSE_SLOT_LEFT = "3839980763";
+const ADSENSE_SLOT_RIGHT = "5271435750";
 
 declare global {
   interface Window {
@@ -23,12 +25,13 @@ function pushAd(config: Record<string, unknown> = {}): void {
 }
 
 interface AdUnitProps {
+  slot: string;
   style: CSSProperties;
   adFormat?: string;
   responsive?: boolean;
 }
 
-function AdUnit({ style, adFormat = "auto", responsive = true }: AdUnitProps) {
+function AdUnit({ slot, style, adFormat = "auto", responsive = true }: AdUnitProps) {
   const adRef = useRef<HTMLModElement | null>(null);
 
   useEffect(() => {
@@ -46,7 +49,7 @@ function AdUnit({ style, adFormat = "auto", responsive = true }: AdUnitProps) {
       className="adsbygoogle block"
       style={style}
       data-ad-client={ADSENSE_CLIENT}
-      data-ad-slot={ADSENSE_SLOT}
+      data-ad-slot={slot}
       data-ad-format={adFormat}
       data-full-width-responsive={responsive ? "true" : "false"}
     />
@@ -81,9 +84,10 @@ export function NewsAds() {
       <aside className="pointer-events-none fixed left-4 top-1/2 z-20 hidden -translate-y-1/2 2xl:block">
         <div className="pointer-events-auto overflow-hidden rounded-xl border border-slate-200 bg-white/95 p-2 shadow-card backdrop-blur">
           <AdUnit
-            style={{ display: "block", width: "160px", height: "600px" }}
+            slot={ADSENSE_SLOT_LEFT}
+            style={{ display: "block" }}
             adFormat="auto"
-            responsive={false}
+            responsive={true}
           />
         </div>
       </aside>
@@ -91,9 +95,10 @@ export function NewsAds() {
       <aside className="pointer-events-none fixed right-4 top-1/2 z-20 hidden -translate-y-1/2 2xl:block">
         <div className="pointer-events-auto overflow-hidden rounded-xl border border-slate-200 bg-white/95 p-2 shadow-card backdrop-blur">
           <AdUnit
-            style={{ display: "block", width: "160px", height: "600px" }}
+            slot={ADSENSE_SLOT_RIGHT}
+            style={{ display: "block" }}
             adFormat="auto"
-            responsive={false}
+            responsive={true}
           />
         </div>
       </aside>
@@ -102,8 +107,9 @@ export function NewsAds() {
         <div className="mx-auto max-w-5xl px-4 py-2 sm:px-6 lg:px-8">
           <div className="pointer-events-auto overflow-hidden rounded-lg border border-slate-200 bg-white px-2 py-1">
             <AdUnit
-              style={{ display: "block", minHeight: "90px" }}
-              adFormat="horizontal"
+              slot={ADSENSE_SLOT_FOOTER}
+              style={{ display: "block" }}
+              adFormat="auto"
               responsive={true}
             />
           </div>
@@ -112,4 +118,3 @@ export function NewsAds() {
     </>
   );
 }
-
