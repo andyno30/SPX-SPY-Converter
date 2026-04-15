@@ -26,9 +26,10 @@ async function loadInitialNews(): Promise<NewsArticleRow[]> {
     )
     .in("source", NEWS_SOURCES as unknown as string[])
     .gte("published_at", "2020-01-01T00:00:00Z")
-    // Most recent market headlines first.
-    .order("published_at", { ascending: false })
+    // Pull recently ingested rows first so slower-moving sources remain visible.
     .order("fetched_at", { ascending: false })
+    // Final feed order is still handled client-side by published_at desc.
+    .order("published_at", { ascending: false })
     .limit(300);
 
   if (error) {
