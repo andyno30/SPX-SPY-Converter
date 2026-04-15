@@ -64,6 +64,7 @@ const MAX_TITLE_LEN = 300;
 const MAX_SUMMARY_LEN = 500;
 const MAX_TICKERS_PER_ARTICLE = 8;
 const MAX_INSERT_CHUNK = 500;
+const FEDERAL_RESERVE_FALLBACK_URL = "https://www.federalreserve.gov/newsevents.htm";
 const SEC_PRESS_RELEASES_URL =
   "https://www.sec.gov/news/pressreleases?items_per_page=100&month=All&page=0&year=All";
 const WHITE_HOUSE_RELEASES_URL = "https://www.whitehouse.gov/releases/";
@@ -329,7 +330,7 @@ function extractTag(block: string, tag: string): string {
 }
 
 function resolveMaybeRelativeUrl(rawUrl: string, baseUrl?: string): string {
-  const cleaned = stripCDATA(stripHtml(rawUrl)).trim();
+  const cleaned = stripHtml(stripCDATA(rawUrl)).trim();
   if (!cleaned) return "";
 
   if (/^https?:\/\//i.test(cleaned)) return cleaned;
@@ -380,6 +381,98 @@ function extractLink(block: string, source: string, baseUrl?: string): string {
 
   const id = extractTag(block, "id");
   return id ? resolveMaybeRelativeUrl(id, baseUrl) : "";
+}
+
+function buildStableRef(input: string): string {
+  let hash = 0;
+  for (let i = 0; i < input.length; i += 1) {
+    hash = (hash * 31 + input.charCodeAt(i)) >>> 0;
+  }
+  return hash.toString(16).padStart(8, "0");
+}
+
+function makeFederalReserveFallbackUrl(title: string, publishedAt: string): string {
+  const ref = buildStableRef(`${title}|${publishedAt}`);
+  return `${FEDERAL_RESERVE_FALLBACK_URL}?ref=${ref}`;
+}
+
+function isFederalReserveArticleUrl(url: string): boolean {
+  return /https?:\/\/(?:www\.)?federalreserve\.gov\/newsevents\/pressreleases\/[a-z]+\d{8}[a-z]?\.htm(?:[?#].*)?$/i.test(
+    url,
+  );
+}
+
+function normalizeFederalReserveUrl(rawUrl: string, title: string, publishedAt: string): string {
+  const canonical = canonicalizeUrl(stripHtml(stripCDATA(rawUrl)));
+  if (canonical && isFederalReserveArticleUrl(canonical)) {
+    return canonical;
+  }
+
+  // Keep other official Fed newsevents URLs if provided.
+  if (canonical && /https?:\/\/(?:www\.)?federalreserve\.gov\/newsevents/i.test(canonical)) {
+    return canonical;
+  }
+
+  return makeFederalReserveFallbackUrl(title, publishedAt);
+}
+
+async function federalReserveUrlReturns404(url: string): Promise<boolean> {
+  const candidate = canonicalizeUrl(url);
+  if (!candidate) return true;
+  if (/\/newsevents\.htm(?:[?#].*)?$/i.test(candidate)) return false;
+
+  try {
+    const headResponse = await fetch(candidate, {
+      method: "HEAD",
+      redirect: "follow",
+      signal: AbortSignal.timeout(DEFAULT_TIMEOUT_MS),
+      headers: {
+        "User-Agent": "SpyConverterNewsBot/1.0 (+https://spyconverter.com)",
+      },
+    });
+
+    if (headResponse.status === 404 || headResponse.status === 410) return true;
+    if (headResponse.ok || headResponse.redirected) return false;
+
+    // Some endpoints do not support HEAD; validate with GET before deciding.
+    if (![405, 501].includes(headResponse.status)) return false;
+  } catch {
+    // Network/transient failures should not force fallback.
+    return false;
+  }
+
+  try {
+    const getResponse = await fetch(candidate, {
+      method: "GET",
+      redirect: "follow",
+      signal: AbortSignal.timeout(DEFAULT_TIMEOUT_MS),
+      headers: {
+        "User-Agent": "SpyConverterNewsBot/1.0 (+https://spyconverter.com)",
+      },
+    });
+
+    return getResponse.status === 404 || getResponse.status === 410;
+  } catch {
+    return false;
+  }
+}
+
+async function applyFederalReserveFallbackOn404(articles: NewsArticle[]): Promise<NewsArticle[]> {
+  const updates = await Promise.all(
+    articles.map(async (article) => {
+      if (article.source !== "Federal Reserve") return article;
+
+      const shouldFallback = await federalReserveUrlReturns404(article.original_url);
+      if (!shouldFallback) return article;
+
+      return {
+        ...article,
+        original_url: makeFederalReserveFallbackUrl(article.title, article.published_at),
+      };
+    }),
+  );
+
+  return updates;
 }
 
 function parseDate(rawDate: string): string {
@@ -434,18 +527,18 @@ function normalizeArticle(input: Partial<NewsArticle>): NewsArticle | null {
   const summary = stripHtml(stripCDATA(input.summary ?? ""))
     .slice(0, MAX_SUMMARY_LEN)
     .trim();
-  const original_url = canonicalizeUrl(input.original_url ?? "");
-
   const source = (input.source ?? "").trim();
   const source_type = input.source_type;
-  const published_at = resolvePublishedAt(source, input.published_at ?? "", original_url);
+  const originalUrlForDate = canonicalizeUrl(stripHtml(stripCDATA(input.original_url ?? "")));
+  const published_at = resolvePublishedAt(source, input.published_at ?? "", originalUrlForDate);
+  const original_url =
+    source === "Federal Reserve"
+      ? normalizeFederalReserveUrl(input.original_url ?? "", title, published_at)
+      : originalUrlForDate;
 
   if (!title || !original_url || !source || !source_type) return null;
   if (!SOURCE_ALLOWLIST.has(source)) return null;
-  if (
-    source === "Federal Reserve" &&
-    !/federalreserve\.gov\/newsevents\/pressreleases\//i.test(original_url)
-  ) {
+  if (source === "Federal Reserve" && !/federalreserve\.gov\/newsevents/i.test(original_url)) {
     return null;
   }
   if (source === "SEC") {
@@ -766,16 +859,18 @@ Deno.serve(async (req) => {
   }
 
   const deduped = dedupeBatch(allItems);
+  const withFedFallbacks = await applyFederalReserveFallbackOn404(deduped);
+  const finalArticles = dedupeBatch(withFedFallbacks);
   console.log(
     "fetch-news complete",
     JSON.stringify({
       fetched: allItems.length,
-      deduped: deduped.length,
+      deduped: finalArticles.length,
       sourceStats,
     }),
   );
 
-  if (deduped.length === 0) {
+  if (finalArticles.length === 0) {
     return jsonResponse({
       inserted: 0,
       fetched: 0,
@@ -787,8 +882,8 @@ Deno.serve(async (req) => {
   }
 
   let inserted = 0;
-  for (let offset = 0; offset < deduped.length; offset += MAX_INSERT_CHUNK) {
-    const chunk = deduped.slice(offset, offset + MAX_INSERT_CHUNK);
+  for (let offset = 0; offset < finalArticles.length; offset += MAX_INSERT_CHUNK) {
+    const chunk = finalArticles.slice(offset, offset + MAX_INSERT_CHUNK);
 
     const { error, count } = await supabase
       .from("news_articles")
@@ -805,7 +900,7 @@ Deno.serve(async (req) => {
           error: error.message,
           inserted,
           fetched: allItems.length,
-          deduped: deduped.length,
+          deduped: finalArticles.length,
           sourceStats,
         },
         500,
@@ -818,7 +913,7 @@ Deno.serve(async (req) => {
   return jsonResponse({
     inserted,
     fetched: allItems.length,
-    deduped: deduped.length,
+    deduped: finalArticles.length,
     sourceStats,
     startedAt,
     finishedAt: new Date().toISOString(),
