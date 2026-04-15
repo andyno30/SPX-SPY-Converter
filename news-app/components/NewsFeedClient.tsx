@@ -14,6 +14,10 @@ interface NewsFeedClientProps {
   sourceFilters: string[];
 }
 
+const MAX_CLIENT_ROWS = 500;
+const CATCH_UP_QUERY_LIMIT = 220;
+const CATCH_UP_INTERVAL_MS = 3 * 60 * 1000;
+
 function normalizeRealtimeRow(payloadRow: Partial<NewsArticleRow>): NewsArticleRow | null {
   if (
     !payloadRow.id ||
@@ -58,6 +62,30 @@ export function NewsFeedClient({ initialRows, sourceFilters }: NewsFeedClientPro
 
   useEffect(() => {
     const supabase = getBrowserSupabaseClient();
+    let cancelled = false;
+
+    const mergeRows = (incomingRows: NewsArticleRow[]) => {
+      setRows((prev) =>
+        dedupeAndSortNews([...incomingRows, ...prev])
+          .filter((row) => NEWS_SOURCES.includes(row.source as (typeof NEWS_SOURCES)[number]))
+          .slice(0, MAX_CLIENT_ROWS),
+      );
+    };
+
+    const catchUpFromDatabase = async () => {
+      const { data, error } = await supabase
+        .from("news_articles")
+        .select("id,title,summary,original_url,source,source_type,published_at,tickers,fetched_at")
+        .in("source", NEWS_SOURCES as unknown as string[])
+        .gte("published_at", "2020-01-01T00:00:00Z")
+        .order("fetched_at", { ascending: false })
+        .order("published_at", { ascending: false })
+        .limit(CATCH_UP_QUERY_LIMIT);
+
+      if (cancelled || error || !data?.length) return;
+
+      mergeRows(data as NewsArticleRow[]);
+    };
 
     const channel = supabase
       .channel("news_articles_inserts")
@@ -72,21 +100,42 @@ export function NewsFeedClient({ initialRows, sourceFilters }: NewsFeedClientPro
           const incoming = normalizeRealtimeRow(payload.new as Partial<NewsArticleRow>);
           if (!incoming) return;
 
-          setRows((prev) => {
-            const merged = [incoming, ...prev];
-            return dedupeAndSortNews(merged)
-              .filter((row) =>
-                NEWS_SOURCES.includes(row.source as (typeof NEWS_SOURCES)[number]),
-              )
-              .slice(0, 500);
-          });
+          mergeRows([incoming]);
         },
       )
       .subscribe((status) => {
         setIsLive(status === "SUBSCRIBED");
+        // When websocket reconnects after sleep/network drops, fetch missed rows.
+        if (status === "SUBSCRIBED") {
+          void catchUpFromDatabase();
+        }
       });
 
+    const intervalId = window.setInterval(() => {
+      void catchUpFromDatabase();
+    }, CATCH_UP_INTERVAL_MS);
+
+    const onFocus = () => {
+      void catchUpFromDatabase();
+    };
+
+    const onVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        void catchUpFromDatabase();
+      }
+    };
+
+    window.addEventListener("focus", onFocus);
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
+    // Initial catch-up after mount to avoid stale overnight tab snapshots.
+    void catchUpFromDatabase();
+
     return () => {
+      cancelled = true;
+      window.clearInterval(intervalId);
+      window.removeEventListener("focus", onFocus);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
       void supabase.removeChannel(channel);
     };
   }, []);
