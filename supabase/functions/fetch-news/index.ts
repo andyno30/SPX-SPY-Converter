@@ -17,15 +17,8 @@ if (!PROJECT_URL || !SERVICE_ROLE_KEY) {
   throw new Error("Missing PROJECT_URL or SERVICE_ROLE_KEY edge function secrets.");
 }
 
-const FINNHUB_API_KEY = Deno.env.get("FINNHUB_API_KEY") ?? "";
-const MARKETAUX_API_KEY = Deno.env.get("MARKETAUX_API_KEY") ?? "";
-
 // Optional endpoint secrets for scheduler calls.
 const FETCH_NEWS_SECRET = Deno.env.get("FETCH_NEWS_SECRET") ?? "";
-
-// Optional feed URLs (leave blank to skip).
-const FINANCIALJUICE_RSS_URL = Deno.env.get("FINANCIALJUICE_RSS_URL") ?? "";
-const SAVETICKER_NEWS_RSS_URL = Deno.env.get("SAVETICKER_NEWS_RSS_URL") ?? "";
 
 const supabase = createClient(PROJECT_URL, SERVICE_ROLE_KEY, {
   auth: {
@@ -71,6 +64,9 @@ const MAX_TITLE_LEN = 300;
 const MAX_SUMMARY_LEN = 500;
 const MAX_TICKERS_PER_ARTICLE = 8;
 const MAX_INSERT_CHUNK = 500;
+const SEC_PRESS_RELEASES_URL =
+  "https://www.sec.gov/news/pressreleases?items_per_page=100&month=All&page=0&year=All";
+const SEC_MIN_ALLOWED_PUBLISHED_AT_MS = Date.UTC(2020, 0, 1);
 
 const MARKET_KEYWORDS = [
   "spy",
@@ -93,7 +89,35 @@ const MARKET_KEYWORDS = [
   "unemployment",
   "treasury",
   "yield",
+  "yields",
+  "futures",
+  "stock futures",
+  "index futures",
+  "premarket",
+  "pre-market",
+  "after hours",
+  "after-hours",
+  "risk-on",
+  "risk-off",
   "bond market",
+  "global markets",
+  "international markets",
+  "european markets",
+  "asian markets",
+  "nikkei",
+  "hang seng",
+  "dax",
+  "ftse",
+  "stoxx",
+  "currency market",
+  "forex",
+  "fx",
+  "dollar index",
+  "gold",
+  "crude",
+  "brent",
+  "wti",
+  "commodities",
   "earnings",
   "guidance",
   "ipo",
@@ -108,7 +132,6 @@ const MARKET_KEYWORDS = [
   "macro",
   "tariff",
   "tariffs",
-  "white house",
   "economy",
   "economic",
   "jobs",
@@ -169,12 +192,8 @@ const KNOWN_TICKERS = new Set([
 const SOURCE_ALLOWLIST = new Set([
   "Reuters",
   "CNBC",
-  "FinancialJuice",
-  "White House",
   "SEC",
   "Yahoo Finance",
-  "Finnhub",
-  "Marketaux",
   "Federal Reserve",
 ]);
 
@@ -210,39 +229,10 @@ const RSS_SOURCES: SourceConfig[] = [
     sourceType: "aggregator",
   },
   {
-    sourceKey: "sec_press_releases",
-    // SEC's current official press release RSS feed.
-    url: "https://www.sec.gov/news/pressreleases.rss",
-    source: "SEC",
-    sourceType: "regulator",
-  },
-  {
-    sourceKey: "white_house_briefing",
-    url: "https://www.whitehouse.gov/briefing-room/feed/",
-    source: "White House",
-    sourceType: "government",
-    baseUrl: "https://www.whitehouse.gov",
-  },
-  {
-    sourceKey: "white_house_statements",
-    url: "https://www.whitehouse.gov/briefing-room/statements-releases/feed/",
-    source: "White House",
-    sourceType: "government",
-    baseUrl: "https://www.whitehouse.gov",
-  },
-  {
-    sourceKey: "white_house_presidential_actions",
-    url: "https://www.whitehouse.gov/briefing-room/presidential-actions/feed/",
-    source: "White House",
-    sourceType: "government",
-    baseUrl: "https://www.whitehouse.gov",
-  },
-  {
-    sourceKey: "white_house_speeches",
-    url: "https://www.whitehouse.gov/briefing-room/speeches-remarks/feed/",
-    source: "White House",
-    sourceType: "government",
-    baseUrl: "https://www.whitehouse.gov",
+    sourceKey: "yahoo_finance_news",
+    url: "https://finance.yahoo.com/news/rss",
+    source: "Yahoo Finance",
+    sourceType: "aggregator",
   },
   {
     sourceKey: "federal_reserve_press",
@@ -252,24 +242,6 @@ const RSS_SOURCES: SourceConfig[] = [
     baseUrl: "https://www.federalreserve.gov",
   },
 ];
-
-if (FINANCIALJUICE_RSS_URL) {
-  RSS_SOURCES.push({
-    sourceKey: "financialjuice",
-    url: FINANCIALJUICE_RSS_URL,
-    source: "FinancialJuice",
-    sourceType: "terminal",
-  });
-}
-
-if (SAVETICKER_NEWS_RSS_URL) {
-  RSS_SOURCES.push({
-    sourceKey: "saveticker_english",
-    url: SAVETICKER_NEWS_RSS_URL,
-    source: "SaveTicker",
-    sourceType: "aggregator",
-  });
-}
 
 function isLikelyEnglish(input: string): boolean {
   if (!input) return false;
@@ -336,6 +308,14 @@ function stripHtml(input: string): string {
 
 function stripCDATA(input: string): string {
   return input.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/gi, "$1").trim();
+}
+
+function normalizeDateLabel(raw: string): string {
+  return raw
+    .replace(/\u00a0/g, " ")
+    .replace(/\b(Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)\./gi, "$1")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function extractTag(block: string, tag: string): string {
@@ -425,7 +405,7 @@ function resolvePublishedAt(source: string, rawDate: string, originalUrl: string
     if (inferredFromUrl) return inferredFromUrl;
   }
 
-  return parseDate(rawDate);
+  return parseDate(normalizeDateLabel(rawDate));
 }
 
 function extractTickers(input: string): string[] {
@@ -456,12 +436,18 @@ function normalizeArticle(input: Partial<NewsArticle>): NewsArticle | null {
   const published_at = resolvePublishedAt(source, input.published_at ?? "", original_url);
 
   if (!title || !original_url || !source || !source_type) return null;
-  if (!SOURCE_ALLOWLIST.has(source) && source !== "SaveTicker") return null;
+  if (!SOURCE_ALLOWLIST.has(source)) return null;
   if (
     source === "Federal Reserve" &&
     !/federalreserve\.gov\/newsevents\/pressreleases\//i.test(original_url)
   ) {
     return null;
+  }
+  if (source === "SEC") {
+    const secPublishedAt = new Date(published_at).getTime();
+    if (Number.isNaN(secPublishedAt) || secPublishedAt < SEC_MIN_ALLOWED_PUBLISHED_AT_MS) {
+      return null;
+    }
   }
 
   const relevanceText = `${title} ${summary}`;
@@ -532,86 +518,69 @@ async function fetchText(url: string): Promise<string> {
   return await response.text();
 }
 
-async function fetchFinnhub(): Promise<FetchResult> {
-  if (!FINNHUB_API_KEY) {
-    return { sourceKey: "finnhub", items: [] };
+async function fetchHtml(url: string): Promise<string> {
+  const response = await fetch(url, {
+    signal: AbortSignal.timeout(DEFAULT_TIMEOUT_MS),
+    headers: {
+      "User-Agent": "SpyConverterNewsBot/1.0 (+https://spyconverter.com)",
+      Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`${response.status} ${response.statusText}`);
   }
 
-  try {
-    const endpoint = `https://finnhub.io/api/v1/news?category=general&token=${FINNHUB_API_KEY}`;
-    const data = await fetchJson(endpoint);
-    if (!Array.isArray(data)) return { sourceKey: "finnhub", items: [] };
-
-    const items = data
-      .map((item: any) =>
-        normalizeArticle({
-          title: item.headline,
-          summary: item.summary,
-          original_url: item.url,
-          source: item.source || "Finnhub",
-          source_type: "api",
-          published_at: item.datetime
-            ? new Date(Number(item.datetime) * 1000).toISOString()
-            : new Date().toISOString(),
-          tickers: typeof item.related === "string"
-            ? item.related
-                .split(",")
-                .map((ticker: string) => ticker.trim())
-                .filter(Boolean)
-            : [],
-        }),
-      )
-      .filter((item: NewsArticle | null): item is NewsArticle => item !== null);
-
-    return { sourceKey: "finnhub", items };
-  } catch (error) {
-    console.error("finnhub fetch failed", error);
-    return { sourceKey: "finnhub", items: [] };
-  }
+  return await response.text();
 }
 
-async function fetchMarketaux(): Promise<FetchResult> {
-  if (!MARKETAUX_API_KEY) {
-    return { sourceKey: "marketaux", items: [] };
-  }
+function parseSecPressReleasesFromHtml(html: string): NewsArticle[] {
+  const rowBlocks = html.match(/<tr\b[\s\S]*?<\/tr>/gi) ?? [];
 
+  return rowBlocks
+    .map((row) => {
+      const linkMatch = row.match(/<a[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/i);
+      const dateMatch = row.match(/<td[^>]*>([\s\S]*?)<\/td>/i);
+      if (!linkMatch?.[1] || !linkMatch?.[2] || !dateMatch?.[1]) return null;
+
+      const originalUrl = resolveMaybeRelativeUrl(linkMatch[1], "https://www.sec.gov");
+      if (!/sec\.gov\/news(?:room)?\/press-releases\//i.test(originalUrl)) return null;
+
+      const title = stripHtml(linkMatch[2]).slice(0, MAX_TITLE_LEN);
+      const publishedAt = parseDate(normalizeDateLabel(stripHtml(dateMatch[1])));
+
+      return normalizeArticle({
+        title,
+        summary: "",
+        original_url: originalUrl,
+        source: "SEC",
+        source_type: "regulator",
+        published_at: publishedAt,
+        tickers: extractTickers(title),
+      });
+    })
+    .filter((item: NewsArticle | null): item is NewsArticle => item !== null);
+}
+
+async function fetchSecPressReleases(): Promise<FetchResult> {
   try {
-    const publishedAfter = new Date(Date.now() - 48 * 60 * 60 * 1000).toISOString();
-    const endpoint =
-      "https://api.marketaux.com/v1/news/all" +
-      `?api_token=${MARKETAUX_API_KEY}` +
-      "&language=en" +
-      "&countries=us" +
-      "&filter_entities=true" +
-      "&limit=100" +
-      `&published_after=${encodeURIComponent(publishedAfter)}`;
-
-    const json = await fetchJson(endpoint);
-    const rows = Array.isArray(json?.data) ? json.data : [];
-
-    const items = rows
-      .map((item: any) =>
-        normalizeArticle({
-          title: item.title,
-          summary: item.description,
-          original_url: item.url,
-          source: item.source || "Marketaux",
-          source_type: "api",
-          published_at: item.published_at,
-          tickers: Array.isArray(item.entities)
-            ? item.entities
-                .map((entity: any) => String(entity?.symbol || "").trim())
-                .filter(Boolean)
-            : [],
-        }),
-      )
-      .filter((item: NewsArticle | null): item is NewsArticle => item !== null);
-
-    return { sourceKey: "marketaux", items };
+    const html = await fetchHtml(SEC_PRESS_RELEASES_URL);
+    const items = parseSecPressReleasesFromHtml(html);
+    if (items.length > 0) {
+      return { sourceKey: "sec_press_releases_html", items };
+    }
   } catch (error) {
-    console.error("marketaux fetch failed", error);
-    return { sourceKey: "marketaux", items: [] };
+    console.error("sec html fetch failed", error);
   }
+
+  // Fallback in case SEC updates newsroom page markup.
+  return await fetchRssSource({
+    sourceKey: "sec_press_releases_rss",
+    url: "https://www.sec.gov/news/pressreleases.rss",
+    source: "SEC",
+    sourceType: "regulator",
+    baseUrl: "https://www.sec.gov",
+  });
 }
 
 function parseRssEntries(
@@ -723,8 +692,10 @@ Deno.serve(async (req) => {
   const startedAt = new Date().toISOString();
   console.log("fetch-news started", startedAt);
 
-  const tasks: Array<Promise<FetchResult>> = [fetchFinnhub(), fetchMarketaux()];
-  tasks.push(...RSS_SOURCES.map((source) => fetchRssSource(source)));
+  const tasks: Array<Promise<FetchResult>> = [
+    fetchSecPressReleases(),
+    ...RSS_SOURCES.map((source) => fetchRssSource(source)),
+  ];
 
   const settled = await Promise.allSettled(tasks);
   const allItems: NewsArticle[] = [];
