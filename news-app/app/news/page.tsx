@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { LegacySiteFooter, LegacySiteHeader } from "@/components/LegacySiteChrome";
 import { NewsAds } from "@/components/NewsAds";
 import { NewsFeedClient } from "@/components/NewsFeedClient";
 import { buildSourceFilters, dedupeAndSortNews, NEWS_SOURCES } from "@/lib/news";
@@ -59,26 +60,32 @@ export default async function NewsPage() {
   };
 
   return (
-    <main className="mx-auto max-w-5xl px-4 pb-36 pt-6 sm:px-6 lg:px-8">
-      <header className="mb-5 rounded-2xl border border-slate-200 bg-white p-5 shadow-card sm:p-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">SpyConverter</p>
-        <h1 className="mt-2 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
-          U.S. Market News
-        </h1>
-        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
-          English-only headlines from Reuters, CNBC, Yahoo Finance, SEC, Federal Reserve, and
-          White House releases.
-        </p>
-      </header>
+    <>
+      <LegacySiteHeader />
 
-      <NewsFeedClient initialRows={initialRows} sourceFilters={sourceFilters} />
-      <NewsAds />
+      <main className="mx-auto max-w-[800px] px-4 pb-36 pt-6 sm:px-6 lg:px-0">
+        <header className="mb-5 rounded-2xl border border-slate-200 bg-white p-5 shadow-card sm:p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">SpyConverter</p>
+          <h1 className="mt-2 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
+            U.S. Market News
+          </h1>
+          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
+            English-only headlines from Reuters, CNBC, Yahoo Finance, SEC, Federal Reserve, and
+            White House releases.
+          </p>
+        </header>
 
-      <script
-        type="application/ld+json"
-        // JSON-LD for better crawlability of this feed page.
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-    </main>
+        <NewsFeedClient initialRows={initialRows} sourceFilters={sourceFilters} />
+        <NewsAds />
+
+        <script
+          type="application/ld+json"
+          // JSON-LD for better crawlability of this feed page.
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </main>
+
+      <LegacySiteFooter />
+    </>
   );
 }
