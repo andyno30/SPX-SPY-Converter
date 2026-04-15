@@ -63,6 +63,7 @@ interface SourceConfig {
   url: string;
   source: string;
   sourceType: SourceType;
+  baseUrl?: string;
 }
 
 const DEFAULT_TIMEOUT_MS = 10_000;
@@ -106,7 +107,24 @@ const MARKET_KEYWORDS = [
   "equities",
   "macro",
   "tariff",
+  "tariffs",
   "white house",
+  "economy",
+  "economic",
+  "jobs",
+  "job growth",
+  "employment",
+  "manufacturing",
+  "trade policy",
+  "tax",
+  "budget",
+  "deficit",
+  "debt ceiling",
+  "debt",
+  "executive order",
+  "industrial policy",
+  "consumer spending",
+  "retail sales",
   "nvidia",
   "tesla",
   "apple",
@@ -203,12 +221,35 @@ const RSS_SOURCES: SourceConfig[] = [
     url: "https://www.whitehouse.gov/briefing-room/feed/",
     source: "White House",
     sourceType: "government",
+    baseUrl: "https://www.whitehouse.gov",
+  },
+  {
+    sourceKey: "white_house_statements",
+    url: "https://www.whitehouse.gov/briefing-room/statements-releases/feed/",
+    source: "White House",
+    sourceType: "government",
+    baseUrl: "https://www.whitehouse.gov",
+  },
+  {
+    sourceKey: "white_house_presidential_actions",
+    url: "https://www.whitehouse.gov/briefing-room/presidential-actions/feed/",
+    source: "White House",
+    sourceType: "government",
+    baseUrl: "https://www.whitehouse.gov",
+  },
+  {
+    sourceKey: "white_house_speeches",
+    url: "https://www.whitehouse.gov/briefing-room/speeches-remarks/feed/",
+    source: "White House",
+    sourceType: "government",
+    baseUrl: "https://www.whitehouse.gov",
   },
   {
     sourceKey: "federal_reserve_press",
     url: "https://www.federalreserve.gov/feeds/press_all.xml",
     source: "Federal Reserve",
     sourceType: "regulator",
+    baseUrl: "https://www.federalreserve.gov",
   },
 ];
 
@@ -302,18 +343,58 @@ function extractTag(block: string, tag: string): string {
   return match?.[1]?.trim() ?? "";
 }
 
-function extractLink(block: string): string {
-  const hrefMatch = block.match(/<link[^>]*href=["']([^"']+)["'][^>]*>/i);
-  if (hrefMatch?.[1]) return hrefMatch[1].trim();
+function resolveMaybeRelativeUrl(rawUrl: string, baseUrl?: string): string {
+  const cleaned = stripCDATA(stripHtml(rawUrl)).trim();
+  if (!cleaned) return "";
+
+  if (/^https?:\/\//i.test(cleaned)) return cleaned;
+  if (!baseUrl) return cleaned;
+
+  try {
+    return new URL(cleaned, baseUrl).toString();
+  } catch {
+    return cleaned;
+  }
+}
+
+function extractLink(block: string, source: string, baseUrl?: string): string {
+  const alternateHrefMatch =
+    block.match(/<link[^>]*rel=["']alternate["'][^>]*href=["']([^"']+)["'][^>]*>/i) ||
+    block.match(/<link[^>]*href=["']([^"']+)["'][^>]*rel=["']alternate["'][^>]*>/i);
+  if (alternateHrefMatch?.[1]) return resolveMaybeRelativeUrl(alternateHrefMatch[1], baseUrl);
+
+  const htmlTypeHrefMatch =
+    block.match(/<link[^>]*type=["']text\/html["'][^>]*href=["']([^"']+)["'][^>]*>/i) ||
+    block.match(/<link[^>]*href=["']([^"']+)["'][^>]*type=["']text\/html["'][^>]*>/i);
+  if (htmlTypeHrefMatch?.[1]) return resolveMaybeRelativeUrl(htmlTypeHrefMatch[1], baseUrl);
+
+  const hrefMatches = Array.from(
+    block.matchAll(/<link[^>]*href=["']([^"']+)["'][^>]*>/gi),
+    (match) => resolveMaybeRelativeUrl(match[1], baseUrl),
+  );
+
+  if (source === "Federal Reserve") {
+    const federalArticleUrl = hrefMatches.find((url) =>
+      /federalreserve\.gov\/newsevents\/pressreleases\//i.test(url),
+    );
+    if (federalArticleUrl) return federalArticleUrl;
+  }
+
+  const firstLikelyArticleUrl = hrefMatches.find(
+    (url) => !/\/feeds\//i.test(url) && !/\.xml($|[?#])/i.test(url),
+  );
+  if (firstLikelyArticleUrl) return firstLikelyArticleUrl;
+
+  if (hrefMatches[0]) return hrefMatches[0];
 
   const directLink = extractTag(block, "link");
-  if (directLink) return stripCDATA(stripHtml(directLink));
+  if (directLink) return resolveMaybeRelativeUrl(directLink, baseUrl);
 
   const guid = extractTag(block, "guid");
-  if (guid) return stripCDATA(stripHtml(guid));
+  if (guid) return resolveMaybeRelativeUrl(guid, baseUrl);
 
   const id = extractTag(block, "id");
-  return id ? stripCDATA(stripHtml(id)) : "";
+  return id ? resolveMaybeRelativeUrl(id, baseUrl) : "";
 }
 
 function parseDate(rawDate: string): string {
@@ -321,6 +402,30 @@ function parseDate(rawDate: string): string {
   const parsed = new Date(rawDate);
   if (Number.isNaN(parsed.getTime())) return new Date().toISOString();
   return parsed.toISOString();
+}
+
+function parseFederalReserveDateFromUrl(url: string): string | null {
+  const match = url.match(
+    /\/newsevents\/pressreleases\/[a-z]+(\d{4})(\d{2})(\d{2})[a-z]?\.htm/i,
+  );
+  if (!match) return null;
+
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+  if (!year || !month || !day) return null;
+
+  // Use noon UTC to avoid date-shift edge cases across timezones.
+  return new Date(Date.UTC(year, month - 1, day, 12, 0, 0)).toISOString();
+}
+
+function resolvePublishedAt(source: string, rawDate: string, originalUrl: string): string {
+  if (source === "Federal Reserve") {
+    const inferredFromUrl = parseFederalReserveDateFromUrl(originalUrl);
+    if (inferredFromUrl) return inferredFromUrl;
+  }
+
+  return parseDate(rawDate);
 }
 
 function extractTickers(input: string): string[] {
@@ -348,10 +453,16 @@ function normalizeArticle(input: Partial<NewsArticle>): NewsArticle | null {
 
   const source = (input.source ?? "").trim();
   const source_type = input.source_type;
-  const published_at = parseDate(input.published_at ?? "");
+  const published_at = resolvePublishedAt(source, input.published_at ?? "", original_url);
 
   if (!title || !original_url || !source || !source_type) return null;
   if (!SOURCE_ALLOWLIST.has(source) && source !== "SaveTicker") return null;
+  if (
+    source === "Federal Reserve" &&
+    !/federalreserve\.gov\/newsevents\/pressreleases\//i.test(original_url)
+  ) {
+    return null;
+  }
 
   const relevanceText = `${title} ${summary}`;
   if (!isLikelyEnglish(relevanceText)) return null;
@@ -503,7 +614,12 @@ async function fetchMarketaux(): Promise<FetchResult> {
   }
 }
 
-function parseRssEntries(xml: string, source: string, sourceType: SourceType): NewsArticle[] {
+function parseRssEntries(
+  xml: string,
+  source: string,
+  sourceType: SourceType,
+  baseUrl?: string,
+): NewsArticle[] {
   const itemBlocks = xml.match(/<item\b[\s\S]*?<\/item>/gi) ?? [];
   const entryBlocks = xml.match(/<entry\b[\s\S]*?<\/entry>/gi) ?? [];
   const blocks = [...itemBlocks, ...entryBlocks];
@@ -514,9 +630,11 @@ function parseRssEntries(xml: string, source: string, sourceType: SourceType): N
       const description =
         extractTag(block, "description") ||
         extractTag(block, "summary") ||
+        extractTag(block, "frb:summary") ||
+        extractTag(block, "subtitle") ||
         extractTag(block, "content") ||
         extractTag(block, "content:encoded");
-      const link = extractLink(block);
+      const link = extractLink(block, source, baseUrl);
       const publishedAt =
         extractTag(block, "pubDate") ||
         extractTag(block, "published") ||
@@ -539,7 +657,12 @@ function parseRssEntries(xml: string, source: string, sourceType: SourceType): N
 async function fetchRssSource(config: SourceConfig): Promise<FetchResult> {
   try {
     const xml = await fetchText(config.url);
-    const items = parseRssEntries(xml, config.source, config.sourceType);
+    const items = parseRssEntries(
+      xml,
+      config.source,
+      config.sourceType,
+      config.baseUrl ?? config.url,
+    );
     return {
       sourceKey: config.sourceKey,
       items,
