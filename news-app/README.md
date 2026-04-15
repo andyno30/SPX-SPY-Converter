@@ -8,7 +8,10 @@ Your existing static GitHub Pages site files remain untouched.
 ```bash
 cd news-app
 npm install
-cp .env.example .env.local
+cat > .env.local <<'ENV'
+NEXT_PUBLIC_SUPABASE_URL=https://isvzhpqrmjtqnqyyidxr.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_f5EYFGZ8NNT7dczGGyBnCA_T1uOvDaf
+ENV
 npm run dev
 ```
 
