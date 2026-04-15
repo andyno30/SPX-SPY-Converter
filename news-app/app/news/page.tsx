@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { NewsAds } from "@/components/NewsAds";
 import { NewsFeedClient } from "@/components/NewsFeedClient";
 import { buildSourceFilters, dedupeAndSortNews, NEWS_SOURCES } from "@/lib/news";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
@@ -58,7 +59,7 @@ export default async function NewsPage() {
   };
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
+    <main className="mx-auto max-w-5xl px-4 pb-36 pt-6 sm:px-6 lg:px-8">
       <header className="mb-5 rounded-2xl border border-slate-200 bg-white p-5 shadow-card sm:p-6">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">SpyConverter</p>
         <h1 className="mt-2 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
@@ -71,6 +72,7 @@ export default async function NewsPage() {
       </header>
 
       <NewsFeedClient initialRows={initialRows} sourceFilters={sourceFilters} />
+      <NewsAds />
 
       <script
         type="application/ld+json"
