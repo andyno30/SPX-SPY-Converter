@@ -12,7 +12,6 @@ const ADSENSE_SLOT_RIGHT = "5271435750";
 declare global {
   interface Window {
     adsbygoogle?: unknown[];
-    __spyconverterNewsAdsInit?: boolean;
   }
 }
 
@@ -61,16 +60,6 @@ function AdUnit({ slot, style, adFormat = "auto", responsive = true }: AdUnitPro
  * as the main static SpyConverter site.
  */
 export function NewsAds() {
-  useEffect(() => {
-    if (window.__spyconverterNewsAdsInit) return;
-
-    pushAd({
-      google_ad_client: ADSENSE_CLIENT,
-      enable_page_level_ads: true,
-    });
-    window.__spyconverterNewsAdsInit = true;
-  }, []);
-
   return (
     <>
       <Script
@@ -103,15 +92,10 @@ export function NewsAds() {
         </div>
       </aside>
 
-      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-30 border-t border-slate-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/90">
-        <div className="mx-auto max-w-5xl px-4 py-2 sm:px-6 lg:px-8">
-          <div className="pointer-events-auto overflow-hidden rounded-lg border border-slate-200 bg-white px-2 py-1">
-            <AdUnit
-              slot={ADSENSE_SLOT_FOOTER}
-              style={{ display: "block" }}
-              adFormat="auto"
-              responsive={true}
-            />
+      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-30">
+        <div className="mx-auto max-w-5xl px-4 py-1 sm:px-6 lg:px-8">
+          <div className="pointer-events-auto overflow-hidden">
+            <AdUnit slot={ADSENSE_SLOT_FOOTER} style={{ display: "block" }} adFormat="auto" responsive={true} />
           </div>
         </div>
       </div>
