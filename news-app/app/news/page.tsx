@@ -70,7 +70,7 @@ export default async function NewsPage() {
             U.S. Market News
           </h1>
           <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
-            English-only headlines from Reuters, CNBC, Yahoo Finance, SEC, Federal Reserve, and
+            Headlines from Reuters, CNBC, Yahoo Finance, SEC, Federal Reserve, and
             White House releases.
           </p>
         </header>
