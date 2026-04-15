@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import Script from "next/script";
 
@@ -60,6 +60,8 @@ function AdUnit({ slot, style, adFormat = "auto", responsive = true }: AdUnitPro
  * as the main static SpyConverter site.
  */
 export function NewsAds() {
+  const [showBottomAd, setShowBottomAd] = useState(true);
+
   return (
     <>
       <Script
@@ -70,35 +72,52 @@ export function NewsAds() {
         crossOrigin="anonymous"
       />
 
-      <aside className="pointer-events-none fixed left-4 top-1/2 z-20 hidden -translate-y-1/2 2xl:block">
+      <aside className="pointer-events-none fixed left-4 top-1/2 z-20 hidden -translate-y-1/2 xl:block">
         <div className="pointer-events-auto overflow-hidden rounded-xl border border-slate-200 bg-white/95 p-2 shadow-card backdrop-blur">
           <AdUnit
             slot={ADSENSE_SLOT_LEFT}
-            style={{ display: "block" }}
+            style={{ display: "block", width: "160px", height: "600px" }}
             adFormat="auto"
-            responsive={true}
+            responsive={false}
           />
         </div>
       </aside>
 
-      <aside className="pointer-events-none fixed right-4 top-1/2 z-20 hidden -translate-y-1/2 2xl:block">
+      <aside className="pointer-events-none fixed right-4 top-1/2 z-20 hidden -translate-y-1/2 xl:block">
         <div className="pointer-events-auto overflow-hidden rounded-xl border border-slate-200 bg-white/95 p-2 shadow-card backdrop-blur">
           <AdUnit
             slot={ADSENSE_SLOT_RIGHT}
-            style={{ display: "block" }}
+            style={{ display: "block", width: "160px", height: "600px" }}
             adFormat="auto"
-            responsive={true}
+            responsive={false}
           />
         </div>
       </aside>
 
-      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-30">
-        <div className="mx-auto max-w-5xl px-4 py-1 sm:px-6 lg:px-8">
-          <div className="pointer-events-auto overflow-hidden">
-            <AdUnit slot={ADSENSE_SLOT_FOOTER} style={{ display: "block" }} adFormat="auto" responsive={true} />
+      <div className="pointer-events-none fixed bottom-4 right-4 z-40">
+        <button
+          type="button"
+          onClick={() => setShowBottomAd((prev) => !prev)}
+          className="pointer-events-auto rounded-full border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-md transition hover:border-slate-400 hover:text-slate-900"
+        >
+          {showBottomAd ? "Hide Bottom Ad" : "Show Bottom Ad"}
+        </button>
+      </div>
+
+      {showBottomAd ? (
+        <div className="pointer-events-none fixed inset-x-0 bottom-0 z-30">
+          <div className="mx-auto max-w-5xl px-4 py-1 sm:px-6 lg:px-8">
+            <div className="pointer-events-auto overflow-hidden">
+              <AdUnit
+                slot={ADSENSE_SLOT_FOOTER}
+                style={{ display: "block", minHeight: "90px" }}
+                adFormat="auto"
+                responsive={true}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      ) : null}
     </>
   );
 }
