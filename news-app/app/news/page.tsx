@@ -24,9 +24,9 @@ async function loadInitialNews(): Promise<NewsArticleRow[]> {
     .select(
       "id,title,summary,original_url,source,source_type,published_at,tickers,fetched_at",
     )
-    // Sort by ingestion time so newly fetched stories remain visible after refresh.
-    .order("fetched_at", { ascending: false })
+    // Most recent market headlines first.
     .order("published_at", { ascending: false })
+    .order("fetched_at", { ascending: false })
     .limit(300);
 
   if (error) {

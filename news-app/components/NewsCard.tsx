@@ -21,10 +21,10 @@ export function NewsCard({ article }: NewsCardProps) {
           <span className="rounded-full bg-slate-900 px-2.5 py-1 font-semibold tracking-wide text-white">
             {article.source}
           </span>
-          <span className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 font-medium uppercase tracking-wide text-slate-600">
-            {article.source_type}
-          </span>
-          <time className="ml-auto whitespace-nowrap font-medium text-slate-500">
+          <time
+            suppressHydrationWarning
+            className="ml-auto whitespace-nowrap font-medium text-slate-500"
+          >
             {formatNewsTime(article.published_at)}
           </time>
         </div>

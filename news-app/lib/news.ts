@@ -41,29 +41,46 @@ export function formatNewsTime(isoDate: string): string {
   const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
   const absSeconds = Math.abs(deltaSeconds);
 
-  if (absSeconds < 60) return rtf.format(deltaSeconds, "second");
+  // Avoid second-level labels to reduce hydration mismatch risk between SSR/CSR.
+  if (absSeconds < 60) return "Just now";
   if (absSeconds < 3600) return rtf.format(Math.round(deltaSeconds / 60), "minute");
   if (absSeconds < 86400) return rtf.format(Math.round(deltaSeconds / 3600), "hour");
   if (absSeconds < 86400 * 7) return rtf.format(Math.round(deltaSeconds / 86400), "day");
 
-  return new Intl.DateTimeFormat("en-US", {
+  // Build from parts so output stays stable across runtimes (Safari vs Node ICU).
+  const parts = new Intl.DateTimeFormat("en-US", {
     month: "short",
     day: "numeric",
     hour: "numeric",
     minute: "2-digit",
-  }).format(date);
+    hour12: true,
+  }).formatToParts(date);
+
+  const byType = (type: Intl.DateTimeFormatPartTypes) =>
+    parts.find((part) => part.type === type)?.value ?? "";
+
+  const month = byType("month");
+  const day = byType("day");
+  const hour = byType("hour");
+  const minute = byType("minute");
+  const dayPeriod = byType("dayPeriod");
+
+  if (!month || !day || !hour || !minute) return date.toISOString();
+  return `${month} ${day}, ${hour}:${minute}${dayPeriod ? ` ${dayPeriod}` : ""}`;
 }
 
 /**
  * Dedupe in UI by canonical URL while preserving descending publish order.
  */
 export function dedupeAndSortNews(rows: NewsArticleRow[]): NewsArticleRow[] {
-  const sortTime = (row: NewsArticleRow) => {
-    const fetched = new Date(row.fetched_at).getTime();
-    if (!Number.isNaN(fetched)) return fetched;
-
+  const publishedTime = (row: NewsArticleRow) => {
     const published = new Date(row.published_at).getTime();
     return Number.isNaN(published) ? 0 : published;
+  };
+
+  const fetchedTime = (row: NewsArticleRow) => {
+    const fetched = new Date(row.fetched_at).getTime();
+    return Number.isNaN(fetched) ? 0 : fetched;
   };
 
   const seen = new Set<string>();
@@ -74,7 +91,7 @@ export function dedupeAndSortNews(rows: NewsArticleRow[]): NewsArticleRow[] {
   });
 
   unique.sort(
-    (a, b) => sortTime(b) - sortTime(a) || new Date(b.published_at).getTime() - new Date(a.published_at).getTime() || b.id - a.id,
+    (a, b) => publishedTime(b) - publishedTime(a) || fetchedTime(b) - fetchedTime(a) || b.id - a.id,
   );
 
   return unique;
