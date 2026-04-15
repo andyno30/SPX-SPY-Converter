@@ -24,8 +24,10 @@ async function loadInitialNews(): Promise<NewsArticleRow[]> {
     .select(
       "id,title,summary,original_url,source,source_type,published_at,tickers,fetched_at",
     )
+    // Sort by ingestion time so newly fetched stories remain visible after refresh.
+    .order("fetched_at", { ascending: false })
     .order("published_at", { ascending: false })
-    .limit(120);
+    .limit(300);
 
   if (error) {
     console.error("Failed to load initial news", error);

@@ -58,6 +58,14 @@ export function formatNewsTime(isoDate: string): string {
  * Dedupe in UI by canonical URL while preserving descending publish order.
  */
 export function dedupeAndSortNews(rows: NewsArticleRow[]): NewsArticleRow[] {
+  const sortTime = (row: NewsArticleRow) => {
+    const fetched = new Date(row.fetched_at).getTime();
+    if (!Number.isNaN(fetched)) return fetched;
+
+    const published = new Date(row.published_at).getTime();
+    return Number.isNaN(published) ? 0 : published;
+  };
+
   const seen = new Set<string>();
   const unique = rows.filter((row) => {
     if (!row.original_url || seen.has(row.original_url)) return false;
@@ -66,8 +74,7 @@ export function dedupeAndSortNews(rows: NewsArticleRow[]): NewsArticleRow[] {
   });
 
   unique.sort(
-    (a, b) =>
-      new Date(b.published_at).getTime() - new Date(a.published_at).getTime() || b.id - a.id,
+    (a, b) => sortTime(b) - sortTime(a) || new Date(b.published_at).getTime() - new Date(a.published_at).getTime() || b.id - a.id,
   );
 
   return unique;
