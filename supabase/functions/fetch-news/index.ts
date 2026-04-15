@@ -193,7 +193,8 @@ const RSS_SOURCES: SourceConfig[] = [
   },
   {
     sourceKey: "sec_press_releases",
-    url: "https://www.sec.gov/rss/news/pressreleases.rss",
+    // SEC's current official press release RSS feed.
+    url: "https://www.sec.gov/news/pressreleases.rss",
     source: "SEC",
     sourceType: "regulator",
   },
