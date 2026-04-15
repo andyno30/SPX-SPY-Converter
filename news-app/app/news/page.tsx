@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { NewsFeedClient } from "@/components/NewsFeedClient";
-import { buildSourceFilters, dedupeAndSortNews } from "@/lib/news";
+import { buildSourceFilters, dedupeAndSortNews, NEWS_SOURCES } from "@/lib/news";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import type { NewsArticleRow } from "@/lib/supabase/types";
 
@@ -24,6 +24,8 @@ async function loadInitialNews(): Promise<NewsArticleRow[]> {
     .select(
       "id,title,summary,original_url,source,source_type,published_at,tickers,fetched_at",
     )
+    .in("source", NEWS_SOURCES as unknown as string[])
+    .gte("published_at", "2020-01-01T00:00:00Z")
     // Most recent market headlines first.
     .order("published_at", { ascending: false })
     .order("fetched_at", { ascending: false })
@@ -62,8 +64,8 @@ export default async function NewsPage() {
           U.S. Market News
         </h1>
         <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
-          English-only headlines from Reuters, CNBC, Yahoo Finance, SEC, White House, Finnhub,
-          Marketaux, and other market-relevant free sources.
+          English-only headlines from Reuters, CNBC, Yahoo Finance, SEC, Federal Reserve, and
+          White House releases.
         </p>
       </header>
 

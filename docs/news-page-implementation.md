@@ -22,4 +22,4 @@
 - Stores only lightweight metadata (`title`, `summary`, URL, source, timestamps, tickers).
 - URL dedupe is enforced both at DB level (`UNIQUE original_url`) and in edge function canonicalization.
 - Daily trim + vacuum keeps the table near free-tier constraints.
-- Source filtering is SaveTicker-style pill tabs and supports realtime inserts at top.
+- Source filtering uses `All`, `Reuters`, `CNBC`, `Yahoo Finance`, `SEC`, and `Federal Reserve`.

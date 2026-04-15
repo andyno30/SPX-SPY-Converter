@@ -47,12 +47,7 @@ Set required secrets:
 ```bash
 supabase secrets set PROJECT_URL=https://YOUR_PROJECT_REF.supabase.co
 supabase secrets set SERVICE_ROLE_KEY=YOUR_SERVICE_ROLE_KEY
-supabase secrets set FINNHUB_API_KEY=YOUR_FINNHUB_KEY
-supabase secrets set MARKETAUX_API_KEY=YOUR_MARKETAUX_KEY
 supabase secrets set FETCH_NEWS_SECRET=YOUR_FETCH_NEWS_SECRET
-# Optional feeds
-supabase secrets set FINANCIALJUICE_RSS_URL=https://example.com/rss
-supabase secrets set SAVETICKER_NEWS_RSS_URL=https://example.com/rss
 ```
 
 ## 5) Scheduler options

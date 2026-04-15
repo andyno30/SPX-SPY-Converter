@@ -66,6 +66,7 @@ const MAX_TICKERS_PER_ARTICLE = 8;
 const MAX_INSERT_CHUNK = 500;
 const SEC_PRESS_RELEASES_URL =
   "https://www.sec.gov/news/pressreleases?items_per_page=100&month=All&page=0&year=All";
+const WHITE_HOUSE_RELEASES_URL = "https://www.whitehouse.gov/releases/";
 const SEC_MIN_ALLOWED_PUBLISHED_AT_MS = Date.UTC(2020, 0, 1);
 
 const MARKET_KEYWORDS = [
@@ -195,6 +196,7 @@ const SOURCE_ALLOWLIST = new Set([
   "SEC",
   "Yahoo Finance",
   "Federal Reserve",
+  "White House",
 ]);
 
 const RSS_SOURCES: SourceConfig[] = [
@@ -583,6 +585,57 @@ async function fetchSecPressReleases(): Promise<FetchResult> {
   });
 }
 
+function parseWhiteHouseReleasesFromHtml(html: string): NewsArticle[] {
+  const articleBlocks = html.match(/<article\b[\s\S]*?<\/article>/gi) ?? [];
+
+  return articleBlocks
+    .map((block) => {
+      const linkMatch = block.match(/<a[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/i);
+      if (!linkMatch?.[1] || !linkMatch?.[2]) return null;
+
+      const originalUrl = resolveMaybeRelativeUrl(linkMatch[1], "https://www.whitehouse.gov");
+      if (!/whitehouse\.gov\/releases\//i.test(originalUrl)) return null;
+
+      const title = stripHtml(linkMatch[2]).slice(0, MAX_TITLE_LEN);
+
+      const dateFromDatetime =
+        block.match(/<time[^>]*datetime=["']([^"']+)["'][^>]*>/i)?.[1] ?? "";
+      const dateFromText = stripHtml(block.match(/<time[^>]*>([\s\S]*?)<\/time>/i)?.[1] ?? "");
+      const publishedAt = parseDate(normalizeDateLabel(dateFromDatetime || dateFromText));
+
+      return normalizeArticle({
+        title,
+        summary: "",
+        original_url: originalUrl,
+        source: "White House",
+        source_type: "government",
+        published_at: publishedAt,
+        tickers: extractTickers(title),
+      });
+    })
+    .filter((item: NewsArticle | null): item is NewsArticle => item !== null);
+}
+
+async function fetchWhiteHouseReleases(): Promise<FetchResult> {
+  try {
+    const html = await fetchHtml(WHITE_HOUSE_RELEASES_URL);
+    const items = parseWhiteHouseReleasesFromHtml(html);
+    if (items.length > 0) {
+      return { sourceKey: "white_house_releases_html", items };
+    }
+  } catch (error) {
+    console.error("white house html fetch failed", error);
+  }
+
+  return await fetchRssSource({
+    sourceKey: "white_house_releases_rss",
+    url: "https://www.whitehouse.gov/releases/feed/",
+    source: "White House",
+    sourceType: "government",
+    baseUrl: "https://www.whitehouse.gov",
+  });
+}
+
 function parseRssEntries(
   xml: string,
   source: string,
@@ -694,6 +747,7 @@ Deno.serve(async (req) => {
 
   const tasks: Array<Promise<FetchResult>> = [
     fetchSecPressReleases(),
+    fetchWhiteHouseReleases(),
     ...RSS_SOURCES.map((source) => fetchRssSource(source)),
   ];
 

@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-import { dedupeAndSortNews } from "@/lib/news";
+import { dedupeAndSortNews, NEWS_SOURCES } from "@/lib/news";
 import { getBrowserSupabaseClient } from "@/lib/supabase/client";
 import type { NewsArticleRow } from "@/lib/supabase/types";
 
@@ -48,7 +48,11 @@ function normalizeRealtimeRow(payloadRow: Partial<NewsArticleRow>): NewsArticleR
  * Client feed for source filtering + Supabase realtime inserts.
  */
 export function NewsFeedClient({ initialRows, sourceFilters }: NewsFeedClientProps) {
-  const [rows, setRows] = useState<NewsArticleRow[]>(() => dedupeAndSortNews(initialRows));
+  const [rows, setRows] = useState<NewsArticleRow[]>(() =>
+    dedupeAndSortNews(initialRows).filter((row) =>
+      NEWS_SOURCES.includes(row.source as (typeof NEWS_SOURCES)[number]),
+    ),
+  );
   const [activeSource, setActiveSource] = useState<string>(sourceFilters[0] ?? "All");
   const [isLive, setIsLive] = useState(false);
 
@@ -70,7 +74,11 @@ export function NewsFeedClient({ initialRows, sourceFilters }: NewsFeedClientPro
 
           setRows((prev) => {
             const merged = [incoming, ...prev];
-            return dedupeAndSortNews(merged).slice(0, 500);
+            return dedupeAndSortNews(merged)
+              .filter((row) =>
+                NEWS_SOURCES.includes(row.source as (typeof NEWS_SOURCES)[number]),
+              )
+              .slice(0, 500);
           });
         },
       )

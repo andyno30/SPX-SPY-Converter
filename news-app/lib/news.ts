@@ -1,30 +1,20 @@
 import type { NewsArticleRow } from "@/lib/supabase/types";
 
-const SOURCE_PRIORITY = [
+export const NEWS_SOURCES = [
   "Reuters",
   "CNBC",
-  "FinancialJuice",
-  "White House",
-  "SEC",
   "Yahoo Finance",
-  "Finnhub",
-  "Marketaux",
+  "SEC",
   "Federal Reserve",
+  "White House",
 ] as const;
 
 /**
  * Build top source tabs in a predictable order like SaveTicker-style filters.
  */
 export function buildSourceFilters(rows: NewsArticleRow[]): string[] {
-  const discovered = new Set(rows.map((row) => row.source).filter(Boolean));
-
-  // Keep a stable top tab order, even before every source has data.
-  const ordered = [...SOURCE_PRIORITY];
-  const extras = Array.from(discovered)
-    .filter((source) => !SOURCE_PRIORITY.includes(source as (typeof SOURCE_PRIORITY)[number]))
-    .sort((a, b) => a.localeCompare(b));
-
-  return ["All", ...ordered, ...extras];
+  void rows;
+  return ["All", ...NEWS_SOURCES];
 }
 
 /**
