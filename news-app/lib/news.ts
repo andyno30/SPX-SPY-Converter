@@ -9,6 +9,8 @@ export const NEWS_SOURCES = [
   "White House",
 ] as const;
 
+const FEDERAL_RESERVE_NEWS_URL = "https://www.federalreserve.gov/newsevents.htm";
+
 /**
  * Build top source tabs in a predictable order like SaveTicker-style filters.
  */
@@ -85,4 +87,16 @@ export function dedupeAndSortNews(rows: NewsArticleRow[]): NewsArticleRow[] {
   );
 
   return unique;
+}
+
+/**
+ * Canonical outbound URL per source.
+ * Federal Reserve entries always use the Fed news hub to avoid stale/broken item links.
+ */
+export function getArticleHref(article: NewsArticleRow): string {
+  if (article.source === "Federal Reserve") {
+    return FEDERAL_RESERVE_NEWS_URL;
+  }
+
+  return article.original_url;
 }
