@@ -1,4 +1,4 @@
-import { formatNewsTime } from "@/lib/news";
+import { formatNewsTime, getArticleHref } from "@/lib/news";
 import type { NewsArticleRow } from "@/lib/supabase/types";
 
 interface NewsCardProps {
@@ -9,10 +9,12 @@ interface NewsCardProps {
  * SaveTicker-style clean card with headline, summary, source badge, and timestamp.
  */
 export function NewsCard({ article }: NewsCardProps) {
+  const href = getArticleHref(article);
+
   return (
     <article className="group rounded-2xl border border-slate-200 bg-white shadow-card transition-all hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-lg">
       <a
-        href={article.original_url}
+        href={href}
         target="_blank"
         rel="noopener noreferrer nofollow"
         className="block p-5 sm:p-6"

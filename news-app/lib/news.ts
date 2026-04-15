@@ -9,6 +9,8 @@ export const NEWS_SOURCES = [
   "White House",
 ] as const;
 
+const FEDERAL_RESERVE_NEWS_URL = "https://www.federalreserve.gov/newsevents.htm";
+
 /**
  * Build top source tabs in a predictable order like SaveTicker-style filters.
  */
@@ -85,4 +87,18 @@ export function dedupeAndSortNews(rows: NewsArticleRow[]): NewsArticleRow[] {
   );
 
   return unique;
+}
+
+/**
+ * Build outbound href for a card.
+ * Federal Reserve links are routed through a server guard that falls back
+ * to the Fed news hub when the source page is unavailable.
+ */
+export function getArticleHref(article: NewsArticleRow): string {
+  if (article.source === "Federal Reserve") {
+    const url = encodeURIComponent(article.original_url);
+    return `/api/news/fed-open?url=${url}`;
+  }
+
+  return article.original_url || FEDERAL_RESERVE_NEWS_URL;
 }
