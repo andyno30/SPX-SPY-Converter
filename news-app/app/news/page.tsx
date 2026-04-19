@@ -18,28 +18,39 @@ export const metadata: Metadata = {
   },
 };
 
+const NEWS_SELECT =
+  "id,title,summary,original_url,source,source_type,published_at,tickers,fetched_at";
+const MIN_PUBLISHED_AT = "2020-01-01T00:00:00Z";
+const INITIAL_PER_SOURCE_LIMIT = 90;
+
 async function loadInitialNews(): Promise<NewsArticleRow[]> {
   const supabase = createServerSupabaseClient();
+  const perSourceResults = await Promise.all(
+    NEWS_SOURCES.map((source) =>
+      supabase
+        .from("news_articles")
+        .select(NEWS_SELECT)
+        .eq("source", source)
+        .gte("published_at", MIN_PUBLISHED_AT)
+        .order("published_at", { ascending: false })
+        .order("fetched_at", { ascending: false })
+        .limit(INITIAL_PER_SOURCE_LIMIT),
+    ),
+  );
 
-  const { data, error } = await supabase
-    .from("news_articles")
-    .select(
-      "id,title,summary,original_url,source,source_type,published_at,tickers,fetched_at",
-    )
-    .in("source", NEWS_SOURCES as unknown as string[])
-    .gte("published_at", "2020-01-01T00:00:00Z")
-    // Pull recently ingested rows first so slower-moving sources remain visible.
-    .order("fetched_at", { ascending: false })
-    // Final feed order is still handled client-side by published_at desc.
-    .order("published_at", { ascending: false })
-    .limit(300);
+  const mergedRows: NewsArticleRow[] = [];
+  perSourceResults.forEach(({ data, error }, index) => {
+    if (error) {
+      console.error(`Failed to load news for source ${NEWS_SOURCES[index]}`, error);
+      return;
+    }
 
-  if (error) {
-    console.error("Failed to load initial news", error);
-    return [];
-  }
+    if (data?.length) {
+      mergedRows.push(...(data as NewsArticleRow[]));
+    }
+  });
 
-  return dedupeAndSortNews((data ?? []) as NewsArticleRow[]);
+  return dedupeAndSortNews(mergedRows);
 }
 
 export default async function NewsPage() {

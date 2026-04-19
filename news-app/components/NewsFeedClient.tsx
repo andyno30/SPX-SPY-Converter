@@ -15,8 +15,10 @@ interface NewsFeedClientProps {
 }
 
 const MAX_CLIENT_ROWS = 500;
-const CATCH_UP_QUERY_LIMIT = 220;
+const CATCH_UP_PER_SOURCE_LIMIT = 80;
 const CATCH_UP_INTERVAL_MS = 3 * 60 * 1000;
+const NEWS_SELECT = "id,title,summary,original_url,source,source_type,published_at,tickers,fetched_at";
+const MIN_PUBLISHED_AT = "2020-01-01T00:00:00Z";
 
 function normalizeRealtimeRow(payloadRow: Partial<NewsArticleRow>): NewsArticleRow | null {
   if (
@@ -73,18 +75,35 @@ export function NewsFeedClient({ initialRows, sourceFilters }: NewsFeedClientPro
     };
 
     const catchUpFromDatabase = async () => {
-      const { data, error } = await supabase
-        .from("news_articles")
-        .select("id,title,summary,original_url,source,source_type,published_at,tickers,fetched_at")
-        .in("source", NEWS_SOURCES as unknown as string[])
-        .gte("published_at", "2020-01-01T00:00:00Z")
-        .order("fetched_at", { ascending: false })
-        .order("published_at", { ascending: false })
-        .limit(CATCH_UP_QUERY_LIMIT);
+      const perSourceResults = await Promise.all(
+        NEWS_SOURCES.map((source) =>
+          supabase
+            .from("news_articles")
+            .select(NEWS_SELECT)
+            .eq("source", source)
+            .gte("published_at", MIN_PUBLISHED_AT)
+            .order("published_at", { ascending: false })
+            .order("fetched_at", { ascending: false })
+            .limit(CATCH_UP_PER_SOURCE_LIMIT),
+        ),
+      );
 
-      if (cancelled || error || !data?.length) return;
+      if (cancelled) return;
 
-      mergeRows(data as NewsArticleRow[]);
+      const mergedRows: NewsArticleRow[] = [];
+      perSourceResults.forEach(({ data, error }, index) => {
+        if (error) {
+          console.error(`Failed to catch up source ${NEWS_SOURCES[index]}`, error);
+          return;
+        }
+
+        if (data?.length) {
+          mergedRows.push(...(data as NewsArticleRow[]));
+        }
+      });
+
+      if (mergedRows.length === 0) return;
+      mergeRows(mergedRows);
     };
 
     const channel = supabase
