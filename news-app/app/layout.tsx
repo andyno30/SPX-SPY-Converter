@@ -17,6 +17,11 @@ export const metadata: Metadata = {
   },
   description:
     "English-only U.S. market, macro, and stock headlines with realtime updates and source filtering.",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
   robots: {
     index: true,
     follow: true,
