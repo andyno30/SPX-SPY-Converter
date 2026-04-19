@@ -19,6 +19,9 @@ if (!PROJECT_URL || !SERVICE_ROLE_KEY) {
 
 // Optional endpoint secrets for scheduler calls.
 const FETCH_NEWS_SECRET = Deno.env.get("FETCH_NEWS_SECRET") ?? "";
+const BOT_USER_AGENT =
+  Deno.env.get("NEWS_BOT_USER_AGENT")?.trim() ||
+  "SpyConverterNewsBot/1.0 (+https://spyconverter.com)";
 
 const supabase = createClient(PROJECT_URL, SERVICE_ROLE_KEY, {
   auth: {
@@ -65,8 +68,7 @@ const MAX_SUMMARY_LEN = 500;
 const MAX_TICKERS_PER_ARTICLE = 8;
 const MAX_INSERT_CHUNK = 500;
 const FEDERAL_RESERVE_FALLBACK_URL = "https://www.federalreserve.gov/newsevents.htm";
-const SEC_PRESS_RELEASES_URL =
-  "https://www.sec.gov/news/pressreleases?items_per_page=100&month=All&page=0&year=All";
+const SEC_PRESS_RELEASES_RSS_URL = "https://www.sec.gov/news/pressreleases.rss";
 const WHITE_HOUSE_RELEASES_URL = "https://www.whitehouse.gov/releases/";
 const SEC_MIN_ALLOWED_PUBLISHED_AT_MS = Date.UTC(2020, 0, 1);
 
@@ -195,7 +197,6 @@ const KNOWN_TICKERS = new Set([
 ]);
 
 const SOURCE_ALLOWLIST = new Set([
-  "Reuters",
   "CNBC",
   "SEC",
   "Yahoo Finance",
@@ -204,18 +205,6 @@ const SOURCE_ALLOWLIST = new Set([
 ]);
 
 const RSS_SOURCES: SourceConfig[] = [
-  {
-    sourceKey: "reuters_business",
-    url: "https://feeds.reuters.com/reuters/businessNews",
-    source: "Reuters",
-    sourceType: "wire",
-  },
-  {
-    sourceKey: "reuters_company",
-    url: "https://feeds.reuters.com/reuters/companyNews",
-    source: "Reuters",
-    sourceType: "wire",
-  },
   {
     sourceKey: "cnbc_top_news",
     url: "https://www.cnbc.com/id/100003114/device/rss/rss.html",
@@ -427,7 +416,7 @@ async function federalReserveUrlReturns404(url: string): Promise<boolean> {
       redirect: "follow",
       signal: AbortSignal.timeout(DEFAULT_TIMEOUT_MS),
       headers: {
-        "User-Agent": "SpyConverterNewsBot/1.0 (+https://spyconverter.com)",
+        "User-Agent": BOT_USER_AGENT,
       },
     });
 
@@ -447,7 +436,7 @@ async function federalReserveUrlReturns404(url: string): Promise<boolean> {
       redirect: "follow",
       signal: AbortSignal.timeout(DEFAULT_TIMEOUT_MS),
       headers: {
-        "User-Agent": "SpyConverterNewsBot/1.0 (+https://spyconverter.com)",
+        "User-Agent": BOT_USER_AGENT,
       },
     });
 
@@ -591,7 +580,7 @@ async function fetchJson(url: string): Promise<any | null> {
   const response = await fetch(url, {
     signal: AbortSignal.timeout(DEFAULT_TIMEOUT_MS),
     headers: {
-      "User-Agent": "SpyConverterNewsBot/1.0 (+https://spyconverter.com)",
+      "User-Agent": BOT_USER_AGENT,
       Accept: "application/json",
     },
   });
@@ -604,7 +593,7 @@ async function fetchText(url: string): Promise<string> {
   const response = await fetch(url, {
     signal: AbortSignal.timeout(DEFAULT_TIMEOUT_MS),
     headers: {
-      "User-Agent": "SpyConverterNewsBot/1.0 (+https://spyconverter.com)",
+      "User-Agent": BOT_USER_AGENT,
       Accept: "application/rss+xml, application/xml, text/xml;q=0.9, */*;q=0.8",
     },
   });
@@ -620,7 +609,7 @@ async function fetchHtml(url: string): Promise<string> {
   const response = await fetch(url, {
     signal: AbortSignal.timeout(DEFAULT_TIMEOUT_MS),
     headers: {
-      "User-Agent": "SpyConverterNewsBot/1.0 (+https://spyconverter.com)",
+      "User-Agent": BOT_USER_AGENT,
       Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     },
   });
@@ -632,53 +621,21 @@ async function fetchHtml(url: string): Promise<string> {
   return await response.text();
 }
 
-function parseSecPressReleasesFromHtml(html: string): NewsArticle[] {
-  const rowBlocks = html.match(/<tr\b[\s\S]*?<\/tr>/gi) ?? [];
-
-  return rowBlocks
-    .map((row) => {
-      const linkMatch = row.match(/<a[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/i);
-      const dateMatch = row.match(/<td[^>]*>([\s\S]*?)<\/td>/i);
-      if (!linkMatch?.[1] || !linkMatch?.[2] || !dateMatch?.[1]) return null;
-
-      const originalUrl = resolveMaybeRelativeUrl(linkMatch[1], "https://www.sec.gov");
-      if (!/sec\.gov\/news(?:room)?\/press-releases\//i.test(originalUrl)) return null;
-
-      const title = stripHtml(linkMatch[2]).slice(0, MAX_TITLE_LEN);
-      const publishedAt = parseDate(normalizeDateLabel(stripHtml(dateMatch[1])));
-
-      return normalizeArticle({
-        title,
-        summary: "",
-        original_url: originalUrl,
-        source: "SEC",
-        source_type: "regulator",
-        published_at: publishedAt,
-        tickers: extractTickers(title),
-      });
-    })
-    .filter((item: NewsArticle | null): item is NewsArticle => item !== null);
-}
-
 async function fetchSecPressReleases(): Promise<FetchResult> {
   try {
-    const html = await fetchHtml(SEC_PRESS_RELEASES_URL);
-    const items = parseSecPressReleasesFromHtml(html);
-    if (items.length > 0) {
-      return { sourceKey: "sec_press_releases_html", items };
+    const xml = await fetchText(SEC_PRESS_RELEASES_RSS_URL);
+    if (!/<rss[\s>]/i.test(xml) && !/<feed[\s>]/i.test(xml)) {
+      throw new Error("SEC RSS returned non-feed payload");
     }
+    const items = parseRssEntries(xml, "SEC", "regulator", "https://www.sec.gov");
+    return { sourceKey: "sec_press_releases_rss", items };
   } catch (error) {
-    console.error("sec html fetch failed", error);
+    console.error("sec rss fetch failed", error);
+    return {
+      sourceKey: "sec_press_releases_rss",
+      items: [],
+    };
   }
-
-  // Fallback in case SEC updates newsroom page markup.
-  return await fetchRssSource({
-    sourceKey: "sec_press_releases_rss",
-    url: "https://www.sec.gov/news/pressreleases.rss",
-    source: "SEC",
-    sourceType: "regulator",
-    baseUrl: "https://www.sec.gov",
-  });
 }
 
 function parseWhiteHouseReleasesFromHtml(html: string): NewsArticle[] {
