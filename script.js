@@ -3,7 +3,7 @@ let ratio = 10.033126847810784; // Initial value, will be updated
 
 // Function to fetch and update the SPX/SPY Ratio
 function updateRatio() {
-    fetch('https://secret-backend-contact.spyconverter.for.api.pricing')
+    fetch('https://secret-backend-contact.spyconverter.for.api.pricing') // Only Spyconverter Pro users get live ratio, ratio will be updated manually on the days I trade
     .then(response => response.json())
     .then(data => {
         ratio = data["SPX/SPY Ratio"];
