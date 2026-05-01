@@ -1,9 +1,9 @@
 // Global variable to hold the SPX/SPY Ratio
-let ratio = /* RATIO */ 10.0315147829212;
+let ratio = 10.0315147829212;
 
 // Function to fetch and update the SPX/SPY Ratio
 function updateRatio() {
-    fetch('https://utility-trees-399601.wl.r.appspot.com') // Only Spyconverter Pro users get live ratio, ratio will be updated manually on the days I trade
+    fetch('https://contact-spyconverter.com-for-api-pricing') // Only Spyconverter Pro users get live ratio, ratio will be updated manually on the days I trade
     .then(response => response.json())
     .then(data => {
         ratio = data["SPX/SPY Ratio"];

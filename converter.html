@@ -124,13 +124,13 @@
 
     <script>
         // Global variable for the ratios
-        let es_spy_ratio = /* ES_SPY_RATIO */ 10.089568330407618;
-        let nq_qqq_ratio = /* NQ_QQQ_RATIO */ 41.4104129781994;
-        let ndx_qqq_ratio = /* NDX_QQQ_RATIO */ 41.1082272185393;
+        let es_spy_ratio = 10.089568330407618;
+        let nq_qqq_ratio = 41.4104129781994;
+        let ndx_qqq_ratio = 41.1082272185393;
     
         // Function to fetch the latest ratio from backend
         function updateRatio() {
-            fetch('https://utility-trees-399601.wl.r.appspot.com')
+            fetch('https://contact-spyconverter.com-for-api-pricing')
                 .then(response => response.json())
                 .then(data => {
                     es_spy_ratio = data["ES/SPY Ratio"];
