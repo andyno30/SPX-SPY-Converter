@@ -127,22 +127,17 @@
         let es_spy_ratio = /* ES_SPY_RATIO */ 10.068956800179766;
         let nq_qqq_ratio = /* NQ_QQQ_RATIO */ 41.256336536279036;
         let ndx_qqq_ratio = /* NDX_QQQ_RATIO */ 41.106104259665585;
+        const CONTACT_HINT_URL = "https://secret-backend-contact.spyconverter.for.api.pricing";
+        let hasShownContactHint = false;
     
         // Function to fetch the latest ratio from backend
         function updateRatio() {
-            fetch('https://secret-backend-contact.spyconverter.for.api.pricing')
-                .then(response => response.json())
-                .then(data => {
-                    es_spy_ratio = data["ES/SPY Ratio"];
-                    nq_qqq_ratio = data["NQ/QQQ Ratio"];
-                    ndx_qqq_ratio = data["NDX/QQQ Ratio"];
-                    
-                    // Update the conversion ratio display time
-                    updateLocalDateTime();
-                })
-                .catch(error => {
-                    console.error("Error fetching the data:", error);
-                });
+            // Free version uses manually updated ratios (no live API fetch from client).
+            if (!hasShownContactHint) {
+                console.info("Free version uses manual ratio updates. Contact for API pricing:", CONTACT_HINT_URL);
+                hasShownContactHint = true;
+            }
+            updateLocalDateTime();
         }
     
         // Function to display the local date and time based on the user's locale
