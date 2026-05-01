@@ -9,19 +9,34 @@
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "SpyConverter",
-      "url": "https://spyconverter.com",
-      "founder": {
-        "@type": "Person",
-        "name": "Andy No",
-        "alternateName": [
-          "Taejun No",
-          "Taejun (Andy) No"
-        ],
-        "jobTitle": "SPX Options Trader",
-        "image": "https://bluetaxledger.com/profile.jpg"
-      }
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://spyconverter.com/#organization",
+          "name": "SpyConverter",
+          "url": "https://spyconverter.com",
+          "founder": {
+            "@id": "https://spyconverter.com/#andy-no"
+          },
+          "owner": {
+            "@id": "https://spyconverter.com/#andy-no"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://spyconverter.com/#andy-no",
+          "name": "Andy No",
+          "alternateName": [
+            "Taejun No",
+            "Taejun (Andy) No"
+          ],
+          "jobTitle": "SPX Options Trader",
+          "image": "https://bluetaxledger.com/profile.jpg",
+          "owns": {
+            "@id": "https://spyconverter.com/#organization"
+          }
+        }
+      ]
     }
   </script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2918914879248661" crossorigin="anonymous"></script>
