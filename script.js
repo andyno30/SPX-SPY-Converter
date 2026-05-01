@@ -1,15 +1,17 @@
 // Global variable to hold the SPX/SPY Ratio
 let ratio = /* RATIO */ 10.030840963990787;
-const CONTACT_HINT_URL = "https://secret-backend-contact.spyconverter.for.api.pricing";
-let hasShownContactHint = false;
 
 // Function to fetch and update the SPX/SPY Ratio
 function updateRatio() {
-    // Ratio will be updated on the days I trade.
-    if (!hasShownContactHint) {
-        console.info("Free version uses manual ratio updates. Contact for API pricing:", CONTACT_HINT_URL);
-        hasShownContactHint = true;
-    }
+    fetch('https://utility-trees-399601.wl.r.appspot.com') // Only Spyconverter Pro users get live ratio, ratio will be updated manually on the days I trade
+    .then(response => response.json())
+    .then(data => {
+        ratio = data["SPX/SPY Ratio"];
+        console.log("Updated ratio:", ratio);  // Debugging output
+    })
+    .catch(error => {
+        console.error('Error fetching the data:', error);
+    });
 }
 
 // Function to update and display the live time based on the user's local time zone

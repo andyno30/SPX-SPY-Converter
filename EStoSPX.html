@@ -249,17 +249,18 @@
     <script>
         // Global variable for the ratios
         let es_spx_ratio = /* RATIO */ 1.0037998644705672;
-        const CONTACT_HINT_URL = "https://secret-backend-contact.spyconverter.for.api.pricing";
-        let hasShownContactHint = false;
 
         // Function to fetch the latest ratio from backend
         function updateRatio() {
-            // Free version uses manually updated ratios (no live API fetch from client).
-            if (!hasShownContactHint) {
-                console.info("Free version uses manual ratio updates. Contact for API pricing:", CONTACT_HINT_URL);
-                hasShownContactHint = true;
-            }
-            updateLocalDateTime();
+            fetch('https://utility-trees-399601.wl.r.appspot.com')
+                .then(response => response.json())
+                .then(data => {
+                    es_spx_ratio = data["ES/SPX Ratio"];
+                    updateLocalDateTime();
+                })
+                .catch(error => {
+                    console.error("Error fetching the data:", error);
+                });
         }
 
         // Function to display the local date and time based on the user's locale
