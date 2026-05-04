@@ -57,19 +57,6 @@ export default async function NewsPage() {
   const initialRows = await loadInitialNews();
   const sourceFilters = buildSourceFilters(initialRows);
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    name: "SpyConverter News",
-    description:
-      "English-only U.S. market, stock, and macro headlines from trusted free sources.",
-    inLanguage: "en-US",
-    mainEntity: {
-      "@type": "ItemList",
-      numberOfItems: initialRows.length,
-    },
-  };
-
   return (
     <>
       <LegacySiteHeader />
@@ -88,12 +75,6 @@ export default async function NewsPage() {
 
         <NewsFeedClient initialRows={initialRows} sourceFilters={sourceFilters} />
         <NewsAds />
-
-        <script
-          type="application/ld+json"
-          // JSON-LD for better crawlability of this feed page.
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
       </main>
 
       <LegacySiteFooter />
