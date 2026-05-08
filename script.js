@@ -1,5 +1,5 @@
 // Global variable to hold the SPX/SPY Ratio
-let ratio = /* RATIO */ 10.033577259038196;
+let ratio = /* RATIO */ 10.030344584136639;
 
 // Function to fetch and update the SPX/SPY Ratio
 function updateRatio() {
