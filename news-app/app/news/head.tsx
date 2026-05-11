@@ -13,16 +13,6 @@ const NEWS_PAGE_JSON_LD = {
       name: "Andy No",
       alternateName: ["Taejun No", "Taejun (Andy) No"],
       jobTitle: "SPX Options Trader",
-      description: "Founder and owner of SpyConverter.com.",
-      url: "https://spyconverter.com/aboutus.html#founder-profile",
-      worksFor: { "@id": "https://spyconverter.com/#organization" },
-      image: {
-        "@type": "ImageObject",
-        "@id": "https://spyconverter.com/#andy-no-image",
-        contentUrl: "https://bluetaxledger.com/profile.jpg",
-        url: "https://bluetaxledger.com/profile.jpg",
-        caption: "Andy No, founder of SpyConverter.com",
-      },
       owns: { "@id": "https://spyconverter.com/#organization" },
     },
     {
