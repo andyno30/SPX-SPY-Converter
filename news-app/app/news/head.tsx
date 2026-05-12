@@ -15,13 +15,6 @@ const NEWS_PAGE_JSON_LD = {
       jobTitle: "SPX Options Trader",
       description:
         "Andy No is the founder and owner of SpyConverter.com, a web-based tool that helps traders and investors convert SPX (S&P 500 Index) options to SPY (ETF) equivalent.",
-      image: {
-        "@type": "ImageObject",
-        url: "https://bluetaxledger.com/profile.jpg",
-        contentUrl: "https://bluetaxledger.com/profile.jpg",
-        name: "Andy No — Founder of SpyConverter.com",
-        caption: "Andy No — Founder of SpyConverter.com",
-      },
       owns: { "@id": "https://spyconverter.com/#organization" },
     },
     {
