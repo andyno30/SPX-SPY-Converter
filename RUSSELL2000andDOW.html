@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dow Jones & Russell 2000 Converter</title>
+    <link rel="icon" type="image/x-icon" href="/Images/favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body.dow-russell-page .main-container {
+            box-sizing: border-box;
+            max-width: 800px;
+            padding: 0 1em;
+            width: 100%;
+        }
+
+        body.dow-russell-page .conversion-grid2 {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        body.dow-russell-page .test-section {
+            box-sizing: border-box;
+            line-height: 1.4;
+            width: 100%;
+        }
+
+        .dow-russell-info-list {
+            margin: 1em 0 0;
+            padding-left: 1.25em;
+        }
+
+        .dow-russell-info-list li {
+            margin: 0.4em 0;
+        }
+
+        @media (max-width: 700px) {
+            body.dow-russell-page .conversion-grid2 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2918914879248661" crossorigin="anonymous"></script>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2M5FE2EC3Q"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-2M5FE2EC3Q');
+</script>
+</head>
+
+<body class="dow-russell-page">
+    <nav>
+        <a href="#" class="logo"><h4>spyconverter.com</h4></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="https://news.spyconverter.com/news">News</a></li>
+            <li><a href="relationship.html">Relationship</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li class="dropdown">
+                <a href="aboutus.html">About Us</a>
+                <div class="dropdown-content">
+                    <a href="aboutus.html#about-us">About Us</a>
+                    <a href="aboutus.html#privacy-policy">Privacy Policy</a>
+                    <a href="aboutus.html#contact-us">Contact Us</a>
+                    <a href="aboutus.html#disclaimer">Disclaimer</a>
+                    <a href="aboutus.html#terms-and-conditions">Terms and Conditions</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="main-container">
+        <h1>Dow Jones & Russell 2000 Converter</h1>
+        <p>Conversion ratio last updated: <span id="lastUpdated">6/6/26</span></p>
+        <p><small id="conversion-ratio">*note: ratio may not remain constant over time, as it can be affected by factors such as dividends, stock splits, futures premiums, or changes in the index composition.</small></p>
+
+        <div class="conversion-grid2">
+            <div class="conversion-section2">
+                <h3>DJI to DIA</h3>
+                <p>Enter DJI value:</p>
+                <input type="number" id="djiInput" step="0.01">
+                <button onclick="convertDjiToDia()">Convert</button>
+                <p id="djiToDiaOutput"></p>
+            </div>
+            
+            <div class="conversion-section2">
+                <h3>YM to DIA</h3>
+                <p>Enter YM value:</p>
+                <input type="number" id="ymToDiaInput" step="0.01">
+                <button onclick="convertYmToDia()">Convert</button>
+                <p id="ymToDiaOutput"></p>
+            </div>
+
+            <div class="conversion-section2">
+                <h3>YM to DJI</h3>
+                <p>Enter YM value:</p>
+                <input type="number" id="ymToDjiInput" step="0.01">
+                <button onclick="convertYmToDji()">Convert</button>
+                <p id="ymToDjiOutput"></p>
+            </div>
+    
+            <div class="conversion-section2">
+                <h3>RUT to IWM</h3>
+                <p>Enter RUT value:</p>
+                <input type="number" id="rutInput" step="0.01">
+                <button onclick="convertRutToIwm()">Convert</button>
+                <p id="rutToIwmOutput"></p>
+            </div>
+    
+            <div class="conversion-section2">
+                <h3>RTY to IWM</h3>
+                <p>Enter RTY value:</p>
+                <input type="number" id="rtyToIwmInput" step="0.01">
+                <button onclick="convertRtyToIwm()">Convert</button>
+                <p id="rtyToIwmOutput"></p>
+            </div>
+    
+            <div class="conversion-section2">
+                <h3>RTY to RUT</h3>
+                <p>Enter RTY value:</p>
+                <input type="number" id="rtyToRutInput" step="0.01">
+                <button onclick="convertRtyToRut()">Convert</button>
+                <p id="rtyToRutOutput"></p>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h4>By utilizing the Dow Jones & Russell 2000 Converter, you can easily and accurately convert prices between</h4>
+            <h4>DJI-DIA-YM and RUT-IWM-RTY, saving time and gaining valuable insights into the conversion process.</h4>
+            <ul class="dow-russell-info-list">
+                <li class="green-italic"><a href="converter.html">/ES to SPY and QQQ to /NQ to NDX converter</a></li>
+                <li class="green-italic"><a href="EStoSPX.html">/ES to SPX converter</a></li>
+                <li>spyconverter.com's conversion ratio is regularly updated, ensuring accurate and up-to-date conversion results.</li>
+                <li>Instead of manually calculating the conversion, the website automates the process, saving you time and effort.</li>
+                <li>The website is accessible from any device with an internet connection, allowing you to perform conversions on the go.</li>
+                <li>spyconverter.com provides an informative note regarding the potential factors that may impact the conversion ratio, increasing your understanding of the conversion process.</li> 
+                <li>spyconverter.com is free to use, providing a reliable conversion tool without any hidden costs or fees.</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 spyconverter.com. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Global variables for the ratios
+        let dji_dia_ratio = /* DJI_DIA_RATIO */ 99.79748872;
+        let ym_dia_ratio = /* YM_DIA_RATIO */ 99.93329409;
+        let ym_dji_ratio = /* YM_DJI_RATIO */ 1.00136081;
+        let rut_iwm_ratio = /* RUT_IWM_RATIO */ 10.0603639;
+        let rty_iwm_ratio = /* RTY_IWM_RATIO */ 10.06497426;
+        let rty_rut_ratio = /* RTY_RUT_RATIO */ 1.00045827;
+
+        const publicBackendURL = 'https://utility-trees-399601.wl.r.appspot.com/';
+        const proBackendURL = 'https://isvzhpqrmjtqnqyyidxr.functions.supabase.co/get-live-price-pro';
+
+        function safeDiv(a, b) {
+            return typeof a === "number" && typeof b === "number" && b !== 0 ? a / b : null;
+        }
+
+        function fetchJSON(url) {
+            return fetch(url).then(response => {
+                if (!response.ok) {
+                    throw new Error(`Network response was not ok: ${response.statusText}`);
+                }
+
+                return response.json();
+            });
+        }
+
+        function updateRatioFromData(data) {
+            let updated = false;
+
+            if (typeof data["DJI/DIA Ratio"] === "number") {
+                dji_dia_ratio = data["DJI/DIA Ratio"];
+                updated = true;
+            }
+            if (typeof data["YM/DIA Ratio"] === "number") {
+                ym_dia_ratio = data["YM/DIA Ratio"];
+                updated = true;
+            }
+            if (typeof data["YM/DJI Ratio"] === "number") {
+                ym_dji_ratio = data["YM/DJI Ratio"];
+                updated = true;
+            }
+            if (typeof data["RUT/IWM Ratio"] === "number") {
+                rut_iwm_ratio = data["RUT/IWM Ratio"];
+                updated = true;
+            }
+            if (typeof data["RTY/IWM Ratio"] === "number") {
+                rty_iwm_ratio = data["RTY/IWM Ratio"];
+                updated = true;
+            }
+            if (typeof data["RTY/RUT Ratio"] === "number") {
+                rty_rut_ratio = data["RTY/RUT Ratio"];
+                updated = true;
+            }
+
+            if (data.Prices) {
+                const prices = data.Prices;
+                const nextDjiDiaRatio = safeDiv(prices.DJI, prices.DIA);
+                const nextYmDiaRatio = safeDiv(prices.YM, prices.DIA);
+                const nextYmDjiRatio = safeDiv(prices.YM, prices.DJI);
+                const nextRutIwmRatio = safeDiv(prices.RUT, prices.IWM);
+                const nextRtyIwmRatio = safeDiv(prices.RTY, prices.IWM);
+                const nextRtyRutRatio = safeDiv(prices.RTY, prices.RUT);
+
+                if (nextDjiDiaRatio !== null) {
+                    dji_dia_ratio = nextDjiDiaRatio;
+                    updated = true;
+                }
+                if (nextYmDiaRatio !== null) {
+                    ym_dia_ratio = nextYmDiaRatio;
+                    updated = true;
+                }
+                if (nextYmDjiRatio !== null) {
+                    ym_dji_ratio = nextYmDjiRatio;
+                    updated = true;
+                }
+                if (nextRutIwmRatio !== null) {
+                    rut_iwm_ratio = nextRutIwmRatio;
+                    updated = true;
+                }
+                if (nextRtyIwmRatio !== null) {
+                    rty_iwm_ratio = nextRtyIwmRatio;
+                    updated = true;
+                }
+                if (nextRtyRutRatio !== null) {
+                    rty_rut_ratio = nextRtyRutRatio;
+                    updated = true;
+                }
+            }
+
+            return updated;
+        }
+    
+        async function updateRatio() {
+            try {
+                const data = await fetchJSON(publicBackendURL);
+                if (updateRatioFromData(data)) {
+                    updateLocalDateTime(data.Datetime);
+                    return;
+                }
+            } catch (error) {
+                console.error("Error fetching public ratio data:", error);
+            }
+
+            try {
+                const proData = await fetchJSON(proBackendURL);
+                if (updateRatioFromData(proData)) {
+                    updateLocalDateTime(proData.Datetime);
+                }
+            } catch (error) {
+                console.error("Error fetching Dow/Russell ratio data:", error);
+            }
+        }
+    
+        // Function to display the local date and time based on the user's locale
+        function updateLocalDateTime(dateValue) {
+            const currentDate = dateValue ? new Date(dateValue) : new Date();
+            const options = {
+                year: "2-digit",
+                month: "numeric",
+                day: "numeric",
+            };
+            const formattedDateTime = currentDate.toLocaleString('en-US', options);
+            document.getElementById("lastUpdated").textContent = `${formattedDateTime}`;
+        }
+    
+        // Function to periodically fetch the latest ratio
+        function liveTimeUpdate() {
+            setInterval(updateRatio, 60000);
+        }
+
+        function formatConvertedValue(value) {
+            return Number.isFinite(value) ? value.toFixed(2) : "N/A";
+        }
+        
+        // Conversion functions for DJI/DIA
+        function convertDjiToDia() {
+            const djiValue = parseFloat(document.getElementById("djiInput").value);
+            const diaValue = djiValue / dji_dia_ratio;
+            document.getElementById("djiToDiaOutput").innerText = `DIA Value: ${formatConvertedValue(diaValue)}`;
+        }
+        
+        // Conversion functions for YM/DIA
+        function convertYmToDia() {
+            const ymValue = parseFloat(document.getElementById("ymToDiaInput").value);
+            const diaValue = ymValue / ym_dia_ratio;
+            document.getElementById("ymToDiaOutput").innerText = `DIA Value: ${formatConvertedValue(diaValue)}`;
+        }
+        
+        // Conversion functions for YM/DJI
+        function convertYmToDji() {
+            const ymValue = parseFloat(document.getElementById("ymToDjiInput").value);
+            const djiValue = ymValue / ym_dji_ratio;
+            document.getElementById("ymToDjiOutput").innerText = `DJI Value: ${formatConvertedValue(djiValue)}`;
+        }
+
+        // Conversion functions for RUT/IWM
+        function convertRutToIwm() {
+            const rutValue = parseFloat(document.getElementById("rutInput").value);
+            const iwmValue = rutValue / rut_iwm_ratio;
+            document.getElementById("rutToIwmOutput").innerText = `IWM Value: ${formatConvertedValue(iwmValue)}`;
+        }
+        
+        // Conversion functions for RTY/IWM
+        function convertRtyToIwm() {
+            const rtyValue = parseFloat(document.getElementById("rtyToIwmInput").value);
+            const iwmValue = rtyValue / rty_iwm_ratio;
+            document.getElementById("rtyToIwmOutput").innerText = `IWM Value: ${formatConvertedValue(iwmValue)}`;
+        }
+        
+        // Conversion functions for RTY/RUT
+        function convertRtyToRut() {
+            const rtyValue = parseFloat(document.getElementById("rtyToRutInput").value);
+            const rutValue = rtyValue / rty_rut_ratio;
+            document.getElementById("rtyToRutOutput").innerText = `RUT Value: ${formatConvertedValue(rutValue)}`;
+        }
+        
+        // Call the functions when the page loads
+        updateLocalDateTime();
+        updateRatio();
+        liveTimeUpdate();
+    </script>
+        </body>
+        </html>
