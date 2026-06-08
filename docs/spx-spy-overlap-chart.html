@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPX/SPY Overlap Chart - Spyconverter Pro</title>
+  <link rel="icon" type="image/x-icon" href="/Images/favicon.ico">
+  <link href="pro_styles.css" rel="stylesheet">
+  <style>
+    :root {
+      --spx-color: #2563eb;
+      --spy-color: #16a34a;
+      --muted: #667085;
+      --border: #e5e7eb;
+      --surface: #ffffff;
+      --soft-surface: #f8fafc;
+    }
+
+    .chart-container {
+      max-width: 1180px;
+      width: calc(100% - 32px);
+      margin: 92px auto 32px;
+      padding: 28px;
+      background: var(--surface);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      flex-wrap: wrap;
+      text-align: left;
+      margin-bottom: 18px;
+    }
+
+    .chart-header h1 {
+      margin: 0 0 8px;
+      color: #111827;
+      font-size: clamp(1.75rem, 4vw, 2.7rem);
+      line-height: 1.05;
+    }
+
+    .chart-header p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 760px;
+      line-height: 1.55;
+    }
+
+    .chart-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .chart-toggle {
+      display: inline-flex;
+      padding: 4px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--soft-surface);
+    }
+
+    .chart-toggle button,
+    .toolbar-button {
+      border: 0;
+      border-radius: 999px;
+      padding: 10px 16px;
+      cursor: pointer;
+      font-weight: 700;
+      color: #334155;
+      background: transparent;
+      transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+    }
+
+    .chart-toggle button:hover,
+    .toolbar-button:hover {
+      transform: translateY(-1px);
+    }
+
+    .chart-toggle button.active {
+      background: #111827;
+      color: #ffffff;
+      box-shadow: 0 8px 18px rgba(17, 24, 39, 0.18);
+    }
+
+    .toolbar-button {
+      border: 1px solid var(--border);
+      background: #ffffff;
+    }
+
+    .chart-stat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px 0;
+      text-align: left;
+    }
+
+    .chart-stat {
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--soft-surface);
+    }
+
+    .chart-stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
+    }
+
+    .chart-stat strong {
+      display: block;
+      color: #111827;
+      font-size: 1.1rem;
+      line-height: 1.25;
+    }
+
+    .legend-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin: 10px 0 14px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .legend-items {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-weight: 700;
+    }
+
+    .legend-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .spx-dot {
+      background: var(--spx-color);
+    }
+
+    .spy-dot {
+      background: var(--spy-color);
+    }
+
+    #overlap-chart {
+      width: 100%;
+      height: 560px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    #overlap-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .status-message {
+      min-height: 24px;
+      margin-top: 14px;
+      color: var(--muted);
+      line-height: 1.5;
+      text-align: left;
+    }
+
+    .status-message.error {
+      color: #dc2626;
+      font-weight: 700;
+    }
+
+    .page-loading {
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    @media (max-width: 900px) {
+      .chart-stat-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      #overlap-chart {
+        height: 470px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .chart-container {
+        width: calc(100% - 18px);
+        padding: 18px;
+        margin-top: 132px;
+      }
+
+      .chart-toolbar {
+        justify-content: flex-start;
+      }
+
+      .chart-stat-grid {
+        grid-template-columns: 1fr;
+      }
+
+      #overlap-chart {
+        height: 410px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="logo" href="https://spyconverter.com/index.html"><h4>Spyconverter Pro</h4></a>
+    <ul class="nav-links">
+      <li><a href="https://spyconverter.com/index.html">Home</a></li>
+      <li><a href="https://news.spyconverter.com/news">News</a></li>
+      <li class="dropdown">
+        <a href="https://spyconverter.com/aboutus.html">About Us</a>
+        <div class="dropdown-content">
+          <a href="https://spyconverter.com/aboutus.html#about-us">About Us</a>
+          <a href="https://spyconverter.com/aboutus.html#privacy-policy">Privacy Policy</a>
+          <a href="https://spyconverter.com/aboutus.html#contact-us">Contact Us</a>
+          <a href="https://spyconverter.com/aboutus.html#disclaimer">Disclaimer</a>
+          <a href="https://spyconverter.com/aboutus.html#terms-and-conditions">Terms and Conditions</a>
+        </div>
+      </li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+    </ul>
+  </nav>
+
+  <main class="chart-container page-loading" id="pro-chart-page">
+    <div class="chart-header">
+      <div>
+        <h1>SPX / SPY Overlap Chart</h1>
+        <p>
+          SPX is the fixed left y-axis. SPY is plotted as SPY × the live SPX/SPY Ratio from the Premium Conversion Tool,
+          while the right y-axis converts those same levels back into SPY prices.
+        </p>
+      </div>
+      <div class="chart-toolbar" aria-label="Chart controls">
+        <div class="chart-toggle" role="group" aria-label="Chart type">
+          <button type="button" id="line-toggle" class="active" data-chart-type="line">Line</button>
+          <button type="button" id="candlestick-toggle" data-chart-type="candlestick">Candlestick</button>
+        </div>
+        <button type="button" class="toolbar-button" id="reset-chart-data">Reset Local Chart</button>
+      </div>
+    </div>
+
+    <section class="chart-stat-grid" aria-label="Current SPX and SPY values">
+      <div class="chart-stat">
+        <span>SPX Price</span>
+        <strong id="spx-price">Loading...</strong>
+      </div>
+      <div class="chart-stat">
+        <span>SPY Price</span>
+        <strong id="spy-price">Loading...</strong>
+      </div>
+      <div class="chart-stat">
+        <span>SPX/SPY Ratio</span>
+        <strong id="spx-spy-ratio">Loading...</strong>
+      </div>
+      <div class="chart-stat">
+        <span>Last Updated</span>
+        <strong id="last-updated">Loading...</strong>
+      </div>
+    </section>
+
+    <div class="legend-row">
+      <div class="legend-items">
+        <span class="legend-item"><span class="legend-dot spx-dot"></span>SPX left axis</span>
+        <span class="legend-item"><span class="legend-dot spy-dot"></span>SPY right axis, ratio-derived</span>
+      </div>
+      <span id="point-count">0 chart points</span>
+    </div>
+
+    <div id="overlap-chart" aria-label="SPX and SPY overlapping price chart">
+      <svg id="overlap-svg" role="img" aria-labelledby="chart-title chart-desc">
+        <title id="chart-title">SPX and SPY overlap chart</title>
+        <desc id="chart-desc">SPX price uses the left y-axis and SPY price uses the right y-axis derived from SPX divided by the live SPX/SPY Ratio.</desc>
+      </svg>
+    </div>
+    <p class="status-message" id="chart-status">Checking Pro subscription...</p>
+  </main>
+
+  <footer>
+    <p>© 2025 spyconverter.com. All rights reserved.</p>
+  </footer>
+
+  <script type="module">
+    import { supabase } from './auth.js';
+
+    const proBackendURL = 'https://isvzhpqrmjtqnqyyidxr.functions.supabase.co/get-live-price-pro';
+    const CHART_STORAGE_KEY = 'spxSpyOverlapChartPoints';
+    const MAX_POINTS = 390;
+    const REFRESH_MS = 60_000;
+    const SVG_NS = 'http://www.w3.org/2000/svg';
+
+    const page = document.getElementById('pro-chart-page');
+    const chartElement = document.getElementById('overlap-chart');
+    const svg = document.getElementById('overlap-svg');
+    const statusElement = document.getElementById('chart-status');
+    const pointCountElement = document.getElementById('point-count');
+    const spxPriceElement = document.getElementById('spx-price');
+    const spyPriceElement = document.getElementById('spy-price');
+    const ratioElement = document.getElementById('spx-spy-ratio');
+    const lastUpdatedElement = document.getElementById('last-updated');
+    const resetButton = document.getElementById('reset-chart-data');
+    const toggleButtons = document.querySelectorAll('[data-chart-type]');
+
+    let chartType = 'line';
+    let liveRatio = null;
+    let livePoints = loadStoredPoints();
+    let refreshTimer = null;
+
+    function formatPrice(value, decimals = 2) {
+      return typeof value === 'number' && Number.isFinite(value)
+        ? value.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })
+        : 'N/A';
+    }
+
+    function formatTime(value) {
+      if (!value) return 'N/A';
+      return new Date(value).toLocaleString('en-US', {
+        month: 'numeric',
+        day: 'numeric',
+        year: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true,
+      });
+    }
+
+    function setStatus(message, isError = false) {
+      statusElement.textContent = message;
+      statusElement.classList.toggle('error', isError);
+    }
+
+    function safeRatioFromPayload(data) {
+      const payloadRatio = data?.['SPX/SPY Ratio'];
+      if (typeof payloadRatio === 'number' && Number.isFinite(payloadRatio) && payloadRatio > 0) {
+        return payloadRatio;
+      }
+
+      const spx = data?.Prices?.SPX;
+      const spy = data?.Prices?.SPY;
+      if (typeof spx === 'number' && typeof spy === 'number' && spy !== 0) {
+        return spx / spy;
+      }
+
+      return null;
+    }
+
+    function loadStoredPoints() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(CHART_STORAGE_KEY) || '[]');
+        if (!Array.isArray(parsed)) return [];
+
+        return parsed
+          .filter((point) => (
+            Number.isFinite(point?.time) &&
+            Number.isFinite(point?.spx) &&
+            Number.isFinite(point?.spy) &&
+            Number.isFinite(point?.ratio)
+          ))
+          .slice(-MAX_POINTS);
+      } catch (_error) {
+        return [];
+      }
+    }
+
+    function storePoints() {
+      localStorage.setItem(CHART_STORAGE_KEY, JSON.stringify(livePoints.slice(-MAX_POINTS)));
+    }
+
+    function currentRatio() {
+      return liveRatio || livePoints.at(-1)?.ratio || 1;
+    }
+
+    function spyAsSpxLevel(spyPrice) {
+      return spyPrice * currentRatio();
+    }
+
+    function updateStats(latestPoint) {
+      if (!latestPoint) {
+        spxPriceElement.textContent = 'Loading...';
+        spyPriceElement.textContent = 'Loading...';
+        ratioElement.textContent = liveRatio ? liveRatio.toFixed(8) : 'Loading...';
+        lastUpdatedElement.textContent = 'Loading...';
+        return;
+      }
+
+      spxPriceElement.textContent = formatPrice(latestPoint.spx);
+      spyPriceElement.textContent = formatPrice(latestPoint.spy);
+      ratioElement.textContent = formatPrice(latestPoint.ratio, 8);
+      lastUpdatedElement.textContent = formatTime(latestPoint.isoTime);
+    }
+
+    function updatePointCount() {
+      const label = livePoints.length === 1 ? '1 chart point' : `${livePoints.length} chart points`;
+      pointCountElement.textContent = label;
+    }
+
+    function svgNode(name, attributes = {}) {
+      const node = document.createElementNS(SVG_NS, name);
+      Object.entries(attributes).forEach(([key, value]) => node.setAttribute(key, value));
+      return node;
+    }
+
+    function appendText(parent, text, attributes = {}) {
+      const node = svgNode('text', attributes);
+      node.textContent = text;
+      parent.appendChild(node);
+      return node;
+    }
+
+    function clearSvg() {
+      while (svg.firstChild) svg.removeChild(svg.firstChild);
+    }
+
+    function niceTicks(min, max, count = 6) {
+      if (!Number.isFinite(min) || !Number.isFinite(max) || min === max) return [min || 0];
+
+      const rawStep = (max - min) / Math.max(1, count - 1);
+      const magnitude = 10 ** Math.floor(Math.log10(rawStep));
+      const normalized = rawStep / magnitude;
+      const niceStep = normalized <= 1 ? 1 : normalized <= 2 ? 2 : normalized <= 5 ? 5 : 10;
+      const step = niceStep * magnitude;
+      const first = Math.ceil(min / step) * step;
+      const ticks = [];
+
+      for (let value = first; value <= max + step * 0.5; value += step) {
+        ticks.push(Number(value.toFixed(8)));
+      }
+
+      return ticks.length ? ticks : [min, max];
+    }
+
+    function xForIndex(index, plot) {
+      if (livePoints.length <= 1) return plot.left + plot.width / 2;
+      return plot.left + (index / (livePoints.length - 1)) * plot.width;
+    }
+
+    function createPath(points, yForValue, plot, valueGetter) {
+      return points
+        .map((point, index) => {
+          const command = index === 0 ? 'M' : 'L';
+          return `${command} ${xForIndex(index, plot).toFixed(2)} ${yForValue(valueGetter(point)).toFixed(2)}`;
+        })
+        .join(' ');
+    }
+
+    function drawLineSeries(group, points, yForValue, plot, valueGetter, color) {
+      const path = createPath(points, yForValue, plot, valueGetter);
+      group.appendChild(svgNode('path', {
+        d: path,
+        fill: 'none',
+        stroke: color,
+        'stroke-width': '3',
+        'stroke-linecap': 'round',
+        'stroke-linejoin': 'round',
+      }));
+
+      points.forEach((point, index) => {
+        const isLatest = index === points.length - 1;
+        if (!isLatest && points.length > 8) return;
+
+        group.appendChild(svgNode('circle', {
+          cx: xForIndex(index, plot),
+          cy: yForValue(valueGetter(point)),
+          r: isLatest ? 4.5 : 3,
+          fill: color,
+          stroke: '#ffffff',
+          'stroke-width': '2',
+        }));
+      });
+    }
+
+    function drawCandleSeries(group, points, yForValue, plot, valueGetter, color, opacity = 1) {
+      const candleWidth = Math.max(4, Math.min(14, plot.width / Math.max(points.length, 1) * 0.6));
+
+      points.forEach((point, index) => {
+        const currentValue = valueGetter(point);
+        const previousPoint = points[index - 1];
+        const openValue = previousPoint ? valueGetter(previousPoint) : currentValue;
+        const highValue = Math.max(openValue, currentValue);
+        const lowValue = Math.min(openValue, currentValue);
+        const x = xForIndex(index, plot);
+        const yOpen = yForValue(openValue);
+        const yClose = yForValue(currentValue);
+        const yHigh = yForValue(highValue);
+        const yLow = yForValue(lowValue);
+        const bodyTop = Math.min(yOpen, yClose);
+        const bodyHeight = Math.max(2, Math.abs(yClose - yOpen));
+        const isUp = currentValue >= openValue;
+
+        group.appendChild(svgNode('line', {
+          x1: x,
+          x2: x,
+          y1: yHigh,
+          y2: yLow,
+          stroke: color,
+          'stroke-width': '2',
+          opacity,
+        }));
+
+        group.appendChild(svgNode('rect', {
+          x: x - candleWidth / 2,
+          y: bodyTop,
+          width: candleWidth,
+          height: bodyHeight,
+          rx: '2',
+          fill: isUp ? color : '#ffffff',
+          stroke: color,
+          'stroke-width': '2',
+          opacity,
+        }));
+      });
+    }
+
+    function drawAxes(group, ticks, yForValue, plot) {
+      ticks.forEach((tick) => {
+        const y = yForValue(tick);
+        group.appendChild(svgNode('line', {
+          x1: plot.left,
+          x2: plot.left + plot.width,
+          y1: y,
+          y2: y,
+          stroke: '#e2e8f0',
+          'stroke-width': '1',
+        }));
+
+        appendText(group, formatPrice(tick), {
+          x: plot.left - 10,
+          y: y + 4,
+          'text-anchor': 'end',
+          fill: '#475569',
+          'font-size': '12',
+          'font-weight': '700',
+        });
+
+        appendText(group, formatPrice(tick / currentRatio()), {
+          x: plot.left + plot.width + 10,
+          y: y + 4,
+          'text-anchor': 'start',
+          fill: '#166534',
+          'font-size': '12',
+          'font-weight': '700',
+        });
+      });
+
+      group.appendChild(svgNode('line', {
+        x1: plot.left,
+        x2: plot.left,
+        y1: plot.top,
+        y2: plot.top + plot.height,
+        stroke: '#94a3b8',
+        'stroke-width': '1',
+      }));
+
+      group.appendChild(svgNode('line', {
+        x1: plot.left + plot.width,
+        x2: plot.left + plot.width,
+        y1: plot.top,
+        y2: plot.top + plot.height,
+        stroke: '#86efac',
+        'stroke-width': '1',
+      }));
+
+      appendText(group, 'SPX', {
+        x: plot.left,
+        y: 18,
+        fill: '#1d4ed8',
+        'font-size': '12',
+        'font-weight': '800',
+      });
+
+      appendText(group, 'SPY', {
+        x: plot.left + plot.width,
+        y: 18,
+        fill: '#166534',
+        'font-size': '12',
+        'font-weight': '800',
+        'text-anchor': 'end',
+      });
+    }
+
+    function drawTimeLabels(group, plot) {
+      if (!livePoints.length) return;
+
+      const labelCount = Math.min(5, livePoints.length);
+      const usedIndexes = new Set();
+
+      for (let labelIndex = 0; labelIndex < labelCount; labelIndex += 1) {
+        const index = labelCount === 1
+          ? livePoints.length - 1
+          : Math.round((labelIndex / (labelCount - 1)) * (livePoints.length - 1));
+
+        if (usedIndexes.has(index)) continue;
+        usedIndexes.add(index);
+
+        const point = livePoints[index];
+        const date = new Date(point.isoTime);
+        const label = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+        const x = xForIndex(index, plot);
+
+        group.appendChild(svgNode('line', {
+          x1: x,
+          x2: x,
+          y1: plot.top,
+          y2: plot.top + plot.height,
+          stroke: '#f1f5f9',
+          'stroke-width': '1',
+        }));
+
+        appendText(group, label, {
+          x,
+          y: plot.top + plot.height + 28,
+          'text-anchor': 'middle',
+          fill: '#64748b',
+          'font-size': '12',
+        });
+      }
+    }
+
+    function drawLatestBadges(group, latestPoint, yForValue, plot) {
+      if (!latestPoint) return;
+
+      const spxY = yForValue(latestPoint.spx);
+      const spyY = yForValue(spyAsSpxLevel(latestPoint.spy));
+
+      group.appendChild(svgNode('line', {
+        x1: plot.left,
+        x2: plot.left + plot.width,
+        y1: spxY,
+        y2: spxY,
+        stroke: '#2563eb',
+        'stroke-width': '1',
+        'stroke-dasharray': '4 4',
+        opacity: '0.45',
+      }));
+
+      group.appendChild(svgNode('line', {
+        x1: plot.left,
+        x2: plot.left + plot.width,
+        y1: spyY,
+        y2: spyY,
+        stroke: '#16a34a',
+        'stroke-width': '1',
+        'stroke-dasharray': '4 4',
+        opacity: '0.45',
+      }));
+    }
+
+    function renderChart() {
+      clearSvg();
+
+      const width = Math.max(320, chartElement.clientWidth || 900);
+      const height = Math.max(300, chartElement.clientHeight || 560);
+      svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+
+      const plot = {
+        top: 32,
+        right: 78,
+        bottom: 48,
+        left: 78,
+      };
+      plot.width = width - plot.left - plot.right;
+      plot.height = height - plot.top - plot.bottom;
+
+      const rootGroup = svgNode('g');
+      svg.appendChild(rootGroup);
+
+      rootGroup.appendChild(svgNode('rect', {
+        x: 0,
+        y: 0,
+        width,
+        height,
+        fill: '#ffffff',
+      }));
+
+      if (!livePoints.length) {
+        appendText(rootGroup, 'Waiting for the first live SPX/SPY point...', {
+          x: width / 2,
+          y: height / 2,
+          'text-anchor': 'middle',
+          fill: '#64748b',
+          'font-size': '16',
+          'font-weight': '700',
+        });
+        updatePointCount();
+        updateStats(null);
+        return;
+      }
+
+      const spxValues = livePoints.map((point) => point.spx);
+      const minSpx = Math.min(...spxValues);
+      const maxSpx = Math.max(...spxValues);
+      const range = Math.max(maxSpx - minSpx, Math.max(maxSpx * 0.002, 10));
+      const yMin = minSpx - range * 0.18;
+      const yMax = maxSpx + range * 0.18;
+      const yForValue = (value) => plot.top + ((yMax - value) / (yMax - yMin)) * plot.height;
+      const ticks = niceTicks(yMin, yMax, 6);
+
+      drawAxes(rootGroup, ticks, yForValue, plot);
+      drawTimeLabels(rootGroup, plot);
+
+      rootGroup.appendChild(svgNode('rect', {
+        x: plot.left,
+        y: plot.top,
+        width: plot.width,
+        height: plot.height,
+        fill: 'none',
+        stroke: '#cbd5e1',
+        'stroke-width': '1',
+      }));
+
+      const seriesGroup = svgNode('g');
+      rootGroup.appendChild(seriesGroup);
+
+      if (chartType === 'candlestick') {
+        drawCandleSeries(seriesGroup, livePoints, yForValue, plot, (point) => point.spx, '#2563eb', 0.85);
+        drawCandleSeries(seriesGroup, livePoints, yForValue, plot, (point) => spyAsSpxLevel(point.spy), '#16a34a', 0.62);
+      } else {
+        drawLineSeries(seriesGroup, livePoints, yForValue, plot, (point) => point.spx, '#2563eb');
+        drawLineSeries(seriesGroup, livePoints, yForValue, plot, (point) => spyAsSpxLevel(point.spy), '#16a34a');
+      }
+
+      drawLatestBadges(rootGroup, livePoints.at(-1), yForValue, plot);
+      updatePointCount();
+      updateStats(livePoints.at(-1));
+    }
+
+    function appendLivePoint(data) {
+      const spx = data?.Prices?.SPX;
+      const spy = data?.Prices?.SPY;
+      const ratio = safeRatioFromPayload(data);
+
+      if (![spx, spy, ratio].every((value) => typeof value === 'number' && Number.isFinite(value))) {
+        throw new Error('Live payload did not include valid SPX, SPY, and SPX/SPY Ratio values.');
+      }
+
+      liveRatio = ratio;
+      const isoTime = data.Datetime || new Date().toISOString();
+      const time = Math.floor(new Date(isoTime).getTime() / 1000);
+      const existingIndex = livePoints.findIndex((point) => point.time === time);
+      const point = { time, isoTime, spx, spy, ratio };
+
+      if (existingIndex >= 0) {
+        livePoints[existingIndex] = point;
+      } else {
+        livePoints.push(point);
+      }
+
+      livePoints = livePoints
+        .sort((a, b) => a.time - b.time)
+        .slice(-MAX_POINTS);
+
+      storePoints();
+      renderChart();
+    }
+
+    async function fetchLivePoint() {
+      try {
+        setStatus('Fetching live SPX/SPY Ratio and prices...');
+        const response = await fetch(proBackendURL);
+        if (!response.ok) throw new Error(`Live price request failed: ${response.status}`);
+        const data = await response.json();
+        appendLivePoint(data);
+        setStatus('Live overlap chart updated. The SPY right axis is derived from SPX ÷ live SPX/SPY Ratio.');
+      } catch (error) {
+        console.error('SPX/SPY overlap chart error:', error);
+        setStatus(error.message || 'Unable to update chart data.', true);
+      }
+    }
+
+    async function requireSubscription() {
+      const { data: { user }, error } = await supabase.auth.getUser();
+      if (error || !user) {
+        window.location.href = 'login.html';
+        return false;
+      }
+
+      const { data: profile, error: profileErr } = await supabase
+        .from('profiles')
+        .select('is_subscribed')
+        .eq('id', user.id)
+        .single();
+
+      if (profileErr || !profile?.is_subscribed) {
+        window.location.href = 'dashboard.html';
+        return false;
+      }
+
+      return true;
+    }
+
+    toggleButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        chartType = button.dataset.chartType;
+        toggleButtons.forEach((item) => item.classList.toggle('active', item === button));
+        renderChart();
+      });
+    });
+
+    resetButton.addEventListener('click', () => {
+      localStorage.removeItem(CHART_STORAGE_KEY);
+      livePoints = [];
+      renderChart();
+      setStatus('Local chart history reset. Fetching a fresh live point...');
+      fetchLivePoint();
+    });
+
+    async function initialize() {
+      const hasAccess = await requireSubscription();
+      if (!hasAccess) return;
+
+      page.classList.remove('page-loading');
+      renderChart();
+      await fetchLivePoint();
+      refreshTimer = window.setInterval(fetchLivePoint, REFRESH_MS);
+    }
+
+    window.addEventListener('resize', renderChart);
+    window.addEventListener('beforeunload', () => {
+      if (refreshTimer) window.clearInterval(refreshTimer);
+      window.removeEventListener('resize', renderChart);
+    });
+
+    initialize();
+  </script>
+</body>
+</html>
