@@ -21,5 +21,10 @@
 
 - Stores only lightweight metadata (`title`, `summary`, URL, source, timestamps, tickers).
 - URL dedupe is enforced both at DB level (`UNIQUE original_url`) and in edge function canonicalization.
-- Daily trim + vacuum keeps the table near free-tier constraints.
+- Daily trim + vacuum keeps the table near free-tier constraints. The trim
+  function deletes only from `public.news_articles`; it does not delete
+  profiles or auth users, and it is a scheduled retention job rather than a
+  Supabase "out of memory" purge.
+- Clicking a news card opens the stored summary in an on-site modal. The card
+  no longer navigates users directly to the original article URL.
 - Source filtering uses `All`, `Reuters`, `CNBC`, `Yahoo Finance`, `SEC`, and `Federal Reserve`.

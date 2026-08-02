@@ -1,23 +1,23 @@
-import { formatNewsTime, getArticleHref } from "@/lib/news";
+import { formatNewsTime } from "@/lib/news";
 import type { NewsArticleRow } from "@/lib/supabase/types";
 
 interface NewsCardProps {
   article: NewsArticleRow;
+  onOpen: (article: NewsArticleRow) => void;
 }
 
 /**
  * SaveTicker-style clean card with headline, summary, source badge, and timestamp.
  */
-export function NewsCard({ article }: NewsCardProps) {
-  const href = getArticleHref(article);
-
+export function NewsCard({ article, onOpen }: NewsCardProps) {
   return (
     <article className="group rounded-2xl border border-slate-200 bg-white shadow-card transition-all hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-lg">
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer nofollow"
-        className="block p-5 sm:p-6"
+      <button
+        type="button"
+        aria-haspopup="dialog"
+        aria-label={`Open summary for ${article.title}`}
+        onClick={() => onOpen(article)}
+        className="block w-full p-5 text-left sm:p-6"
       >
         <div className="mb-3 flex flex-wrap items-center gap-2 text-xs text-slate-500">
           <span className="rounded-full bg-slate-900 px-2.5 py-1 font-semibold tracking-wide text-white">
@@ -53,7 +53,7 @@ export function NewsCard({ article }: NewsCardProps) {
             ))}
           </div>
         ) : null}
-      </a>
+      </button>
     </article>
   );
 }

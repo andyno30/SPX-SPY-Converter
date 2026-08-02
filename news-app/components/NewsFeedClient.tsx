@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { dedupeAndSortNews, NEWS_SOURCES } from "@/lib/news";
 import { getBrowserSupabaseClient } from "@/lib/supabase/client";
 import type { NewsArticleRow } from "@/lib/supabase/types";
 
 import { NewsCard } from "@/components/NewsCard";
+import { NewsArticleModal } from "@/components/NewsArticleModal";
 import { SourcePills } from "@/components/SourcePills";
 
 interface NewsFeedClientProps {
@@ -61,6 +62,8 @@ export function NewsFeedClient({ initialRows, sourceFilters }: NewsFeedClientPro
   );
   const [activeSource, setActiveSource] = useState<string>(sourceFilters[0] ?? "All");
   const [isLive, setIsLive] = useState(false);
+  const [selectedArticle, setSelectedArticle] = useState<NewsArticleRow | null>(null);
+  const closeArticle = useCallback(() => setSelectedArticle(null), []);
 
   useEffect(() => {
     const supabase = getBrowserSupabaseClient();
@@ -206,9 +209,22 @@ export function NewsFeedClient({ initialRows, sourceFilters }: NewsFeedClientPro
             No stories found for this source yet.
           </div>
         ) : (
-          visibleRows.map((article) => <NewsCard key={article.id} article={article} />)
+          visibleRows.map((article) => (
+            <NewsCard
+              key={article.id}
+              article={article}
+              onOpen={setSelectedArticle}
+            />
+          ))
         )}
       </div>
+
+      {selectedArticle ? (
+        <NewsArticleModal
+          article={selectedArticle}
+          onClose={closeArticle}
+        />
+      ) : null}
     </section>
   );
 }

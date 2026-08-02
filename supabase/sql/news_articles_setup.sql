@@ -69,6 +69,9 @@ END
 $$;
 
 -- 5) Cleanup function: keep only latest 20,000 rows --------------------------
+-- IMPORTANT: This retention function is deliberately scoped to
+-- public.news_articles. It does not delete from public.profiles or auth.users.
+-- Supabase storage/quota pressure does not trigger a broader database purge.
 CREATE OR REPLACE FUNCTION public.news_trim_to_latest_20000()
 RETURNS VOID
 LANGUAGE plpgsql
@@ -102,7 +105,7 @@ BEGIN
 END
 $$;
 
--- Daily trim at 03:00 UTC
+-- Daily trim at 03:00 UTC. This is the only scheduled news retention delete.
 SELECT cron.schedule(
   'news_trim_20000',
   '0 3 * * *',
