@@ -111,7 +111,6 @@ function render(data) {
     : moneyValue(data.gammaFlip);
   $("net-gex").textContent = data.netGexFormatted || compactNumber(data.netGex);
   $("data-source").textContent = data.source || "Unusual Whales";
-  $("snapshot-status").textContent = data.isPriorDay ? "Prior-day snapshot" : "Current snapshot";
   $("updated-at").textContent = timestamp(data.sourceUpdatedAt || data.updatedAt || data.fetchedAt || data.asOf);
 }
 
@@ -130,7 +129,6 @@ async function loadData() {
   } catch (reason) {
     error.textContent = `Could not load the latest cached SPY options data: ${reason.message}`;
     error.hidden = false;
-    $("snapshot-status").textContent = "Update unavailable";
   } finally {
     refresh.disabled = false;
     refresh.textContent = "Refresh data";
