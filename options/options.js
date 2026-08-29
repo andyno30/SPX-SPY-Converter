@@ -1,4 +1,5 @@
 const DATA_URL = "../data/spy-options.json";
+const SIDE_AD_MEDIA = window.matchMedia("(min-width: 1280px)");
 const $ = (id) => document.getElementById(id);
 
 const hasValue = (value) => value !== null && value !== undefined && value !== "";
@@ -136,5 +137,24 @@ async function loadData() {
   }
 }
 
+function initializeSideAds() {
+  if (!SIDE_AD_MEDIA.matches) return;
+
+  document.querySelectorAll(".side-ad-unit").forEach((unit) => {
+    if (unit.dataset.adRequested === "true") return;
+    unit.dataset.adRequested = "true";
+
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch {
+      // Ad blockers and transient AdSense initialization failures should not
+      // interfere with the options dashboard.
+    }
+  });
+}
+
 $("refresh-data").addEventListener("click", loadData);
+SIDE_AD_MEDIA.addEventListener?.("change", initializeSideAds);
+window.addEventListener("load", initializeSideAds);
+initializeSideAds();
 loadData();
