@@ -24,19 +24,21 @@ a {
 
 /* Index.html-like top nav and footer for /news */
 .legacy-header-container {
-  max-width: 800px;
+  max-width: 880px;
   margin: 0 auto;
   width: 100%;
 }
 
 .legacy-nav {
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #333;
   color: #fff;
   padding: 1em;
-  max-width: 800px;
+  gap: 1rem;
+  max-width: 880px;
   width: 100%;
 }
 
@@ -52,14 +54,20 @@ a {
 }
 
 .legacy-nav-links {
+  align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  justify-content: flex-end;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
 .legacy-nav-links li {
-  display: inline-block;
-  margin-left: 2em;
+  display: block;
+  flex: 0 0 auto;
+  margin-left: 0;
   position: relative;
 }
 
@@ -98,11 +106,26 @@ a {
 
 @media (max-width: 900px) {
   .legacy-nav {
+    align-items: stretch;
+    flex-direction: column;
     flex-wrap: wrap;
     gap: 0.75rem;
   }
 
-  .legacy-nav-links li {
-    margin-left: 1rem;
+  .legacy-logo {
+    align-self: flex-start;
+  }
+
+  .legacy-nav-links {
+    gap: 0.5rem;
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .legacy-nav-links {
+    font-size: 0.8rem;
+    gap: 0.3rem;
   }
 }

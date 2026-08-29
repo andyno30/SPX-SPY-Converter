@@ -10,13 +10,15 @@ body {
   }
   
   nav {
+    box-sizing: border-box;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
     background-color: #333;
     color: white;
     padding: 1em;
-    max-width: 800px;
+    max-width: 880px;
     width: 100%;
   }
   
@@ -26,17 +28,49 @@ body {
   }
   
   .nav-links {
+    align-items: center;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: clamp(0.75rem, 2vw, 1.5rem);
+    justify-content: flex-end;
     list-style: none;
+    margin: 0;
+    padding: 0;
   }
   
   .nav-links li {
-    display: inline-block;
-    margin-left: 2em;
+    display: block;
+    flex: 0 0 auto;
+    margin-left: 0;
   }
   
   .nav-links li a {
     color: white;
     text-decoration: none;
+  }
+
+  @media (max-width: 700px) {
+    nav {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    nav .logo {
+      align-self: flex-start;
+    }
+
+    .nav-links {
+      gap: 0.5rem;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .nav-links {
+      font-size: 0.8rem;
+      gap: 0.3rem;
+    }
   }
   
   main {

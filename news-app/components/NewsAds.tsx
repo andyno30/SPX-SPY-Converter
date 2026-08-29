@@ -106,12 +106,12 @@ export function NewsAds() {
 
       {showBottomAd ? (
         <div className="pointer-events-none fixed inset-x-0 bottom-0 z-30">
-          <div className="mx-auto max-w-5xl px-4 py-1 sm:px-6 lg:px-8">
+          <div className="mx-auto w-full max-w-[728px] px-1 py-1">
             <div className="pointer-events-auto overflow-hidden">
               <AdUnit
                 slot={ADSENSE_SLOT_FOOTER}
-                style={{ display: "block", minHeight: "90px" }}
-                adFormat="auto"
+                style={{ display: "block", width: "100%", height: "90px" }}
+                adFormat="horizontal"
                 responsive={true}
               />
             </div>

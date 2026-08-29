@@ -150,10 +150,25 @@
     .home-footer-ad {
       box-sizing: border-box;
       margin: 2rem auto 1rem;
-      max-width: 800px;
-      padding: 0 1rem;
+      max-width: 728px;
       text-align: center;
       width: 100%;
+    }
+
+    .home-footer-ad-unit {
+      display: block;
+      height: 90px;
+      width: 100%;
+    }
+
+    @media (max-width: 760px) {
+      .home-footer-ad {
+        max-width: 320px;
+      }
+
+      .home-footer-ad-unit {
+        height: 100px;
+      }
     }
 
     @media (min-width: 1280px) {
@@ -357,11 +372,10 @@
 
   <div class="home-footer-ad" aria-label="Advertisement">
     <!-- home bottom footer -->
-    <ins class="adsbygoogle"
-         style="display:block"
+    <ins class="adsbygoogle home-footer-ad-unit"
          data-ad-client="ca-pub-2918914879248661"
          data-ad-slot="8041116399"
-         data-ad-format="auto"
+         data-ad-format="horizontal"
          data-full-width-responsive="true"></ins>
     <script>
       (adsbygoogle = window.adsbygoogle || []).push({});

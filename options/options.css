@@ -310,8 +310,7 @@
     flex-direction: column;
     gap: 0.4rem;
     margin-top: 2.25em;
-    position: sticky;
-    top: 1rem;
+    position: relative;
     width: 160px;
   }
 }

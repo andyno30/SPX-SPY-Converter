@@ -16,7 +16,7 @@ export function LegacySiteHeader() {
             <a href="https://news.spyconverter.com/news">News</a>
           </li>
           <li>
-            <a href="https://spyconverter.com/relationship.html">Relationship</a>
+            <a href="https://spyconverter.com/options/">Options</a>
           </li>
           <li>
             <a href="https://spyconverter.com/blog.html">Blog</a>
@@ -31,6 +31,7 @@ export function LegacySiteHeader() {
               <a href="https://spyconverter.com/aboutus.html#terms-and-conditions">
                 Terms and Conditions
               </a>
+              <a href="https://spyconverter.com/relationship.html">Relationship</a>
             </div>
           </li>
           <li>
