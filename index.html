@@ -53,7 +53,7 @@
     body > nav {
       box-sizing: border-box;
       gap: 1rem;
-      max-width: 832px;
+      max-width: 880px;
     }
 
     body > nav .logo h4 {
@@ -105,6 +105,12 @@
       max-width: 800px;
       margin: 0 auto;
       padding: 1em;
+    }
+
+    /* Keep the timestamp and its note together as one Auto ads placement boundary. */
+    #conversion-status #conversion-ratio {
+      display: block;
+      margin-top: 1em;
     }
 
     .content-row {
@@ -199,8 +205,10 @@
 
   <div class="main-container">
     <h1>SPX-SPY Converter</h1>
-    <p>Conversion ratio last updated: <span id="conversionDate">Loading...</span> <span id="conversionTimePST"></span></p>
-    <p><small id="conversion-ratio">*note: ratio may not remain constant over time, as it can be affected by factors such as dividends, stock splits, or changes in the index composition.</small></p>
+    <p id="conversion-status">
+      Conversion ratio last updated: <span id="conversionDate">Loading...</span> <span id="conversionTimePST"></span>
+      <small id="conversion-ratio">*note: ratio may not remain constant over time, as it can be affected by factors such as dividends, stock splits, or changes in the index composition.</small>
+    </p>
 
     <div class="content-row">
       <div class="converter-side">
