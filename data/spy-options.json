@@ -1,0 +1,39 @@
+{
+  "symbol": "SPY",
+  "source": "Unusual Whales",
+  "sourceUpdatedAt": "2026-08-28T20:05:07.096437Z",
+  "asOf": "2026-08-28T20:05:00Z",
+  "isPriorDay": false,
+  "currentPrice": 769.39,
+  "nearestExpiry": "2026-08-28",
+  "daysToExpiry": 0,
+  "maxPain": 767,
+  "putCallRatioVolume": 1.023799027185038,
+  "putCallRatioOpenInterest": 2.492337,
+  "volumeSplit": {
+    "call": 49.4,
+    "put": 50.6
+  },
+  "openInterestSplit": {
+    "call": 28.6,
+    "put": 71.4
+  },
+  "premiumSplit": {
+    "call": 52.1,
+    "put": 47.9
+  },
+  "totalOptionVolume": 12169652,
+  "totalOptionVolumeFormatted": "12.2M",
+  "relativeVolume": {
+    "3d": 124.9,
+    "7d": 127.2,
+    "30d": 105.4
+  },
+  "callWall": 780,
+  "putWall": 641,
+  "gammaFlip": null,
+  "netGex": -74881173.43122706,
+  "netGexFormatted": "-74.9M",
+  "nextPollAfterMs": 910362,
+  "rawNetGammaExposure": -12649.6808
+}

@@ -1,0 +1,62 @@
+name: Update SPY Options
+
+on:
+  workflow_dispatch:
+  schedule:
+    # GitHub cron uses UTC and scheduled jobs can be delayed by a few minutes.
+    # This covers the broad U.S. market-session window at roughly 15-minute intervals.
+    - cron: "*/15 13-21 * * 1-5"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install SaveTicker updater dependency
+        run: python -m pip install -r scripts/requirements-saveticker.txt
+
+      - name: Install Playwright Chromium
+        run: python -m playwright install --with-deps chromium
+
+      - name: Restore encrypted SaveTicker session
+        env:
+          SAVETICKER_AUTH_JSON_B64: ${{ secrets.SAVETICKER_AUTH_JSON_B64 }}
+        run: |
+          set -eu
+          if [ -z "${SAVETICKER_AUTH_JSON_B64:-}" ]; then
+            echo "Missing SAVETICKER_AUTH_JSON_B64 repository secret." >&2
+            exit 1
+          fi
+          printf '%s' "$SAVETICKER_AUTH_JSON_B64" | base64 --decode > "$RUNNER_TEMP/saveticker-auth.json"
+          chmod 600 "$RUNNER_TEMP/saveticker-auth.json"
+
+      - name: Fetch latest SPY options
+        env:
+          SAVETICKER_AUTH_FILE: ${{ runner.temp }}/saveticker-auth.json
+        run: python scripts/sync_saveticker_direct.py
+
+      - name: Commit only when data changed
+        run: |
+          git add data/spy-options.json
+          if git diff --cached --quiet; then
+            echo "No new SPY options data."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Update SPY options data"
+          git push
+
+      - name: Remove temporary SaveTicker session
+        if: always()
+        run: rm -f "$RUNNER_TEMP/saveticker-auth.json"

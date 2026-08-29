@@ -1,0 +1,16 @@
+.DS_Store
+.venv/
+__pycache__/
+*.py[cod]
+
+# Private SaveTicker browser sessions. Never commit these files.
+saveticker-auth.json
+.saveticker-profile/
+
+# One-time SaveTicker discovery/debug output.
+debug/
+debug-v2/
+
+# Local build/cache output.
+.pytest_cache/
+.next/

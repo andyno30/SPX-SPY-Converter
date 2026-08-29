@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Cached SPY options market metrics, including max pain, put/call ratios, volume splits, and gamma exposure levels.">
+  <link rel="canonical" href="https://spyconverter.com/options/">
+  <link rel="icon" type="image/x-icon" href="../Images/favicon.ico">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="options.css">
+  <title>SPY Options Dashboard | SpyConverter</title>
+</head>
+
+<body class="options-page">
+  <nav>
+    <a href="../index.html" class="logo"><h4>spyconverter.com</h4></a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="https://news.spyconverter.com/news">News</a></li>
+      <li><a href="./" aria-current="page">Options</a></li>
+      <li><a href="../relationship.html">Relationship</a></li>
+      <li><a href="../blog.html">Blog</a></li>
+      <li class="dropdown">
+        <a href="../aboutus.html">About Us</a>
+        <div class="dropdown-content">
+          <a href="../aboutus.html#about-us">About Us</a>
+          <a href="../aboutus.html#privacy-policy">Privacy Policy</a>
+          <a href="../aboutus.html#contact-us">Contact Us</a>
+          <a href="../aboutus.html#disclaimer">Disclaimer</a>
+          <a href="../aboutus.html#terms-and-conditions">Terms and Conditions</a>
+        </div>
+      </li>
+      <li><a href="https://spyconverter.com/docs/login.html">Login</a></li>
+    </ul>
+  </nav>
+
+  <main class="options-shell">
+    <header class="options-header">
+      <div>
+        <p class="eyebrow">Cached market data · English view</p>
+        <h1>SPY Options</h1>
+        <p class="intro">A compact view of the latest available SPY options snapshot.</p>
+      </div>
+      <button id="refresh-data" class="refresh-button" type="button">Refresh data</button>
+    </header>
+
+    <div id="load-error" class="load-error" role="alert" hidden></div>
+
+    <section class="dashboard-card" aria-live="polite">
+      <div class="dashboard-hero">
+        <div>
+          <p class="metric-label">SPY reference price</p>
+          <p class="hero-price" id="current-price">Loading…</p>
+        </div>
+        <div class="expiry-block">
+          <p class="metric-label">Nearest expiration</p>
+          <p class="hero-value" id="nearest-expiry">Loading…</p>
+        </div>
+      </div>
+
+      <section class="dashboard-section">
+        <h2>Core options metrics</h2>
+        <div class="metric-grid metric-grid-three">
+          <article class="metric-card">
+            <p class="metric-label">Max Pain</p>
+            <p class="metric-value" id="max-pain">—</p>
+          </article>
+          <article class="metric-card">
+            <p class="metric-label">Put / Call Ratio · Volume</p>
+            <p class="metric-value" id="put-call-volume">—</p>
+          </article>
+          <article class="metric-card">
+            <p class="metric-label">Put / Call Ratio · Open Interest</p>
+            <p class="metric-value" id="put-call-open-interest">—</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="dashboard-section">
+        <h2>Call / Put composition</h2>
+        <div id="splits"></div>
+      </section>
+
+      <section class="dashboard-section">
+        <div class="volume-heading">
+          <div>
+            <h2>Today’s option volume · all expirations</h2>
+            <p class="volume-value" id="total-volume">—</p>
+          </div>
+        </div>
+        <div class="relative-grid">
+          <article class="metric-card">
+            <p class="metric-label">Relative volume · 3-day average</p>
+            <p class="metric-value" id="relative-3d">—</p>
+          </article>
+          <article class="metric-card">
+            <p class="metric-label">Relative volume · 7-day average</p>
+            <p class="metric-value" id="relative-7d">—</p>
+          </article>
+          <article class="metric-card">
+            <p class="metric-label">Relative volume · 30-day average</p>
+            <p class="metric-value" id="relative-30d">—</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="dashboard-section">
+        <h2>Key gamma exposure levels</h2>
+        <div class="metric-grid metric-grid-four">
+          <article class="metric-card">
+            <p class="metric-label">Call Wall</p>
+            <p class="metric-value" id="call-wall">—</p>
+          </article>
+          <article class="metric-card">
+            <p class="metric-label">Put Wall</p>
+            <p class="metric-value" id="put-wall">—</p>
+          </article>
+          <article class="metric-card">
+            <p class="metric-label">Gamma Flip</p>
+            <p class="metric-value" id="gamma-flip">—</p>
+          </article>
+          <article class="metric-card">
+            <p class="metric-label">Net GEX</p>
+            <p class="metric-value" id="net-gex">—</p>
+          </article>
+        </div>
+      </section>
+
+      <footer class="dashboard-footer">
+        <span>Data: <strong id="data-source">Unusual Whales</strong></span>
+        <span id="snapshot-status">Loading snapshot…</span>
+        <span id="updated-at">—</span>
+      </footer>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 spyconverter.com. All rights reserved.</p>
+  </footer>
+
+  <script src="options.js"></script>
+</body>
+</html>
