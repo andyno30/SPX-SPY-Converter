@@ -128,6 +128,57 @@
       width: 100%;
     }
 
+    .home-side-ad {
+      display: none;
+    }
+
+    .home-side-ad-label {
+      color: #8a9099;
+      font-size: 0.65rem;
+      letter-spacing: 0.04em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .home-side-ad-unit {
+      display: block;
+      height: 600px;
+      overflow: hidden;
+      width: 160px;
+    }
+
+    .home-footer-ad {
+      box-sizing: border-box;
+      margin: 2rem auto 1rem;
+      max-width: 800px;
+      padding: 0 1rem;
+      text-align: center;
+      width: 100%;
+    }
+
+    @media (min-width: 1280px) {
+      .home-side-ad {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        max-height: calc(100vh - 6rem);
+        overflow: hidden;
+        position: fixed;
+        top: 5rem;
+        width: 160px;
+        z-index: 1;
+      }
+
+      .home-side-ad--left {
+        left: max(8px, calc(50% - 624px));
+      }
+
+      .home-side-ad--right {
+        right: max(8px, calc(50% - 624px));
+      }
+    }
+
     .converter-side {
       flex: 2;
     }
@@ -209,6 +260,24 @@
       <li><a href="https://spyconverter.com/docs/login.html">Login</a></li>
     </ul>
   </nav>
+
+  <aside class="home-side-ad home-side-ad--left" aria-label="Advertisement">
+    <span class="home-side-ad-label">Advertisement</span>
+    <ins class="adsbygoogle home-side-ad-unit"
+         data-ad-client="ca-pub-2918914879248661"
+         data-ad-slot="3839980763"
+         data-ad-format="auto"
+         data-full-width-responsive="false"></ins>
+  </aside>
+
+  <aside class="home-side-ad home-side-ad--right" aria-label="Advertisement">
+    <span class="home-side-ad-label">Advertisement</span>
+    <ins class="adsbygoogle home-side-ad-unit"
+         data-ad-client="ca-pub-2918914879248661"
+         data-ad-slot="5271435750"
+         data-ad-format="auto"
+         data-full-width-responsive="false"></ins>
+  </aside>
 
   <div class="main-container">
     <h1>SPX-SPY Converter</h1>
@@ -304,12 +373,48 @@
     </ul>
   </div>
 
+  <div class="home-footer-ad" aria-label="Advertisement">
+    <!-- home bottom footer -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-2918914879248661"
+         data-ad-slot="8041116399"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+
   <footer>
     <p>© 2023 spyconverter.com. All rights reserved.</p>
   </footer>
 
   <script src="script.js"></script>
   <script>
+    (function initializeHomeSideAds() {
+      const sideAdMedia = window.matchMedia("(min-width: 1280px)");
+
+      function requestVisibleSideAds() {
+        if (!sideAdMedia.matches) return;
+
+        document.querySelectorAll(".home-side-ad-unit").forEach((unit) => {
+          if (unit.dataset.adRequested === "true") return;
+          unit.dataset.adRequested = "true";
+
+          try {
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+          } catch {
+            // Ad blockers and transient AdSense failures should not affect the converter.
+          }
+        });
+      }
+
+      sideAdMedia.addEventListener?.("change", requestVisibleSideAds);
+      window.addEventListener("load", requestVisibleSideAds);
+      requestVisibleSideAds();
+    })();
+
     function convertSpxToSpy() {
       const spxValue = parseFloat(document.getElementById("spxInput").value);
       if (isNaN(spxValue)) {
