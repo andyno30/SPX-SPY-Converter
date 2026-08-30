@@ -49,6 +49,48 @@ body {
     text-decoration: none;
   }
 
+  .site-side-ad {
+    display: none;
+  }
+
+  .site-side-ad-label {
+    color: #8a9099;
+    font-size: 0.65rem;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .site-side-ad-unit {
+    display: block;
+    height: 600px;
+    overflow: hidden;
+    width: 160px;
+  }
+
+  @media (min-width: 1280px) {
+    .site-side-ad {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      max-height: calc(100vh - 6rem);
+      overflow: hidden;
+      position: fixed;
+      top: 5rem;
+      width: 160px;
+      z-index: 1;
+    }
+
+    .site-side-ad--left {
+      left: max(8px, calc(50% - 624px));
+    }
+
+    .site-side-ad--right {
+      right: max(8px, calc(50% - 624px));
+    }
+  }
+
   @media (max-width: 700px) {
     nav {
       align-items: stretch;
