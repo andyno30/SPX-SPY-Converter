@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 
 import { formatNewsTime } from "@/lib/news";
 import type { NewsArticleRow } from "@/lib/supabase/types";
+import { NewsEngagement } from "@/components/NewsEngagement";
 
 interface NewsArticleModalProps {
   article: NewsArticleRow;
@@ -97,6 +98,8 @@ export function NewsArticleModal({ article, onClose }: NewsArticleModalProps) {
               ))}
             </div>
           ) : null}
+
+          <NewsEngagement articleId={article.id} />
         </div>
 
         <footer className="border-t border-slate-200 bg-slate-50 px-5 py-4 text-xs leading-relaxed text-slate-500 sm:px-7">

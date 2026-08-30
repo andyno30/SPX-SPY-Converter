@@ -45,6 +45,53 @@ export interface Database {
         };
         Relationships: [];
       };
+      news_comments: {
+        Row: {
+          id: number;
+          article_id: number;
+          user_id: string;
+          display_name: string;
+          body: string;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: number;
+          article_id: number;
+          user_id: string;
+          display_name: string;
+          body: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          display_name?: string;
+          body?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      news_reactions: {
+        Row: {
+          article_id: number;
+          user_id: string;
+          reaction: "bullish" | "bearish";
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          article_id: number;
+          user_id: string;
+          reaction: "bullish" | "bearish";
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          reaction?: "bullish" | "bearish";
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;

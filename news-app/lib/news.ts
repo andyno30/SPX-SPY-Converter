@@ -2,7 +2,6 @@ import type { NewsArticleRow } from "@/lib/supabase/types";
 
 export const NEWS_SOURCES = [
   "CNBC",
-  "Yahoo Finance",
   "SEC",
   "Federal Reserve",
   "White House",

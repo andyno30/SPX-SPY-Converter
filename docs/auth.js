@@ -12,8 +12,12 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 /**
  * Sign up with email/password
  */
-export async function signUp(email, password) {
-  const { data, error } = await supabase.auth.signUp({ email, password });
+export async function signUp(email, password, emailRedirectTo) {
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: emailRedirectTo ? { emailRedirectTo } : undefined,
+  });
   if (error) throw error;
   return data;
 }

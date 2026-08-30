@@ -199,7 +199,6 @@ const KNOWN_TICKERS = new Set([
 const SOURCE_ALLOWLIST = new Set([
   "CNBC",
   "SEC",
-  "Yahoo Finance",
   "Federal Reserve",
   "White House",
 ]);
@@ -216,18 +215,6 @@ const RSS_SOURCES: SourceConfig[] = [
     url: "https://www.cnbc.com/id/20910258/device/rss/rss.html",
     source: "CNBC",
     sourceType: "tv",
-  },
-  {
-    sourceKey: "yahoo_finance",
-    url: "https://finance.yahoo.com/news/rssindex",
-    source: "Yahoo Finance",
-    sourceType: "aggregator",
-  },
-  {
-    sourceKey: "yahoo_finance_news",
-    url: "https://finance.yahoo.com/news/rss",
-    source: "Yahoo Finance",
-    sourceType: "aggregator",
   },
   {
     sourceKey: "federal_reserve_press",

@@ -46,7 +46,7 @@
 
             <!-- Keep SAME function names -->
             <button onclick="registerUser()">Sign Up</button>
-            <button onclick="window.location.href='login.html'">Back to Login</button>
+            <button onclick="goToLogin()">Back to Login</button>
             <button onclick="googleLoginSignup()">Signup with Google</button>
 
             <div id="feedback"></div>
@@ -66,6 +66,24 @@
     <script type="module">
         import { signUp, signInWithGoogle } from './auth.js';
 
+        const requestedReturnTo = new URLSearchParams(window.location.search).get('return_to');
+        const safeReturnTo = (() => {
+            if (!requestedReturnTo) return null;
+            try {
+                const target = new URL(requestedReturnTo);
+                return target.origin === 'https://news.spyconverter.com' && target.pathname === '/news'
+                    ? target.toString()
+                    : null;
+            } catch {
+                return null;
+            }
+        })();
+
+        window.goToLogin = function goToLogin() {
+            const suffix = safeReturnTo ? `?return_to=${encodeURIComponent(safeReturnTo)}` : '';
+            window.location.href = `login.html${suffix}`;
+        };
+
         // Keep your global name
         window.registerUser = async function registerUser() {
             const email = document.getElementById('email-input').value;
@@ -84,9 +102,13 @@
 
             feedback.textContent = 'Registering, please wait...';
             try {
-                await signUp(email, password);
+                await signUp(
+                    email,
+                    password,
+                    safeReturnTo || `${window.location.origin}/docs/confirmation.html`,
+                );
                 alert('Registration successful! Please check your email to confirm.');
-                window.location.href = 'login.html';
+                window.goToLogin();
             } catch (err) {
                 feedback.textContent = err.message || 'Signup failed';
             }
@@ -96,7 +118,7 @@
         window.googleLoginSignup = async function googleLoginSignup() {
             const feedback = document.getElementById('feedback');
             try {
-                await signInWithGoogle(`${window.location.origin}/docs/dashboard.html`);
+                await signInWithGoogle(safeReturnTo || `${window.location.origin}/docs/dashboard.html`);
                 // Supabase redirects automatically
             } catch (err) {
                 feedback.textContent = err.message || 'Google signup failed';
