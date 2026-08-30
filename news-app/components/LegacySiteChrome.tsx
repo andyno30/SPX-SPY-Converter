@@ -1,6 +1,8 @@
 /**
  * Header/footer chrome that mirrors spyconverter.com/index.html structure and links.
  */
+import { AuthNavLink } from "@/components/AuthNavLink";
+
 export function LegacySiteHeader() {
   return (
     <div className="legacy-header-container">
@@ -35,7 +37,7 @@ export function LegacySiteHeader() {
             </div>
           </li>
           <li>
-            <a href="https://spyconverter.com/docs/login.html">Login</a>
+            <AuthNavLink />
           </li>
         </ul>
       </nav>

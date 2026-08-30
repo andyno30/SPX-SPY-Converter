@@ -33,7 +33,8 @@ Run these SQL scripts in Supabase SQL Editor:
 
 1. `supabase/sql/news_articles_setup.sql`
 2. `supabase/sql/news_engagement_setup.sql`
-3. `supabase/sql/news_fetch_scheduler.sql` (optional if using Supabase cron for fetch)
+3. `supabase/sql/news_saveticker_sources.sql`
+4. `supabase/sql/news_fetch_scheduler.sql` (optional if using Supabase cron for fetch)
 
 ## 4) Deploy edge function
 

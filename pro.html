@@ -161,7 +161,7 @@
             <div class="nav-links">
                 <a href="#features">Features</a>
                 <a href="#pricing">Pricing</a>
-                <a href="https://spyconverter.com/docs/login.html" id="auth-link">Login</a>
+                <a href="https://spyconverter.com/docs/login.html" id="auth-link">Log in</a>
             </div>
         </nav>
     </header>
@@ -236,13 +236,13 @@
           return path.startsWith('http') ? path : `${window.location.origin}/${path.replace(/^\/+/, '')}`;
         }
 
-        // Update nav Login/Logout based on Supabase session
+        // Update nav authentication link based on Supabase session
         async function updateAuthLink() {
             const { data: { user } } = await supabase.auth.getUser();
             const authLink = document.getElementById("auth-link");
 
             if (user) {
-                authLink.textContent = "Logout";
+                authLink.textContent = "Log out";
                 authLink.href = "#";
                 authLink.onclick = async function (e) {
                     e.preventDefault();
@@ -250,7 +250,7 @@
                     window.location.href = absoluteUrl('docs/login.html');
                 };
             } else {
-                authLink.textContent = "Login";
+                authLink.textContent = "Log in";
                 authLink.href = absoluteUrl('docs/login.html');
                 authLink.onclick = null;
             }

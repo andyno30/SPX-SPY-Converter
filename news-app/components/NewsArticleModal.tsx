@@ -56,7 +56,7 @@ export function NewsArticleModal({ article, onClose }: NewsArticleModalProps) {
               ref={closeButtonRef}
               type="button"
               onClick={onClose}
-              aria-label="Close article summary"
+              aria-label="Close news item"
               className="-mr-2 -mt-2 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-2xl leading-none text-slate-400 transition hover:bg-slate-100 hover:text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
               <span aria-hidden="true">×</span>
@@ -72,19 +72,16 @@ export function NewsArticleModal({ article, onClose }: NewsArticleModalProps) {
         </header>
 
         <div className="overflow-y-auto px-5 py-6 sm:px-7 sm:py-7">
-          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
-            Article summary
-          </p>
-
           {article.summary ? (
-            <p className="whitespace-pre-line text-base leading-8 text-slate-700 sm:text-lg">
-              {article.summary}
-            </p>
-          ) : (
-            <p className="text-base leading-8 text-slate-600">
-              A summary is not available for this article yet.
-            </p>
-          )}
+            <div>
+              <p className="mb-5 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                Article summary
+              </p>
+              <p className="whitespace-pre-line text-base leading-8 text-slate-700 sm:text-lg">
+                {article.summary}
+              </p>
+            </div>
+          ) : null}
 
           {article.tickers.length > 0 ? (
             <div className="mt-7 flex flex-wrap gap-1.5 border-t border-slate-100 pt-5">
@@ -103,7 +100,7 @@ export function NewsArticleModal({ article, onClose }: NewsArticleModalProps) {
         </div>
 
         <footer className="border-t border-slate-200 bg-slate-50 px-5 py-4 text-xs leading-relaxed text-slate-500 sm:px-7">
-          This summary is provided on SpyConverter. The original source is {article.source}.
+          {article.summary ? "This summary" : "This headline"} is provided on SpyConverter. The original source is {article.source}.
         </footer>
       </section>
     </div>

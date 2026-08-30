@@ -42,11 +42,13 @@ type SourceType =
 interface NewsArticle {
   title: string;
   summary: string;
-  original_url: string;
+  original_url: string | null;
+  external_id: string | null;
   source: string;
   source_type: SourceType;
   published_at: string;
   tickers: string[];
+  headline_only: boolean;
 }
 
 interface FetchResult {
@@ -70,6 +72,9 @@ const MAX_INSERT_CHUNK = 500;
 const FEDERAL_RESERVE_FALLBACK_URL = "https://www.federalreserve.gov/newsevents.htm";
 const SEC_PRESS_RELEASES_RSS_URL = "https://www.sec.gov/news/pressreleases.rss";
 const WHITE_HOUSE_RELEASES_URL = "https://www.whitehouse.gov/releases/";
+const SAVETICKER_NEWS_CACHE_URL =
+  Deno.env.get("SAVETICKER_NEWS_CACHE_URL")?.trim() ||
+  "https://raw.githubusercontent.com/andyno30/SPX-SPY-Converter/main/data/saveticker-news.json";
 const SEC_MIN_ALLOWED_PUBLISHED_AT_MS = Date.UTC(2020, 0, 1);
 
 const MARKET_KEYWORDS = [
@@ -201,6 +206,8 @@ const SOURCE_ALLOWLIST = new Set([
   "SEC",
   "Federal Reserve",
   "White House",
+  "Reuters",
+  "Financial Juice",
 ]);
 
 const RSS_SOURCES: SourceConfig[] = [
@@ -438,7 +445,7 @@ async function applyFederalReserveFallbackOn404(articles: NewsArticle[]): Promis
     articles.map(async (article) => {
       if (article.source !== "Federal Reserve") return article;
 
-      const shouldFallback = await federalReserveUrlReturns404(article.original_url);
+      const shouldFallback = await federalReserveUrlReturns404(article.original_url ?? "");
       if (!shouldFallback) return article;
 
       return {
@@ -539,20 +546,25 @@ function normalizeArticle(input: Partial<NewsArticle>): NewsArticle | null {
     title,
     summary,
     original_url,
+    external_id: null,
     source,
     source_type,
     published_at,
     tickers: tickers.length > 0 ? tickers : extractTickers(relevanceText),
+    headline_only: false,
   };
 }
 
 function dedupeBatch(articles: NewsArticle[]): NewsArticle[] {
-  const seenUrls = new Set<string>();
+  const seenKeys = new Set<string>();
   const deduped: NewsArticle[] = [];
 
   for (const article of articles) {
-    if (seenUrls.has(article.original_url)) continue;
-    seenUrls.add(article.original_url);
+    const key = article.external_id
+      ? `${article.source}:${article.external_id}`
+      : article.original_url;
+    if (!key || seenKeys.has(key)) continue;
+    seenKeys.add(key);
     deduped.push(article);
   }
 
@@ -676,6 +688,87 @@ async function fetchWhiteHouseReleases(): Promise<FetchResult> {
   });
 }
 
+function normalizeCachedSaveTickerItem(input: any): NewsArticle | null {
+  if (!input || typeof input !== "object") return null;
+
+  const sourceSlug = typeof input.sourceSlug === "string" ? input.sourceSlug.trim() : "";
+  const expectedSource = sourceSlug === "reuters"
+    ? "Reuters"
+    : sourceSlug === "financial-juice"
+      ? "Financial Juice"
+      : "";
+  const source = typeof input.source === "string" ? input.source.trim() : "";
+  const externalId = typeof input.id === "string" ? input.id.trim() : String(input.id ?? "").trim();
+  const title = stripHtml(typeof input.title === "string" ? input.title : "")
+    .slice(0, MAX_TITLE_LEN)
+    .trim();
+  const publishedAt = typeof input.publishedAt === "string"
+    ? new Date(input.publishedAt)
+    : new Date(Number.NaN);
+
+  if (
+    !expectedSource ||
+    source !== expectedSource ||
+    !externalId ||
+    !title ||
+    Number.isNaN(publishedAt.getTime()) ||
+    !isLikelyEnglish(title)
+  ) {
+    return null;
+  }
+
+  const tickers = Array.isArray(input.tickers)
+    ? input.tickers
+      .filter((ticker: unknown): ticker is string => typeof ticker === "string")
+      .map((ticker: string) => ticker.toUpperCase().trim())
+      .filter(Boolean)
+      .slice(0, MAX_TICKERS_PER_ARTICLE)
+    : [];
+
+  return {
+    title,
+    summary: "",
+    original_url: null,
+    external_id: externalId,
+    source,
+    source_type: source === "Reuters" ? "wire" : "terminal",
+    published_at: publishedAt.toISOString(),
+    tickers,
+    headline_only: Boolean(input.headlineOnly),
+  };
+}
+
+async function fetchCachedSaveTickerNews(): Promise<FetchResult> {
+  try {
+    const response = await fetch(SAVETICKER_NEWS_CACHE_URL, {
+      cache: "no-store",
+      signal: AbortSignal.timeout(DEFAULT_TIMEOUT_MS),
+      headers: {
+        "User-Agent": BOT_USER_AGENT,
+        Accept: "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`cache returned HTTP ${response.status}`);
+    }
+
+    const payload = await response.json();
+    if (!payload || typeof payload !== "object" || !Array.isArray(payload.items)) {
+      throw new Error("cache returned an unexpected schema");
+    }
+
+    const items = payload.items
+      .map((item: unknown) => normalizeCachedSaveTickerItem(item))
+      .filter((item: NewsArticle | null): item is NewsArticle => item !== null);
+
+    return { sourceKey: "saveticker_news_cache", items };
+  } catch (error) {
+    // Existing database rows remain untouched when the cache is stale/unavailable.
+    console.error("SaveTicker normalized cache fetch failed", error);
+    return { sourceKey: "saveticker_news_cache", items: [] };
+  }
+}
+
 function parseRssEntries(
   xml: string,
   source: string,
@@ -788,6 +881,7 @@ Deno.serve(async (req) => {
   const tasks: Array<Promise<FetchResult>> = [
     fetchSecPressReleases(),
     fetchWhiteHouseReleases(),
+    fetchCachedSaveTickerNews(),
     ...RSS_SOURCES.map((source) => fetchRssSource(source)),
   ];
 
@@ -825,9 +919,12 @@ Deno.serve(async (req) => {
     });
   }
 
+  const publicSourceArticles = finalArticles.filter((article) => !article.external_id);
+  const saveTickerArticles = finalArticles.filter((article) => Boolean(article.external_id));
+
   let inserted = 0;
-  for (let offset = 0; offset < finalArticles.length; offset += MAX_INSERT_CHUNK) {
-    const chunk = finalArticles.slice(offset, offset + MAX_INSERT_CHUNK);
+  for (let offset = 0; offset < publicSourceArticles.length; offset += MAX_INSERT_CHUNK) {
+    const chunk = publicSourceArticles.slice(offset, offset + MAX_INSERT_CHUNK);
 
     const { error, count } = await supabase
       .from("news_articles")
@@ -839,6 +936,34 @@ Deno.serve(async (req) => {
 
     if (error) {
       console.error("supabase upsert error", error);
+      return jsonResponse(
+        {
+          error: error.message,
+          inserted,
+          fetched: allItems.length,
+          deduped: finalArticles.length,
+          sourceStats,
+        },
+        500,
+      );
+    }
+
+    inserted += count ?? 0;
+  }
+
+  for (let offset = 0; offset < saveTickerArticles.length; offset += MAX_INSERT_CHUNK) {
+    const chunk = saveTickerArticles.slice(offset, offset + MAX_INSERT_CHUNK);
+
+    const { error, count } = await supabase
+      .from("news_articles")
+      .upsert(chunk, {
+        onConflict: "source,external_id",
+        ignoreDuplicates: true,
+        count: "exact",
+      });
+
+    if (error) {
+      console.error("Supabase SaveTicker cache upsert error", error);
       return jsonResponse(
         {
           error: error.message,

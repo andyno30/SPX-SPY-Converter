@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 };
 
 const NEWS_SELECT =
-  "id,title,summary,original_url,source,source_type,published_at,tickers,fetched_at";
+  "id,title,summary,original_url,external_id,source,source_type,published_at,tickers,headline_only,fetched_at";
 const MIN_PUBLISHED_AT = "2020-01-01T00:00:00Z";
 const INITIAL_PER_SOURCE_LIMIT = 90;
 
@@ -68,7 +68,7 @@ export default async function NewsPage() {
             U.S. Market News
           </h1>
           <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
-            Headlines from CNBC, SEC, Federal Reserve, and White House releases.
+            Headlines from CNBC, SEC, Federal Reserve, White House, Reuters, and Financial Juice.
           </p>
         </header>
 

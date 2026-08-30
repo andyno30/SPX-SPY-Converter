@@ -61,6 +61,7 @@ export function NewsEngagement({ articleId }: NewsEngagementProps) {
   const [commentBody, setCommentBody] = useState("");
   const [message, setMessage] = useState("");
   const [busy, setBusy] = useState(false);
+  const [deletingCommentId, setDeletingCommentId] = useState<number | null>(null);
 
   const loadEngagement = useCallback(async () => {
     const [{ data: authData }, { data: reactionRows }, { data: commentRows }] = await Promise.all([
@@ -143,6 +144,30 @@ export function NewsEngagement({ articleId }: NewsEngagementProps) {
     setBusy(false);
   }
 
+  async function deleteComment(commentId: number) {
+    if (!user) {
+      redirectToLogin();
+      return;
+    }
+
+    if (!window.confirm("Delete this comment? This cannot be undone.")) return;
+
+    setDeletingCommentId(commentId);
+    setMessage("");
+    const { error } = await supabase
+      .from("news_comments")
+      .delete()
+      .eq("id", commentId)
+      .eq("user_id", user.id);
+
+    if (error) {
+      setMessage("Your comment could not be deleted. Please try again.");
+    } else {
+      setComments((current) => current.filter((comment) => comment.id !== commentId));
+    }
+    setDeletingCommentId(null);
+  }
+
   return (
     <section className="mt-8 border-t border-slate-200 pt-6" aria-label="Article reactions and comments">
       <h3 className="text-sm font-extrabold uppercase tracking-[0.16em] text-slate-500">Market sentiment</h3>
@@ -193,7 +218,21 @@ export function NewsEngagement({ articleId }: NewsEngagementProps) {
             <article key={comment.id} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
               <div className="flex items-center justify-between gap-3">
                 <strong className="text-sm text-slate-800">{comment.display_name}</strong>
-                <time className="text-xs text-slate-400">{new Date(comment.created_at).toLocaleDateString()}</time>
+                <div className="flex items-center gap-2">
+                  <time className="text-xs text-slate-400">{new Date(comment.created_at).toLocaleDateString()}</time>
+                  {comment.user_id === user?.id ? (
+                    <button
+                      type="button"
+                      onClick={() => void deleteComment(comment.id)}
+                      disabled={deletingCommentId === comment.id}
+                      aria-label="Delete your comment"
+                      title="Delete comment"
+                      className="inline-flex h-6 w-6 items-center justify-center rounded-full text-lg leading-none text-slate-400 transition hover:bg-rose-100 hover:text-rose-600 focus:outline-none focus:ring-2 focus:ring-rose-400 disabled:cursor-wait disabled:opacity-50"
+                    >
+                      <span aria-hidden="true">×</span>
+                    </button>
+                  ) : null}
+                </div>
               </div>
               <p className="mt-2 whitespace-pre-wrap break-words text-sm leading-6 text-slate-700">{comment.body}</p>
             </article>

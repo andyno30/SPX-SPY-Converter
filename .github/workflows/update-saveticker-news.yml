@@ -1,0 +1,60 @@
+name: Update SaveTicker News
+
+on:
+  workflow_dispatch:
+  schedule:
+    # GitHub cron uses UTC. Scheduled starts may be delayed by a few minutes.
+    - cron: "*/15 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-saveticker-news
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Restore encrypted SaveTicker session
+        env:
+          SAVETICKER_AUTH_JSON_B64: ${{ secrets.SAVETICKER_AUTH_JSON_B64 }}
+        run: |
+          set -eu
+          if [ -z "${SAVETICKER_AUTH_JSON_B64:-}" ]; then
+            echo "Missing SAVETICKER_AUTH_JSON_B64 repository secret." >&2
+            exit 1
+          fi
+          printf '%s' "$SAVETICKER_AUTH_JSON_B64" | base64 --decode > "$RUNNER_TEMP/saveticker-auth.json"
+          chmod 600 "$RUNNER_TEMP/saveticker-auth.json"
+
+      - name: Fetch normalized Reuters and Financial Juice metadata
+        env:
+          SAVETICKER_AUTH_FILE: ${{ runner.temp }}/saveticker-auth.json
+        run: python scripts/sync_saveticker_news.py
+
+      - name: Commit only when the normalized cache changed
+        run: |
+          git add data/saveticker-news.json
+          if git diff --cached --quiet; then
+            echo "No new SaveTicker news metadata."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Update Reuters and Financial Juice news"
+          git pull --rebase origin main
+          git push
+
+      - name: Remove temporary SaveTicker session
+        if: always()
+        run: rm -f "$RUNNER_TEMP/saveticker-auth.json"

@@ -15,7 +15,7 @@ export function NewsCard({ article, onOpen }: NewsCardProps) {
       <button
         type="button"
         aria-haspopup="dialog"
-        aria-label={`Open summary for ${article.title}`}
+        aria-label={`Open news item for ${article.title}`}
         onClick={() => onOpen(article)}
         className="block w-full p-5 text-left sm:p-6"
       >

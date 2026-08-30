@@ -5,6 +5,8 @@ export const NEWS_SOURCES = [
   "SEC",
   "Federal Reserve",
   "White House",
+  "Reuters",
+  "Financial Juice",
 ] as const;
 
 /**
@@ -58,7 +60,7 @@ export function formatNewsTime(isoDate: string): string {
 }
 
 /**
- * Dedupe in UI by canonical URL while preserving descending publish order.
+ * Dedupe by publisher URL or private-source article ID while preserving time order.
  */
 export function dedupeAndSortNews(rows: NewsArticleRow[]): NewsArticleRow[] {
   const publishedTime = (row: NewsArticleRow) => {
@@ -73,8 +75,11 @@ export function dedupeAndSortNews(rows: NewsArticleRow[]): NewsArticleRow[] {
 
   const seen = new Set<string>();
   const unique = rows.filter((row) => {
-    if (!row.original_url || seen.has(row.original_url)) return false;
-    seen.add(row.original_url);
+    const key = row.external_id
+      ? `${row.source}:${row.external_id}`
+      : row.original_url || `database:${row.id}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
     return true;
   });
 

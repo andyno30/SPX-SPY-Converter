@@ -18,14 +18,13 @@ interface NewsFeedClientProps {
 const MAX_CLIENT_ROWS = 500;
 const CATCH_UP_PER_SOURCE_LIMIT = 80;
 const CATCH_UP_INTERVAL_MS = 3 * 60 * 1000;
-const NEWS_SELECT = "id,title,summary,original_url,source,source_type,published_at,tickers,fetched_at";
+const NEWS_SELECT = "id,title,summary,original_url,external_id,source,source_type,published_at,tickers,headline_only,fetched_at";
 const MIN_PUBLISHED_AT = "2020-01-01T00:00:00Z";
 
 function normalizeRealtimeRow(payloadRow: Partial<NewsArticleRow>): NewsArticleRow | null {
   if (
     !payloadRow.id ||
     !payloadRow.title ||
-    !payloadRow.original_url ||
     !payloadRow.source ||
     !payloadRow.source_type ||
     !payloadRow.published_at
@@ -37,13 +36,17 @@ function normalizeRealtimeRow(payloadRow: Partial<NewsArticleRow>): NewsArticleR
     id: Number(payloadRow.id),
     title: String(payloadRow.title),
     summary: typeof payloadRow.summary === "string" ? payloadRow.summary : null,
-    original_url: String(payloadRow.original_url),
+    original_url:
+      typeof payloadRow.original_url === "string" ? payloadRow.original_url : null,
+    external_id:
+      typeof payloadRow.external_id === "string" ? payloadRow.external_id : null,
     source: String(payloadRow.source),
     source_type: String(payloadRow.source_type),
     published_at: String(payloadRow.published_at),
     tickers: Array.isArray(payloadRow.tickers)
       ? payloadRow.tickers.map((ticker) => String(ticker).toUpperCase())
       : [],
+    headline_only: Boolean(payloadRow.headline_only),
     fetched_at:
       typeof payloadRow.fetched_at === "string"
         ? payloadRow.fetched_at

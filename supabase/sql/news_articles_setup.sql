@@ -10,11 +10,13 @@ CREATE TABLE IF NOT EXISTS public.news_articles (
   id BIGSERIAL PRIMARY KEY,
   title TEXT NOT NULL,
   summary TEXT,
-  original_url TEXT NOT NULL UNIQUE,
+  original_url TEXT UNIQUE,
+  external_id TEXT,
   source TEXT NOT NULL,
   source_type TEXT NOT NULL,
   published_at TIMESTAMPTZ NOT NULL,
   tickers TEXT[] NOT NULL DEFAULT '{}',
+  headline_only BOOLEAN NOT NULL DEFAULT FALSE,
   fetched_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
@@ -30,6 +32,9 @@ CREATE INDEX IF NOT EXISTS idx_news_source_published_at
 
 CREATE INDEX IF NOT EXISTS idx_news_tickers_gin
   ON public.news_articles USING GIN (tickers);
+
+CREATE UNIQUE INDEX IF NOT EXISTS idx_news_source_external_id_unique
+  ON public.news_articles (source, external_id);
 
 -- 3) RLS ----------------------------------------------------------------------
 ALTER TABLE public.news_articles ENABLE ROW LEVEL SECURITY;
