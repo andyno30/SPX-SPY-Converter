@@ -1,6 +1,352 @@
 {
-  "updatedAt": "2026-08-30T23:30:29.103010Z",
+  "updatedAt": "2026-08-31T01:38:04.144163Z",
   "items": [
+    {
+      "id": "202438",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Australian Private Sector Credit Actual 0.6% (Forecast 0.7%, Previous 0.8%)",
+      "publishedAt": "2026-08-31T01:33:08.638504Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202436",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Australia Q2 business inventories down 0.2%, seasonally adjusted",
+      "publishedAt": "2026-08-31T01:31:08.410198Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202431",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "China August official manufacturing PMI at 49.8 vs 49.2 in July",
+      "publishedAt": "2026-08-31T01:31:08.410075Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202426",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Chinese NBS Non-Manufacturing PMI Actual 49.0 (Forecast 49.5, Previous 49.0)",
+      "publishedAt": "2026-08-31T01:31:08.409908Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202424",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "CHINA'S SSE STAR CHIP INDEX SET TO OPEN DOWN 2.5%",
+      "publishedAt": "2026-08-31T01:30:23.068022Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202422",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "FOREX-Dollar near two-week high as Warsh boosts rate-hike bets; yen slips past 160",
+      "publishedAt": "2026-08-31T01:28:15.726750Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202417",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 2-Star Entertainment warns tough conditions to persist after annual loss",
+      "publishedAt": "2026-08-31T01:20:14.106968Z",
+      "tickers": [
+        "BALY"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202416",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "NBNZ Business Outlook Actual 53.7 (Forecast -, Previous 56.1)",
+      "publishedAt": "2026-08-31T01:01:08.198855Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202414",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Taiwan overnight interbank rate opens at 0.805% vs 0.805% at prior session start",
+      "publishedAt": "2026-08-31T01:01:08.198726Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202413",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "U.S. military: U.S. forces carried out limited, precise strike against IRGC mine-laying units posing imminent threat in Strait of Hormuz",
+      "publishedAt": "2026-08-31T00:59:08.882386Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202412",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Japan 2-year yields rise to 31-year high as auctions, rate hikes loom",
+      "publishedAt": "2026-08-31T00:53:13.351714Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202411",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-Oil jumps more than 1% after US attack on Iran's Larak island",
+      "publishedAt": "2026-08-31T00:45:13.527682Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202410",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "RPT-PRECIOUS-Gold holds ground after 3% drop on Warsh's hawkish stance",
+      "publishedAt": "2026-08-31T00:41:22.663256Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202409",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "PRECIOUS-Gold holds ground after 3% drop on Warsh's hawkish stance",
+      "publishedAt": "2026-08-31T00:34:14.710724Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202408",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "GLOBAL MARKETS-Shares skid in Asia as oil, yields stay high",
+      "publishedAt": "2026-08-31T00:29:19.524844Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202407",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-Australian casino operator Star Entertainment reports smaller annual loss",
+      "publishedAt": "2026-08-31T00:22:14.598188Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202406",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Tesla prices affordable model 3 in Hong Kong at HKD205,000: Tesla Hong Kong mini app shows",
+      "publishedAt": "2026-08-31T00:22:08.705060Z",
+      "tickers": [
+        "TSLA"
+      ],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202405",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "CHINA PBOC EXPECTED TO SET YUAN MID-POINT AT 6.7344 PER DOLLAR - REUTERS ESTIMATE",
+      "publishedAt": "2026-08-31T00:19:12.706892Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202404",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "China PBOC expected to set yuan midpoint at 6.7344 per dollar: estimate",
+      "publishedAt": "2026-08-31T00:19:09.433645Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202403",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "DIARY-Top Economic Events to October 29",
+      "publishedAt": "2026-08-31T00:01:27.131427Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202402",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Japanese Large Scale Retail Sales YoY Actual 2% (Forecast -, Previous -1%)",
+      "publishedAt": "2026-08-30T23:59:09.377540Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202401",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Japan July factory output rises 0.1% month-on-month",
+      "publishedAt": "2026-08-30T23:53:10.884043Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202400",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 2-Bessent says yen moves 'pretty contained' and not disorderly",
+      "publishedAt": "2026-08-30T23:52:21.599158Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202398",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Japan July industrial output rises 0.1% m/m: govt (poll -0.7%)",
+      "publishedAt": "2026-08-30T23:51:08.382861Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202392",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "BESSENT: U.S. BLOCKADE OF IRAN'S PORTS HAS CURBED CHINESE IMPORTS OF IRANIAN OIL",
+      "publishedAt": "2026-08-30T23:48:21.426138Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202390",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "BESSENT SAYS HE DISAGREES WITH NARRATIVE THAT IRAN PRESSURE CAMPAIGN WILL NOT BE SUCCESSFUL UNLESS CHINESE FIRMS ARE TARGETED WITH SECONDARY SANCTIONS",
+      "publishedAt": "2026-08-30T23:48:17.791456Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202388",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Bessent expects new US secondary sanctions weekly, aiming to increase pressure on Iran",
+      "publishedAt": "2026-08-30T23:48:12.322585Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202387",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "U.S. TREASURY PLANS TO IMPOSE MORE IRAN SECONDARY SANCTIONS EVERY WEEK, STARTING WITH BANKS, BESSENT TELLS REUTERS",
+      "publishedAt": "2026-08-30T23:48:09.797040Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202386",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "U.S. Treasury to impose new Iran secondary sanctions weekly, beginning with banks: Bessent",
+      "publishedAt": "2026-08-30T23:48:08.912317Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202385",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "US Treasury Secretary Bessent: banks told not to hold Iranian funds or support Iranian regime",
+      "publishedAt": "2026-08-30T23:48:08.912292Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202382",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Bessent: Iran pressure campaign won't succeed unless Chinese firms face secondary sanctions",
+      "publishedAt": "2026-08-30T23:48:08.912137Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202381",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "JAPAN'S NIKKEI AVERAGE FUTURES DOWN 1.7% IN EARLY TRADE",
+      "publishedAt": "2026-08-30T23:46:17.312093Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202380",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-South Korea's SK On signs energy storage battery deal with US firm NeoVolta Power",
+      "publishedAt": "2026-08-30T23:38:13.790628Z",
+      "tickers": [
+        "NEOV"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202379",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "China's Shenzhen Longsys aims to raise $800 million in Hong Kong share sale",
+      "publishedAt": "2026-08-30T23:32:22.287445Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
     {
       "id": "202378",
       "source": "Financial Juice",
