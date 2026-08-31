@@ -1,6 +1,1009 @@
 {
-  "updatedAt": "2026-08-31T14:30:28.482431Z",
+  "updatedAt": "2026-08-31T20:21:17.378035Z",
   "items": [
+    {
+      "id": "203184",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Charter Communications' CFO Fischer to step down in October",
+      "publishedAt": "2026-08-31T20:20:09.534802Z",
+      "tickers": [
+        "CHTR"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203181",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-OPI nail polish owner Wella Co files for US IPO",
+      "publishedAt": "2026-08-31T20:18:27.355888Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203174",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Apple vs. OpenAI – Trade Secret Case",
+      "publishedAt": "2026-08-31T20:16:08.834726Z",
+      "tickers": [
+        "AAPL"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203173",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Activist Elliott built position in Air Liquide, pushes for changes, sources say",
+      "publishedAt": "2026-08-31T20:15:27.169779Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203172",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Wella Co files for US IPO",
+      "publishedAt": "2026-08-31T20:11:28.450094Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203170",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "BRIEF-Elliott Builds Stake In French Group Air Liquide- FT",
+      "publishedAt": "2026-08-31T20:08:16.086899Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203169",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UNOFFICIALLY, FOR THE MONTH THE S&P 500 GAINED 2.62%, THE NASDAQ ROSE 3.93%, AND THE DOW CLIMBED 1.34%",
+      "publishedAt": "2026-08-31T20:08:11.467697Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203158",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "ELLIOTT BUILDS STAKE IN FRENCH GROUP AIR LIQUIDE- FT",
+      "publishedAt": "2026-08-31T20:04:19.750282Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203154",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "US STOCKS-Wall Street closes lower as oil prices jump, indexes notch monthly gains",
+      "publishedAt": "2026-08-31T20:01:12.306005Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203152",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 2-Trump on Warsh: He'll do what he has to do",
+      "publishedAt": "2026-08-31T20:00:13.832994Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203151",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Trump on Venezuela leaving OPEC: That's up to them.",
+      "publishedAt": "2026-08-31T19:58:08.438853Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203149",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-Trump administration announces drug pricing deals with Teva, Astellas and others",
+      "publishedAt": "2026-08-31T19:54:17.893294Z",
+      "tickers": [
+        "BBIO",
+        "PFE",
+        "LLY",
+        "AMGN",
+        "IONS"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203148",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Trump on Warsh: He'll do what he has to do",
+      "publishedAt": "2026-08-31T19:53:12.004341Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203145",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "TRUMP: HAVE A LOT OF RESPECT FOR WARSH, AND HE'LL DO WHAT HE HAS TO DO",
+      "publishedAt": "2026-08-31T19:50:24.482703Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203144",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "BRIEF-Amazon Says FTC's Lawsuit Regarding Sponsored Ads Is \"Patently False\"",
+      "publishedAt": "2026-08-31T19:50:19.580096Z",
+      "tickers": [
+        "AMZN"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203130",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "AMAZON - FTC’S LAWSUIT REGARDING SPONSORED ADS IS \"PATENTLY FALSE\"",
+      "publishedAt": "2026-08-31T19:43:22.603685Z",
+      "tickers": [
+        "AMZN"
+      ],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203129",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "EPA SAYS IT WILL PROPOSE REALLOCATING 100% OF THE DIFFERENCE BETWEEN PROJECTED AND ACTUAL SMALL REFINERY EXEMPTION VOLUMES IN THE 2026 AND 2027 OBLIGATIONS",
+      "publishedAt": "2026-08-31T19:41:20.150160Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203128",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "US Health Secretary Kennedy: The new drug pricing deals include $19.6bn to reshore production.",
+      "publishedAt": "2026-08-31T19:33:08.248921Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203127",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Europeans bristle at Russia's return to G20",
+      "publishedAt": "2026-08-31T19:29:17.123509Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203126",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "SEC chairman moves to give US states power over shareholder resolutions",
+      "publishedAt": "2026-08-31T19:28:11.641984Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203125",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "FOREX-Dollar slips, with traders already eyeing Friday jobs data",
+      "publishedAt": "2026-08-31T19:26:10.393967Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203124",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "EMERGING MARKETS-Latam FX, stocks mixed as investors weigh soft dollar, Middle East escalation",
+      "publishedAt": "2026-08-31T19:23:23.371451Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203123",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "FACTBOX-How are Caracas and Washington structuring a massive oil output deal?",
+      "publishedAt": "2026-08-31T19:20:24.895837Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203122",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "BeOne Medicines signs cancer drug pricing agreement with US government",
+      "publishedAt": "2026-08-31T19:19:14.821798Z",
+      "tickers": [
+        "ONC"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203121",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "BRIEF-Polymarket Funding Round Led By 1789 Values Firm At $21 Billion - Bloomberg News",
+      "publishedAt": "2026-08-31T19:15:27.349481Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203120",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "POLYMARKET FUNDING ROUND LED BY 1789 VALUES FIRM AT $21 BILLION - BLOOMBERG NEWS",
+      "publishedAt": "2026-08-31T19:14:21.697873Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203118",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "GRAINS-Chicago wheat falls on selling pressure after recent highs",
+      "publishedAt": "2026-08-31T19:10:13.052359Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203116",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "TRUMP NAMES BEONE AND CSL COMPANIES",
+      "publishedAt": "2026-08-31T19:09:19.468317Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203114",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "BRIEF-U.S. FTC Says It, States Sue Amazon Over Secret Ad Surcharge Scheme",
+      "publishedAt": "2026-08-31T19:07:22.921359Z",
+      "tickers": [
+        "AMZN"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203113",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "WARNER BROS DISCOVERY - HBO MAX TO LAUNCH CO-EXCLUSIVELY ON PRIME VIDEO AND HULU JAPAN ON OCTOBER 1",
+      "publishedAt": "2026-08-31T19:07:22.357133Z",
+      "tickers": [
+        "WBD"
+      ],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203112",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "FTC: FTC AND 22 STATE ATTORNEYS GENERAL ALLEGE AMAZON CONCEALED UNFAIR CHARGES IN ITS DIGITAL ADVERTISING AUCTION PRICING",
+      "publishedAt": "2026-08-31T19:02:25.101919Z",
+      "tickers": [
+        "AMZN"
+      ],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203111",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "EPA GRANTS SMALL REFINERY EXEMPTION FROM BIOFUEL LAWS IN FULL TO CHEVRON SALT LAKE REFINERY, PARTIAL EXEMPTION TO MARATHON MANDAN REFINERY",
+      "publishedAt": "2026-08-31T19:02:22.168913Z",
+      "tickers": [
+        "CVX",
+        "MPC"
+      ],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203109",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-Fed's Warsh says past global savings glut is turning into investment surge",
+      "publishedAt": "2026-08-31T19:00:22.084881Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203108",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 2-Amazon sued by FTC, 22 US states over advertising practices",
+      "publishedAt": "2026-08-31T19:00:19.690755Z",
+      "tickers": [
+        "AMZN"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203107",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "The US grants refiners the highest level of biofuel waivers since 2017.",
+      "publishedAt": "2026-08-31T19:00:08.500436Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203106",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "The EPA grants small refinery exemptions from biofuel laws totaling 1.76 billion credits for the 2025 compliance year.",
+      "publishedAt": "2026-08-31T19:00:08.500348Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203105",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "TREASURIES-Bond yields rise as U.S., Iran resume attacks",
+      "publishedAt": "2026-08-31T18:59:26.696929Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203103",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Hims & Hers offers GLP-1 weight-loss drugs, men's health treatments in Australia",
+      "publishedAt": "2026-08-31T18:55:22.405800Z",
+      "tickers": [
+        "HIMS",
+        "LLY"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203101",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-US natgas prices rise to seven-week high on LNG export hopes",
+      "publishedAt": "2026-08-31T18:51:09.786625Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203099",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "AWS: AWS interconnect, multicloud preview with Azure available today in US East, US West, Asia Pacific (Sydney), and Europe (Frankfurt). $AMZN",
+      "publishedAt": "2026-08-31T18:42:08.882722Z",
+      "tickers": [
+        "AMZN",
+        "MSFT"
+      ],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203098",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "AWS, Microsoft Azure partner to expand multicloud networking. $MSFT",
+      "publishedAt": "2026-08-31T18:41:08.681402Z",
+      "tickers": [
+        "MSFT",
+        "AMZN"
+      ],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203092",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "US STOCKS-Wall Street dips as spiking crude prices revive fears of inflation, rate hike",
+      "publishedAt": "2026-08-31T18:30:08.886421Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203091",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "US to announce sharply lower vehicle fuel economy requirements",
+      "publishedAt": "2026-08-31T18:26:30.023694Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203090",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 2-EPA grants small refiners 1.76 billion biofuel exemptions, nearly double initial estimate",
+      "publishedAt": "2026-08-31T18:22:12.755742Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203089",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "BRIEF-Sierra Co-Founder Bret Taylor Said Julia Brau Donnelly Will Be Joining Sierra As Chief Financial Officer",
+      "publishedAt": "2026-08-31T18:16:20.499250Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203088",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "FTC to file lawsuit alleging Amazon deceived advertisers, WSJ reports",
+      "publishedAt": "2026-08-31T18:16:12.058161Z",
+      "tickers": [
+        "AMZN"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203087",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "SIERRA CO-FOUNDER BRET TAYLOR: JULIA BRAU DONNELLY WILL BE JOINING SIERRA AS OUR CHIEF FINANCIAL OFFICER.",
+      "publishedAt": "2026-08-31T18:15:15.411881Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203085",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "The US seeks to prevent Iran from rebuilding capabilities - Axios",
+      "publishedAt": "2026-08-31T18:07:08.939284Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203083",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Trump weighing limited strikes against Iran - Axios",
+      "publishedAt": "2026-08-31T18:06:08.748181Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203082",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "PRECIOUS-Gold slips to near two-week low on Fed rate hike bets",
+      "publishedAt": "2026-08-31T18:05:16.540011Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203080",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "BRIEF-FTC To File Lawsuit Alleging Amazon Deceived Advertisers - WSJ",
+      "publishedAt": "2026-08-31T18:03:25.348814Z",
+      "tickers": [
+        "AMZN"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203079",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "FTC AND MORE THAN 20 STATES TO ALLEGE AMAZON REAPED BILLIONS BY MANIPULATING AD PRICES ON ITS RETAIL PLATFORM - WSJ",
+      "publishedAt": "2026-08-31T18:02:16.924967Z",
+      "tickers": [
+        "AMZN"
+      ],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203078",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "FTC to file lawsuit alleging Amazon deceived advertisers - WSJ $AMZN",
+      "publishedAt": "2026-08-31T18:02:09.217341Z",
+      "tickers": [
+        "AMZN"
+      ],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203076",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-GLP Japan raises $3.76 billion to build logistics centers, Nikkei reports",
+      "publishedAt": "2026-08-31T17:56:24.099246Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203075",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Nscale closes approximately $3 billion in financing for both Ward County, Texas, and Madison County, AI deployments.",
+      "publishedAt": "2026-08-31T17:37:08.362322Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203074",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "SWISS PARLIAMENTARY COMMITTEE: FINAL DECISION ON CAPITAL REQUIREMENTS COULD ONLY COME IN 2027",
+      "publishedAt": "2026-08-31T17:22:21.176322Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203073",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "GLOBAL MARKETS -Yields rise, stocks ease, with oil gaining as US and Iran resume military attacks",
+      "publishedAt": "2026-08-31T17:21:26.673679Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203072",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 3-Swiss parliamentary committee passes UBS capital concessions",
+      "publishedAt": "2026-08-31T17:15:19.893556Z",
+      "tickers": [
+        "UBS"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203070",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "SWISS PARLIAMENTARY COMMITTEE PRESIDENT: \"THIS IS NOT A VICTORY FOR UBS, IT'S A SOLUTION THAT SERVES SWITZERLAND\"",
+      "publishedAt": "2026-08-31T17:14:27.041565Z",
+      "tickers": [
+        "UBS"
+      ],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203069",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "GLP Japan sets up $3.76 billion fund for logistics centers, Nikkei reports",
+      "publishedAt": "2026-08-31T17:12:18.674380Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203067",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Swiss parliamentary committee passes UBS capital concessions",
+      "publishedAt": "2026-08-31T17:10:09.694201Z",
+      "tickers": [
+        "UBS"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203065",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Trump will meet Tuesday with US refiners and fuel distributors to discuss expanding refining capacity and lowering gas prices - CNBC",
+      "publishedAt": "2026-08-31T17:09:08.399522Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203058",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Russia's Siluanov and US Treasury Secretary Bessent discuss financial cooperation at G20",
+      "publishedAt": "2026-08-31T17:00:25.486517Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203057",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "German minister says there is no return to normality with Russia",
+      "publishedAt": "2026-08-31T16:56:29.555607Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203056",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-Kalshi permanently bans George Santos over State of the Union bets",
+      "publishedAt": "2026-08-31T16:51:21.385476Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203055",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Russian Finance Ministry: Finance Minister Siluanov met with US Treasury Secretary Bessent on the sidelines of the G20 meeting.",
+      "publishedAt": "2026-08-31T16:51:08.360976Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203052",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Microsoft and Humain expand strategic collaboration. $MSFT",
+      "publishedAt": "2026-08-31T16:46:07.825339Z",
+      "tickers": [
+        "MSFT"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203051",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-Zelenskiy, Trump's envoys discuss Ukraine visit and peace efforts",
+      "publishedAt": "2026-08-31T16:38:23.669379Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203048",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "APPLE’S PHIL SCHILLER STEPS DOWN FROM RUNNING APP STORE, PRODUCT EVENTS - BLOOMBERG NEWS",
+      "publishedAt": "2026-08-31T16:34:27.604063Z",
+      "tickers": [
+        "AAPL"
+      ],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203041",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Stocks of Crude oil in the US Strategic Petroleum Reserve fell by about 3.1 mln barrels to 286.6 mln barrels last week.",
+      "publishedAt": "2026-08-31T16:13:08.245599Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203039",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "MICROSOFT 365 STATUS: WE'RE INVESTIGATING REPORTS OF EXCHANGE ONLINE ISSUES",
+      "publishedAt": "2026-08-31T16:04:32.249598Z",
+      "tickers": [
+        "MSFT"
+      ],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203036",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Fed's Warsh: US to stay reform-oriented on banking regulations.",
+      "publishedAt": "2026-08-31T15:59:08.355317Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203034",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "US Treasury Secretary Bessent calls for less regulation to help small banks - Axios",
+      "publishedAt": "2026-08-31T15:57:08.924457Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203033",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Ukraine's President Zelensky: We are now discussing with President Trump's representatives, Witkoff and Kushner, about setting a date for a visit to Ukraine",
+      "publishedAt": "2026-08-31T15:51:08.179955Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203030",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UKRAINE'S PRESIDENT ZELENSKIY: I HAD A GOOD PHONE CONVERSATION WITH PRESIDENT TRUMP'S REPRESENTATIVES, STEVE WITKOFF AND JARED KUSHNER",
+      "publishedAt": "2026-08-31T15:47:16.503657Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203026",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "US 6-Month Awarded High Actual 49.270% (Forecast -, Previous 59.640%)",
+      "publishedAt": "2026-08-31T15:33:40.260436Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203024",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "US 3-Month Bill Auction",
+      "publishedAt": "2026-08-31T15:33:40.260375Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203023",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "US 6-Month Bill Auction",
+      "publishedAt": "2026-08-31T15:33:40.260272Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203017",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "AMD, Cisco, and Humain to deploy up to 250 MW of AI infrastructure in 2027. $AMD $CSCO",
+      "publishedAt": "2026-08-31T15:29:29.276125Z",
+      "tickers": [
+        "AMD",
+        "CSCO"
+      ],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203015",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "US VP Vance on Venezuela: We're already seeing increased oil production.",
+      "publishedAt": "2026-08-31T15:23:56.080137Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203010",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Abu Dhabi National Oil Company returns to full capacity after the war hit.",
+      "publishedAt": "2026-08-31T15:13:53.554781Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203009",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "US Treasury Secretary Bessent talked about Trump's peace plan with Russia - CNBC, citing a Treasury Spokesperson.",
+      "publishedAt": "2026-08-31T15:10:33.126940Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203008",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "GOLDMAN SACHS CEO SOLOMON: I THINK THE FINANCIAL SYSTEM IS IN VERY GOOD SHAPE AT THE MOMENT",
+      "publishedAt": "2026-08-31T15:09:57.760471Z",
+      "tickers": [
+        "GS"
+      ],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203006",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "GOLDMAN SACHS CEO DAVID SOLOMON: AT THE MOMENT, I DON'T SEE A LOT OF RISKS IN THE CREDIT SYSTEM",
+      "publishedAt": "2026-08-31T15:07:21.138167Z",
+      "tickers": [
+        "GS"
+      ],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203005",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Russia's Oil refinery in Yaroslavl shuts two of three Crude distillation units after the August 28th drone attack - Sources.",
+      "publishedAt": "2026-08-31T15:05:56.199359Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203000",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Fed's Warsh: Economic growth in the US appears to have strengthened.",
+      "publishedAt": "2026-08-31T15:04:45.657915Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202998",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Goldman Sachs CEO Solomon: The consumer is pretty resilient.",
+      "publishedAt": "2026-08-31T15:03:37.909135Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202988",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "US Treasury Secretary Bessent ends interview on CNBC.",
+      "publishedAt": "2026-08-31T14:43:04.416311Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202987",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "BESSENT: CARNEY NOT DOING WHAT'S BEST FOR CANADIAN PEOPLE-CNBC INTERVIEW",
+      "publishedAt": "2026-08-31T14:42:45.009626Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202984",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "US Treasury Secretary Bessent: There is a meeting with my Canadian counterpart here at the G20 - CNBC Interview.",
+      "publishedAt": "2026-08-31T14:41:55.152407Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202979",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "RPT-BESSENT: MY BELIEF IS THAT JAPANESE GOVERNMENT AND BOJ WILL DO THINGS THAT WILL LEAD TO A STRONGER YEN-CNBC INTERVIEW",
+      "publishedAt": "2026-08-31T14:40:00.828764Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202978",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "CORRECTED-BESSENT: HAD A ROBUST MEETING WITH CHINA GOVERNOR PAN SUNDAY-CNBC INTERVIEW (CORRECTS TYPO IN ROBUST)",
+      "publishedAt": "2026-08-31T14:39:53.259482Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202954",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Dallas Fed Mfg. Bus. Index Actual 11.6 (Forecast 1.6, Previous 1.30)",
+      "publishedAt": "2026-08-31T14:31:18.351153Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202953",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "U.S. DEPARTMENT OF WAR: LAUNCHES OPENAI'S CHATGPT MIL ON GENAI.MIL",
+      "publishedAt": "2026-08-31T14:30:49.755851Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
     {
       "id": "202952",
       "source": "Financial Juice",
