@@ -159,6 +159,7 @@
         <nav class="nav-container">
             <a href="#" class="logo">SPYConverter Pro</a>
             <div class="nav-links">
+                <a href="https://spyconverter.com/docs/dashboard.html" id="dashboard-link" hidden>Dashboard</a>
                 <a href="#features">Features</a>
                 <a href="#pricing">Pricing</a>
                 <a href="https://spyconverter.com/docs/login.html" id="auth-link">Log in</a>
@@ -240,6 +241,9 @@
         async function updateAuthLink() {
             const { data: { user } } = await supabase.auth.getUser();
             const authLink = document.getElementById("auth-link");
+            const dashboardLink = document.getElementById("dashboard-link");
+
+            dashboardLink.hidden = !user;
 
             if (user) {
                 authLink.textContent = "Log out";
