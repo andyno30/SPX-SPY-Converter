@@ -2,9 +2,14 @@ name: Update SaveTicker News
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/update-saveticker-news.yml"
+      - "scripts/sync_saveticker_news.py"
   schedule:
-    # GitHub cron uses UTC. Scheduled starts may be delayed by a few minutes.
-    - cron: "*/15 * * * *"
+    # GitHub cron uses UTC. Stagger away from the busiest quarter-hour boundaries,
+    # where GitHub says scheduled events are more likely to be delayed or dropped.
+    - cron: "7,22,37,52 * * * *"
 
 permissions:
   contents: write
@@ -16,6 +21,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Check out repository
         uses: actions/checkout@v4

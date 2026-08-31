@@ -1,6 +1,8 @@
 const DATA_URL = "../data/spy-options.json";
+const DATA_REFRESH_INTERVAL_MS = 15 * 60 * 1000;
 const SIDE_AD_MEDIA = window.matchMedia("(min-width: 1280px)");
 const $ = (id) => document.getElementById(id);
+let dataRequestInFlight = false;
 
 const hasValue = (value) => value !== null && value !== undefined && value !== "";
 
@@ -115,6 +117,9 @@ function render(data) {
 }
 
 async function loadData() {
+  if (dataRequestInFlight) return;
+  dataRequestInFlight = true;
+
   const refresh = $("refresh-data");
   const error = $("load-error");
   refresh.disabled = true;
@@ -132,6 +137,7 @@ async function loadData() {
   } finally {
     refresh.disabled = false;
     refresh.textContent = "Refresh data";
+    dataRequestInFlight = false;
   }
 }
 
@@ -154,5 +160,10 @@ function initializeSideAds() {
 $("refresh-data").addEventListener("click", loadData);
 SIDE_AD_MEDIA.addEventListener?.("change", initializeSideAds);
 window.addEventListener("load", initializeSideAds);
+window.addEventListener("focus", loadData);
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible") loadData();
+});
 initializeSideAds();
 loadData();
+window.setInterval(loadData, DATA_REFRESH_INTERVAL_MS);
