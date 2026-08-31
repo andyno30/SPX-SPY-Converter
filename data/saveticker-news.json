@@ -1,6 +1,937 @@
 {
-  "updatedAt": "2026-08-31T01:38:04.144163Z",
+  "updatedAt": "2026-08-31T07:41:43.632806Z",
   "items": [
+    {
+      "id": "202584",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UAE presidential adviser Gargash says targeting Gulf states has failed",
+      "publishedAt": "2026-08-31T07:40:29.190676Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202582",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-Germany's OHB lands first major EU IRIS² satellite contract worth nearly €1 billion",
+      "publishedAt": "2026-08-31T07:28:14.223859Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202580",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Guo in response to bessent comments: China never seeks a trade surplus.",
+      "publishedAt": "2026-08-31T07:23:08.975833Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202579",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "DOLLAR/YEN EXTENDS FALL, LAST DOWN 0.27% ON THE DAY AT 159.62",
+      "publishedAt": "2026-08-31T07:22:21.755879Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202578",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "INSIGHT-Hit by deadly floods, Nepal renews push for Chinese data and early warnings",
+      "publishedAt": "2026-08-31T07:18:29.180048Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202577",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UAE PRESIDENTIAL ADVISER GARGASH SAYS MORE REALISTIC APPROACH NEEDED BEYOND MEMORANDUM OF UNDERSTANDING THAT FAILED TO PROVIDE PRACTICAL, ACCEPTABLE ROADMAP",
+      "publishedAt": "2026-08-31T07:18:17.237810Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202574",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Alpha Dhabi doubles commitment in private credit joint venture with Mubadala to $1 billion",
+      "publishedAt": "2026-08-31T07:17:12.614203Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202572",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Greece to sign $3.5 billion deal with Israel for air defense system",
+      "publishedAt": "2026-08-31T07:16:12.378522Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202571",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "WRAPUP 2-Iran dismisses Trump's post of attack on key energy hub of Kharg",
+      "publishedAt": "2026-08-31T07:09:25.896159Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202570",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "PRECIOUS-Gold hits near two-week low on Fed chief's hawkish stance",
+      "publishedAt": "2026-08-31T07:08:17.968035Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202569",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Japan's Nikkei edges lower as rate hike bets, Iran conflict weigh",
+      "publishedAt": "2026-08-31T07:05:22.518234Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202568",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "China says has continuously provided Nepal with meteorological and hydrological data",
+      "publishedAt": "2026-08-31T07:05:11.199312Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202565",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Europe expands AI computing network with €390 million order from France's Bull",
+      "publishedAt": "2026-08-31T07:01:15.071162Z",
+      "tickers": [
+        "AMD",
+        "NVDA",
+        "IBM"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202562",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "INSIGHT-Hit by deadly floods, Nepal renews push for Chinese data and early warnings",
+      "publishedAt": "2026-08-31T06:55:23.963868Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202561",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "CHINA HAS CONTINUOUSLY PROVIDED NEPAL WITH METEOROLOGICAL AND HYDROLOGICAL DATA",
+      "publishedAt": "2026-08-31T06:55:20.954583Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202559",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "CHINA MINISTRY OF FOREIGN AFFAIRS: CHINA AND NEPAL HAVE MAINTAINED SMOOTH COOPERATION ON SEARCH AND RESCUE",
+      "publishedAt": "2026-08-31T06:54:09.658305Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202556",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-South Africa's Eskom announces retirement of CFO Calib Cassim, confident utility's recovery will continue",
+      "publishedAt": "2026-08-31T06:51:12.233672Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202555",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-South Africa's Eskom reports second consecutive profitable year",
+      "publishedAt": "2026-08-31T06:49:22.998820Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202554",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UAE DEFENCE MINISTRY DENIES MEDIA REPORTS THAT AL MINHAD AIR BASE WAS TARGETED WITH MISSILES, SAYS REPORTS ARE FALSE - STATEMENT",
+      "publishedAt": "2026-08-31T06:47:15.171295Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202552",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "GRAPHIC-September risks are stacking up hard and fast for world markets",
+      "publishedAt": "2026-08-31T06:45:14.134840Z",
+      "tickers": [
+        "NVDA",
+        "MSFT"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202548",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Ceo of Iran's National Oil Company: Oil operations have not stopped at Kharg Island - Nour News",
+      "publishedAt": "2026-08-31T06:30:09.091156Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202547",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UAE DEFENCE MINISTRY SAYS AIR FORCE ENGAGED DRONE OVER COUNTRY'S TERRITORIAL WATERS COMING FROM IRAN - STATEMENT",
+      "publishedAt": "2026-08-31T06:24:22.244752Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202546",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "UAE: We dealt with drone over its waters coming from Iran.",
+      "publishedAt": "2026-08-31T06:22:08.121964Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202545",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "GRAPHIC-Take Five: Summer's over, buckle up!",
+      "publishedAt": "2026-08-31T06:18:13.277710Z",
+      "tickers": [
+        "AVGO",
+        "NVDA"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202544",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "BRENT CRUDE FUTURES EXTEND RISE, UP 3% AFTER U.S. FORCES STRUCK IRAN'S LARAK ISLAND IN STRAIT OF HORMUZ",
+      "publishedAt": "2026-08-31T06:18:09.524972Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202538",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "WRAPUP 2-Nepal teams seek hundreds trapped in hydropower tunnels after deadly floods",
+      "publishedAt": "2026-08-31T06:12:24.196859Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202526",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-InPost narrowly beats second-quarter forecasts but cuts guidance",
+      "publishedAt": "2026-08-31T06:07:31.553612Z",
+      "tickers": [
+        "FDX"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202524",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "RPT-ROI-Is Fed communication broken — and can Warsh fix it?: McGeever",
+      "publishedAt": "2026-08-31T06:01:34.479417Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202523",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "REUTERS NEWS SCHEDULE AT 6 a.m. GMT/2 p.m. SGT",
+      "publishedAt": "2026-08-31T06:00:30.341061Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202522",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "AI-driven cyber risk is top concern for global financial stability, watchdog says",
+      "publishedAt": "2026-08-31T06:00:14.817157Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202521",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Asia's diesel exports to Africa jump in August, replace Mideast supply, data shows",
+      "publishedAt": "2026-08-31T05:51:09.494969Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202520",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "FOREX-Dollar near two-week high as Warsh boosts rate-hike bets; yen hovers near 160",
+      "publishedAt": "2026-08-31T05:44:25.362043Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202519",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-Samsung Biologics to launch takeover bid for PolyPeptide in September",
+      "publishedAt": "2026-08-31T05:37:29.623853Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202518",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "BRIEF-Napesco Board Approves To Purchase 36.36% Stake In JTC Logistics Transportation & Stevedoring",
+      "publishedAt": "2026-08-31T05:35:31.850666Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202517",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "GLOBAL MARKETS-Shares ease in Asia as oil climbs, yields stay high",
+      "publishedAt": "2026-08-31T05:35:28.156114Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202516",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Foreign investment in Germany rose 50% in 2025, IW says",
+      "publishedAt": "2026-08-31T05:30:13.604414Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202515",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "InPost narrowly beats second-quarter forecasts but cuts guidance",
+      "publishedAt": "2026-08-31T05:28:27.087382Z",
+      "tickers": [
+        "FDX"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202514",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Japanese Housing Starts YoY Actual 8.2% (Forecast 7.6%, Previous 18.6%)",
+      "publishedAt": "2026-08-31T05:27:08.980518Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202513",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "EMERGING MARKETS-Asian shares, currencies weaken as hawkish Fed, oil surge weigh",
+      "publishedAt": "2026-08-31T05:26:26.924454Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202512",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Samsung Peptide to launch takeover bid for Swiss PolyPeptide",
+      "publishedAt": "2026-08-31T05:13:29.143505Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202511",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "North Korea foreign ministry spokesperson: North Korea's nuclear status will not be diminished by repeated US denuclearization calls - KCNA",
+      "publishedAt": "2026-08-31T05:07:08.879909Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202508",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "China, Hong Kong stocks fall on weak economic data, new property rules",
+      "publishedAt": "2026-08-31T05:05:15.864299Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202505",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "EXCLUSIVE-CIA-backed investor helped top German drones firm break into US",
+      "publishedAt": "2026-08-31T05:01:18.276634Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202504",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "REFILE-Soitec locks customers into multi-year deals as AI wafer demand surges",
+      "publishedAt": "2026-08-31T05:00:22.520750Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202503",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 3-Oil jumps more than 2% after US attack on Iran's Larak Island",
+      "publishedAt": "2026-08-31T04:58:21.075996Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202502",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-OpenAI issued warrants worth $5.5 billion in SB Energy, WSJ reports",
+      "publishedAt": "2026-08-31T04:51:21.654479Z",
+      "tickers": [
+        "NVDA"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202501",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 2-UAE denies Al Minhad Air Base was targeted after Iran says it attacked base",
+      "publishedAt": "2026-08-31T04:43:30.864678Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202500",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Bessent pushes back on fears over US debt market strains",
+      "publishedAt": "2026-08-31T04:36:13.298901Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202499",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Iran’s Revolutionary Guards say supertanker struck by mines in Strait of Hormuz",
+      "publishedAt": "2026-08-31T04:34:15.938376Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202498",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "MORNING BID EUROPE-Oil climbs as missiles fly in the Gulf",
+      "publishedAt": "2026-08-31T04:31:12.845960Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202497",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Iran says it struck US bases in Jordan used to support Larak attack",
+      "publishedAt": "2026-08-31T04:29:24.103420Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202496",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "BRIEF-OpenAI Was Issued Warrants Worth An Estimated $5.5 Billion In SB Energy - WSJ",
+      "publishedAt": "2026-08-31T04:28:18.406966Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202495",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "IRAN'S REVOLUTIONARY GUARDS SAY SHIPS MUST COMPLY WITH ITS RULES FOR PASSAGE THROUGH STRAIT OF HORMUZ",
+      "publishedAt": "2026-08-31T04:27:27.975708Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202494",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Iran's Revolutionary Guards: tanker tried to cross southern Strait of Hormuz illegally",
+      "publishedAt": "2026-08-31T04:27:08.564814Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202489",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-Barclays sees two more Fed rate hikes this year after Warsh speech",
+      "publishedAt": "2026-08-31T04:25:09.719081Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202488",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "OpenAI issued warrants worth $5.5 billion in SB Energy, WSJ reports",
+      "publishedAt": "2026-08-31T04:24:13.962794Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202487",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "WRAPUP 1-Nepal teams seek hundreds trapped in hydropower tunnels after deadly floods",
+      "publishedAt": "2026-08-31T04:23:11.048508Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202486",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "PRECIOUS-Gold hits near two-week low on Fed chief's hawkish stance",
+      "publishedAt": "2026-08-31T04:22:23.522993Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202485",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 2-China's property stocks tumble as new rules upend presale funding playbook",
+      "publishedAt": "2026-08-31T04:18:17.375344Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202484",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "IRAN SAYS U.S. AND PARTIES SUPPORTING ITS MILITARY ACTIONS BEAR FULL RESPONSIBILITY FOR CONSEQUENCES OF ESCALATION - FOREIGN MINISTRY",
+      "publishedAt": "2026-08-31T04:17:18.923812Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202483",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Iran: will respond decisively to any further hostile military aggression - foreign ministry",
+      "publishedAt": "2026-08-31T04:17:08.983944Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202478",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "OPENAI WAS ISSUED WARRANTS WORTH AN ESTIMATED $5.5 BILLION IN SB ENERGY - WSJ",
+      "publishedAt": "2026-08-31T04:16:10.439130Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202477",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "OpenAI receives warrants valued at an estimated $5.5 billion in SB Energy - WSJ",
+      "publishedAt": "2026-08-31T04:16:08.839212Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202474",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Iran’s army says it attacked UAE’s Al Minhad Air Base with drones, state TV reports",
+      "publishedAt": "2026-08-31T04:14:17.869734Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202473",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "EXPLAINER-How severe are Indonesia's wildfires?",
+      "publishedAt": "2026-08-31T04:11:14.987044Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202472",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "IRAN'S ARMY SAYS IT ATTACKED UAE'S AL MINHAD AIR BASE WITH DRONES EARLY ON MONDAY - IRAN STATE TV",
+      "publishedAt": "2026-08-31T04:07:23.953793Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202471",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "METALS-Shanghai copper edges lower as rate fears offset supply support",
+      "publishedAt": "2026-08-31T04:07:11.903097Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202470",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Iran's army: drone strike targeted UAE's Al Minhad air base early Monday - state TV",
+      "publishedAt": "2026-08-31T04:07:08.544341Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202469",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "China's yuan firms despite dollar rebound",
+      "publishedAt": "2026-08-31T04:02:19.462921Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202468",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Swiss lawmakers set to send UBS capital compromise to upper house",
+      "publishedAt": "2026-08-31T04:00:20.283764Z",
+      "tickers": [
+        "UBS"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202467",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "ANALYSIS-Toyota and Honda may get stuck with the bill for Trump’s Canada tariffs",
+      "publishedAt": "2026-08-31T03:41:18.886880Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202466",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Barclays sees September, December Fed rate hikes after Warsh speech",
+      "publishedAt": "2026-08-31T03:33:12.068775Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202465",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Iran's Revolutionary Guards say they shot down US MQ-9 drone over Strait of Hormuz",
+      "publishedAt": "2026-08-31T03:27:20.093247Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202464",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "IRAN’S REVOLUTIONARY GUARDS SAY THEY SHOT DOWN U.S. MQ-9 DRONE OVER STRAIT OF HORMUZ - MEHR NEWS AGENCY",
+      "publishedAt": "2026-08-31T03:23:11.999110Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202463",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Iran’s Revolutionary Guards: They shot down U.S. MQ-9 drone over Strait of Hormuz - Mehr News Agency",
+      "publishedAt": "2026-08-31T03:23:08.608818Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202462",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-Bessent expects new US secondary sanctions weekly, aiming to increase pressure on Iran",
+      "publishedAt": "2026-08-31T03:15:22.902431Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202461",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "US-Taiwan ties 'never been stronger', top diplomat in Taipei says",
+      "publishedAt": "2026-08-31T03:15:19.807465Z",
+      "tickers": [
+        "MSFT",
+        "GOOGL"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202460",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "GLOBAL MARKETS-Shares skid in Asia as oil climbs, yields stay high",
+      "publishedAt": "2026-08-31T03:00:16.770818Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202459",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "China's three biggest airlines post heavy first-half losses as fuel shock bites",
+      "publishedAt": "2026-08-31T02:48:21.183844Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202458",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "SPOT GOLD FALLS 1% TO $4,407.49/OZ",
+      "publishedAt": "2026-08-31T02:37:17.744258Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202457",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "REFILE-New China property sector rules expected to bring consolidation, small developers' shares slide",
+      "publishedAt": "2026-08-31T02:36:19.698484Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202456",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "BRIEF-SK Oceanplant Co Wins 592.9 Billion Won Order",
+      "publishedAt": "2026-08-31T02:34:23.532552Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202455",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "SK OCEANPLANT CO: WINS 592.9 BILLION WON ORDER",
+      "publishedAt": "2026-08-31T02:33:21.050665Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202454",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 2-Chinese factory slump eases, but weak services signal uneven recovery",
+      "publishedAt": "2026-08-31T02:33:18.183701Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202453",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "PRECIOUS-Gold hits near two-week low on Fed chief's hawkish stance",
+      "publishedAt": "2026-08-31T02:28:17.353410Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202452",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Trump: Kharg Island being destroyed",
+      "publishedAt": "2026-08-31T02:20:08.522143Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202451",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "EMERGING MARKETS-Indonesian rupiah slips, while South Korean won gains against US dollar",
+      "publishedAt": "2026-08-31T02:19:21.649561Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202448",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "CELLTRION: TO PURSUE SHAREHOLDER RETURN POLICY OF CASH DIVIDEND, SHARE BUYBACK AND CANCELLATION",
+      "publishedAt": "2026-08-31T02:08:18.630606Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202442",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "S.Korea central bank sells 91-day monetary stabilisation bonds at 3.025% yield",
+      "publishedAt": "2026-08-31T01:41:08.763947Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202440",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Chinese Composite PMI Actual 49.5 (Forecast -, Previous 49.3)",
+      "publishedAt": "2026-08-31T01:38:08.496809Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202439",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "China August official manufacturing PMI at 49.8 Poll 49.6 vs 49.2 in July",
+      "publishedAt": "2026-08-31T01:38:08.496712Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
     {
       "id": "202438",
       "source": "Financial Juice",
