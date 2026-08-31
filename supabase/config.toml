@@ -344,3 +344,9 @@ verify_jwt = false
 
 [functions."get-live-price-pro"]
 verify_jwt = false
+
+[functions."fetch-news"]
+verify_jwt = false
+
+[functions."fetch-spy-options"]
+verify_jwt = false

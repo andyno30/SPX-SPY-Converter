@@ -1,4 +1,7 @@
-const DATA_URL = "../data/spy-options.json";
+const DATA_URLS = [
+  "https://isvzhpqrmjtqnqyyidxr.supabase.co/functions/v1/fetch-spy-options",
+  "../data/spy-options.json",
+];
 const DATA_REFRESH_INTERVAL_MS = 15 * 60 * 1000;
 const SIDE_AD_MEDIA = window.matchMedia("(min-width: 1280px)");
 const $ = (id) => document.getElementById(id);
@@ -126,9 +129,22 @@ async function loadData() {
   refresh.textContent = "Loading…";
 
   try {
-    const response = await fetch(`${DATA_URL}?ts=${Date.now()}`, { cache: "no-store" });
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    const data = await response.json();
+    let data = null;
+    let lastError = new Error("No SPY options source was available.");
+
+    for (const url of DATA_URLS) {
+      try {
+        const separator = url.includes("?") ? "&" : "?";
+        const response = await fetch(`${url}${separator}ts=${Date.now()}`, { cache: "no-store" });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        data = await response.json();
+        break;
+      } catch (reason) {
+        lastError = reason;
+      }
+    }
+
+    if (!data) throw lastError;
     render(data);
     error.hidden = true;
   } catch (reason) {

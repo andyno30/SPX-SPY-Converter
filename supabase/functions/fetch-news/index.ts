@@ -2,6 +2,8 @@
 
 import { createClient } from "npm:@supabase/supabase-js@2";
 
+import { fetchSaveTickerJson } from "../_shared/saveticker.ts";
+
 /**
  * Supabase Edge Function: fetch-news
  *
@@ -75,6 +77,10 @@ const WHITE_HOUSE_RELEASES_URL = "https://www.whitehouse.gov/releases/";
 const SAVETICKER_NEWS_CACHE_URL =
   Deno.env.get("SAVETICKER_NEWS_CACHE_URL")?.trim() ||
   "https://raw.githubusercontent.com/andyno30/SPX-SPY-Converter/main/data/saveticker-news.json";
+const SAVETICKER_NEWS_ENDPOINTS = [
+  "https://saveticker.com/api/news/list?page=1&page_size=100&sort=created_at_desc&label_group=1&label_name=1",
+  "https://saveticker.com/api/news/list?page=1&page_size=100&sort=created_at_desc&label_group=6&label_name=1",
+];
 const SEC_MIN_ALLOWED_PUBLISHED_AT_MS = Date.UTC(2020, 0, 1);
 
 const MARKET_KEYWORDS = [
@@ -738,6 +744,83 @@ function normalizeCachedSaveTickerItem(input: any): NewsArticle | null {
   };
 }
 
+function normalizeDirectSaveTickerItem(input: any): NewsArticle | null {
+  if (!input || typeof input !== "object") return null;
+
+  const sourceSlug = typeof input.source === "string"
+    ? input.source.trim().toLowerCase()
+    : "";
+  const source = sourceSlug === "reuters"
+    ? "Reuters"
+    : sourceSlug === "financial-juice"
+      ? "Financial Juice"
+      : "";
+  if (!source) return null;
+
+  const translatedTitle = input.translations?.translated?.en_US?.title;
+  const rawTitle = typeof translatedTitle === "string" && translatedTitle.trim()
+    ? translatedTitle
+    : input.title;
+  const title = stripHtml(typeof rawTitle === "string" ? rawTitle : "")
+    .slice(0, MAX_TITLE_LEN)
+    .trim();
+  if (!title || !isLikelyEnglish(title) || /[\uac00-\ud7af]/u.test(title)) return null;
+
+  const publishedValue = input.extra?.source_created_at || input.created_at;
+  const publishedAt = typeof publishedValue === "string"
+    ? new Date(publishedValue)
+    : new Date(Number.NaN);
+  if (Number.isNaN(publishedAt.getTime())) return null;
+
+  const tickers = Array.isArray(input.tickers)
+    ? input.tickers
+      .map((ticker: unknown) => {
+        if (typeof ticker === "string") return ticker;
+        if (!ticker || typeof ticker !== "object") return "";
+        const value = ticker as Record<string, unknown>;
+        return value.ticker || value.symbol || value.code || "";
+      })
+      .filter((ticker: unknown): ticker is string => typeof ticker === "string")
+      .map((ticker: string) => ticker.toUpperCase().trim())
+      .filter((ticker: string) => /^[A-Z][A-Z0-9.-]{0,9}$/.test(ticker))
+      .slice(0, MAX_TICKERS_PER_ARTICLE)
+    : [];
+
+  return normalizeCachedSaveTickerItem({
+    id: input.id,
+    source,
+    sourceSlug,
+    title,
+    publishedAt: publishedAt.toISOString(),
+    tickers,
+    headlineOnly: Boolean(input.is_headline_only),
+  });
+}
+
+async function fetchDirectSaveTickerNews(): Promise<FetchResult> {
+  const payloads = await Promise.all(
+    SAVETICKER_NEWS_ENDPOINTS.map((url) =>
+      fetchSaveTickerJson(url, "https://saveticker.com/news")
+    ),
+  );
+
+  const items = payloads.flatMap((payload) => {
+    if (!payload || typeof payload !== "object") return [];
+    const newsList = (payload as Record<string, unknown>).news_list;
+    if (!Array.isArray(newsList)) return [];
+
+    return newsList
+      .map((item: unknown) => normalizeDirectSaveTickerItem(item))
+      .filter((item: NewsArticle | null): item is NewsArticle => item !== null);
+  });
+
+  if (items.length === 0) {
+    throw new Error("SaveTicker returned no usable Reuters or Financial Juice headlines.");
+  }
+
+  return { sourceKey: "saveticker_news_direct", items };
+}
+
 async function fetchCachedSaveTickerNews(): Promise<FetchResult> {
   try {
     const response = await fetch(SAVETICKER_NEWS_CACHE_URL, {
@@ -766,6 +849,18 @@ async function fetchCachedSaveTickerNews(): Promise<FetchResult> {
     // Existing database rows remain untouched when the cache is stale/unavailable.
     console.error("SaveTicker normalized cache fetch failed", error);
     return { sourceKey: "saveticker_news_cache", items: [] };
+  }
+}
+
+async function fetchSaveTickerNews(): Promise<FetchResult> {
+  try {
+    return await fetchDirectSaveTickerNews();
+  } catch (error) {
+    console.error(
+      "Direct SaveTicker news fetch failed; using the normalized static cache.",
+      error instanceof Error ? error.message : "Unknown error",
+    );
+    return await fetchCachedSaveTickerNews();
   }
 }
 
@@ -881,7 +976,7 @@ Deno.serve(async (req) => {
   const tasks: Array<Promise<FetchResult>> = [
     fetchSecPressReleases(),
     fetchWhiteHouseReleases(),
-    fetchCachedSaveTickerNews(),
+    fetchSaveTickerNews(),
     ...RSS_SOURCES.map((source) => fetchRssSource(source)),
   ];
 
