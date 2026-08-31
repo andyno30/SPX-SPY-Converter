@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manage your SpyConverter public profile, sign-in security, subscription, and account.">
+  <title>Account Settings | SpyConverter</title>
+  <link rel="icon" type="image/x-icon" href="/Images/favicon.ico">
+  <link rel="stylesheet" href="settings.css?v=20260830">
+</head>
+<body>
+  <header class="settings-topbar">
+    <a class="settings-brand" href="https://spyconverter.com/" aria-label="SpyConverter home">
+      <span class="brand-mark" aria-hidden="true">SC</span>
+      <span>spyconverter.com</span>
+    </a>
+    <nav class="settings-nav" aria-label="Account navigation">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="../pro.html">Pro</a>
+      <button id="logout-button" class="text-button" type="button">Log out</button>
+    </nav>
+  </header>
+
+  <main class="settings-shell" id="settings-shell" aria-busy="true">
+    <section class="settings-intro">
+      <div class="intro-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.31.06-.63.06-.94s-.02-.63-.07-.94l2.03-1.58-1.92-3.32-2.39.96a7.3 7.3 0 0 0-1.62-.94L14.87 3h-3.84l-.38 2.18c-.58.24-1.12.56-1.62.94l-2.39-.96-1.92 3.32 2.03 1.58c-.04.31-.07.65-.07.96s.02.62.07.92l-2.03 1.58 1.92 3.32 2.39-.96c.5.39 1.04.71 1.62.95l.38 2.17h3.84l.37-2.17c.58-.24 1.13-.56 1.63-.95l2.39.96 1.92-3.32-2.04-1.58ZM12.95 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z"/></svg>
+      </div>
+      <div>
+        <p class="eyebrow">Your account</p>
+        <h1>Account Settings</h1>
+        <div class="account-line">
+          <span id="account-email">Loading account…</span>
+          <span id="plan-badge" class="plan-badge">Checking plan</span>
+        </div>
+      </div>
+    </section>
+
+    <div id="page-message" class="page-message" role="status" aria-live="polite" hidden></div>
+
+    <div class="settings-grid">
+      <section class="settings-card profile-card" aria-labelledby="profile-heading">
+        <div class="card-heading">
+          <div>
+            <p class="section-kicker">Public identity</p>
+            <h2 id="profile-heading">Profile</h2>
+            <p>Your nickname and photo appear beside your News comments.</p>
+          </div>
+          <span class="privacy-chip">Public</span>
+        </div>
+
+        <div class="avatar-editor">
+          <div id="avatar-preview" class="avatar-preview" aria-label="Current profile photo">
+            <img id="avatar-image" alt="Your profile photo" hidden>
+            <span id="avatar-fallback" aria-hidden="true">T</span>
+          </div>
+          <div class="avatar-copy">
+            <strong>Profile photo</strong>
+            <p>JPG, PNG, WEBP, or GIF. Maximum 2 MB.</p>
+            <div class="button-row">
+              <label class="secondary-button" for="avatar-input">Choose photo</label>
+              <input id="avatar-input" type="file" accept="image/jpeg,image/png,image/webp,image/gif" hidden>
+              <button id="remove-avatar" class="ghost-button" type="button" hidden>Remove</button>
+            </div>
+          </div>
+        </div>
+        <p id="avatar-status" class="field-status" role="status" aria-live="polite"></p>
+
+        <form id="nickname-form" class="settings-form">
+          <label for="nickname-input">Nickname</label>
+          <p id="nickname-summary" class="field-summary">Not set — comments use your account name</p>
+          <div class="input-action-row">
+            <input id="nickname-input" name="nickname" type="text" minlength="3" maxlength="30" autocomplete="nickname" placeholder="marketwatcher" pattern="[A-Za-z0-9][A-Za-z0-9_.-]*">
+            <button class="primary-button" type="submit">Save nickname</button>
+          </div>
+          <p class="field-help">3–30 characters. Letters, numbers, periods, underscores, and hyphens.</p>
+          <p id="nickname-status" class="field-status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="settings-card" aria-labelledby="email-heading">
+        <div class="card-heading">
+          <div>
+            <p class="section-kicker">Sign-in identity</p>
+            <h2 id="email-heading">Email address</h2>
+            <p>Changing your email may require confirmation from both addresses.</p>
+          </div>
+        </div>
+        <form id="email-form" class="settings-form">
+          <label for="email-input">New email address</label>
+          <p class="field-summary">Currently: <span id="current-email">—</span></p>
+          <div class="input-action-row">
+            <input id="email-input" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+            <button class="primary-button" type="submit">Change email</button>
+          </div>
+          <p id="email-status" class="field-status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="settings-card" aria-labelledby="security-heading">
+        <div class="card-heading">
+          <div>
+            <p class="section-kicker">Authentication</p>
+            <h2 id="security-heading">Security</h2>
+            <p>Choose a strong password that you do not use on another website.</p>
+          </div>
+          <span class="security-mark" aria-hidden="true">✓</span>
+        </div>
+        <form id="password-form" class="settings-form stacked-form">
+          <label for="password-input">New password</label>
+          <input id="password-input" name="password" type="password" minlength="8" autocomplete="new-password" placeholder="At least 8 characters" required>
+          <label for="confirm-password-input">Confirm new password</label>
+          <input id="confirm-password-input" name="confirm-password" type="password" minlength="8" autocomplete="new-password" required>
+          <div><button class="primary-button" type="submit">Change password</button></div>
+          <p id="password-status" class="field-status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="settings-card billing-card" aria-labelledby="billing-heading">
+        <div class="card-heading">
+          <div>
+            <p class="section-kicker">Subscription</p>
+            <h2 id="billing-heading">Billing</h2>
+            <p>Manage your SpyConverter Pro plan and Stripe billing details.</p>
+          </div>
+        </div>
+        <div class="billing-summary">
+          <div>
+            <strong>SpyConverter Pro</strong>
+            <p id="billing-description">Loading subscription…</p>
+          </div>
+          <span id="billing-badge" class="plan-badge">Checking</span>
+        </div>
+        <button id="manage-billing" class="primary-button" type="button" hidden>Manage billing</button>
+        <a id="view-plans" class="primary-button link-button" href="../pro.html#pricing" hidden>View Pro plans</a>
+        <p id="billing-status" class="field-status" role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="settings-card danger-card" aria-labelledby="danger-heading">
+        <div class="card-heading">
+          <div>
+            <p class="section-kicker">Permanent actions</p>
+            <h2 id="danger-heading">Danger Zone</h2>
+            <p>Account deletion removes your comments, reactions, profile, subscription, and sign-in permanently.</p>
+          </div>
+        </div>
+        <label for="delete-confirmation">Type <strong>DELETE</strong> to enable account deletion.</label>
+        <div class="input-action-row">
+          <input id="delete-confirmation" type="text" autocomplete="off" placeholder="DELETE">
+          <button id="delete-account" class="danger-button" type="button" disabled>Delete account</button>
+        </div>
+        <p id="delete-status" class="field-status" role="status" aria-live="polite"></p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="settings-footer">
+    <span>© 2026 SpyConverter</span>
+    <a href="../aboutus.html#privacy-policy">Privacy</a>
+    <a href="../aboutus.html#terms-and-conditions">Terms</a>
+  </footer>
+
+  <script type="module" src="settings.js?v=20260830"></script>
+</body>
+</html>

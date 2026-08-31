@@ -98,6 +98,31 @@ export interface Database {
         };
         Relationships: [];
       };
+      user_profiles: {
+        Row: {
+          user_id: string;
+          nickname: string | null;
+          avatar_url: string | null;
+          avatar_path: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          user_id: string;
+          nickname?: string | null;
+          avatar_url?: string | null;
+          avatar_path?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          nickname?: string | null;
+          avatar_url?: string | null;
+          avatar_path?: string | null;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;

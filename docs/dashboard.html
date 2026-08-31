@@ -1,69 +1,82 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Spyconverter Pro Dashboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Your SpyConverter account dashboard and Pro access.">
+    <title>Dashboard | SpyConverter</title>
     <link rel="icon" type="image/x-icon" href="/Images/favicon.ico">
-    <link href="styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="account-nav.css?v=20260830">
+    <link rel="stylesheet" href="dashboard.css?v=20260830">
 </head>
-<body>
-    <div class="main-container">
-        <h1>Welcome to Spyconverter Pro!</h1>
-        <p>You are logged in.</p>
+<body data-dashboard-page>
+    <header class="dashboard-topbar">
+        <a class="dashboard-brand" href="https://spyconverter.com/">
+            <span class="dashboard-brand-mark" aria-hidden="true">SC</span>
+            <span>spyconverter.com</span>
+        </a>
+        <nav class="dashboard-nav" aria-label="Dashboard navigation">
+            <a href="../pro.html">Pro</a>
+            <a href="settings.html" class="dashboard-settings-link" aria-label="Account settings" title="Account settings">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.31.06-.63.06-.94s-.02-.63-.07-.94l2.03-1.58-1.92-3.32-2.39.96a7.3 7.3 0 0 0-1.62-.94L14.87 3h-3.84l-.38 2.18c-.58.24-1.12.56-1.62.94l-2.39-.96-1.92 3.32 2.03 1.58c-.04.31-.07.65-.07.96s.02.62.07.92l-2.03 1.58 1.92 3.32 2.39-.96c.5.39 1.04.71 1.62.95l.38 2.17h3.84l.37-2.17c.58-.24 1.13-.56 1.63-.95l2.39.96 1.92-3.32-2.04-1.58ZM12.95 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z"/></svg>
+            </a>
+            <button id="dashboard-logout" type="button">Log out</button>
+        </nav>
+    </header>
 
-        <p id="user-email">Email: Loading...</p>
-        <p id="user-status">Status: Loading...</p>
+    <main class="dashboard-shell" id="dashboard-shell" aria-busy="true">
+        <section class="dashboard-hero">
+            <div class="dashboard-avatar" id="dashboard-avatar">
+                <img id="dashboard-avatar-image" alt="Your profile photo" hidden>
+                <span id="dashboard-avatar-fallback" aria-hidden="true">T</span>
+            </div>
+            <div>
+                <p class="dashboard-eyebrow">Account dashboard</p>
+                <h1>Welcome back, <span id="user-display-name">Trader</span></h1>
+                <p id="user-email">Loading your account…</p>
+            </div>
+        </section>
 
-        <button id="subscribe-btn">Subscribe</button>
-        <button id="access-spyconverterpro-btn" style="display: none;">Go to Spyconverter Pro</button>
+        <div id="dashboard-message" class="dashboard-message" role="status" aria-live="polite" hidden></div>
 
-        <button id="delete-account-btn">Delete Account</button>
-        <p id="delete-feedback"></p>
-        <p style="font-size: 12px; color: #666;">Deleting your account will automatically cancel your recurring subscription.</p>
-    </div>
+        <section class="dashboard-grid" aria-label="Account overview">
+            <article class="dashboard-card plan-card">
+                <div class="card-icon card-icon-pro" aria-hidden="true">P</div>
+                <div>
+                    <p class="card-label">Your plan</p>
+                    <h2 id="user-status">Checking subscription…</h2>
+                    <p id="plan-description">We’re loading your access details.</p>
+                </div>
+                <div class="card-actions">
+                    <button id="subscribe-btn" type="button" hidden>View Pro plans</button>
+                    <button id="access-spyconverterpro-btn" type="button" hidden>Open SpyConverter Pro</button>
+                </div>
+            </article>
 
-    <!-- IMPORTANT: script.js is now a module because it imports ./auth.js -->
-    <script type="module" src="script.js"></script>
+            <article class="dashboard-card identity-card">
+                <div class="card-icon" aria-hidden="true">@</div>
+                <div>
+                    <p class="card-label">Public identity</p>
+                    <h2 id="identity-title">Set your nickname</h2>
+                    <p id="identity-description">Choose what other traders see beside your comments.</p>
+                </div>
+                <a class="card-link" href="settings.html#profile-heading">Edit profile <span aria-hidden="true">→</span></a>
+            </article>
 
-    <!-- Page logic that keeps your same function names and button wiring -->
-    <script type="module">
-        import { supabase } from './auth.js';
+            <article class="dashboard-card settings-card-link">
+                <div class="card-icon card-icon-settings" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.31.06-.63.06-.94s-.02-.63-.07-.94l2.03-1.58-1.92-3.32-2.39.96a7.3 7.3 0 0 0-1.62-.94L14.87 3h-3.84l-.38 2.18c-.58.24-1.12.56-1.62.94l-2.39-.96-1.92 3.32 2.03 1.58c-.04.31-.07.65-.07.96s.02.62.07.92l-2.03 1.58 1.92 3.32 2.39-.96c.5.39 1.04.71 1.62.95l.38 2.17h3.84l.37-2.17c.58-.24 1.13-.56 1.63-.95l2.39.96 1.92-3.32-2.04-1.58ZM12.95 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z"/></svg>
+                </div>
+                <div>
+                    <p class="card-label">Account controls</p>
+                    <h2>Settings</h2>
+                    <p>Update your email, password, profile photo, billing, or account.</p>
+                </div>
+                <a class="card-link" href="settings.html">Open settings <span aria-hidden="true">→</span></a>
+            </article>
+        </section>
+    </main>
 
-        async function loadUserInfo() {
-            // This calls the global function defined in script.js (we assign it to window there)
-            await window.fetchUserInfo();
-
-            // If you came back from Stripe success, refresh once to allow webhook to update
-            if (window.location.search.includes('success=true')) {
-                document.getElementById('user-status').textContent = 'Processing subscription...';
-                setTimeout(window.fetchUserInfo, 3000);
-            }
-        }
-
-        // Supabase session check (replaces localStorage authToken check)
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) {
-            window.location.href = 'login.html';
-        } else {
-            loadUserInfo();
-        }
-
-        // Keep your original button behaviors
-        document.getElementById('subscribe-btn').addEventListener('click', function () {
-            // Same redirect as your current flow; we’ll replace with a call to the Subscribe Edge Function later
-            window.location.href = '../pro.html#pricing';
-        });
-
-        document.getElementById('access-spyconverterpro-btn').addEventListener('click', function () {
-            window.location.href = 'spyconverterpro.html';
-        });
-
-        document.getElementById('delete-account-btn').addEventListener('click', function () {
-            if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
-                // Calls the global deleteAccount from script.js
-                window.deleteAccount();
-            }
-        });
-    </script>
+    <script type="module" src="script.js?v=20260830"></script>
 </body>
 </html>

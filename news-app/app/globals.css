@@ -76,6 +76,35 @@ a {
   text-decoration: none;
 }
 
+.legacy-auth-actions {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.42rem;
+}
+
+.legacy-nav-links .legacy-settings-link {
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  display: inline-flex;
+  height: 30px;
+  justify-content: center;
+  transition: background-color 150ms ease, border-color 150ms ease, transform 150ms ease;
+  width: 30px;
+}
+
+.legacy-nav-links .legacy-settings-link:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.7);
+  transform: translateY(-1px);
+}
+
+.legacy-settings-link svg {
+  fill: currentColor;
+  height: 17px;
+  width: 17px;
+}
+
 .legacy-dropdown-content {
   display: none;
   position: absolute;

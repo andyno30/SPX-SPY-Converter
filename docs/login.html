@@ -26,7 +26,7 @@
                     <a href="https://spyconverter.com/relationship.html">Relationship</a>
                 </div>
             </li>
-            <li><a href="#auth-section">Login</a></li>
+            <li><a href="#auth-section">Log in</a></li>
         </ul>
     </nav>
 
@@ -45,7 +45,7 @@
             </div>
 
             <button onclick="goToSignup()">Sign Up</button>
-            <button onclick="emailLogin()">Log In</button>
+            <button onclick="emailLogin()">Log in</button>
             <button onclick="googleLoginSignup()">Login/Signup with Google</button>
 
             <div id="feedback"></div>
@@ -71,9 +71,10 @@
         if (!requestedReturnTo) return null;
         try {
           const target = new URL(requestedReturnTo);
-          return target.origin === 'https://news.spyconverter.com' && target.pathname === '/news'
-            ? target.toString()
-            : null;
+          const isNews = target.origin === 'https://news.spyconverter.com' && target.pathname === '/news';
+          const isAccountPage = target.origin === 'https://spyconverter.com'
+            && ['/docs/settings.html', '/docs/dashboard.html'].includes(target.pathname);
+          return isNews || isAccountPage ? target.toString() : null;
         } catch {
           return null;
         }
@@ -94,6 +95,10 @@
         if (!session) throw new Error('The login session could not be created.');
 
         const target = new URL(safeReturnTo);
+        if (target.origin === 'https://spyconverter.com') {
+          window.location.href = target.toString();
+          return;
+        }
         target.hash = new URLSearchParams({
           access_token: session.access_token,
           refresh_token: session.refresh_token,

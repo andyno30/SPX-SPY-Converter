@@ -68,6 +68,21 @@ Deno.serve(async (req) => {
       }
     }
 
+    // Remove the user's public avatar before deleting the auth account.
+    const { data: publicProfile, error: publicProfileErr } = await supabase
+      .from("user_profiles")
+      .select("avatar_path")
+      .eq("user_id", user.id)
+      .maybeSingle();
+    if (publicProfileErr) console.error("Public profile fetch error:", publicProfileErr);
+
+    if (publicProfile?.avatar_path) {
+      const { error: avatarError } = await supabase.storage
+        .from("avatars")
+        .remove([publicProfile.avatar_path]);
+      if (avatarError) console.error("Avatar delete error:", avatarError);
+    }
+
     // Remove profile row (optional if you use FK cascade)
     const { error: delProfileErr } = await supabase
       .from("profiles")

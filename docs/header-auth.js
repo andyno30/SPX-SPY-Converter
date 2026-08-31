@@ -2,16 +2,24 @@ import { signOut, supabase } from './auth.js';
 
 const LOGIN_URL = 'https://spyconverter.com/docs/login.html';
 
+function setSettingsVisibility(loggedIn) {
+  document.querySelectorAll('[data-settings-link]').forEach((settingsLink) => {
+    settingsLink.hidden = !loggedIn;
+  });
+}
+
 function setLoggedOut(link) {
   link.textContent = 'Log in';
   link.href = LOGIN_URL;
   link.dataset.loggedIn = 'false';
+  setSettingsVisibility(false);
 }
 
 function setLoggedIn(link) {
   link.textContent = 'Log out';
   link.href = '#';
   link.dataset.loggedIn = 'true';
+  setSettingsVisibility(true);
 }
 
 async function initializeHeaderAuth() {

@@ -11,6 +11,13 @@ async function fetchUserInfo() {
   const statusEl = document.getElementById('user-status');
   const subscribeBtn = document.getElementById('subscribe-btn');
   const accessBtn = document.getElementById('access-spyconverterpro-btn');
+  const planDescription = document.getElementById('plan-description');
+  const displayNameEl = document.getElementById('user-display-name');
+  const identityTitle = document.getElementById('identity-title');
+  const identityDescription = document.getElementById('identity-description');
+  const avatar = document.getElementById('dashboard-avatar');
+  const avatarImage = document.getElementById('dashboard-avatar-image');
+  const avatarFallback = document.getElementById('dashboard-avatar-fallback');
 
   // Default UI while loading
   if (emailEl) emailEl.textContent = 'Loading...';
@@ -27,20 +34,46 @@ async function fetchUserInfo() {
     return;
   }
 
-  if (emailEl) emailEl.textContent = `Email: ${user.email}`;
+  if (emailEl) emailEl.textContent = user.email || 'Signed-in account';
 
-  // Read subscription from profiles
-  const { data: profile, error: profileError } = await supabase
-    .from('profiles')
-    .select('is_subscribed')
-    .eq('id', user.id)
-    .single();
+  const [{ data: profile, error: profileError }, { data: identity }] = await Promise.all([
+    supabase.from('profiles').select('is_subscribed').eq('id', user.id).maybeSingle(),
+    supabase.from('user_profiles').select('nickname,avatar_url').eq('user_id', user.id).maybeSingle(),
+  ]);
 
   const subscribed = !profileError && !!profile?.is_subscribed;
-  if (statusEl) statusEl.textContent = `Status: ${subscribed ? 'Subscribed' : 'Not Subscribed'}`;
+  if (statusEl) statusEl.textContent = subscribed ? 'SpyConverter Pro' : 'Free account';
+  if (planDescription) planDescription.textContent = subscribed
+    ? 'Your subscription is active and the professional converter is unlocked.'
+    : 'Upgrade when you are ready to unlock the professional converter.';
 
-  if (subscribeBtn) subscribeBtn.style.display = subscribed ? 'none' : 'inline-block';
-  if (accessBtn) accessBtn.style.display = subscribed ? 'inline-block' : 'none';
+  if (subscribeBtn) subscribeBtn.hidden = subscribed;
+  if (accessBtn) accessBtn.hidden = !subscribed;
+
+  const nickname = identity?.nickname || '';
+  const fallbackName = user.email?.split('@')[0] || 'Trader';
+  const shownName = nickname || fallbackName;
+  if (displayNameEl) displayNameEl.textContent = shownName;
+  if (identityTitle) identityTitle.textContent = nickname || 'Set your nickname';
+  if (identityDescription) identityDescription.textContent = nickname
+    ? 'This is the name other traders see beside your News comments.'
+    : 'Choose what other traders see beside your News comments.';
+
+  if (avatar && avatarFallback) {
+    const parts = shownName.split(/[\s._-]+/).filter(Boolean);
+    avatarFallback.textContent = (parts.length > 1 ? `${parts[0][0]}${parts[1][0]}` : shownName.slice(0, 2)).toUpperCase();
+    const hue = [...user.id].reduce((hash, char) => ((hash * 31) + char.charCodeAt(0)) % 360, 218);
+    avatar.style.setProperty('--avatar-hue', String(hue));
+  }
+  if (avatarImage && avatarFallback && identity?.avatar_url) {
+    avatarImage.src = identity.avatar_url;
+    avatarImage.hidden = false;
+    avatarFallback.hidden = true;
+    avatarImage.addEventListener('error', () => {
+      avatarImage.hidden = true;
+      avatarFallback.hidden = false;
+    }, { once: true });
+  }
 }
 
 /**
@@ -110,3 +143,36 @@ async function deleteAccount() {
 window.fetchUserInfo = fetchUserInfo;
 window.deleteAccount = deleteAccount;
 window.subscribe = subscribe;
+
+async function initializeDashboard() {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
+    window.location.replace('login.html');
+    return;
+  }
+
+  await fetchUserInfo();
+  const shell = document.getElementById('dashboard-shell');
+  shell?.setAttribute('aria-busy', 'false');
+  shell?.classList.add('is-ready');
+
+  const message = document.getElementById('dashboard-message');
+  if (window.location.search.includes('success=true') && message) {
+    message.textContent = 'Payment received. Your Pro access may take a few seconds to activate.';
+    message.hidden = false;
+    setTimeout(() => void fetchUserInfo(), 3000);
+  }
+
+  document.getElementById('subscribe-btn')?.addEventListener('click', () => {
+    window.location.href = '../pro.html#pricing';
+  });
+  document.getElementById('access-spyconverterpro-btn')?.addEventListener('click', () => {
+    window.location.href = 'spyconverterpro.html';
+  });
+  document.getElementById('dashboard-logout')?.addEventListener('click', async () => {
+    await signOut();
+    window.location.replace('login.html');
+  });
+}
+
+if (document.body.hasAttribute('data-dashboard-page')) void initializeDashboard();

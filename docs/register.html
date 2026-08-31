@@ -27,7 +27,7 @@
                     <a href="https://spyconverter.com/relationship.html">Relationship</a>
                 </div>
             </li>
-            <li><a href="login.html">Login</a></li>
+            <li><a href="login.html">Log in</a></li>
         </ul>
     </nav>
 
@@ -71,9 +71,10 @@
             if (!requestedReturnTo) return null;
             try {
                 const target = new URL(requestedReturnTo);
-                return target.origin === 'https://news.spyconverter.com' && target.pathname === '/news'
-                    ? target.toString()
-                    : null;
+                const isNews = target.origin === 'https://news.spyconverter.com' && target.pathname === '/news';
+                const isAccountPage = target.origin === 'https://spyconverter.com'
+                    && ['/docs/settings.html', '/docs/dashboard.html'].includes(target.pathname);
+                return isNews || isAccountPage ? target.toString() : null;
             } catch {
                 return null;
             }

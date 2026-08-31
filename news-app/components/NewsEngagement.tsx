@@ -8,6 +8,7 @@ import type { Database } from "@/lib/supabase/types";
 
 type Reaction = "bullish" | "bearish";
 type CommentRow = Database["public"]["Tables"]["news_comments"]["Row"];
+type PublicProfileRow = Database["public"]["Tables"]["user_profiles"]["Row"];
 
 interface NewsEngagementProps {
   articleId: number;
@@ -20,12 +21,44 @@ function redirectToLogin() {
   window.location.assign(`${LOGIN_URL}?return_to=${encodeURIComponent(returnTo)}`);
 }
 
-function displayNameFor(user: User): string {
+function displayNameFor(user: User, profile?: PublicProfileRow): string {
+  if (profile?.nickname?.trim()) return profile.nickname.trim().slice(0, 80);
   const metadataName = user.user_metadata?.full_name || user.user_metadata?.name;
   if (typeof metadataName === "string" && metadataName.trim()) {
     return metadataName.trim().slice(0, 80);
   }
   return (user.email?.split("@")[0] || "Trader").slice(0, 80);
+}
+
+function initialsFor(name: string) {
+  const parts = name.split(/[\s._-]+/).filter(Boolean);
+  return (parts.length > 1 ? `${parts[0][0]}${parts[1][0]}` : name.slice(0, 2)).toUpperCase();
+}
+
+function hueFor(value: string) {
+  return [...value].reduce((hash, char) => ((hash * 31) + char.charCodeAt(0)) % 360, 218);
+}
+
+function CommentAvatar({ userId, name, avatarUrl }: { userId: string; name: string; avatarUrl?: string | null }) {
+  const [imageFailed, setImageFailed] = useState(false);
+  const hue = hueFor(userId);
+
+  useEffect(() => setImageFailed(false), [avatarUrl]);
+
+  return (
+    <div
+      className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-white text-xs font-black text-white shadow-sm ring-1 ring-slate-200"
+      style={{ background: `linear-gradient(145deg, hsl(${hue} 74% 61%), hsl(${(hue + 48) % 360} 72% 41%))` }}
+      aria-label={`${name}'s profile photo`}
+    >
+      {avatarUrl && !imageFailed ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={avatarUrl} alt="" className="h-full w-full object-cover" onError={() => setImageFailed(true)} />
+      ) : (
+        <span aria-hidden="true">{initialsFor(name || "Trader")}</span>
+      )}
+    </div>
+  );
 }
 
 function BullIcon() {
@@ -56,6 +89,7 @@ export function NewsEngagement({ articleId }: NewsEngagementProps) {
   const supabase = useMemo(() => getBrowserSupabaseClient(), []);
   const [user, setUser] = useState<User | null>(null);
   const [comments, setComments] = useState<CommentRow[]>([]);
+  const [profilesByUserId, setProfilesByUserId] = useState<Record<string, PublicProfileRow>>({});
   const [reaction, setReaction] = useState<Reaction | null>(null);
   const [counts, setCounts] = useState({ bullish: 0, bearish: 0 });
   const [commentBody, setCommentBody] = useState("");
@@ -76,6 +110,16 @@ export function NewsEngagement({ articleId }: NewsEngagementProps) {
     ]);
 
     const currentUser = authData.user ?? null;
+    const profileUserIds = Array.from(new Set([
+      ...(commentRows ?? []).map((comment) => comment.user_id),
+      ...(currentUser ? [currentUser.id] : []),
+    ]));
+    const { data: profileRows } = profileUserIds.length
+      ? await supabase
+          .from("user_profiles")
+          .select("user_id,nickname,avatar_url,avatar_path,created_at,updated_at")
+          .in("user_id", profileUserIds)
+      : { data: [] as PublicProfileRow[] };
     const rows = reactionRows ?? [];
     setUser(currentUser);
     setCounts({
@@ -84,6 +128,9 @@ export function NewsEngagement({ articleId }: NewsEngagementProps) {
     });
     setReaction((rows.find((row) => row.user_id === currentUser?.id)?.reaction as Reaction) ?? null);
     setComments((commentRows ?? []) as CommentRow[]);
+    setProfilesByUserId(Object.fromEntries(
+      ((profileRows ?? []) as PublicProfileRow[]).map((profile) => [profile.user_id, profile]),
+    ));
   }, [articleId, supabase]);
 
   useEffect(() => {
@@ -131,7 +178,7 @@ export function NewsEngagement({ articleId }: NewsEngagementProps) {
     const { error } = await supabase.from("news_comments").insert({
       article_id: articleId,
       user_id: user.id,
-      display_name: displayNameFor(user),
+      display_name: displayNameFor(user, profilesByUserId[user.id]),
       body,
     });
 
@@ -214,29 +261,38 @@ export function NewsEngagement({ articleId }: NewsEngagementProps) {
         <div className="mt-5 space-y-3">
           {comments.length === 0 ? (
             <p className="rounded-xl bg-slate-50 p-4 text-sm text-slate-500">No comments yet. Start the conversation.</p>
-          ) : comments.map((comment) => (
-            <article key={comment.id} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-              <div className="flex items-center justify-between gap-3">
-                <strong className="text-sm text-slate-800">{comment.display_name}</strong>
-                <div className="flex items-center gap-2">
-                  <time className="text-xs text-slate-400">{new Date(comment.created_at).toLocaleDateString()}</time>
-                  {comment.user_id === user?.id ? (
-                    <button
-                      type="button"
-                      onClick={() => void deleteComment(comment.id)}
-                      disabled={deletingCommentId === comment.id}
-                      aria-label="Delete your comment"
-                      title="Delete comment"
-                      className="inline-flex h-6 w-6 items-center justify-center rounded-full text-lg leading-none text-slate-400 transition hover:bg-rose-100 hover:text-rose-600 focus:outline-none focus:ring-2 focus:ring-rose-400 disabled:cursor-wait disabled:opacity-50"
-                    >
-                      <span aria-hidden="true">×</span>
-                    </button>
-                  ) : null}
+          ) : comments.map((comment) => {
+            const publicProfile = profilesByUserId[comment.user_id];
+            const shownName = publicProfile?.nickname || comment.display_name;
+            return (
+              <article key={comment.id} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <div className="flex gap-3">
+                  <CommentAvatar userId={comment.user_id} name={shownName} avatarUrl={publicProfile?.avatar_url} />
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center justify-between gap-3">
+                      <strong className="truncate text-sm text-slate-800">{shownName}</strong>
+                      <div className="flex shrink-0 items-center gap-2">
+                        <time className="text-xs text-slate-400">{new Date(comment.created_at).toLocaleDateString()}</time>
+                        {comment.user_id === user?.id ? (
+                          <button
+                            type="button"
+                            onClick={() => void deleteComment(comment.id)}
+                            disabled={deletingCommentId === comment.id}
+                            aria-label="Delete your comment"
+                            title="Delete comment"
+                            className="inline-flex h-6 w-6 items-center justify-center rounded-full text-lg leading-none text-slate-400 transition hover:bg-rose-100 hover:text-rose-600 focus:outline-none focus:ring-2 focus:ring-rose-400 disabled:cursor-wait disabled:opacity-50"
+                          >
+                            <span aria-hidden="true">×</span>
+                          </button>
+                        ) : null}
+                      </div>
+                    </div>
+                    <p className="mt-2 whitespace-pre-wrap break-words text-sm leading-6 text-slate-700">{comment.body}</p>
+                  </div>
                 </div>
-              </div>
-              <p className="mt-2 whitespace-pre-wrap break-words text-sm leading-6 text-slate-700">{comment.body}</p>
-            </article>
-          ))}
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

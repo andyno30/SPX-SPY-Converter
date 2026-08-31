@@ -52,6 +52,9 @@ Deno.serve(async (req) => {
         const session = event.data.object as Stripe.Checkout.Session;
         const userId = (session.metadata as any)?.userId;
         const subscriptionId = session.subscription as string | null;
+        const customerId = typeof session.customer === "string"
+          ? session.customer
+          : session.customer?.id ?? null;
 
         if (userId) {
           const { error } = await supabase
@@ -59,6 +62,7 @@ Deno.serve(async (req) => {
             .update({
               is_subscribed: true,
               subscription_id: subscriptionId ?? null,
+              stripe_customer_id: customerId,
             })
             .eq("id", userId);
           if (error) console.error("Supabase update error (checkout):", error);
@@ -70,6 +74,9 @@ Deno.serve(async (req) => {
       case "customer.subscription.deleted": {
         const subscription = event.data.object as Stripe.Subscription;
         const subscriptionId = subscription.id;
+        const customerId = typeof subscription.customer === "string"
+          ? subscription.customer
+          : subscription.customer.id;
         const active =
           subscription.status === "active" || subscription.status === "trialing";
 
@@ -78,6 +85,7 @@ Deno.serve(async (req) => {
           .update({
             is_subscribed: active,
             subscription_id: subscriptionId,
+            stripe_customer_id: customerId,
           })
           .eq("subscription_id", subscriptionId);
         if (error) console.error("Supabase update error (sub change):", error);

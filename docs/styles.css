@@ -183,6 +183,18 @@
     margin-top: 0;
   }
 
+  .pro-top-actions .settings-square-link {
+    border-color: #b9c2ce;
+    color: #566273;
+    height: 43px;
+    width: 43px;
+  }
+
+  .pro-top-actions .settings-square-link:hover {
+    background: #eef1f5;
+    border-color: #7f8b99;
+  }
+
   .pro-feature-buttons {
     display: block;
     margin: 16px 0 0;
