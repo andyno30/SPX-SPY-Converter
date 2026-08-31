@@ -1,39 +1,39 @@
 {
   "symbol": "SPY",
   "source": "Unusual Whales",
-  "sourceUpdatedAt": "2026-08-31T14:20:06.756458Z",
-  "asOf": "2026-08-31T14:20:00Z",
+  "sourceUpdatedAt": "2026-08-31T14:30:07.262187Z",
+  "asOf": "2026-08-31T14:30:00Z",
   "isPriorDay": false,
-  "currentPrice": 765.95,
+  "currentPrice": 764.84,
   "nearestExpiry": "2026-08-31",
   "daysToExpiry": 0,
   "maxPain": 762,
-  "putCallRatioVolume": 1.4444126101477874,
+  "putCallRatioVolume": 1.4797330026438318,
   "putCallRatioOpenInterest": 2.481047,
   "volumeSplit": {
-    "call": 40.9,
-    "put": 59.1
+    "call": 40.3,
+    "put": 59.7
   },
   "openInterestSplit": {
     "call": 28.7,
     "put": 71.3
   },
   "premiumSplit": {
-    "call": 46.3,
-    "put": 53.7
+    "call": 44.3,
+    "put": 55.7
   },
-  "totalOptionVolume": 1817257,
-  "totalOptionVolumeFormatted": "1.8M",
+  "totalOptionVolume": 2257601,
+  "totalOptionVolumeFormatted": "2.3M",
   "relativeVolume": {
-    "3d": 104.4,
-    "7d": 103.4,
-    "30d": 80.2
+    "3d": 108.0,
+    "7d": 108.7,
+    "30d": 84.5
   },
   "callWall": 780,
   "putWall": 641,
   "gammaFlip": null,
-  "netGex": -9570111952.641577,
-  "netGexFormatted": "-9.6B",
-  "nextPollAfterMs": 22869,
+  "netGex": -9542394406.92402,
+  "netGexFormatted": "-9.5B",
+  "nextPollAfterMs": 266948,
   "rawNetGammaExposure": -1631233.6707
 }
