@@ -1,6 +1,51 @@
 {
-  "updatedAt": "2026-08-31T14:23:54.940395Z",
+  "updatedAt": "2026-08-31T14:30:28.482431Z",
   "items": [
+    {
+      "id": "202952",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "US Treasury Secretary Bessent: The oil prices are going to come down - CNBC.",
+      "publishedAt": "2026-08-31T14:30:16.111359Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "202950",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 6-Aon strikes $17 billion deal for rival USI as insurance consolidation accelerates",
+      "publishedAt": "2026-08-31T14:28:28.970221Z",
+      "tickers": [
+        "AON",
+        "KKR",
+        "AJG",
+        "BRO"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202949",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-US farm agency moves to support beef industry",
+      "publishedAt": "2026-08-31T14:27:30.225587Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "202948",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Ex-US lawmaker George Santos permanently banned from trading on Kalshi",
+      "publishedAt": "2026-08-31T14:25:41.406521Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
     {
       "id": "202947",
       "source": "Financial Juice",
