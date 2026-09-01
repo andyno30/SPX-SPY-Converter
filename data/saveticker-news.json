@@ -1,6 +1,577 @@
 {
-  "updatedAt": "2026-09-01T20:58:29.138126Z",
+  "updatedAt": "2026-09-01T23:15:41.015795Z",
   "items": [
+    {
+      "id": "204379",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Anthropic co-founder Tom Brown to address G20 tech meeting on Wednesday, company says",
+      "publishedAt": "2026-09-01T23:15:08.672843Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204376",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Sonora's Agua Prieta cattle crossing to U.S. set to reopen Sept. 8 after exports paused for repairs, Sonora livestock union",
+      "publishedAt": "2026-09-01T23:11:08.019954Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204375",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Tyson disputes claim by USDA's Rollins, says shuttered beef plants can go to any buyer",
+      "publishedAt": "2026-09-01T23:08:27.877542Z",
+      "tickers": [
+        "TSN",
+        "JBS"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "204374",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "AIG Construction Index Actual -6.9 (Forecast -, Previous -40.6)",
+      "publishedAt": "2026-09-01T23:06:08.534354Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204372",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "ANALYSIS-Not just Nvidia: these power and cooling firms are riding the trillion-dollar data center boom",
+      "publishedAt": "2026-09-01T23:01:30.015618Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "204371",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Seraphim Space launches Seraphim New Space UCITS ETF",
+      "publishedAt": "2026-09-01T23:01:27.120073Z",
+      "tickers": [
+        "SPCX"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "204370",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "SERAPHIM SPACE LAUNCHES SERAPHIM NEW SPACE UCITS ETF",
+      "publishedAt": "2026-09-01T23:01:20.653782Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204369",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "ROI-Efficiency or resilience? Democracies can only pick one: Joachim Klement",
+      "publishedAt": "2026-09-01T23:01:19.470578Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "204368",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "S. Korean CPI MoM Actual 0.2% (Forecast 0.4%, Previous -0.20%)",
+      "publishedAt": "2026-09-01T23:01:09.487456Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204363",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "South Korea August inflation +3.1% y/y, weaker than expected",
+      "publishedAt": "2026-09-01T23:00:19.380508Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "204361",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Trump: very productive and positive talks held at G20 finance ministers meeting",
+      "publishedAt": "2026-09-01T22:57:09.111659Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204358",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Bahrain interior ministry alerts potential threat, urges citizens and residents to stay calm and seek nearest safe location",
+      "publishedAt": "2026-09-01T22:52:08.419430Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204356",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "New Zealand Building Consents Actual -4.3% (Forecast -, Previous -3.6%)",
+      "publishedAt": "2026-09-01T22:46:08.214660Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204354",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Centcom: U.S. Central Command forces complete wave of strikes on Iranian military targets Sept. 1",
+      "publishedAt": "2026-09-01T22:37:07.514251Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204350",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Teamsters: Amazon Teamsters at DJT6 to start one-day unfair labor practice strike on Sept. 2",
+      "publishedAt": "2026-09-01T22:31:09.216334Z",
+      "tickers": [
+        "AMZN"
+      ],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204348",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "U.S. Postal Service: agency reviewing issues raised by senator, whistleblower over proposed mail-in voting limits",
+      "publishedAt": "2026-09-01T22:29:08.945627Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204347",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "US Treasury Secretary Bessent: AI will feature in Trump-Xi September talks",
+      "publishedAt": "2026-09-01T22:24:08.435738Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204346",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "GLOBAL MARKETS-Global bonds extend selloff, oil prices surge on renewed US-Iran strikes",
+      "publishedAt": "2026-09-01T22:22:20.539910Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "204345",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Nokia set to rejoin Euro Stoxx 50, Volkswagen dropped",
+      "publishedAt": "2026-09-01T22:19:21.157548Z",
+      "tickers": [
+        "NOK"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "204344",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Yum says Pizza Hut CEO Aaron Powell resigns",
+      "publishedAt": "2026-09-01T22:18:22.992816Z",
+      "tickers": [
+        "YUM"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "204341",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "G20 except China backs curbs on trade surplus distortions",
+      "publishedAt": "2026-09-01T22:11:24.741172Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "204340",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Kuwait air defences responding to hostile drone strikes after Iranian attack: Kuwaiti army",
+      "publishedAt": "2026-09-01T22:10:08.504805Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204338",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "US Treasury Secretary Bessent: statement mirrors views of 19 g20 members",
+      "publishedAt": "2026-09-01T22:03:10.346531Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204337",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "AWS: Federal Election Commission grants DDC special authorization to offer cybersecurity support to eligible federal campaigns",
+      "publishedAt": "2026-09-01T22:03:10.346440Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204335",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "REUTERS NEWS SCHEDULE AT 10 p.m. GMT/6 a.m. SGT",
+      "publishedAt": "2026-09-01T22:01:25.064948Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "204334",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "AWS expands protection for digital campaigns in 2026 U.S. election with 20+ cybersecurity services at no/low cost - blog post",
+      "publishedAt": "2026-09-01T22:01:09.981301Z",
+      "tickers": [
+        "AMZN"
+      ],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204333",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Russian cybercrime operation being dismantled after two decades, US officials and CrowdStrike say",
+      "publishedAt": "2026-09-01T22:00:11.069609Z",
+      "tickers": [
+        "CRWD"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "204332",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-Cook hands Apple to Ternus: bigger and richer, but catching up in AI race",
+      "publishedAt": "2026-09-01T21:58:16.131184Z",
+      "tickers": [
+        "AAPL"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "204331",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "G20 CHAIR'S STATEMENT SUPPORTS IMF ENHANCEMENT OF ANALYTICAL TOOLS TO IMPROVE SURVEILLANCE OF POLICIES THAT DRIVE GLOBAL IMBALANCES",
+      "publishedAt": "2026-09-01T21:52:19.475279Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204330",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Countries with persistent and excessive external surpluses should eliminate distortions causing overdependence on exports for growth: G20 chair",
+      "publishedAt": "2026-09-01T21:52:07.703404Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204329",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "G20 chair’s statement supports IMF boost of analytical tools to enhance surveillance of policies driving global imbalances",
+      "publishedAt": "2026-09-01T21:52:07.703318Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204327",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "COUNTRIES WITH EXCESSIVE AND PERSISTENT EXTERNAL SURPLUSES SHOULD REMOVE DISTORTIONS THAT CAUSE OVERRELIANCE ON EXPORTS FOR GROWTH -G20 CHAIR'S STATEMENT",
+      "publishedAt": "2026-09-01T21:51:24.630468Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204326",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "ADVANCING GROWTH A KEY PRIORITY ACROSS G20 ECONOMIES, WORKING TO ADDRESS IMPEDIMENTS TO GROWTH INCLUDING REGULATORY AND ADMINISTRATIVE BURDENS -G20 CHAIR'S STATEMENT",
+      "publishedAt": "2026-09-01T21:51:20.507555Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204325",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Advancing growth a key focus across G20 economies: working to tackle regulatory and administrative hurdles, G20 chair says",
+      "publishedAt": "2026-09-01T21:51:08.164474Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204319",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-OpenAI says upcoming model is so capable it requires stronger guardrails",
+      "publishedAt": "2026-09-01T21:48:26.871374Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "204318",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "GLOBAL ECONOMY HAS REMAINED RESILIENT IN THE FACE OF MULTIPLE SHOCKS, INCLUDING ONGOING WARS AND CONFLICTS, G20 CHAIR'S STATEMENT SAYS",
+      "publishedAt": "2026-09-01T21:48:10.256705Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204317",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Global economy stayed resilient despite multiple shocks, including ongoing wars and conflicts: G20 chair's statement",
+      "publishedAt": "2026-09-01T21:48:08.068336Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204316",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Iranian media: military launches large-scale drone strike on U.S. base in Bahrain; no official confirmation",
+      "publishedAt": "2026-09-01T21:33:08.396916Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204315",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UK economic outlook improves but firms wary of investment, BCC says",
+      "publishedAt": "2026-09-01T21:30:25.355636Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "204314",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "DELL COO: WE'RE SEEING A GREATER USE OF OUR STORAGE PRODUCTS IN AI APPLICATIONS",
+      "publishedAt": "2026-09-01T21:29:22.537600Z",
+      "tickers": [
+        "DELL"
+      ],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204311",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Venture Global tells Plaquemines Phase 2 buyers that LNG deliveries on schedule, source says",
+      "publishedAt": "2026-09-01T21:21:32.044718Z",
+      "tickers": [
+        "VG",
+        "XOM",
+        "CVX"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "204310",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Jordan: three ballistic missiles landed in remote areas away from population centers",
+      "publishedAt": "2026-09-01T21:20:08.446466Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204309",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "No US casualties from Iranian strike on facilities in Jordan so far, two US officials say - source",
+      "publishedAt": "2026-09-01T21:18:08.391313Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204306",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Jordan air defenses intercepted 10 of 13 ballistic missiles entering kingdom airspace: military",
+      "publishedAt": "2026-09-01T21:17:07.495714Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204305",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Apple begins renaming Lake Ontario to \"Lake America\" on Apple Maps website",
+      "publishedAt": "2026-09-01T21:16:09.973112Z",
+      "tickers": [
+        "AAPL"
+      ],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204303",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "CORRECTED-ARGENTINA AUGUST TAX REVENUE HITS 20.51 TRILLION (NOT BLN) PESOS -GOVT",
+      "publishedAt": "2026-09-01T21:14:22.701754Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204302",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Argentina August tax revenue hits 20.51 trillion pesos: govt",
+      "publishedAt": "2026-09-01T21:14:08.588819Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204300",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "BRIEF-Google's AI Research Unit Is Set To Release Gemini 3.8 Flash As Soon As Wednesday - WSJ",
+      "publishedAt": "2026-09-01T21:11:32.831879Z",
+      "tickers": [
+        "GOOGL"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "204299",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "GOOGLE’S AI RESEARCH UNIT IS SET TO RELEASE GEMINI 3.8 FLASH AS SOON AS WEDNESDAY - WSJ",
+      "publishedAt": "2026-09-01T21:08:12.573824Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204298",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Google’s AI research unit set to unveil Gemini 3.8 Flash as soon as Wednesday: WSJ",
+      "publishedAt": "2026-09-01T21:08:08.483467Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204297",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "DELL COO: WE'RE EXPECTING AI TO BE 75% OF ALL DATA CENTER DEMAND BY 2030",
+      "publishedAt": "2026-09-01T21:04:13.369234Z",
+      "tickers": [
+        "DELL"
+      ],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204295",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "TRADING DAY-Over and rout",
+      "publishedAt": "2026-09-01T21:01:22.727707Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "204294",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Palo Alto Networks beats quarterly earnings estimates, acquires AI platform Console",
+      "publishedAt": "2026-09-01T21:01:21.578838Z",
+      "tickers": [
+        "PANW"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "204292",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "NEW MEXICO HEALTH DEPARTMENT- MEDICAID TO COVER FULL COST OF 2026-2027 COVID-19 VACCINES",
+      "publishedAt": "2026-09-01T20:58:33.514957Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
     {
       "id": "204290",
       "source": "Reuters",
@@ -91,7 +662,7 @@
       "id": "204255",
       "source": "Reuters",
       "sourceSlug": "reuters",
-      "title": "UPDATE 5-US urges hands-off approach to AI regulation at G20 tech meeting",
+      "title": "UPDATE 6-US urges hands-off approach to AI regulation at G20 tech meeting",
       "publishedAt": "2026-09-01T20:18:09.926090Z",
       "tickers": [
         "SPCX",
@@ -4380,46 +4951,6 @@
       "url": null
     },
     {
-      "id": "203331",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UPDATE 1-South Korea's Aug exports up 68.7% y/y, expand for 15th straight month",
-      "publishedAt": "2026-09-01T00:22:22.523935Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "203330",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UPDATE 2-Japan capital spending gathers pace, bolstering economic outlook and BOJ hike case",
-      "publishedAt": "2026-09-01T00:21:25.320576Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "203329",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "CHINA PBOC EXPECTED TO SET YUAN MID-POINT AT 6.7170 PER DOLLAR - REUTERS ESTIMATE",
-      "publishedAt": "2026-09-01T00:16:30.814681Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "203328",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "SEC asks investment firms to prove they have access to shares in startups, WSJ reports",
-      "publishedAt": "2026-09-01T00:16:19.575272Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
       "id": "203327",
       "source": "Financial Juice",
       "sourceSlug": "financial-juice",
@@ -4427,38 +4958,6 @@
       "publishedAt": "2026-09-01T00:16:08.658112Z",
       "tickers": [],
       "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "203326",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "JOESLEY BATISTA, THE BILLIONAIRE WHO SHARES CONTROL OF JBS, LOBBIED PRESIDENT TRUMP TO LOWER TARIFFS ON BEEF IMPORTS TO TAME RISING U.S. PRICES - WSJ",
-      "publishedAt": "2026-09-01T00:04:27.737501Z",
-      "tickers": [
-        "JBS"
-      ],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "203325",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "South Korea's Aug exports up 68.7% y/y, expand for 15th straight month",
-      "publishedAt": "2026-09-01T00:04:15.011521Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "203324",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "DIARY-Top Economic Events to October 29",
-      "publishedAt": "2026-09-01T00:02:16.769433Z",
-      "tickers": [],
-      "headlineOnly": false,
       "url": null
     },
     {
@@ -4477,61 +4976,6 @@
       "sourceSlug": "financial-juice",
       "title": "S. Korean Exports Prelim Actual 68.7% (Forecast 63%, Previous 63.0%)",
       "publishedAt": "2026-09-01T00:01:08.424049Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "203314",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "S.KOREA AUG IMPORTS +22.5% Y/Y (REUTERS POLL +24.7%)",
-      "publishedAt": "2026-09-01T00:00:33.940155Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "203309",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "Japan Q2 corporate capex up 1.6% yr/yr, finance ministry says",
-      "publishedAt": "2026-08-31T23:54:10.568443Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "203308",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "BRIEF-Anthropic Has Signed About $35 Billion Cloud Deal With Lambda - Source",
-      "publishedAt": "2026-08-31T23:53:14.312268Z",
-      "tickers": [
-        "NVDA"
-      ],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "203306",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UPDATE 1-California, Writers Guild ask court to reject Paramount request for $1.88 billion bond",
-      "publishedAt": "2026-08-31T23:52:28.241717Z",
-      "tickers": [
-        "PSKY",
-        "WBD"
-      ],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "203305",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "ANTHROPIC HAS SIGNED ABOUT $35 BLN CLOUD DEAL WITH LAMBDA - SOURCE",
-      "publishedAt": "2026-08-31T23:51:27.122065Z",
       "tickers": [],
       "headlineOnly": true,
       "url": null
@@ -4557,98 +5001,12 @@
       "url": null
     },
     {
-      "id": "203299",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "JAPAN'S NIKKEI AVERAGE FUTURES DOWN 0.8% IN EARLY TRADE",
-      "publishedAt": "2026-08-31T23:46:25.832790Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "203298",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UPDATE 1-Hyundai Motor's South Korean union approves wage deal",
-      "publishedAt": "2026-08-31T23:45:13.617734Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "203297",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "EXCLUSIVE-US oil firm to take over some Venezuelan oilfields previously run by Chinese, Russian companies, officials say",
-      "publishedAt": "2026-08-31T23:40:15.526059Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "203296",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "Anthropic signs $35 billion cloud deal with Nvidia-backed Lambda, WSJ reports",
-      "publishedAt": "2026-08-31T23:39:12.115059Z",
-      "tickers": [
-        "NVDA"
-      ],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "203295",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UPDATE 1-Bessent told Russian minister no economic relief until Ukraine war ends, source says",
-      "publishedAt": "2026-08-31T23:34:27.005759Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
       "id": "203294",
       "source": "Financial Juice",
       "sourceSlug": "financial-juice",
       "title": "Possible air threat over, Latvian armed forces on X",
       "publishedAt": "2026-08-31T23:34:09.397423Z",
       "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "203290",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "Colombian oil service firms move into Venezuela amid deal announcements, trade group says",
-      "publishedAt": "2026-08-31T23:31:31.428040Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "203289",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "BRIEF-Anthropic Signs $35 Billion Cloud Deal Backed By Nvidia - WSJ",
-      "publishedAt": "2026-08-31T23:29:20.415885Z",
-      "tickers": [
-        "NVDA"
-      ],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "203288",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "NVIDIA WILL SUPPLY CHIPS TO TEXAS DATA CENTER AND HOLD THE LEASE UNDER ANTHROPIC DEAL -WSJ",
-      "publishedAt": "2026-08-31T23:28:31.731762Z",
-      "tickers": [
-        "NVDA"
-      ],
       "headlineOnly": true,
       "url": null
     },
@@ -4661,16 +5019,6 @@
       "tickers": [
         "NVDA"
       ],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "203286",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "ANTHROPIC SIGNS $35 BILLION CLOUD DEAL BACKED BY NVIDIA - WSJ",
-      "publishedAt": "2026-08-31T23:27:13.589960Z",
-      "tickers": [],
       "headlineOnly": true,
       "url": null
     },
@@ -4695,26 +5043,6 @@
       "url": null
     },
     {
-      "id": "203282",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "Anthropic to resume external testing of AI models following security incidents",
-      "publishedAt": "2026-08-31T23:10:31.049327Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "203281",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "Bessent told Russian finance minister no economic relief until Ukraine war ends, source says",
-      "publishedAt": "2026-08-31T23:09:36.828640Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
       "id": "203280",
       "source": "Financial Juice",
       "sourceSlug": "financial-juice",
@@ -4725,63 +5053,11 @@
       "url": null
     },
     {
-      "id": "203279",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "Tanker struck by three projectiles while sailing out of Strait of Hormuz, UKMTO says",
-      "publishedAt": "2026-08-31T23:05:20.039600Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "203278",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "GRAPHIC-Shareholder opposition to executive pay eases globally",
-      "publishedAt": "2026-08-31T23:02:11.769074Z",
-      "tickers": [
-        "SPCX"
-      ],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "203277",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UK retailers raise prices by most since 2024, BRC data shows",
-      "publishedAt": "2026-08-31T23:01:28.442981Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
       "id": "203276",
       "source": "Financial Juice",
       "sourceSlug": "financial-juice",
       "title": "Australian Manufacturing PMI Final Actual 52 (Forecast -, Previous 52.0)",
       "publishedAt": "2026-08-31T23:01:08.730247Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "203275",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "EXCLUSIVE-US oil firm to take over some Venezuelan oilfields previously run by Chinese, Russian companies, officials say",
-      "publishedAt": "2026-08-31T22:57:18.845255Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "203274",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UKMTO SAYS NO CASUALTIES OR ENVIRONMENTAL IMPACT HAS BEEN REPORTED",
-      "publishedAt": "2026-08-31T22:56:20.701924Z",
       "tickers": [],
       "headlineOnly": true,
       "url": null
@@ -5985,266 +6261,6 @@
       "sourceSlug": "financial-juice",
       "title": "U.S. official: Revolutionary Guard Corps forces seen readying to launch rockets with sea mines into Strait of Hormuz",
       "publishedAt": "2026-08-30T19:48:08.388624Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202325",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Explosion heard near Iran's Larak island: cause unknown - Iran's Fars",
-      "publishedAt": "2026-08-30T19:35:08.710491Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202323",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Inaugural Makkah Accord strategic political and defence committee meeting set for Istanbul on Aug. 31: Pakistan foreign ministry",
-      "publishedAt": "2026-08-30T17:37:08.355016Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202317",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Ukmto: tanker hit by projectile 12 nautical miles north of Oman’s Khasab",
-      "publishedAt": "2026-08-30T16:25:07.853740Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202314",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Ukraine preparing for more talks with US president representatives: Zelenskiy",
-      "publishedAt": "2026-08-30T15:53:08.474103Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202311",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "UAE, Egypt central banks: Banque Misr branches in UAE will take all necessary steps to maintain normal business – joint statement",
-      "publishedAt": "2026-08-30T15:38:08.371894Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202309",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Costa stressed: EU fully respects democratic choice of Icelandic people, spokesperson says",
-      "publishedAt": "2026-08-30T15:09:08.275134Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202302",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Trump on Venezuela: plans to replenish strategic national reserves with Venezuelan oil",
-      "publishedAt": "2026-08-30T14:12:08.366633Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202293",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Iceland Prime Minister: We will keep reinforcing the EEA relationship",
-      "publishedAt": "2026-08-30T13:25:08.561575Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202291",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Trump: Kristen Welker will face FCC reprimand or penalty",
-      "publishedAt": "2026-08-30T13:02:08.274326Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202290",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Ukraine's defence minister: Kyiv tests four possible interceptors for jet-powered drones",
-      "publishedAt": "2026-08-30T11:01:08.211340Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202285",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "One killed in Ukrainian strike on Russia-controlled Luhansk region, Russia-appointed official says",
-      "publishedAt": "2026-08-30T09:51:08.429652Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202281",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Iceland rejects eurozone accession talks: broadcaster RUV reports",
-      "publishedAt": "2026-08-30T07:25:08.718425Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202280",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Russian defence ministry: Russian forces start preparations for large-scale strikes on Ukraine energy infrastructure",
-      "publishedAt": "2026-08-30T07:13:08.070905Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202278",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Iceland EU referendum: ‘No’ camp leads with 52.5% of votes after 5 of 6 constituencies counted, broadcaster RUV reports",
-      "publishedAt": "2026-08-30T06:53:08.293193Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202276",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Zambian opposition leader Brian Mundubile formally accused of treason: lawyer",
-      "publishedAt": "2026-08-30T06:26:08.437551Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202273",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Weekly exports of key grains from Ukraine rise 28% in August 20-26 to 240,900 tons: apk-inform consultancy",
-      "publishedAt": "2026-08-30T06:18:09.464180Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202269",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Iran’s Khamenei in note urges unity, joint defense against ‘enemies’ and Muslim cooperation - statement",
-      "publishedAt": "2026-08-30T05:55:08.161217Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202264",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "South Korea's vice finance minister Lee Hyoung-il appointed finance minister: Yonhap",
-      "publishedAt": "2026-08-30T02:36:08.178254Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202263",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Venezuela's interim president: deal with U.S. aims to boost output to 1.5 million barrels a day",
-      "publishedAt": "2026-08-30T01:54:08.607990Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202261",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Venezuelan interim president Delcy Rodriguez: energy deal with U.S. will last 25 years",
-      "publishedAt": "2026-08-30T01:53:09.214169Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202260",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "UAE central bank: special urgent probe with forensic review covering period cited by U.S. authorities for Banque Misr branch",
-      "publishedAt": "2026-08-30T01:53:09.214046Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202258",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Partial results in Iceland referendum on restarting EU accession talks show narrow lead for yes vote: RUV",
-      "publishedAt": "2026-08-30T00:25:08.867093Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202257",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Xal: Grok bot now compatible with X",
-      "publishedAt": "2026-08-29T22:02:08.123220Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202254",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Iraq's Kurdistan oil exports to Turkey's Ceyhan port at about 150,000 bpd: oil ministry spokesperson",
-      "publishedAt": "2026-08-29T18:32:08.556594Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202252",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "UAE central bank: banks licensed in UAE should avoid exposing financial system to reputational risks",
-      "publishedAt": "2026-08-29T17:36:08.819550Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202241",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Niger: Mutinous soldiers at Niamey base fire on sensitive sites in capital",
-      "publishedAt": "2026-08-29T11:22:09.248562Z",
       "tickers": [],
       "headlineOnly": true,
       "url": null
