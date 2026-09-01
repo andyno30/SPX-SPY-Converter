@@ -1,39 +1,39 @@
 {
   "symbol": "SPY",
   "source": "Unusual Whales",
-  "sourceUpdatedAt": "2026-08-31T20:05:06.601202Z",
-  "asOf": "2026-08-31T20:05:00Z",
+  "sourceUpdatedAt": "2026-09-01T17:15:07.410550Z",
+  "asOf": "2026-09-01T17:15:00Z",
   "isPriorDay": false,
-  "currentPrice": 766.95,
-  "nearestExpiry": "2026-08-31",
+  "currentPrice": 761.9501,
+  "nearestExpiry": "2026-09-01",
   "daysToExpiry": 0,
-  "maxPain": 762,
-  "putCallRatioVolume": 1.2174135039483247,
-  "putCallRatioOpenInterest": 2.481047,
+  "maxPain": 766,
+  "putCallRatioVolume": 1.131178954328681,
+  "putCallRatioOpenInterest": 2.464061,
   "volumeSplit": {
-    "call": 45.1,
-    "put": 54.9
+    "call": 46.9,
+    "put": 53.1
   },
   "openInterestSplit": {
-    "call": 28.7,
-    "put": 71.3
+    "call": 28.9,
+    "put": 71.1
   },
   "premiumSplit": {
-    "call": 41.5,
-    "put": 58.5
+    "call": 46.8,
+    "put": 53.2
   },
-  "totalOptionVolume": 9688873,
-  "totalOptionVolumeFormatted": "9.7M",
+  "totalOptionVolume": 7329280,
+  "totalOptionVolumeFormatted": "7.3M",
   "relativeVolume": {
-    "3d": 99.4,
-    "7d": 101.2,
-    "30d": 83.9
+    "3d": 106.1,
+    "7d": 120.0,
+    "30d": 99.7
   },
   "callWall": 780,
   "putWall": 641,
   "gammaFlip": null,
-  "netGex": -9595117133.579739,
-  "netGexFormatted": "-9.6B",
-  "nextPollAfterMs": 914094,
-  "rawNetGammaExposure": -1631233.6707
+  "netGex": -11298471606.911882,
+  "netGexFormatted": "-11.3B",
+  "nextPollAfterMs": 91207,
+  "rawNetGammaExposure": -1946106.655
 }
