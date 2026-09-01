@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-import { formatNewsTime } from "@/lib/news";
+import { displayNewsSource, formatNewsTime } from "@/lib/news";
 import type { NewsArticleRow } from "@/lib/supabase/types";
 import { NewsEngagement } from "@/components/NewsEngagement";
 
@@ -48,7 +48,7 @@ export function NewsArticleModal({ article, onClose }: NewsArticleModalProps) {
           <div className="flex items-start justify-between gap-4">
             <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500">
               <span className="rounded-full bg-slate-900 px-2.5 py-1 font-semibold tracking-wide text-white">
-                {article.source}
+                {displayNewsSource(article.source)}
               </span>
               <time suppressHydrationWarning>{formatNewsTime(article.published_at)}</time>
             </div>
@@ -100,7 +100,7 @@ export function NewsArticleModal({ article, onClose }: NewsArticleModalProps) {
         </div>
 
         <footer className="border-t border-slate-200 bg-slate-50 px-5 py-4 text-xs leading-relaxed text-slate-500 sm:px-7">
-          {article.summary ? "This summary" : "This headline"} is provided on SpyConverter. The original source is {article.source}.
+          {article.summary ? "This summary" : "This headline"} is provided on SpyConverter. The original source is {displayNewsSource(article.source)}.
         </footer>
       </section>
     </div>

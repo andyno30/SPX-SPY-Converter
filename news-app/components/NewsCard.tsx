@@ -1,4 +1,4 @@
-import { formatNewsTime } from "@/lib/news";
+import { displayNewsSource, formatNewsTime } from "@/lib/news";
 import type { NewsArticleRow } from "@/lib/supabase/types";
 
 interface NewsCardProps {
@@ -21,7 +21,7 @@ export function NewsCard({ article, onOpen }: NewsCardProps) {
       >
         <div className="mb-3 flex flex-wrap items-center gap-2 text-xs text-slate-500">
           <span className="rounded-full bg-slate-900 px-2.5 py-1 font-semibold tracking-wide text-white">
-            {article.source}
+            {displayNewsSource(article.source)}
           </span>
           <time
             suppressHydrationWarning

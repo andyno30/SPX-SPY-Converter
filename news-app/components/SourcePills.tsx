@@ -1,3 +1,5 @@
+import { displayNewsSource } from "@/lib/news";
+
 interface SourcePillsProps {
   sources: string[];
   activeSource: string;
@@ -34,7 +36,7 @@ export function SourcePills({
               ].join(" ")}
               aria-pressed={selected}
             >
-              <span>{source}</span>
+              <span>{displayNewsSource(source)}</span>
               <span
                 className={[
                   "rounded-full px-1.5 py-0.5 text-[11px] leading-none",

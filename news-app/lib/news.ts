@@ -9,6 +9,11 @@ export const NEWS_SOURCES = [
   "Financial Juice",
 ] as const;
 
+/** Keep the database source key stable while using the publisher's preferred styling. */
+export function displayNewsSource(source: string): string {
+  return source === "Financial Juice" ? "FinancialJuice" : source;
+}
+
 /**
  * Build top source tabs in a predictable order like SaveTicker-style filters.
  */
