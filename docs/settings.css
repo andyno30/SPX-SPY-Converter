@@ -59,12 +59,13 @@ button, label[for="avatar-input"] { -webkit-tap-highlight-color: transparent; }
   place-items: center;
   width: 34px;
   height: 34px;
-  border-radius: 10px;
-  background: linear-gradient(145deg, #7a8cff, #5269ef);
-  box-shadow: 0 8px 22px rgba(63, 82, 206, 0.4);
-  font-size: 0.72rem;
-  letter-spacing: -0.03em;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.7);
+  border-radius: 7px;
+  background: #fff;
+  box-shadow: 0 5px 14px rgba(0,0,0,.24);
 }
+.brand-mark img { display: block; width: 27px; height: auto; }
 
 .settings-nav { gap: 1rem; }
 .settings-nav a,

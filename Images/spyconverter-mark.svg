@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 30" role="img" aria-labelledby="title">
+  <title id="title">SpyConverter</title>
+  <rect width="64" height="30" rx="5" fill="#111827"/>
+  <text x="7" y="21" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="-0.7">SPX</text>
+  <path d="M51.5 24 58 6" fill="none" stroke="#35c46a" stroke-linecap="round" stroke-width="3.2"/>
+</svg>
