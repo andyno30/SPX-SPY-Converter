@@ -57,15 +57,15 @@ button, label[for="avatar-input"] { -webkit-tap-highlight-color: transparent; }
 .brand-mark {
   display: grid;
   place-items: center;
-  width: 34px;
+  width: 60px;
   height: 34px;
   overflow: hidden;
   border: 1px solid rgba(255,255,255,.7);
   border-radius: 7px;
-  background: #fff;
+  background: #000;
   box-shadow: 0 5px 14px rgba(0,0,0,.24);
 }
-.brand-mark img { display: block; width: 27px; height: auto; }
+.brand-mark img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
 .settings-nav { gap: 1rem; }
 .settings-nav a,
