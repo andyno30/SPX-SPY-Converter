@@ -1,6 +1,1056 @@
 {
-  "updatedAt": "2026-08-31T23:57:53.445488Z",
+  "updatedAt": "2026-09-01T04:59:03.715860Z",
   "items": [
+    {
+      "id": "203451",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Russia strikes military and energy sites in Kyiv and surrounding region, also in Odesa overnight: Russian defense ministry",
+      "publishedAt": "2026-09-01T04:56:08.274498Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203449",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "GLOBAL MARKETS-Bond selloff deepens as rising energy prices stoke inflation fears",
+      "publishedAt": "2026-09-01T04:46:22.399095Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203448",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "PRECIOUS-Gold slips as traders await US jobs data, monitor Mideast tensions",
+      "publishedAt": "2026-09-01T04:44:13.114172Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203447",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Russian ballistic missile strike kills seven in Ukraine's Kyiv: CEO of state rail group Ukrzaliznytsia",
+      "publishedAt": "2026-09-01T04:40:08.052545Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203446",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-WPP cutting up to 1,000 more jobs by year-end, FT reports",
+      "publishedAt": "2026-09-01T04:38:18.732830Z",
+      "tickers": [
+        "WPP"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203445",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-Novartis pauses autoimmune cell therapy studies after deaths, WSJ reports",
+      "publishedAt": "2026-09-01T04:37:13.923584Z",
+      "tickers": [
+        "BMY",
+        "NVS"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203444",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-Indonesia's Destry says focus on stability after parliament approves her as central bank governor",
+      "publishedAt": "2026-09-01T04:34:12.436932Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203443",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "MORNING BID EUROPE-The dog days are over",
+      "publishedAt": "2026-09-01T04:30:15.507428Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203442",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Yuan holds near 3-1/2-year peak as central bank slows gains",
+      "publishedAt": "2026-09-01T04:23:21.062994Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203441",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Novartis pauses autoimmune cell therapy studies after deaths, WSJ reports",
+      "publishedAt": "2026-09-01T04:23:18.153201Z",
+      "tickers": [
+        "NVS"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203440",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-Kenya aviation workers end strike that disrupted flights, officials say",
+      "publishedAt": "2026-09-01T04:23:15.710382Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203439",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Drones strike Novokuibyshevsk in Russia's Samara region: Russian newswires cite governor",
+      "publishedAt": "2026-09-01T04:21:08.247356Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203438",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "BRIEF-Novartis Pauses Autoimmune Cell Therapy Studies After Deaths- WSJ",
+      "publishedAt": "2026-09-01T04:20:15.066683Z",
+      "tickers": [
+        "NVS",
+        "BMY"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203437",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "RPT: BRISTOL-MYERS SQUIBB ALSO PAUSES SIMILAR TRIALS AS A PRECAUTIONARY MEASURE- WSJ",
+      "publishedAt": "2026-09-01T04:19:19.563577Z",
+      "tickers": [
+        "BMY"
+      ],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203436",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Kenya aviation workers call off strike that disrupted flights, officials say",
+      "publishedAt": "2026-09-01T04:13:09.269744Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203435",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "WPP cutting up to 1,000 more jobs by year-end, FT reports",
+      "publishedAt": "2026-09-01T04:11:21.525543Z",
+      "tickers": [
+        "WPP"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203434",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "‘Conflict of attrition’ in Iran could keep inflation high, ECB official Rehn warns - FT",
+      "publishedAt": "2026-09-01T04:11:08.117533Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203433",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "KENYA AVIATION WORKERS CALL OFF STRIKE THAT DISRUPTED FLIGHTS, GOVERNMENT AND UNION OFFICIALS SAY",
+      "publishedAt": "2026-09-01T04:07:13.052439Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203432",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Indonesian parliament approves Destry as central bank governor",
+      "publishedAt": "2026-09-01T04:05:18.913637Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203431",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "METALS-Zinc hits more than four-year high on supply fears",
+      "publishedAt": "2026-09-01T04:05:16.000741Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203430",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-Japan's benchmark 10-year bond yield reaches 3% level for first time in 30 years",
+      "publishedAt": "2026-09-01T04:05:15.439651Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203429",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "ANALYSIS-Japan faces day of policy reckoning as Bessent calls time on big stimulus",
+      "publishedAt": "2026-09-01T04:00:12.123013Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203428",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-Strait of Hormuz commodity vessel transits stay in single digits, data shows",
+      "publishedAt": "2026-09-01T03:53:10.759156Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203427",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "QUOTES-Shein shares slide in long-awaited Hong Kong trading debut",
+      "publishedAt": "2026-09-01T03:45:15.106123Z",
+      "tickers": [
+        "PDD"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203426",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "GRAINS-Chicago wheat falls as Turkey prepares Black Sea grain passage plan",
+      "publishedAt": "2026-09-01T03:36:19.040156Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203425",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Japan's benchmark 10-year bond yield reaches 3% level for first time in 30 years",
+      "publishedAt": "2026-09-01T03:36:09.465068Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203424",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-New Zealand, US to fund Cook Islands port upgrade",
+      "publishedAt": "2026-09-01T03:19:10.565349Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203423",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Estonian foreign minister on X on overnight drone alerts: NATO responded swiftly and precisely as planned, NATO remains alert and prepared to defend allied territory",
+      "publishedAt": "2026-09-01T03:18:08.273268Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203422",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Trump's oil deal with Venezuela raises red flags for some major producers, sources say",
+      "publishedAt": "2026-09-01T03:13:16.553385Z",
+      "tickers": [
+        "XOM",
+        "COP",
+        "GPRK",
+        "GEV"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203420",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Russia assaults border infrastructure in Ukraine's Izmail area, border crossing to Romania halted: Ukraine officials",
+      "publishedAt": "2026-09-01T03:04:10.036485Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203419",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Strait of Hormuz commodity vessel transits stay in single digits, data shows",
+      "publishedAt": "2026-09-01T03:00:16.130310Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203418",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Taiwan's chip prowess is built on democracy and rule of law, president says",
+      "publishedAt": "2026-09-01T03:00:12.073997Z",
+      "tickers": [
+        "MSFT",
+        "GOOGL",
+        "TSM"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203417",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "PRECIOUS-Gold muted as traders await US jobs data, monitor Mideast tensions",
+      "publishedAt": "2026-09-01T02:54:17.829371Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203416",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "STRAIT OF HORMUZ COMMODITY VESSEL TRANSITS LITTLE CHANGED ON MONDAY, REMAIN IN SINGLE DIGITS - DATA",
+      "publishedAt": "2026-09-01T02:45:15.687670Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203415",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Strait of Hormuz commodity ship passages steady on Monday, stay in single digits - data",
+      "publishedAt": "2026-09-01T02:45:10.367438Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203414",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Senior Japan MoF official: no talks on U.S. bond repurchase at bilateral meeting",
+      "publishedAt": "2026-09-01T02:44:08.284359Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203412",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Japan's top FX diplomat Mimura: FinMin Katayama, US Bessent had constructive talks on need for further FX cooperation",
+      "publishedAt": "2026-09-01T02:42:09.015824Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203409",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "QUOTES-Shein shares slide in long-awaited Hong Kong trading debut",
+      "publishedAt": "2026-09-01T02:36:11.463897Z",
+      "tickers": [
+        "PDD"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203408",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "EMERGING MARKETS-Malaysian ringgit slips, while Taiwan dollar gains against U.S. dollar",
+      "publishedAt": "2026-09-01T02:35:13.413585Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203407",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "GLOBAL ECONOMY-Global AI boom fuels Asia factory expansion in August",
+      "publishedAt": "2026-09-01T02:34:11.716365Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203404",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "TREASURIES-US yields hit 19-month high after renewed US-Iran fighting",
+      "publishedAt": "2026-09-01T02:31:24.804987Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203403",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Japan's Nikkei wobbles as AI stock selloff, rising bond yields weigh",
+      "publishedAt": "2026-09-01T02:29:09.510796Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203402",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Japan finmin Katayama: fx shifts should mirror fundamentals but often don’t",
+      "publishedAt": "2026-09-01T02:16:08.232784Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203401",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Fire erupts in port area of Russia's Ust-Luga, governor says",
+      "publishedAt": "2026-09-01T02:16:08.232632Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203399",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Drone strike damages port zone in Russia's Ust-Luga, governor says",
+      "publishedAt": "2026-09-01T02:15:08.118886Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203397",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Japan finance minister Katayama: unable to comment on current JGB yield levels",
+      "publishedAt": "2026-09-01T02:10:09.545048Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203396",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 2-South Korea proposes record $597 billion 2027 budget to supercharge AI investment",
+      "publishedAt": "2026-09-01T02:09:27.932976Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203393",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Australian judge floats giving court-appointed expert access to Tesla's engineering systems",
+      "publishedAt": "2026-09-01T02:08:22.709288Z",
+      "tickers": [
+        "TSLA"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203385",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "EXCLUSIVE-Officials: US firm to take over some Venezuela oilfields previously run by Chinese, Russian firms",
+      "publishedAt": "2026-09-01T01:58:15.604578Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203380",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Australian Q2 government spending edges up in small lift to growth",
+      "publishedAt": "2026-09-01T01:52:28.531241Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203379",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Ukraine air attack damages civilian infrastructure in Russia's Samara region: governor",
+      "publishedAt": "2026-09-01T01:49:07.839547Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203378",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "China's August factory activity picks up as demand improves, PMI shows",
+      "publishedAt": "2026-09-01T01:46:33.032833Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203377",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Chinese Manufacturing PMI Actual 51.5 (Forecast 51, Previous 50.9)",
+      "publishedAt": "2026-09-01T01:46:09.701246Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203376",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Ratingdog China general manufacturing PMI at 51.5 in August, beats forecast 51.0",
+      "publishedAt": "2026-09-01T01:46:09.701154Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203375",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 2-Shein shares slide in Hong Kong debut on worries about trade and regulatory risks",
+      "publishedAt": "2026-09-01T01:41:23.724966Z",
+      "tickers": [
+        "PDD"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203374",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "SOUTH KOREA BUDGET MINISTER: 2027 BUDGET 821 TRILLION WON",
+      "publishedAt": "2026-09-01T01:41:22.438457Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203373",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "South Korea budget minister: 2027 budget set at 821 trillion won",
+      "publishedAt": "2026-09-01T01:41:08.124646Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203372",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Mech-Mind Robotics shares drop to HK$98.3 in Hong Kong debut vs HK$101.70 offer price",
+      "publishedAt": "2026-09-01T01:41:08.124558Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203371",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "GLOBAL MARKETS-Bond selloff pressures stocks as oil crosses $91 a barrel",
+      "publishedAt": "2026-09-01T01:40:25.904620Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203370",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "GRAINS-Chicago wheat falls as Turkey prepares Black Sea grain passage plan",
+      "publishedAt": "2026-09-01T01:39:11.754649Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203369",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "SHARES OF SHEIN GLOBAL FALL TO HK$43.8 IN HONG KONG DEBUT VS OFFER PRICE OF HK$48.56 APIECE",
+      "publishedAt": "2026-09-01T01:38:21.388412Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203368",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Australian Private House Approvals Actual -4.2% (Forecast -, Previous 0.4%)",
+      "publishedAt": "2026-09-01T01:34:08.237317Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203366",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Russian air strikes kill three, injure five in Ukraine's Kyiv: city authorities",
+      "publishedAt": "2026-09-01T01:34:08.237185Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203363",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Australia July building approvals fall 3.6% month on month, seasonally adjusted",
+      "publishedAt": "2026-09-01T01:31:08.720048Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203359",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "South Korea's President Lee says interest rate rise is unavoidable",
+      "publishedAt": "2026-09-01T01:24:25.882636Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203358",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Fast-fashion giant Shein set to open flat in Hong Kong market debut",
+      "publishedAt": "2026-09-01T01:23:13.487552Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203356",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "China central bank injects 359 billion yuan through overnight reverse repos: statement",
+      "publishedAt": "2026-09-01T01:22:08.207106Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203355",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Mech-Mind Robotics shares to commence trading at HK$101.7 in Hong Kong debut versus offer price of HK$101.70 each",
+      "publishedAt": "2026-09-01T01:22:08.207016Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203354",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "PRECIOUS-Gold steadies as traders await US jobs data, monitor Mideast tensions",
+      "publishedAt": "2026-09-01T01:21:32.808144Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203353",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "FOREX-Yen hangs near 160 amid BOJ rate-hike bets, dollar wobbles",
+      "publishedAt": "2026-09-01T01:21:16.771245Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203352",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "New Zealand, US to fund Cook Islands port upgrade",
+      "publishedAt": "2026-09-01T01:21:12.231895Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203350",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "South Korea President Lee: interest rate increase is inevitable",
+      "publishedAt": "2026-09-01T01:11:08.375750Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203349",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "SOUTH KOREA PRESIDENT LEE: SOUTH KOREA PRESIDENT LEE: INTEREST RATE RISE IS UNAVOIDABLE",
+      "publishedAt": "2026-09-01T01:10:10.832395Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203348",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "JGB 10-year yield rises to 30-year high ahead of auction",
+      "publishedAt": "2026-09-01T01:09:13.492553Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203347",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Taiwan overnight interbank rate starts at 0.805% versus previous session at 0.805%",
+      "publishedAt": "2026-09-01T01:01:11.795999Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203346",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Oil prices rise as latest fighting resurrects Middle East supply disruption risks",
+      "publishedAt": "2026-09-01T00:52:35.303080Z",
+      "tickers": [
+        "CVX",
+        "GEV",
+        "E",
+        "GPRK"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203345",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-White House releases terms of oil deal with North American Blue Energy Partners",
+      "publishedAt": "2026-09-01T00:45:25.203095Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203344",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "S.KOREA TO SEND DISASTER RELIEF TEAM TO NEPAL - S.KOREA FOREIGN MINISTRY",
+      "publishedAt": "2026-09-01T00:38:17.361068Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203343",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "ROI-Asia's refined fuel imports hit post-war low, can the Middle East help?: Russell",
+      "publishedAt": "2026-09-01T00:33:14.719641Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203342",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "South Korea factory activity logs ninth straight month of expansion, PMI shows",
+      "publishedAt": "2026-09-01T00:32:18.660791Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203341",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Japan manufacturing new business rises at fastest pace since 2018, PMI shows",
+      "publishedAt": "2026-09-01T00:31:25.955954Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203340",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Japanese Mfg PMI Actual 54.9 (Forecast -, Previous 55.1)",
+      "publishedAt": "2026-09-01T00:31:08.694843Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203339",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "S. Korean Manufacturing PMI Actual 52.3 (Forecast -, Previous 53.1)",
+      "publishedAt": "2026-09-01T00:31:08.694817Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203338",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Taiwan S&P Global August manufacturing PMI at 54.7, down from 55.1 in July",
+      "publishedAt": "2026-09-01T00:31:08.694789Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203337",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Japan S&P Global August final manufacturing PMI at 54.9 vs flash 55.1",
+      "publishedAt": "2026-09-01T00:31:08.694753Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203336",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "South Korea S&P Global August manufacturing PMI at 52.3 vs 53.1 in July",
+      "publishedAt": "2026-09-01T00:31:08.694655Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203335",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "JBS co-owner lobbied Trump to lower beef import tariffs, WSJ reports",
+      "publishedAt": "2026-09-01T00:29:22.122378Z",
+      "tickers": [
+        "JBS"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203334",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "White House releases terms of oil deal with North American Blue Energy Partners",
+      "publishedAt": "2026-09-01T00:28:12.965399Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203333",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "JGB 10-year yield rises to 30-year high ahead of auction",
+      "publishedAt": "2026-09-01T00:26:18.681890Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203332",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "WHITE HOUSE RELEASES TERMS OF OIL DEAL WITH NORTH AMERICAN BLUE ENERGY PARTNERS",
+      "publishedAt": "2026-09-01T00:24:12.683588Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203331",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-South Korea's Aug exports up 68.7% y/y, expand for 15th straight month",
+      "publishedAt": "2026-09-01T00:22:22.523935Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203330",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 2-Japan capital spending gathers pace, bolstering economic outlook and BOJ hike case",
+      "publishedAt": "2026-09-01T00:21:25.320576Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203329",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "CHINA PBOC EXPECTED TO SET YUAN MID-POINT AT 6.7170 PER DOLLAR - REUTERS ESTIMATE",
+      "publishedAt": "2026-09-01T00:16:30.814681Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203328",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "SEC asks investment firms to prove they have access to shares in startups, WSJ reports",
+      "publishedAt": "2026-09-01T00:16:19.575272Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203327",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "China PBOC likely to set yuan midpoint at 6.7170 per dollar: estimate",
+      "publishedAt": "2026-09-01T00:16:08.658112Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203326",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "JOESLEY BATISTA, THE BILLIONAIRE WHO SHARES CONTROL OF JBS, LOBBIED PRESIDENT TRUMP TO LOWER TARIFFS ON BEEF IMPORTS TO TAME RISING U.S. PRICES - WSJ",
+      "publishedAt": "2026-09-01T00:04:27.737501Z",
+      "tickers": [
+        "JBS"
+      ],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203325",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "South Korea's Aug exports up 68.7% y/y, expand for 15th straight month",
+      "publishedAt": "2026-09-01T00:04:15.011521Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203324",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "DIARY-Top Economic Events to October 29",
+      "publishedAt": "2026-09-01T00:02:16.769433Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "203323",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Ireland s&p global august manufacturing pmi at 55.4 vs 55.1 in july",
+      "publishedAt": "2026-09-01T00:02:09.438689Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203321",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "S. Korean Exports Prelim Actual 68.7% (Forecast 63%, Previous 63.0%)",
+      "publishedAt": "2026-09-01T00:01:08.424049Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "203314",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "S.KOREA AUG IMPORTS +22.5% Y/Y (REUTERS POLL +24.7%)",
+      "publishedAt": "2026-09-01T00:00:33.940155Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
     {
       "id": "203309",
       "source": "Reuters",
@@ -3361,78 +4411,6 @@
       "url": null
     },
     {
-      "id": "202521",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "Asia's diesel exports to Africa jump in August, replace Mideast supply, data shows",
-      "publishedAt": "2026-08-31T05:51:09.494969Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202520",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "FOREX-Dollar near two-week high as Warsh boosts rate-hike bets; yen hovers near 160",
-      "publishedAt": "2026-08-31T05:44:25.362043Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202519",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UPDATE 1-Samsung Biologics to launch takeover bid for PolyPeptide in September",
-      "publishedAt": "2026-08-31T05:37:29.623853Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202518",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "BRIEF-Napesco Board Approves To Purchase 36.36% Stake In JTC Logistics Transportation & Stevedoring",
-      "publishedAt": "2026-08-31T05:35:31.850666Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202517",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "GLOBAL MARKETS-Shares ease in Asia as oil climbs, yields stay high",
-      "publishedAt": "2026-08-31T05:35:28.156114Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202516",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "Foreign investment in Germany rose 50% in 2025, IW says",
-      "publishedAt": "2026-08-31T05:30:13.604414Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202515",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "InPost narrowly beats second-quarter forecasts but cuts guidance",
-      "publishedAt": "2026-08-31T05:28:27.087382Z",
-      "tickers": [
-        "FDX"
-      ],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
       "id": "202514",
       "source": "Financial Juice",
       "sourceSlug": "financial-juice",
@@ -3443,153 +4421,11 @@
       "url": null
     },
     {
-      "id": "202513",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "EMERGING MARKETS-Asian shares, currencies weaken as hawkish Fed, oil surge weigh",
-      "publishedAt": "2026-08-31T05:26:26.924454Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202512",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "Samsung Peptide to launch takeover bid for Swiss PolyPeptide",
-      "publishedAt": "2026-08-31T05:13:29.143505Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
       "id": "202511",
       "source": "Financial Juice",
       "sourceSlug": "financial-juice",
       "title": "North Korea foreign ministry spokesperson: North Korea's nuclear status will not be diminished by repeated US denuclearization calls - KCNA",
       "publishedAt": "2026-08-31T05:07:08.879909Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202508",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "China, Hong Kong stocks fall on weak economic data, new property rules",
-      "publishedAt": "2026-08-31T05:05:15.864299Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202505",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "EXCLUSIVE-CIA-backed investor helped top German drones firm break into US",
-      "publishedAt": "2026-08-31T05:01:18.276634Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202504",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "REFILE-Soitec locks customers into multi-year deals as AI wafer demand surges",
-      "publishedAt": "2026-08-31T05:00:22.520750Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202503",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UPDATE 3-Oil jumps more than 2% after US attack on Iran's Larak Island",
-      "publishedAt": "2026-08-31T04:58:21.075996Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202502",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UPDATE 1-OpenAI issued warrants worth $5.5 billion in SB Energy, WSJ reports",
-      "publishedAt": "2026-08-31T04:51:21.654479Z",
-      "tickers": [
-        "NVDA"
-      ],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202501",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UPDATE 2-UAE denies Al Minhad Air Base was targeted after Iran says it attacked base",
-      "publishedAt": "2026-08-31T04:43:30.864678Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202500",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "Bessent pushes back on fears over US debt market strains",
-      "publishedAt": "2026-08-31T04:36:13.298901Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202499",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "Iran’s Revolutionary Guards say supertanker struck by mines in Strait of Hormuz",
-      "publishedAt": "2026-08-31T04:34:15.938376Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202498",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "MORNING BID EUROPE-Oil climbs as missiles fly in the Gulf",
-      "publishedAt": "2026-08-31T04:31:12.845960Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202497",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "Iran says it struck US bases in Jordan used to support Larak attack",
-      "publishedAt": "2026-08-31T04:29:24.103420Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202496",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "BRIEF-OpenAI Was Issued Warrants Worth An Estimated $5.5 Billion In SB Energy - WSJ",
-      "publishedAt": "2026-08-31T04:28:18.406966Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202495",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "IRAN'S REVOLUTIONARY GUARDS SAY SHIPS MUST COMPLY WITH ITS RULES FOR PASSAGE THROUGH STRAIT OF HORMUZ",
-      "publishedAt": "2026-08-31T04:27:27.975708Z",
       "tickers": [],
       "headlineOnly": true,
       "url": null
@@ -3605,81 +4441,11 @@
       "url": null
     },
     {
-      "id": "202489",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UPDATE 1-Barclays sees two more Fed rate hikes this year after Warsh speech",
-      "publishedAt": "2026-08-31T04:25:09.719081Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202488",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "OpenAI issued warrants worth $5.5 billion in SB Energy, WSJ reports",
-      "publishedAt": "2026-08-31T04:24:13.962794Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202487",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "WRAPUP 1-Nepal teams seek hundreds trapped in hydropower tunnels after deadly floods",
-      "publishedAt": "2026-08-31T04:23:11.048508Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202486",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "PRECIOUS-Gold hits near two-week low on Fed chief's hawkish stance",
-      "publishedAt": "2026-08-31T04:22:23.522993Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202485",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UPDATE 2-China's property stocks tumble as new rules upend presale funding playbook",
-      "publishedAt": "2026-08-31T04:18:17.375344Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202484",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "IRAN SAYS U.S. AND PARTIES SUPPORTING ITS MILITARY ACTIONS BEAR FULL RESPONSIBILITY FOR CONSEQUENCES OF ESCALATION - FOREIGN MINISTRY",
-      "publishedAt": "2026-08-31T04:17:18.923812Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
       "id": "202483",
       "source": "Financial Juice",
       "sourceSlug": "financial-juice",
       "title": "Iran: will respond decisively to any further hostile military aggression - foreign ministry",
       "publishedAt": "2026-08-31T04:17:08.983944Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202478",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "OPENAI WAS ISSUED WARRANTS WORTH AN ESTIMATED $5.5 BILLION IN SB ENERGY - WSJ",
-      "publishedAt": "2026-08-31T04:16:10.439130Z",
       "tickers": [],
       "headlineOnly": true,
       "url": null
@@ -3695,113 +4461,11 @@
       "url": null
     },
     {
-      "id": "202474",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "Iran’s army says it attacked UAE’s Al Minhad Air Base with drones, state TV reports",
-      "publishedAt": "2026-08-31T04:14:17.869734Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202473",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "EXPLAINER-How severe are Indonesia's wildfires?",
-      "publishedAt": "2026-08-31T04:11:14.987044Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202472",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "IRAN'S ARMY SAYS IT ATTACKED UAE'S AL MINHAD AIR BASE WITH DRONES EARLY ON MONDAY - IRAN STATE TV",
-      "publishedAt": "2026-08-31T04:07:23.953793Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202471",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "METALS-Shanghai copper edges lower as rate fears offset supply support",
-      "publishedAt": "2026-08-31T04:07:11.903097Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
       "id": "202470",
       "source": "Financial Juice",
       "sourceSlug": "financial-juice",
       "title": "Iran's army: drone strike targeted UAE's Al Minhad air base early Monday - state TV",
       "publishedAt": "2026-08-31T04:07:08.544341Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202469",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "China's yuan firms despite dollar rebound",
-      "publishedAt": "2026-08-31T04:02:19.462921Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202468",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "Swiss lawmakers set to send UBS capital compromise to upper house",
-      "publishedAt": "2026-08-31T04:00:20.283764Z",
-      "tickers": [
-        "UBS"
-      ],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202467",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "ANALYSIS-Toyota and Honda may get stuck with the bill for Trump’s Canada tariffs",
-      "publishedAt": "2026-08-31T03:41:18.886880Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202466",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "Barclays sees September, December Fed rate hikes after Warsh speech",
-      "publishedAt": "2026-08-31T03:33:12.068775Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202465",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "Iran's Revolutionary Guards say they shot down US MQ-9 drone over Strait of Hormuz",
-      "publishedAt": "2026-08-31T03:27:20.093247Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202464",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "IRAN’S REVOLUTIONARY GUARDS SAY THEY SHOT DOWN U.S. MQ-9 DRONE OVER STRAIT OF HORMUZ - MEHR NEWS AGENCY",
-      "publishedAt": "2026-08-31T03:23:11.999110Z",
       "tickers": [],
       "headlineOnly": true,
       "url": null
@@ -3817,134 +4481,11 @@
       "url": null
     },
     {
-      "id": "202462",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UPDATE 1-Bessent expects new US secondary sanctions weekly, aiming to increase pressure on Iran",
-      "publishedAt": "2026-08-31T03:15:22.902431Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202461",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "US-Taiwan ties 'never been stronger', top diplomat in Taipei says",
-      "publishedAt": "2026-08-31T03:15:19.807465Z",
-      "tickers": [
-        "MSFT",
-        "GOOGL"
-      ],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202460",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "GLOBAL MARKETS-Shares skid in Asia as oil climbs, yields stay high",
-      "publishedAt": "2026-08-31T03:00:16.770818Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202459",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "China's three biggest airlines post heavy first-half losses as fuel shock bites",
-      "publishedAt": "2026-08-31T02:48:21.183844Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202458",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "SPOT GOLD FALLS 1% TO $4,407.49/OZ",
-      "publishedAt": "2026-08-31T02:37:17.744258Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202457",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "REFILE-New China property sector rules expected to bring consolidation, small developers' shares slide",
-      "publishedAt": "2026-08-31T02:36:19.698484Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202456",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "BRIEF-SK Oceanplant Co Wins 592.9 Billion Won Order",
-      "publishedAt": "2026-08-31T02:34:23.532552Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202455",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "SK OCEANPLANT CO: WINS 592.9 BILLION WON ORDER",
-      "publishedAt": "2026-08-31T02:33:21.050665Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202454",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UPDATE 2-Chinese factory slump eases, but weak services signal uneven recovery",
-      "publishedAt": "2026-08-31T02:33:18.183701Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202453",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "PRECIOUS-Gold hits near two-week low on Fed chief's hawkish stance",
-      "publishedAt": "2026-08-31T02:28:17.353410Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
       "id": "202452",
       "source": "Financial Juice",
       "sourceSlug": "financial-juice",
       "title": "Trump: Kharg Island being destroyed",
       "publishedAt": "2026-08-31T02:20:08.522143Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202451",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "EMERGING MARKETS-Indonesian rupiah slips, while South Korean won gains against US dollar",
-      "publishedAt": "2026-08-31T02:19:21.649561Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202448",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "CELLTRION: TO PURSUE SHAREHOLDER RETURN POLICY OF CASH DIVIDEND, SHARE BUYBACK AND CANCELLATION",
-      "publishedAt": "2026-08-31T02:08:18.630606Z",
       "tickers": [],
       "headlineOnly": true,
       "url": null
@@ -4020,38 +4561,6 @@
       "url": null
     },
     {
-      "id": "202424",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "CHINA'S SSE STAR CHIP INDEX SET TO OPEN DOWN 2.5%",
-      "publishedAt": "2026-08-31T01:30:23.068022Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202422",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "FOREX-Dollar near two-week high as Warsh boosts rate-hike bets; yen slips past 160",
-      "publishedAt": "2026-08-31T01:28:15.726750Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202417",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UPDATE 2-Star Entertainment warns tough conditions to persist after annual loss",
-      "publishedAt": "2026-08-31T01:20:14.106968Z",
-      "tickers": [
-        "BALY"
-      ],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
       "id": "202416",
       "source": "Financial Juice",
       "sourceSlug": "financial-juice",
@@ -4082,66 +4591,6 @@
       "url": null
     },
     {
-      "id": "202412",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "Japan 2-year yields rise to 31-year high as auctions, rate hikes loom",
-      "publishedAt": "2026-08-31T00:53:13.351714Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202411",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UPDATE 1-Oil jumps more than 1% after US attack on Iran's Larak island",
-      "publishedAt": "2026-08-31T00:45:13.527682Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202410",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "RPT-PRECIOUS-Gold holds ground after 3% drop on Warsh's hawkish stance",
-      "publishedAt": "2026-08-31T00:41:22.663256Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202409",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "PRECIOUS-Gold holds ground after 3% drop on Warsh's hawkish stance",
-      "publishedAt": "2026-08-31T00:34:14.710724Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202408",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "GLOBAL MARKETS-Shares skid in Asia as oil, yields stay high",
-      "publishedAt": "2026-08-31T00:29:19.524844Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202407",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UPDATE 1-Australian casino operator Star Entertainment reports smaller annual loss",
-      "publishedAt": "2026-08-31T00:22:14.598188Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
       "id": "202406",
       "source": "Financial Juice",
       "sourceSlug": "financial-juice",
@@ -4150,16 +4599,6 @@
       "tickers": [
         "TSLA"
       ],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202405",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "CHINA PBOC EXPECTED TO SET YUAN MID-POINT AT 6.7344 PER DOLLAR - REUTERS ESTIMATE",
-      "publishedAt": "2026-08-31T00:19:12.706892Z",
-      "tickers": [],
       "headlineOnly": true,
       "url": null
     },
@@ -4174,16 +4613,6 @@
       "url": null
     },
     {
-      "id": "202403",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "DIARY-Top Economic Events to October 29",
-      "publishedAt": "2026-08-31T00:01:27.131427Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
       "id": "202402",
       "source": "Financial Juice",
       "sourceSlug": "financial-juice",
@@ -4194,71 +4623,11 @@
       "url": null
     },
     {
-      "id": "202401",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "Japan July factory output rises 0.1% month-on-month",
-      "publishedAt": "2026-08-30T23:53:10.884043Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202400",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UPDATE 2-Bessent says yen moves 'pretty contained' and not disorderly",
-      "publishedAt": "2026-08-30T23:52:21.599158Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
       "id": "202398",
       "source": "Financial Juice",
       "sourceSlug": "financial-juice",
       "title": "Japan July industrial output rises 0.1% m/m: govt (poll -0.7%)",
       "publishedAt": "2026-08-30T23:51:08.382861Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202392",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "BESSENT: U.S. BLOCKADE OF IRAN'S PORTS HAS CURBED CHINESE IMPORTS OF IRANIAN OIL",
-      "publishedAt": "2026-08-30T23:48:21.426138Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202390",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "BESSENT SAYS HE DISAGREES WITH NARRATIVE THAT IRAN PRESSURE CAMPAIGN WILL NOT BE SUCCESSFUL UNLESS CHINESE FIRMS ARE TARGETED WITH SECONDARY SANCTIONS",
-      "publishedAt": "2026-08-30T23:48:17.791456Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202388",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "Bessent expects new US secondary sanctions weekly, aiming to increase pressure on Iran",
-      "publishedAt": "2026-08-30T23:48:12.322585Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "202387",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "U.S. TREASURY PLANS TO IMPOSE MORE IRAN SECONDARY SANCTIONS EVERY WEEK, STARTING WITH BANKS, BESSENT TELLS REUTERS",
-      "publishedAt": "2026-08-30T23:48:09.797040Z",
       "tickers": [],
       "headlineOnly": true,
       "url": null
@@ -4289,16 +4658,6 @@
       "sourceSlug": "financial-juice",
       "title": "Bessent: Iran pressure campaign won't succeed unless Chinese firms face secondary sanctions",
       "publishedAt": "2026-08-30T23:48:08.912137Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202381",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "JAPAN'S NIKKEI AVERAGE FUTURES DOWN 1.7% IN EARLY TRADE",
-      "publishedAt": "2026-08-30T23:46:17.312093Z",
       "tickers": [],
       "headlineOnly": true,
       "url": null
