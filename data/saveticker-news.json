@@ -1,6 +1,301 @@
 {
-  "updatedAt": "2026-09-01T23:15:41.015795Z",
+  "updatedAt": "2026-09-02T01:06:50.760615Z",
   "items": [
+    {
+      "id": "204450",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Dollar/yen hits 160.295, weakest yen since July 31",
+      "publishedAt": "2026-09-02T01:05:08.675845Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204448",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Taiwan overnight interbank rate starts at 0.805% (versus 0.805% at prior session)",
+      "publishedAt": "2026-09-02T01:01:08.902930Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204447",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "FOREX-Dollar holds firm as Middle East hostilities lift oil",
+      "publishedAt": "2026-09-02T01:00:32.336005Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "204446",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Japan bond yields rise on faster BOJ hike bets",
+      "publishedAt": "2026-09-02T00:57:13.256874Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "204445",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Oil up nearly 1% as US and Iran trade fresh strikes",
+      "publishedAt": "2026-09-02T00:50:10.913591Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "204444",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "PRECIOUS-Gold hits over two-week low, US jobs data in focus",
+      "publishedAt": "2026-09-02T00:48:12.022141Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "204443",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "State Dept: collaborating with Congress to provide $60 mln to assist Pacific island nations in tackling global energy crisis",
+      "publishedAt": "2026-09-02T00:44:10.391691Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204441",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "GLOBAL MARKETS-Asian markets tumble as US-Iran fighting lifts oil and bond yields",
+      "publishedAt": "2026-09-02T00:41:19.235576Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "204440",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "MEDIA-AI startup Cognition set to raise around $1 billion at a $47 billion value - Bloomberg News",
+      "publishedAt": "2026-09-02T00:35:19.535960Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "204439",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Massachusetts Democratic Senator Ed Markey wins renomination, overcoming primary challenge from U.S. Rep. Seth Moulton, DDHQ projects",
+      "publishedAt": "2026-09-02T00:32:08.794524Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204438",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "U.S. military attacked two Iranian government tankers: Axios",
+      "publishedAt": "2026-09-02T00:28:08.401794Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204435",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "BoJ Governor Ueda: risk-management approach now emphasizes upside and downside risks, with special attention to upside price risks",
+      "publishedAt": "2026-09-02T00:20:09.051350Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204432",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "CHINA PBOC EXPECTED TO SET YUAN MID-POINT AT 6.7238 PER DOLLAR - REUTERS ESTIMATE",
+      "publishedAt": "2026-09-02T00:16:13.711972Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204431",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "China PBOC likely to set yuan midpoint at 6.7238 per dollar: estimate",
+      "publishedAt": "2026-09-02T00:16:09.386979Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204430",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Japan finance minister katayama: held 30-minute talks with frb chair warsh",
+      "publishedAt": "2026-09-02T00:15:08.526322Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204426",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Bank of Korea: inflation to ease in September but core prices to keep rising",
+      "publishedAt": "2026-09-02T00:12:09.891149Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204424",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "BANK OF KOREA: INFLATION TO BE LOWER IN SEPTEMBER BUT CORE INFLATION TO CONTINUE UPWARD TREND",
+      "publishedAt": "2026-09-02T00:11:15.850991Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204423",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Iran’s Revolutionary Guards: combined missile and drone attacks on U.S. bases in Iraq’s Erbil; no official confirmation",
+      "publishedAt": "2026-09-02T00:11:08.672833Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204420",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Skyworks extends deadline for exchange offers on Qorvo senior notes maturing 2029 and 2031",
+      "publishedAt": "2026-09-02T00:05:09.919361Z",
+      "tickers": [
+        "SWKS",
+        "QRVO"
+      ],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204415",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Russia attacks Ukraine's Odesa, damages infrastructure: Odesa official",
+      "publishedAt": "2026-09-02T00:03:08.137469Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204411",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Nicaragua national assembly approves reform blocking opposition from elections",
+      "publishedAt": "2026-09-02T00:02:09.344027Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204409",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "DIARY-Top Economic Events to October 29",
+      "publishedAt": "2026-09-02T00:01:12.895202Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "204408",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Russia's Grushko: Moscow to react to Bonn consulate shutdown",
+      "publishedAt": "2026-09-02T00:01:08.298841Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204405",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Bahrain: air defense systems shot down Iranian drones over kingdom",
+      "publishedAt": "2026-09-01T23:58:08.107876Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204398",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Japanese Monetary Base YoY Actual -15.7% (Forecast -, Previous -13.8%)",
+      "publishedAt": "2026-09-01T23:51:08.857924Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204390",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "JAPAN'S NIKKEI AVERAGE FUTURES DOWN 2% IN EARLY TRADE",
+      "publishedAt": "2026-09-01T23:46:25.519605Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "204389",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-Venezuela's oil exports almost unchanged at 1.17 million bpd in Aug, data shows",
+      "publishedAt": "2026-09-01T23:46:10.888549Z",
+      "tickers": [
+        "CVX"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "204382",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 2-South Korea inflation quickens on one-off factor, misses expectations",
+      "publishedAt": "2026-09-01T23:33:14.245391Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "204380",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "RPT-ROI-Warsh scored an easy win in Jackson Hole. The hard work starts now: McGeever",
+      "publishedAt": "2026-09-01T23:31:24.401737Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
     {
       "id": "204379",
       "source": "Financial Juice",
@@ -4744,16 +5039,6 @@
       "url": null
     },
     {
-      "id": "203352",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "New Zealand, US to fund Cook Islands port upgrade",
-      "publishedAt": "2026-09-01T01:21:12.231895Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
       "id": "203350",
       "source": "Financial Juice",
       "sourceSlug": "financial-juice",
@@ -4764,26 +5049,6 @@
       "url": null
     },
     {
-      "id": "203349",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "SOUTH KOREA PRESIDENT LEE: SOUTH KOREA PRESIDENT LEE: INTEREST RATE RISE IS UNAVOIDABLE",
-      "publishedAt": "2026-09-01T01:10:10.832395Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "203348",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "JGB 10-year yield rises to 30-year high ahead of auction",
-      "publishedAt": "2026-09-01T01:09:13.492553Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
       "id": "203347",
       "source": "Financial Juice",
       "sourceSlug": "financial-juice",
@@ -4791,71 +5056,6 @@
       "publishedAt": "2026-09-01T01:01:11.795999Z",
       "tickers": [],
       "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "203346",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "Oil prices rise as latest fighting resurrects Middle East supply disruption risks",
-      "publishedAt": "2026-09-01T00:52:35.303080Z",
-      "tickers": [
-        "CVX",
-        "GEV",
-        "E",
-        "GPRK"
-      ],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "203345",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UPDATE 1-White House releases terms of oil deal with North American Blue Energy Partners",
-      "publishedAt": "2026-09-01T00:45:25.203095Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "203344",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "S.KOREA TO SEND DISASTER RELIEF TEAM TO NEPAL - S.KOREA FOREIGN MINISTRY",
-      "publishedAt": "2026-09-01T00:38:17.361068Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "203343",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "ROI-Asia's refined fuel imports hit post-war low, can the Middle East help?: Russell",
-      "publishedAt": "2026-09-01T00:33:14.719641Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "203342",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "South Korea factory activity logs ninth straight month of expansion, PMI shows",
-      "publishedAt": "2026-09-01T00:32:18.660791Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "203341",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "Japan manufacturing new business rises at fastest pace since 2018, PMI shows",
-      "publishedAt": "2026-09-01T00:31:25.955954Z",
-      "tickers": [],
-      "headlineOnly": false,
       "url": null
     },
     {
@@ -4904,48 +5104,6 @@
       "sourceSlug": "financial-juice",
       "title": "South Korea S&P Global August manufacturing PMI at 52.3 vs 53.1 in July",
       "publishedAt": "2026-09-01T00:31:08.694655Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "203335",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "JBS co-owner lobbied Trump to lower beef import tariffs, WSJ reports",
-      "publishedAt": "2026-09-01T00:29:22.122378Z",
-      "tickers": [
-        "JBS"
-      ],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "203334",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "White House releases terms of oil deal with North American Blue Energy Partners",
-      "publishedAt": "2026-09-01T00:28:12.965399Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "203333",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "JGB 10-year yield rises to 30-year high ahead of auction",
-      "publishedAt": "2026-09-01T00:26:18.681890Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "203332",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "WHITE HOUSE RELEASES TERMS OF OIL DEAL WITH NORTH AMERICAN BLUE ENERGY PARTNERS",
-      "publishedAt": "2026-09-01T00:24:12.683588Z",
       "tickers": [],
       "headlineOnly": true,
       "url": null
@@ -6101,166 +6259,6 @@
       "sourceSlug": "financial-juice",
       "title": "US Treasury Secretary Bessent: banks told not to hold Iranian funds or support Iranian regime",
       "publishedAt": "2026-08-30T23:48:08.912292Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202382",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Bessent: Iran pressure campaign won't succeed unless Chinese firms face secondary sanctions",
-      "publishedAt": "2026-08-30T23:48:08.912137Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202378",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Jordan armed forces: eight missiles intercepted in airspace on Monday - state TV",
-      "publishedAt": "2026-08-30T23:30:08.620208Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202370",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "US Treasury Secretary Bessent: will urge G20 nations at finance meeting to reassess trade terms with China to lower global imbalances",
-      "publishedAt": "2026-08-30T23:05:08.790248Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202366",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "US Treasury's Bessent: world can't accept China with ongoing $1.2 trillion trade surplus - source interview",
-      "publishedAt": "2026-08-30T23:05:08.790082Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202365",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Bessent: unclear if he will meet Chinese vice premier He Lifeng in person before Trump-Xi summit in late September",
-      "publishedAt": "2026-08-30T23:05:08.789984Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202363",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "S.Korea July retail sales seasonally adjusted -2.4% month on month: stats office",
-      "publishedAt": "2026-08-30T23:01:09.376922Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202362",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "S. Korea July industrial output up 3.6% yr/yr vs poll 4.4%: stats office",
-      "publishedAt": "2026-08-30T23:01:09.376894Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202356",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Iran's IRGC: launched ballistic missile strikes on two US bases in Jordan in retaliation for US attack on Larak Island - Iranian media",
-      "publishedAt": "2026-08-30T22:59:08.975532Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202352",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Commodity ships passing through Strait of Hormuz fall to 5 daily over weekend - data",
-      "publishedAt": "2026-08-30T22:46:08.250869Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202350",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Bessent: Japan likely reached end of Abenomics reflation program",
-      "publishedAt": "2026-08-30T22:27:08.625436Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202349",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "U.S. Treasury Secretary Bessent: yen fluctuations are 'pretty well contained' when questioned about disorderly moves",
-      "publishedAt": "2026-08-30T22:27:08.625412Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202338",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "No significant impact so far and almost all incoming missiles intercepted at this point: Fox reporter on X citing U.S. source",
-      "publishedAt": "2026-08-30T22:26:08.511539Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202337",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Iran is targeting U.S. forces in Jordan: Fox reporter on X, citing U.S. source",
-      "publishedAt": "2026-08-30T22:25:08.289083Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202331",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Iran’s Revolutionary Guards spokesman: U.S. to face economic and military repercussions for attack on Larak Island - Fars",
-      "publishedAt": "2026-08-30T20:35:08.230087Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202330",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Iran's Revolutionary Guards: several soldiers and civilians killed and wounded in assault - state media",
-      "publishedAt": "2026-08-30T20:02:08.318348Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "202328",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "U.S. official: Revolutionary Guard Corps forces seen readying to launch rockets with sea mines into Strait of Hormuz",
-      "publishedAt": "2026-08-30T19:48:08.388624Z",
       "tickers": [],
       "headlineOnly": true,
       "url": null
