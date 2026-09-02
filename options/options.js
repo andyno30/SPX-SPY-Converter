@@ -157,10 +157,8 @@ async function loadData() {
   }
 }
 
-function initializeSideAds() {
-  if (!SIDE_AD_MEDIA.matches) return;
-
-  document.querySelectorAll(".side-ad-unit").forEach((unit) => {
+function requestAds(units) {
+  units.forEach((unit) => {
     if (unit.dataset.adRequested === "true") return;
     unit.dataset.adRequested = "true";
 
@@ -173,13 +171,37 @@ function initializeSideAds() {
   });
 }
 
+function initializeSideAds() {
+  if (!SIDE_AD_MEDIA.matches) return;
+  requestAds(document.querySelectorAll(".side-ad-unit"));
+}
+
+function initializeBottomAd() {
+  requestAds(document.querySelectorAll(".options-bottom-ad-unit"));
+}
+
+function toggleBottomAd() {
+  const ad = $("options-bottom-ad");
+  const toggle = $("toggle-bottom-ad");
+  const shouldShow = ad.hidden;
+
+  ad.hidden = !shouldShow;
+  toggle.textContent = shouldShow ? "Hide Bottom Ad" : "Show Bottom Ad";
+  toggle.setAttribute("aria-expanded", String(shouldShow));
+}
+
 $("refresh-data").addEventListener("click", loadData);
+$("toggle-bottom-ad").addEventListener("click", toggleBottomAd);
 SIDE_AD_MEDIA.addEventListener?.("change", initializeSideAds);
-window.addEventListener("load", initializeSideAds);
+window.addEventListener("load", () => {
+  initializeSideAds();
+  initializeBottomAd();
+});
 window.addEventListener("focus", loadData);
 document.addEventListener("visibilitychange", () => {
   if (document.visibilityState === "visible") loadData();
 });
 initializeSideAds();
+initializeBottomAd();
 loadData();
 window.setInterval(loadData, DATA_REFRESH_INTERVAL_MS);

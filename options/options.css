@@ -293,6 +293,62 @@
   margin-top: auto;
 }
 
+.options-bottom-ad-controls {
+  bottom: 1rem;
+  pointer-events: none;
+  position: fixed;
+  right: 1rem;
+  z-index: 40;
+}
+
+.options-bottom-ad-toggle {
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.16);
+  color: #334155;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.45rem 0.75rem;
+  pointer-events: auto;
+}
+
+.options-bottom-ad-toggle:hover,
+.options-bottom-ad-toggle:focus-visible {
+  border-color: #94a3b8;
+  color: #0f172a;
+}
+
+.options-bottom-ad {
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  position: fixed;
+  right: 0;
+  z-index: 30;
+}
+
+.options-bottom-ad[hidden] {
+  display: none;
+}
+
+.options-bottom-ad-inner {
+  margin: 0 auto;
+  max-width: 728px;
+  padding: 4px;
+  width: 100%;
+}
+
+.options-bottom-ad-unit {
+  display: block;
+  height: 90px;
+  overflow: hidden;
+  pointer-events: auto;
+  width: 100%;
+}
+
 @media (min-width: 1280px) {
   .options-layout {
     display: grid;
@@ -378,5 +434,10 @@
 
   .split-values {
     grid-column: auto;
+  }
+
+  .options-bottom-ad-controls {
+    bottom: 0.75rem;
+    right: 0.75rem;
   }
 }
