@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Spyconverter Pro</title>
     <link rel="icon" type="image/x-icon" href="/Images/favicon.ico">
-    <link href="styles.css" rel="stylesheet" />
+    <link href="styles.css?v=20260902-pro-layout" rel="stylesheet" />
     <link href="account-nav.css?v=20260830" rel="stylesheet" />
 </head>
 <body>
@@ -14,15 +14,16 @@
         <p>Welcome to the premium Spyconverter Pro experience!</p>
         <p>This is your exclusive access page for subscribed users.</p>
         <div class="pro-action-group">
-            <div class="pro-top-actions">
+            <div class="pro-feature-buttons">
                 <button id="premium-feature-btn" style="display: none;">Access Premium Feature</button>
+                <button id="dow-russell-feature-btn" style="display: none;">Dow Jones and Russell 2000 Converter</button>
+            </div>
+            <div class="pro-account-actions">
                 <a href="settings.html" class="settings-square-link" aria-label="Account settings" title="Account settings">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.31.06-.63.06-.94s-.02-.63-.07-.94l2.03-1.58-1.92-3.32-2.39.96a7.3 7.3 0 0 0-1.62-.94L14.87 3h-3.84l-.38 2.18c-.58.24-1.12.56-1.62.94l-2.39-.96-1.92 3.32 2.03 1.58c-.04.31-.07.65-.07.96s.02.62.07.92l-2.03 1.58 1.92 3.32 2.39-.96c.5.39 1.04.71 1.62.95l.38 2.17h3.84l.37-2.17c.58-.24 1.13-.56 1.63-.95l2.39.96 1.92-3.32-2.04-1.58ZM12.95 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z"/></svg>
+                    <span>Settings</span>
                 </a>
                 <button id="logout-btn">Log out</button>
-            </div>
-            <div class="pro-feature-buttons">
-                <button id="dow-russell-feature-btn" style="display: none;">Dow Jones and Russell 2000 Converter</button>
             </div>
         </div>
         <p id="feature-feedback"></p>
@@ -31,13 +32,6 @@
     <!-- Use Supabase (no layout/style changes) -->
     <script type="module">
         import { supabase, signOut } from './auth.js';
-
-        function syncActionGroupWidth() {
-            const actionGroup = document.querySelector('.pro-action-group');
-            const topActions = document.querySelector('.pro-top-actions');
-            if (!actionGroup || !topActions) return;
-            actionGroup.style.width = `${Math.ceil(topActions.getBoundingClientRect().width)}px`;
-        }
 
         async function checkAccess() {
             // Require logged-in user
@@ -63,11 +57,8 @@
             // Subscribed → reveal feature buttons
             const premiumBtn = document.getElementById('premium-feature-btn');
             const dowRussellBtn = document.getElementById('dow-russell-feature-btn');
-            if (premiumBtn) premiumBtn.style.display = 'inline-block';
+            if (premiumBtn) premiumBtn.style.display = 'block';
             if (dowRussellBtn) dowRussellBtn.style.display = 'block';
-
-            // Keep lower converter button width aligned with top row on all browsers.
-            requestAnimationFrame(syncActionGroupWidth);
         }
 
         // Premium feature navigation (unchanged)
@@ -87,7 +78,6 @@
 
         // Run on load
         checkAccess();
-        window.addEventListener('resize', syncActionGroupWidth);
     </script>
 </body>
 </html>
