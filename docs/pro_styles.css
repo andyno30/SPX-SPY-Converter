@@ -182,6 +182,112 @@ footer {
     margin-top: auto;
 }
 
+/* Explicit feature-page ads. Auto Ads are excluded for these two URLs so an
+   injected banner cannot appear above the page heading. */
+.pro-feature-page {
+    box-sizing: border-box;
+    padding-bottom: 98px;
+}
+
+.pro-feature-ad-label {
+    color: #8a9099;
+    font-size: 0.65rem;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.pro-feature-side-ad {
+    display: none;
+}
+
+.pro-feature-side-ad-unit {
+    display: block;
+    height: 600px;
+    overflow: hidden;
+    width: 160px;
+}
+
+.pro-feature-bottom-ad-controls {
+    bottom: 1rem;
+    pointer-events: none;
+    position: fixed;
+    right: 1rem;
+    z-index: 950;
+}
+
+.pro-feature-bottom-ad-toggle {
+    background: #fff;
+    border: 1px solid #cbd5e1;
+    border-radius: 999px;
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.16);
+    color: #334155;
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.45rem 0.75rem;
+    pointer-events: auto;
+}
+
+.pro-feature-bottom-ad-toggle:hover,
+.pro-feature-bottom-ad-toggle:focus-visible {
+    border-color: #94a3b8;
+    color: #0f172a;
+}
+
+.pro-feature-bottom-ad {
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+    position: fixed;
+    right: 0;
+    z-index: 900;
+}
+
+.pro-feature-bottom-ad[hidden] {
+    display: none;
+}
+
+.pro-feature-bottom-ad-inner {
+    box-sizing: border-box;
+    margin: 0 auto;
+    max-width: 728px;
+    padding: 4px;
+    width: 100%;
+}
+
+.pro-feature-bottom-ad-unit {
+    display: block;
+    height: 90px;
+    overflow: hidden;
+    pointer-events: auto;
+    width: 100%;
+}
+
+@media (min-width: 1320px) {
+    .pro-feature-side-ad {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        max-height: calc(100vh - 6rem);
+        overflow: hidden;
+        position: fixed;
+        top: max(5.5rem, calc(50vh - 300px));
+        width: 160px;
+        z-index: 100;
+    }
+
+    .pro-feature-side-ad--left {
+        left: max(8px, calc(50% - 650px));
+    }
+
+    .pro-feature-side-ad--right {
+        right: max(8px, calc(50% - 650px));
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .nav-links {
@@ -200,5 +306,10 @@ footer {
 
     #current-prices {
         width: 95%;
+    }
+
+    .pro-feature-bottom-ad-controls {
+        bottom: 0.75rem;
+        right: 0.75rem;
     }
 }
