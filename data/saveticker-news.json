@@ -1,6 +1,670 @@
 {
-  "updatedAt": "2026-09-02T14:24:28.864289Z",
+  "updatedAt": "2026-09-02T18:01:24.096970Z",
   "items": [
+    {
+      "id": "205251",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Fed Beige Book: Economic activity increased modestly since early July.",
+      "publishedAt": "2026-09-02T18:01:08.652620Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "205248",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "US Treasury Secretary Bessent concludes Q&A at Charlotte Economics Club.",
+      "publishedAt": "2026-09-02T17:56:08.994408Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "205243",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "US Commerce Secretary Lutnick: Chip tariffs aimed at boosting US chip output.",
+      "publishedAt": "2026-09-02T17:45:08.390501Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "205242",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "EasyJet, Ithaca Energy to join FTSE 100 index",
+      "publishedAt": "2026-09-02T17:43:24.744427Z",
+      "tickers": [
+        "APO"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205237",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Fertiliser prices ease off post Iran-war peaks but farmers remain stretched, Rabobank says",
+      "publishedAt": "2026-09-02T17:33:12.132866Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205233",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "White House: The barrels from the Venezuela deal could hit reserves in the US in November.",
+      "publishedAt": "2026-09-02T17:25:09.370154Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "205227",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-More than a dozen Serbians targeted with mercenary spyware, digital rights group finds",
+      "publishedAt": "2026-09-02T17:19:32.334936Z",
+      "tickers": [
+        "AAPL"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205226",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "RPT-Lebanon selects Alvarez & Marsal for new audit of central bank",
+      "publishedAt": "2026-09-02T17:17:32.964589Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205225",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "OpenAI's Altman: I am optimistic that the downsides of AI can be mitigated.",
+      "publishedAt": "2026-09-02T17:16:09.218642Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "205223",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Starbucks dress code didn't violate NYC workers' labor rights, US court rules",
+      "publishedAt": "2026-09-02T16:49:28.388799Z",
+      "tickers": [
+        "SBUX"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205222",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Iran's rial drops to new low of 2.2 million to the dollar, tracking websites show",
+      "publishedAt": "2026-09-02T16:41:31.713522Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205221",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 2-American Airlines boosts premium seating on 777 jets as carriers chase higher-spending travelers",
+      "publishedAt": "2026-09-02T16:36:25.403242Z",
+      "tickers": [
+        "AAL",
+        "BA",
+        "DAL",
+        "UAL",
+        "LUV",
+        "ULCC",
+        "JBLU"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205220",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "IRAN'S HEALTH MINISTER SAYS 18 PEOPLE KILLED, 108 INJURED IN U.S. STRIKES - IRAN'S STATE TV",
+      "publishedAt": "2026-09-02T16:36:20.261629Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "205219",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Chevron and the Venezuelan government sign an oil deal, a bonus venture deal in the Orinoco Belt. $CVX",
+      "publishedAt": "2026-09-02T16:35:08.659124Z",
+      "tickers": [
+        "CVX"
+      ],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "205217",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "GLOBAL MARKETS-Stocks rise after recent declines; Japanese yen jumps against US dollar",
+      "publishedAt": "2026-09-02T16:28:17.090712Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205216",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "REFILE-US STOCKS-Wall St set to snap three-day streak of losses despite Middle East clashes",
+      "publishedAt": "2026-09-02T16:25:23.478956Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205215",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "BRIEF-Delivery Hero Publish Joint Reasoned Statement Recommending Shareholders To Accept The Takeover Offer From Uber",
+      "publishedAt": "2026-09-02T16:22:37.445018Z",
+      "tickers": [
+        "UBER"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205214",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "PRECIOUS-Gold rebounds over 1% as US dollar, yields pull back from highs",
+      "publishedAt": "2026-09-02T16:22:14.459530Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205213",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "London midcaps hit a nearly one-month low as gilt yields surge",
+      "publishedAt": "2026-09-02T16:21:16.960556Z",
+      "tickers": [
+        "PSO"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205210",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 2-Aspen bets on manufacturing rebound, obesity drug push for growth",
+      "publishedAt": "2026-09-02T16:17:20.437114Z",
+      "tickers": [
+        "LLY"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205209",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 2-New Jersey takes fight over Kalshi's prediction market to US Supreme Court",
+      "publishedAt": "2026-09-02T16:17:15.850806Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205207",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-US government backs OpenAI in New York Times copyright case",
+      "publishedAt": "2026-09-02T16:14:31.309393Z",
+      "tickers": [
+        "NYT",
+        "MSFT"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205206",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "US Commerce Secretary Lutnick: Anthropic is back on the right side with the Trump administration - Axios.",
+      "publishedAt": "2026-09-02T16:12:09.391686Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "205205",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Anthropic launches AI agent blueprints for retailers ahead of holiday shopping season",
+      "publishedAt": "2026-09-02T16:00:28.520599Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205203",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "FOREX-Yen gains sharply, dollar eases from two-week high",
+      "publishedAt": "2026-09-02T15:58:36.754364Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205202",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "New Jersey asks US Supreme Court to assess power to regulate sports bets on Kalshi",
+      "publishedAt": "2026-09-02T15:54:13.539223Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205201",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "GRAINS-Chicago wheat pares gains after hitting multi-year high on Black Sea supply concerns",
+      "publishedAt": "2026-09-02T15:51:21.306643Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205200",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-Russia's Udokan launches copper cathode production after fire-related delay",
+      "publishedAt": "2026-09-02T15:51:16.653186Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205199",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "EMERGING MARKETS-Brazil leads Latin American rally as election poll cheers markets",
+      "publishedAt": "2026-09-02T15:49:10.957618Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205197",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "WRAPUP 1-US private payroll growth slows in August; factory orders rebound in July",
+      "publishedAt": "2026-09-02T15:44:29.427714Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205196",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "NEW JERSEY ASKS US SUPREME COURT TO RESOLVE WHETHER STATES HAVE AUTHORITY TO REGULATE SPORTS BETTING ON KALSHI, OTHER PREDICTION MARKETS",
+      "publishedAt": "2026-09-02T15:44:23.285572Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "205195",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Google launches the Fairwind Program for cyber defense. $GOOGL",
+      "publishedAt": "2026-09-02T15:44:08.928683Z",
+      "tickers": [
+        "GOOGL"
+      ],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "205193",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "CHIEF EXECUTIVES OF CHEVRON, ENI IN CARACAS TO SIGN ENERGY AGREEMENTS: STATE TV",
+      "publishedAt": "2026-09-02T15:42:39.091988Z",
+      "tickers": [
+        "CVX",
+        "E"
+      ],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "205192",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "More than a dozen Serbians targeted with mercenary spyware, digital rights group finds",
+      "publishedAt": "2026-09-02T15:39:18.861444Z",
+      "tickers": [
+        "AAPL"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205191",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Russia says no more hurdles in payments with India",
+      "publishedAt": "2026-09-02T15:37:29.224254Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205190",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 2-US urges G20 countries to allow AI training on creators' work",
+      "publishedAt": "2026-09-02T15:37:11.103486Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205189",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "TREASURIES-US yields edge lower after data as crude prices slip",
+      "publishedAt": "2026-09-02T15:33:30.587410Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205187",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "BRIEF-Google Exec Says Very Pleased The Court Rejected The DOJ's Proposal To Break Apart Tools",
+      "publishedAt": "2026-09-02T15:29:24.076022Z",
+      "tickers": [
+        "GOOGL"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205186",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Iran blacklists more ships trying to sail through Hormuz, govt website shows",
+      "publishedAt": "2026-09-02T15:29:13.951305Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205185",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "GOOGLE EXEC: VERY PLEASED THE COURT REJECTED THE DOJ'S PROPOSAL TO BREAK APART TOOLS THAT HELP SMALL BUSINESSES REACH NEW CUSTOMERS AND GROW",
+      "publishedAt": "2026-09-02T15:27:14.927714Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "205184",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-Novartis could cut about 130 jobs in Basel site relocation",
+      "publishedAt": "2026-09-02T15:26:13.867162Z",
+      "tickers": [
+        "NVS"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205183",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "Trump: Now that we have the Strait under US control, should we change the name of the Hormuz Strait to the Trump Strait??? - Truth Social.",
+      "publishedAt": "2026-09-02T15:25:09.337778Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "205182",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Southwest to launch first-ever airport lounges to broaden premium appeal",
+      "publishedAt": "2026-09-02T15:22:38.868782Z",
+      "tickers": [
+        "LUV",
+        "JPM"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205181",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-Danish central bank intervened in August to defend crown peg",
+      "publishedAt": "2026-09-02T15:17:28.558915Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205180",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "EXCLUSIVE-Banks rush to swap higher-risk credit assets for Bank of England cash",
+      "publishedAt": "2026-09-02T15:16:35.635138Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205179",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Danish central bank intervened in August to defend crown peg",
+      "publishedAt": "2026-09-02T15:15:36.882549Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205178",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "BoC's Gov. Macklem's press conference ends.",
+      "publishedAt": "2026-09-02T15:12:09.364859Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "205176",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-EU antitrust regulators quiz publishers on Google's AI search opt-out",
+      "publishedAt": "2026-09-02T15:06:24.425100Z",
+      "tickers": [
+        "GOOGL"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205172",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "BoC's Senior Dep. Gov. Rogers: It is important to distinguish between volatility and dysfunction or instability.",
+      "publishedAt": "2026-09-02T14:59:10.166942Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "205167",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "SPOT PALLADIUM RISES AROUND 3% TO $1,349.75/OZ",
+      "publishedAt": "2026-09-02T14:55:10.833366Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "205166",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "US government backs OpenAI in New York Times copyright case",
+      "publishedAt": "2026-09-02T14:53:37.611472Z",
+      "tickers": [
+        "NYT",
+        "MSFT"
+      ],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205165",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 2-US crude stocks fall on strong refining activity and exports, EIA says",
+      "publishedAt": "2026-09-02T14:51:31.882885Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205164",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Russia's Udokan launches copper cathode production after fire-related delay",
+      "publishedAt": "2026-09-02T14:50:27.925939Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205163",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "UPDATE 1-Mexico presses US on auto, steel tariffs in meeting with Lutnick",
+      "publishedAt": "2026-09-02T14:50:26.082448Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205154",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "FOREX -Yen gains sharply against US dollar",
+      "publishedAt": "2026-09-02T14:39:38.380186Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205153",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "PRECIOUS-Gold rebounds over 1% as US dollar, yields pull back from highs",
+      "publishedAt": "2026-09-02T14:39:15.992871Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205152",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "US crude and gasoline inventories fell last week, distillates rose, EIA says",
+      "publishedAt": "2026-09-02T14:38:31.938603Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205151",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "BoC Press Conference w/ Gov. Macklem",
+      "publishedAt": "2026-09-02T14:32:08.550834Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "205150",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "EIA Distillate Inventories Actual 0.796M (Forecast -1.5M, Previous -2.228M)",
+      "publishedAt": "2026-09-02T14:31:08.328349Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
+    {
+      "id": "205146",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "US STOCKS-S&P 500, Dow rise as AI boost counters US-Iran tensions",
+      "publishedAt": "2026-09-02T14:30:35.253970Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205144",
+      "source": "Reuters",
+      "sourceSlug": "reuters",
+      "title": "Rise in US factory orders beats expectations in July",
+      "publishedAt": "2026-09-02T14:27:30.148164Z",
+      "tickers": [],
+      "headlineOnly": false,
+      "url": null
+    },
+    {
+      "id": "205142",
+      "source": "Financial Juice",
+      "sourceSlug": "financial-juice",
+      "title": "US Secretary of State Rubio: I hope we can get back to the original deal with Canada.",
+      "publishedAt": "2026-09-02T14:27:08.995276Z",
+      "tickers": [],
+      "headlineOnly": true,
+      "url": null
+    },
     {
       "id": "205140",
       "source": "Financial Juice",
@@ -35,10 +699,11 @@
       "id": "205137",
       "source": "Reuters",
       "sourceSlug": "reuters",
-      "title": "UPDATE 1-Ethiopian Airlines nears Boeing cargo plane order, sources say",
+      "title": "UPDATE 2-Ethiopian Airlines nears Boeing cargo plane order, sources say",
       "publishedAt": "2026-09-02T14:15:23.455857Z",
       "tickers": [
-        "BA"
+        "BA",
+        "AER"
       ],
       "headlineOnly": false,
       "url": null
@@ -57,7 +722,7 @@
       "id": "205133",
       "source": "Reuters",
       "sourceSlug": "reuters",
-      "title": "UPDATE 1-Europe may accelerate space launches to meet satellite demand",
+      "title": "UPDATE 2-Europe may accelerate space launches to meet satellite demand",
       "publishedAt": "2026-09-02T14:11:33.428942Z",
       "tickers": [
         "AMZN"
@@ -290,7 +955,7 @@
       "id": "205109",
       "source": "Reuters",
       "sourceSlug": "reuters",
-      "title": "UPDATE 1-Bank of Canada keeps its policy rate at 2.25%, says tariffs could hit growth",
+      "title": "UPDATE 3-Bank of Canada holds key rate, says multiple hikes might be needed",
       "publishedAt": "2026-09-02T13:50:22.015835Z",
       "tickers": [],
       "headlineOnly": false,
@@ -4144,36 +4809,6 @@
       "url": null
     },
     {
-      "id": "204194",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "U.S. TREASURY'S BROWNE: THERE ARE DIFFERENCES BETWEEN TRADE SURPLUS COUNTRIES AND DEFICIT COUNTRIES ON CHALLENGES POSED BY GLOBAL IMBALANCES",
-      "publishedAt": "2026-09-01T19:29:33.586387Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "204193",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "U.S. TREASURY UNDERSECRETARY ERIN BROWNE SAYS G20 COUNTRIES ARE WORKING HARD ON JOINT COMMUNIQUE BUT IT MUST REFLECT U.S. INTERESTS-REUTERS INTERVIEW",
-      "publishedAt": "2026-09-01T19:29:26.442224Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "204189",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "CORRECTED-AT LEAST TWO KILLED, SEVERAL INJURED AT WEDDING NEAR IRAN'S SIRIK IN US ATTACK, DEPUTY GOVERNOR TELLS IRAN STATE TV. NO IMMEDIATE US REACTION (NOT RECATION)",
-      "publishedAt": "2026-09-01T19:23:26.586276Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
       "id": "204188",
       "source": "Financial Juice",
       "sourceSlug": "financial-juice",
@@ -4194,26 +4829,6 @@
       "url": null
     },
     {
-      "id": "204185",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "TREASURIES-US yields rise following more strikes in Iran, fanning inflation concerns",
-      "publishedAt": "2026-09-01T19:18:23.604725Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "204184",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "Shell deepens US convenience retail push with Tri Star Energy deal",
-      "publishedAt": "2026-09-01T19:11:24.414586Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
       "id": "204183",
       "source": "Financial Juice",
       "sourceSlug": "financial-juice",
@@ -4224,71 +4839,11 @@
       "url": null
     },
     {
-      "id": "204182",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "India seeks applications for remaining raw sugar import quota",
-      "publishedAt": "2026-09-01T19:06:30.036052Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
       "id": "204180",
       "source": "Financial Juice",
       "sourceSlug": "financial-juice",
       "title": "European gas futures rise to their highest since 2023.",
       "publishedAt": "2026-09-01T19:00:08.905935Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "204179",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "Israeli banks to continue working with Palestinians through 2026,",
-      "publishedAt": "2026-09-01T18:59:26.145915Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "204178",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "BANK OF ISRAEL'S ABIR: PALESTINIAN ECONOMY TOO INTERLINKED WITH ISRAEL TO SWITCH CURRENCY FROM SHEKEL",
-      "publishedAt": "2026-09-01T18:58:34.908331Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "204177",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "BANK OF ISRAEL DEPUTY GOVERNOR ABIR TO REUTERS: ISRAELI BANKS HAPOALIM AND DISCOUNT TO CONTINUE WORKING WITH PALESTINIAN BANKS UNTIL END OF 2026",
-      "publishedAt": "2026-09-01T18:58:33.158499Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "204175",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "LIVESTOCK-Cattle futures lower as screwworm restrictions lift",
-      "publishedAt": "2026-09-01T18:58:13.868044Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "204173",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "OIL FUTURES EXTEND GAINS, BRENT CRUDE UP BY 5% AS MORE US-IRAN FIGHTING STOKES SUPPLY FEARS",
-      "publishedAt": "2026-09-01T18:52:19.712068Z",
       "tickers": [],
       "headlineOnly": true,
       "url": null
@@ -4334,26 +4889,6 @@
       "url": null
     },
     {
-      "id": "204163",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UK DEPUTY FINANCE MINISTER REYNOLDS SAYS BRITAIN WILL MAINTAIN 'PRAGMATIC RELATIONSHIP' WITH CHINA ON TRADE",
-      "publishedAt": "2026-09-01T18:46:25.804465Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "204162",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UK TREASURY'S REYNOLDS: REDUCING GLOBAL IMBALANCES IS A SENSITIVE ISSUE, BRITAIN WILL NAVIGATE IT",
-      "publishedAt": "2026-09-01T18:46:22.314148Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
       "id": "204151",
       "source": "Financial Juice",
       "sourceSlug": "financial-juice",
@@ -4386,16 +4921,6 @@
       "url": null
     },
     {
-      "id": "204146",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "OIL FUTURES EXTEND GAINS, U.S CRUDE UP BY 5% AS MORE US-IRAN FIGHTING STOKES SUPPLY FEARS",
-      "publishedAt": "2026-09-01T18:24:23.493623Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
       "id": "204144",
       "source": "Financial Juice",
       "sourceSlug": "financial-juice",
@@ -4411,16 +4936,6 @@
       "sourceSlug": "financial-juice",
       "title": "Ukraine’s President Zelenskiy: Ready to pause drone strikes on Russia if allies ask.",
       "publishedAt": "2026-09-01T18:10:08.492567Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "204138",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "NEW EXPLOSIONS HEARD IN BANDAR ABBAS AND QESHNM ISLAND, BLASTS IN LAVAN ISLAND - NOURNEWS",
-      "publishedAt": "2026-09-01T18:05:22.922855Z",
       "tickers": [],
       "headlineOnly": true,
       "url": null
@@ -4456,26 +4971,6 @@
       "url": null
     },
     {
-      "id": "204132",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "BESSENT: DURABLE GROWTH REQUIRES WORLD'S ECONOMIES TO COMPETE FAIRLY, NOT ON DISTORITIVE POLICIES THAT PUSH EXCESS PRODUCTION INTO GLOBAL MARKETS",
-      "publishedAt": "2026-09-01T18:00:28.749229Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "204129",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "U.S. TREASURY'S BESSENT SAYS EXCESSIVE AND PERSISTENT TRADE IMBALANCES INHIBIT GROWTH, DEEPEN ECONOMIC VULNERABILITIES, HURT PROSPERITY - REMARKS TO G20 FINANCE LEADERS",
-      "publishedAt": "2026-09-01T18:00:12.766978Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
       "id": "204128",
       "source": "Financial Juice",
       "sourceSlug": "financial-juice",
@@ -4483,18 +4978,6 @@
       "publishedAt": "2026-09-01T17:57:08.665778Z",
       "tickers": [],
       "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "204127",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UPDATE 1-US officials defend Venezuela oil deal, say agreement part of path to democracy",
-      "publishedAt": "2026-09-01T17:55:30.129223Z",
-      "tickers": [
-        "CVX"
-      ],
-      "headlineOnly": false,
       "url": null
     },
     {
@@ -4518,18 +5001,6 @@
       "url": null
     },
     {
-      "id": "204122",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "CORRECTED-US energy chief to oversee oil deal in Venezuela on Wednesday, official says",
-      "publishedAt": "2026-09-01T17:39:10.465255Z",
-      "tickers": [
-        "CVX"
-      ],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
       "id": "204121",
       "source": "Financial Juice",
       "sourceSlug": "financial-juice",
@@ -4547,26 +5018,6 @@
       "publishedAt": "2026-09-01T17:38:07.832304Z",
       "tickers": [],
       "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "204118",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UPDATE 1-Nestle to divest mainstream supplements business for $1 billion",
-      "publishedAt": "2026-09-01T17:34:16.341595Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "204116",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "Bombardier to buy Canadian factory from supplier Mitsubishi Heavy Industries",
-      "publishedAt": "2026-09-01T17:31:26.991183Z",
-      "tickers": [],
-      "headlineOnly": false,
       "url": null
     },
     {
@@ -4592,28 +5043,6 @@
       "url": null
     },
     {
-      "id": "204109",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "CENTERPOINT ENERGY: ACTIVATED EMERGENCY OPERATIONS CENTER",
-      "publishedAt": "2026-09-01T17:25:09.019507Z",
-      "tickers": [
-        "CNP"
-      ],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "204106",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UPDATE 1-TCL sues Samsung for false advertising over 'Mini LED' televisions",
-      "publishedAt": "2026-09-01T17:24:12.358529Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
       "id": "204104",
       "source": "Financial Juice",
       "sourceSlug": "financial-juice",
@@ -4621,16 +5050,6 @@
       "publishedAt": "2026-09-01T17:20:08.566352Z",
       "tickers": [],
       "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "204103",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "CDs make a comeback, boosting US recorded music revenue",
-      "publishedAt": "2026-09-01T17:16:17.913985Z",
-      "tickers": [],
-      "headlineOnly": false,
       "url": null
     },
     {
@@ -4654,18 +5073,6 @@
       "url": null
     },
     {
-      "id": "204099",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UPDATE 2-COFCO buys two mills from Bunge to expand its Brazil sugar operation",
-      "publishedAt": "2026-09-01T17:02:23.971560Z",
-      "tickers": [
-        "BG"
-      ],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
       "id": "204098",
       "source": "Financial Juice",
       "sourceSlug": "financial-juice",
@@ -4686,93 +5093,6 @@
       "url": null
     },
     {
-      "id": "204096",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "Nestle to divest mainstream supplements business for $1 billion",
-      "publishedAt": "2026-09-01T16:59:14.777431Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "204095",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UPDATE 1-Ukraine's Fedorov says Palantir CEO will be first major investor in new defense company",
-      "publishedAt": "2026-09-01T16:58:38.400885Z",
-      "tickers": [
-        "PLTR"
-      ],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "204092",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UPDATE 1-US military says it is striking targets in Iran",
-      "publishedAt": "2026-09-01T16:43:41.983858Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "204090",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UPDATE 2-China's Xi lands in Egypt as Iran war reshapes Middle East alliances",
-      "publishedAt": "2026-09-01T16:38:29.733621Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "204089",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "Coal India unit Mahanadi Coalfields files for IPO",
-      "publishedAt": "2026-09-01T16:38:10.634389Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "204087",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "US LNG exports rise in August as Europe snaps up cargoes ahead of winter",
-      "publishedAt": "2026-09-01T16:37:40.912797Z",
-      "tickers": [
-        "LNG",
-        "VG"
-      ],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "204086",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UPDATE 2-Europe's STOXX 600 hits one-month low as inflation, rising yields pressure markets",
-      "publishedAt": "2026-09-01T16:36:41.317293Z",
-      "tickers": [
-        "NVS"
-      ],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "204085",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "RPT-INDIA'S MAHANADI COALFIELDS LIMITED FILES FOR IPO - DRAFT PROSPECTUS",
-      "publishedAt": "2026-09-01T16:36:30.937330Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
       "id": "204084",
       "source": "Financial Juice",
       "sourceSlug": "financial-juice",
@@ -4780,36 +5100,6 @@
       "publishedAt": "2026-09-01T16:36:08.236860Z",
       "tickers": [],
       "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "204083",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "GLOBAL MARKETS-Bond yields rise as oil prices fan inflation fears; stocks slip",
-      "publishedAt": "2026-09-01T16:34:36.477215Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "204082",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "SPOT PALLADIUM FALLS 3% TO $1,315.63/OZ",
-      "publishedAt": "2026-09-01T16:33:30.035002Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "204081",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "US striking Iranian targets around Strait of Hormuz, Axios reports",
-      "publishedAt": "2026-09-01T16:32:20.436906Z",
-      "tickers": [],
-      "headlineOnly": false,
       "url": null
     },
     {
@@ -4823,48 +5113,6 @@
       "url": null
     },
     {
-      "id": "204077",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UPDATE 2-Bank of Israel cuts rates for third straight meeting as inflation stays low",
-      "publishedAt": "2026-09-01T16:19:09.944838Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "204076",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "China's Xi arrives in Cairo for Egypt state visit, Xinhua reports",
-      "publishedAt": "2026-09-01T16:16:36.562778Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "204075",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UPDATE 2-Bessent urges BOJ chief to conduct 'sound' policy to avoid yen volatility",
-      "publishedAt": "2026-09-01T16:15:31.502820Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "204074",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "London midcaps lead losses as rising gilt yields weigh; Reckitt gains",
-      "publishedAt": "2026-09-01T16:14:21.293074Z",
-      "tickers": [
-        "BMY"
-      ],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
       "id": "204072",
       "source": "Financial Juice",
       "sourceSlug": "financial-juice",
@@ -4872,66 +5120,6 @@
       "publishedAt": "2026-09-01T16:09:07.949064Z",
       "tickers": [],
       "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "204071",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "US STOCKS-Wall St kicks off September under pressure as higher yields, oil prices weigh",
-      "publishedAt": "2026-09-01T16:07:12.422492Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "204070",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "PRECIOUS-Gold falls to two-week low as rising Treasury yields, dollar weigh",
-      "publishedAt": "2026-09-01T16:06:17.138812Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "204069",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "US pushes G20 to cut trade imbalances, focus on China",
-      "publishedAt": "2026-09-01T16:02:37.699046Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "204068",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "Further Israel rate cuts possible if inflation stays low, central banker says",
-      "publishedAt": "2026-09-01T16:00:40.101950Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "204067",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "TREASURIES-US yields ease from highs after data as Iran war escalation fans inflation concerns",
-      "publishedAt": "2026-09-01T15:54:22.724683Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
-      "id": "204066",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "GRAINS-Chicago wheat hits multi-year peak on Russia's Black Sea attacks",
-      "publishedAt": "2026-09-01T15:53:12.149885Z",
-      "tickers": [],
-      "headlineOnly": false,
       "url": null
     },
     {
@@ -4945,16 +5133,6 @@
       "url": null
     },
     {
-      "id": "204063",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "EMERGING MARKETS-Brazil stocks lead Latam gains as Middle East tensions drive oil, yields higher",
-      "publishedAt": "2026-09-01T15:46:24.455386Z",
-      "tickers": [],
-      "headlineOnly": false,
-      "url": null
-    },
-    {
       "id": "204062",
       "source": "Financial Juice",
       "sourceSlug": "financial-juice",
@@ -4962,16 +5140,6 @@
       "publishedAt": "2026-09-01T15:46:08.602814Z",
       "tickers": [],
       "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "204058",
-      "source": "Reuters",
-      "sourceSlug": "reuters",
-      "title": "UPDATE 1-Euro zone yields hit multi-year highs as inflation data cements September rate expectations",
-      "publishedAt": "2026-09-01T15:43:44.353739Z",
-      "tickers": [],
-      "headlineOnly": false,
       "url": null
     },
     {
@@ -6074,148 +6242,6 @@
       "sourceSlug": "financial-juice",
       "title": "Japan firms: apr-jun sales rise 5.9% year/year - mof",
       "publishedAt": "2026-08-31T23:51:08.904632Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "203302",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "S.Korea Blue House: Policy adviser Kim Yong-beom steps down",
-      "publishedAt": "2026-08-31T23:51:08.904573Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "203294",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Possible air threat over, Latvian armed forces on X",
-      "publishedAt": "2026-08-31T23:34:09.397423Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "203287",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Nvidia to supply chips for Texas data center, hold lease under Anthropic agreement - WSJ",
-      "publishedAt": "2026-08-31T23:28:08.783258Z",
-      "tickers": [
-        "NVDA"
-      ],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "203285",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Anthropic inks $35 billion cloud agreement supported by Nvidia - WSJ",
-      "publishedAt": "2026-08-31T23:27:08.502324Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "203284",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Explosions heard in Ukraine's Kyiv: source witness",
-      "publishedAt": "2026-08-31T23:26:07.991068Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "203280",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Nato Baltic air patrol jets activated: Latvian armed forces on X",
-      "publishedAt": "2026-08-31T23:09:08.844016Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "203276",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Australian Manufacturing PMI Final Actual 52 (Forecast -, Previous 52.0)",
-      "publishedAt": "2026-08-31T23:01:08.730247Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "203273",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "UKMTO: No casualties or environmental damage reported",
-      "publishedAt": "2026-08-31T22:56:08.187167Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "203267",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Bessent told Siluanov on G20 sidelines: no deals with Russia possible until war ends - source",
-      "publishedAt": "2026-08-31T22:51:10.193788Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "203259",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "U.S. State Department approves possible $800 million helicopter sale to Iraq",
-      "publishedAt": "2026-08-31T22:39:08.620815Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "203252",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "UK Chancellor Healey doubles maximum penalty for sanctions breaches to 100%: UK Treasury",
-      "publishedAt": "2026-08-31T22:15:09.161919Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "203247",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Trump: Congress should approve tax breaks for entertainment sector",
-      "publishedAt": "2026-08-31T22:12:09.590374Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "203240",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "US Army Secretary Driscoll tenders resignation, source says",
-      "publishedAt": "2026-08-31T22:01:10.005942Z",
-      "tickers": [],
-      "headlineOnly": true,
-      "url": null
-    },
-    {
-      "id": "203211",
-      "source": "Financial Juice",
-      "sourceSlug": "financial-juice",
-      "title": "Iranian media: Saudi oil tanker halted while transiting southern Strait of Hormuz corridor; no confirmation from Saudi Arabia",
-      "publishedAt": "2026-08-31T21:09:08.565184Z",
       "tickers": [],
       "headlineOnly": true,
       "url": null
