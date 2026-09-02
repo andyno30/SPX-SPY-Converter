@@ -2,15 +2,6 @@ name: Update SPY Options
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - ".github/workflows/update-spy-options.yml"
-      - "scripts/sync_saveticker_direct.py"
-      - "scripts/requirements-saveticker.txt"
-  schedule:
-    # GitHub cron uses UTC. Stagger away from the busiest quarter-hour boundaries.
-    # This covers the broad U.S. market-session window at 15-minute intervals.
-    - cron: "8,23,38,53 13-21 * * 1-5"
 
 permissions:
   contents: write
