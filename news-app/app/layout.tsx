@@ -3,6 +3,7 @@ import { Manrope } from "next/font/google";
 import type { ReactNode } from "react";
 
 import "@/app/globals.css";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -31,7 +32,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={manrope.variable}>{children}</body>
+      <body className={manrope.variable}>
+        {children}
+        <GoogleAnalytics />
+      </body>
     </html>
   );
 }
