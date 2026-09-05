@@ -72,10 +72,18 @@
             if (!requestedReturnTo) return null;
             try {
                 const target = new URL(requestedReturnTo);
+                const optionsTickers = new Set([
+                    'SPY', 'QQQ', 'IWM', 'AAPL', 'META', 'AMZN', 'MSFT', 'GOOG',
+                    'GOOGL', 'NVDA', 'TSLA', 'AMD', 'TLT', 'MU', 'SNDK', 'SNAP', 'XYZ',
+                ]);
                 const isNews = target.origin === 'https://news.spyconverter.com' && target.pathname === '/news';
                 const isAccountPage = target.origin === 'https://spyconverter.com'
                     && ['/docs/settings.html', '/docs/dashboard.html'].includes(target.pathname);
-                return isNews || isAccountPage ? target.toString() : null;
+                const optionsTicker = (target.searchParams.get('ticker') || 'SPY').toUpperCase();
+                const isOptionsPage = target.origin === 'https://spyconverter.com'
+                    && target.pathname === '/options/'
+                    && optionsTickers.has(optionsTicker);
+                return isNews || isAccountPage || isOptionsPage ? target.toString() : null;
             } catch {
                 return null;
             }

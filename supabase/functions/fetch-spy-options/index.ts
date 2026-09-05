@@ -1,17 +1,69 @@
 /// <reference lib="deno.ns" />
 
+import { createClient } from "npm:@supabase/supabase-js@2";
 import { fetchSaveTickerJson } from "../_shared/saveticker.ts";
 
-const API_URL = "https://saveticker.com/api/stocks/api/v1/tickers/SPY/options";
-const REFERER = "https://saveticker.com/company/SPY";
-const STATIC_FALLBACK_URL =
+const PROJECT_URL = Deno.env.get("PROJECT_URL")!;
+const SERVICE_ROLE_KEY = Deno.env.get("SERVICE_ROLE_KEY")!;
+const supabase = createClient(PROJECT_URL, SERVICE_ROLE_KEY, {
+  auth: { persistSession: false, autoRefreshToken: false },
+});
+
+const PUBLIC_TICKER = "SPY";
+const ALLOWED_TICKERS = new Set([
+  "SPY",
+  "QQQ",
+  "IWM",
+  "AAPL",
+  "META",
+  "AMZN",
+  "MSFT",
+  "GOOG",
+  "GOOGL",
+  "NVDA",
+  "TSLA",
+  "AMD",
+  "TLT",
+  "MU",
+  "SNDK",
+  "SNAP",
+  "XYZ",
+]);
+const SPY_STATIC_FALLBACK_URL =
   "https://raw.githubusercontent.com/andyno30/SPX-SPY-Converter/main/data/spy-options.json";
 
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET,OPTIONS",
-  "Access-Control-Allow-Headers": "authorization, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
+
+function tickerFromRequest(req: Request): string | null {
+  const ticker = new URL(req.url).searchParams.get("ticker")?.trim().toUpperCase() || PUBLIC_TICKER;
+  return ALLOWED_TICKERS.has(ticker) ? ticker : null;
+}
+
+async function hasProAccess(req: Request): Promise<"allowed" | "missing-auth" | "pro-required"> {
+  const authorization = req.headers.get("authorization") || "";
+  const token = authorization.match(/^Bearer\s+(.+)$/i)?.[1];
+  if (!token) return "missing-auth";
+
+  const { data: { user }, error: userError } = await supabase.auth.getUser(token);
+  if (userError || !user) return "missing-auth";
+
+  const { data: profile, error: profileError } = await supabase
+    .from("profiles")
+    .select("is_subscribed")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  if (profileError) {
+    console.error("Options subscription lookup failed.", profileError.message);
+    return "pro-required";
+  }
+
+  return profile?.is_subscribed ? "allowed" : "pro-required";
+}
 
 function compactNumber(value: unknown): string | null {
   if (value === null || value === undefined) return null;
@@ -47,13 +99,13 @@ function relativeVolume(data: Record<string, any>, window: "d3" | "d7" | "d30"):
   return Number.isFinite(fallback) ? Math.round(fallback * 1_000) / 10 : null;
 }
 
-function validateSourcePayload(value: unknown): asserts value is Record<string, any> {
+function validateSourcePayload(value: unknown, ticker: string): asserts value is Record<string, any> {
   if (!value || typeof value !== "object" || Array.isArray(value)) {
     throw new Error("SaveTicker returned a non-object options payload.");
   }
 
   const data = value as Record<string, any>;
-  if (data.symbol !== undefined && data.symbol !== "SPY") {
+  if (data.symbol !== undefined && data.symbol !== ticker) {
     throw new Error("SaveTicker returned options for an unexpected symbol.");
   }
 
@@ -81,11 +133,11 @@ function validateSourcePayload(value: unknown): asserts value is Record<string, 
   }
 }
 
-function normalize(data: Record<string, any>): Record<string, unknown> {
+function normalize(data: Record<string, any>, ticker: string): Record<string, unknown> {
   const netGex = data.gammaPer1Pct;
 
   return {
-    symbol: data.symbol || "SPY",
+    symbol: data.symbol || ticker,
     source: "Unusual Whales",
     sourceUpdatedAt: data.snapshotUpdatedAt || data.batchUpdatedAt || null,
     fetchedAt: new Date().toISOString(),
@@ -126,28 +178,58 @@ function normalize(data: Record<string, any>): Record<string, unknown> {
   };
 }
 
-function jsonResponse(body: unknown, status = 200, extraHeaders: Record<string, string> = {}): Response {
+function jsonResponse(
+  body: unknown,
+  status = 200,
+  extraHeaders: Record<string, string> = {},
+  isPrivate = false,
+): Response {
   return new Response(JSON.stringify(body), {
     status,
     headers: {
       ...CORS_HEADERS,
       "Content-Type": "application/json; charset=utf-8",
-      "Cache-Control": "public, max-age=60, s-maxage=60, stale-while-revalidate=300",
+      "Cache-Control": isPrivate
+        ? "private, no-store"
+        : "public, max-age=60, s-maxage=60, stale-while-revalidate=300",
+      "Vary": "Authorization",
       ...extraHeaders,
     },
   });
 }
 
-async function staticFallback(): Promise<Response> {
-  const response = await fetch(STATIC_FALLBACK_URL, {
+async function spyStaticFallback(): Promise<Record<string, unknown>> {
+  const response = await fetch(SPY_STATIC_FALLBACK_URL, {
     cache: "no-store",
     signal: AbortSignal.timeout(10_000),
     headers: { Accept: "application/json" },
   });
   if (!response.ok) throw new Error(`Static options fallback returned HTTP ${response.status}.`);
 
-  const payload = await response.json();
-  return jsonResponse(payload, 200, { "X-SpyConverter-Data-Source": "static-fallback" });
+  return await response.json();
+}
+
+async function savePrivateCache(ticker: string, payload: Record<string, unknown>): Promise<void> {
+  const { error } = await supabase.from("options_cache").upsert({
+    ticker,
+    payload,
+    source_updated_at: payload.sourceUpdatedAt || null,
+    fetched_at: new Date().toISOString(),
+  });
+  if (error) console.error(`Could not cache ${ticker} options.`, error.message);
+}
+
+async function privateCacheFallback(ticker: string): Promise<Record<string, unknown>> {
+  const { data, error } = await supabase
+    .from("options_cache")
+    .select("payload")
+    .eq("ticker", ticker)
+    .maybeSingle();
+
+  if (error || !data?.payload) {
+    throw new Error(`No private ${ticker} options cache is available.`);
+  }
+  return data.payload as Record<string, unknown>;
 }
 
 Deno.serve(async (req) => {
@@ -158,22 +240,77 @@ Deno.serve(async (req) => {
     return jsonResponse({ error: "Method Not Allowed" }, 405);
   }
 
+  const ticker = tickerFromRequest(req);
+  if (!ticker) {
+    return jsonResponse({ error: "Unsupported options ticker." }, 400);
+  }
+
+  const isPremiumTicker = ticker !== PUBLIC_TICKER;
+  if (isPremiumTicker) {
+    const access = await hasProAccess(req);
+    if (access === "missing-auth") {
+      return jsonResponse(
+        { error: "Sign in to access this options ticker.", code: "AUTH_REQUIRED" },
+        401,
+        {},
+        true,
+      );
+    }
+    if (access === "pro-required") {
+      return jsonResponse(
+        { error: "SpyConverter Pro is required for this options ticker.", code: "PRO_REQUIRED" },
+        403,
+        {},
+        true,
+      );
+    }
+  }
+
+  const apiUrl = `https://saveticker.com/api/stocks/api/v1/tickers/${ticker}/options`;
+  const referer = `https://saveticker.com/company/${ticker}`;
+
   try {
-    const payload = await fetchSaveTickerJson(API_URL, REFERER);
-    validateSourcePayload(payload);
-    return jsonResponse(normalize(payload), 200, {
-      "X-SpyConverter-Data-Source": "saveticker-live",
-    });
+    const payload = await fetchSaveTickerJson(apiUrl, referer);
+    validateSourcePayload(payload, ticker);
+    const normalized = normalize(payload, ticker);
+    await savePrivateCache(ticker, normalized);
+    return jsonResponse(
+      normalized,
+      200,
+      {
+        "X-SpyConverter-Data-Source": "saveticker-live",
+        "X-SpyConverter-Ticker": ticker,
+      },
+      isPremiumTicker,
+    );
   } catch (error) {
     console.error(
-      "Live SaveTicker options fetch failed; using the static fallback.",
+      `Live SaveTicker ${ticker} options fetch failed; using the cache fallback.`,
       error instanceof Error ? error.message : "Unknown error",
     );
 
     try {
-      return await staticFallback();
+      const payload = isPremiumTicker
+        ? await privateCacheFallback(ticker)
+        : await spyStaticFallback();
+      return jsonResponse(
+        payload,
+        200,
+        {
+          "X-SpyConverter-Data-Source": isPremiumTicker
+            ? "private-cache"
+            : "static-fallback",
+          "X-SpyConverter-Ticker": ticker,
+        },
+        isPremiumTicker,
+      );
     } catch {
-      return jsonResponse({ error: "SPY options data is temporarily unavailable." }, 503);
+      return jsonResponse(
+        { error: `${ticker} options data is temporarily unavailable.` },
+        503,
+        {},
+        isPremiumTicker,
+      );
     }
   }
 });

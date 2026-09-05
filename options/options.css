@@ -93,6 +93,59 @@
   margin: 0;
 }
 
+.options-header-actions {
+  align-items: flex-end;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.ticker-selector {
+  color: #475467;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.75rem;
+  font-weight: 700;
+  gap: 0.3rem;
+  letter-spacing: 0.04em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.ticker-selector select {
+  appearance: auto;
+  background: #fff;
+  border: 1px solid #b9c2ce;
+  border-radius: 5px;
+  color: #222;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  min-width: 132px;
+  padding: 0.62em 2.2em 0.62em 0.8em;
+  text-transform: none;
+}
+
+.ticker-selector select:focus-visible {
+  border-color: #333;
+  outline: 2px solid rgba(51, 51, 51, 0.18);
+  outline-offset: 2px;
+}
+
+.ticker-selector small {
+  color: #667085;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  max-width: 170px;
+  text-transform: none;
+}
+
+.ticker-selector small.is-pro {
+  color: #08783e;
+}
+
 .intro {
   margin: 0.55em 0 0;
 }
@@ -378,6 +431,16 @@
   }
 
   .refresh-button {
+    width: 100%;
+  }
+
+  .options-header-actions {
+    align-items: stretch;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .ticker-selector select {
     width: 100%;
   }
 

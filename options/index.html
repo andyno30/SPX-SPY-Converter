@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Cached SPY options market metrics, including max pain, put/call ratios, volume splits, and gamma exposure levels.">
+  <meta name="description" content="Options market metrics for SPY and Pro-supported tickers, including max pain, put/call ratios, volume splits, and gamma exposure levels.">
   <link rel="canonical" href="https://spyconverter.com/options/">
   <link rel="icon" type="image/x-icon" href="../Images/favicon.ico">
   <link rel="stylesheet" href="../styles.css">
   <link rel="stylesheet" href="../docs/account-nav.css?v=20260830">
-  <link rel="stylesheet" href="options.css?v=20260902-mobile-ad">
+  <link rel="stylesheet" href="options.css?v=20260905-multi-ticker">
   <title>SPY Options Dashboard | SpyConverter</title>
   <script src="/analytics.js"></script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2918914879248661" crossorigin="anonymous"></script>
@@ -56,9 +56,34 @@
     <header class="options-header">
       <div>
         <p class="eyebrow">Cached market data</p>
-        <h1>SPY Options</h1>
+        <h1 id="options-title">SPY Options</h1>
       </div>
-      <button id="refresh-data" class="refresh-button" type="button">Refresh data</button>
+      <div class="options-header-actions">
+        <label class="ticker-selector" for="ticker-select">
+          <span>Ticker</span>
+          <select id="ticker-select" aria-label="Select an options ticker">
+            <option value="SPY">SPY</option>
+            <option value="QQQ">🔒 QQQ</option>
+            <option value="IWM">🔒 IWM</option>
+            <option value="AAPL">🔒 AAPL</option>
+            <option value="META">🔒 META</option>
+            <option value="AMZN">🔒 AMZN</option>
+            <option value="MSFT">🔒 MSFT</option>
+            <option value="GOOG">🔒 GOOG</option>
+            <option value="GOOGL">🔒 GOOGL</option>
+            <option value="NVDA">🔒 NVDA</option>
+            <option value="TSLA">🔒 TSLA</option>
+            <option value="AMD">🔒 AMD</option>
+            <option value="TLT">🔒 TLT</option>
+            <option value="MU">🔒 MU</option>
+            <option value="SNDK">🔒 SNDK</option>
+            <option value="SNAP">🔒 SNAP</option>
+            <option value="XYZ">🔒 XYZ</option>
+          </select>
+          <small id="ticker-access-label">SPY is available to everyone</small>
+        </label>
+        <button id="refresh-data" class="refresh-button" type="button">Refresh data</button>
+      </div>
     </header>
 
     <div id="load-error" class="load-error" role="alert" hidden></div>
@@ -66,7 +91,7 @@
     <section class="dashboard-card" aria-live="polite">
       <div class="dashboard-hero">
         <div>
-          <p class="metric-label">SPY reference price</p>
+          <p class="metric-label" id="reference-price-label">SPY reference price</p>
           <p class="hero-price" id="current-price">Loading…</p>
         </div>
         <div class="expiry-block">
@@ -180,7 +205,7 @@
     </div>
   </div>
 
-  <script src="options.js?v=20260902-mobile-ad"></script>
+  <script type="module" src="options.js?v=20260905-multi-ticker"></script>
   <script type="module" src="../docs/header-auth.js"></script>
 </body>
 </html>

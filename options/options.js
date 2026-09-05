@@ -1,11 +1,35 @@
-const DATA_URLS = [
-  "https://isvzhpqrmjtqnqyyidxr.supabase.co/functions/v1/fetch-spy-options",
-  "../data/spy-options.json",
+import { supabase } from "../docs/auth.js";
+
+const OPTIONS_FUNCTION_URL =
+  "https://isvzhpqrmjtqnqyyidxr.supabase.co/functions/v1/fetch-spy-options";
+const SPY_FALLBACK_URL = "../data/spy-options.json";
+const PUBLIC_TICKER = "SPY";
+const TICKERS = [
+  "SPY",
+  "QQQ",
+  "IWM",
+  "AAPL",
+  "META",
+  "AMZN",
+  "MSFT",
+  "GOOG",
+  "GOOGL",
+  "NVDA",
+  "TSLA",
+  "AMD",
+  "TLT",
+  "MU",
+  "SNDK",
+  "SNAP",
+  "XYZ",
 ];
+const TICKER_SET = new Set(TICKERS);
 const DATA_REFRESH_INTERVAL_MS = 15 * 60 * 1000;
 const SIDE_AD_MEDIA = window.matchMedia("(min-width: 1280px)");
 const $ = (id) => document.getElementById(id);
-let dataRequestInFlight = false;
+let activeTicker = PUBLIC_TICKER;
+let accessState = { session: null, isPro: false };
+let latestRequestId = 0;
 
 const hasValue = (value) => value !== null && value !== undefined && value !== "";
 
@@ -88,7 +112,12 @@ function renderSplit(label, values = {}) {
   return row;
 }
 
-function render(data) {
+function render(data, ticker) {
+  const responseTicker = String(data.symbol || ticker).toUpperCase();
+  if (responseTicker !== ticker) {
+    throw new Error(`Received ${responseTicker} data while loading ${ticker}.`);
+  }
+
   $("current-price").textContent = moneyValue(data.currentPrice);
   const expiry = dateOnly(data.nearestExpiry);
   $("nearest-expiry").textContent = hasValue(data.daysToExpiry)
@@ -117,11 +146,137 @@ function render(data) {
   $("net-gex").textContent = data.netGexFormatted || compactNumber(data.netGex);
   $("data-source").textContent = data.source || "Unusual Whales";
   $("updated-at").textContent = timestamp(data.sourceUpdatedAt || data.updatedAt || data.fetchedAt || data.asOf);
+
+  const snapshotStatus = $("snapshot-status");
+  snapshotStatus.hidden = !data.isPriorDay;
+  snapshotStatus.textContent = data.isPriorDay ? "Prior-day snapshot" : "";
 }
 
-async function loadData() {
-  if (dataRequestInFlight) return;
-  dataRequestInFlight = true;
+function requestedTicker() {
+  const ticker = new URLSearchParams(window.location.search).get("ticker")?.toUpperCase();
+  return ticker && TICKER_SET.has(ticker) ? ticker : PUBLIC_TICKER;
+}
+
+function tickerPageUrl(ticker) {
+  const url = new URL("/options/", window.location.origin);
+  if (ticker !== PUBLIC_TICKER) url.searchParams.set("ticker", ticker);
+  return url;
+}
+
+async function getAccessState() {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session?.user) return { session: null, isPro: false };
+
+  const { data: profile, error } = await supabase
+    .from("profiles")
+    .select("is_subscribed")
+    .eq("id", session.user.id)
+    .maybeSingle();
+
+  return {
+    session,
+    isPro: !error && Boolean(profile?.is_subscribed),
+  };
+}
+
+function updateTickerMenu() {
+  const tickerSelect = $("ticker-select");
+  for (const option of tickerSelect.options) {
+    const ticker = option.value;
+    const isLocked = ticker !== PUBLIC_TICKER && !accessState.isPro;
+    option.textContent = `${isLocked ? "🔒 " : ""}${ticker}`;
+  }
+
+  const accessLabel = $("ticker-access-label");
+  if (accessState.isPro) {
+    accessLabel.textContent = "All tickers unlocked with SpyConverter Pro";
+    accessLabel.classList.add("is-pro");
+  } else {
+    accessLabel.textContent = "Additional tickers require SpyConverter Pro";
+    accessLabel.classList.remove("is-pro");
+  }
+}
+
+function redirectForLockedTicker(ticker) {
+  const returnTo = tickerPageUrl(ticker).toString();
+  if (!accessState.session) {
+    window.location.assign(
+      `/docs/login.html?return_to=${encodeURIComponent(returnTo)}`,
+    );
+    return;
+  }
+  window.location.assign("/pro.html#pricing");
+}
+
+function updatePageForTicker(ticker) {
+  activeTicker = ticker;
+  $("ticker-select").value = ticker;
+  $("options-title").textContent = `${ticker} Options`;
+  $("reference-price-label").textContent = `${ticker} reference price`;
+  document.title = `${ticker} Options Dashboard | SpyConverter`;
+}
+
+function showLoadingState() {
+  $("current-price").textContent = "Loading…";
+  $("nearest-expiry").textContent = "Loading…";
+  for (const id of [
+    "max-pain",
+    "put-call-volume",
+    "put-call-open-interest",
+    "total-volume",
+    "relative-3d",
+    "relative-7d",
+    "relative-30d",
+    "call-wall",
+    "put-wall",
+    "gamma-flip",
+    "net-gex",
+  ]) {
+    $(id).textContent = "—";
+  }
+  $("splits").replaceChildren();
+  $("updated-at").textContent = "—";
+}
+
+async function fetchTickerData(ticker) {
+  const url = new URL(OPTIONS_FUNCTION_URL);
+  url.searchParams.set("ticker", ticker);
+  url.searchParams.set("ts", String(Date.now()));
+
+  const headers = { Accept: "application/json" };
+  if (ticker !== PUBLIC_TICKER) {
+    const { data: { session } } = await supabase.auth.getSession();
+    const token = session?.access_token;
+    if (!token) {
+      const error = new Error("Sign in to access this options ticker.");
+      error.code = "AUTH_REQUIRED";
+      throw error;
+    }
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  try {
+    const response = await fetch(url, { cache: "no-store", headers });
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      const error = new Error(payload.error || `HTTP ${response.status}`);
+      error.code = payload.code || "REQUEST_FAILED";
+      throw error;
+    }
+    return payload;
+  } catch (error) {
+    if (ticker !== PUBLIC_TICKER || error.code) throw error;
+  }
+
+  const fallback = await fetch(`${SPY_FALLBACK_URL}?ts=${Date.now()}`, {
+    cache: "no-store",
+  });
+  if (!fallback.ok) throw new Error(`HTTP ${fallback.status}`);
+  return await fallback.json();
+}
+
+async function loadData(ticker = activeTicker) {
+  const requestId = ++latestRequestId;
 
   const refresh = $("refresh-data");
   const error = $("load-error");
@@ -129,31 +284,25 @@ async function loadData() {
   refresh.textContent = "Loading…";
 
   try {
-    let data = null;
-    let lastError = new Error("No SPY options source was available.");
-
-    for (const url of DATA_URLS) {
-      try {
-        const separator = url.includes("?") ? "&" : "?";
-        const response = await fetch(`${url}${separator}ts=${Date.now()}`, { cache: "no-store" });
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        data = await response.json();
-        break;
-      } catch (reason) {
-        lastError = reason;
-      }
-    }
-
-    if (!data) throw lastError;
-    render(data);
+    const data = await fetchTickerData(ticker);
+    if (requestId !== latestRequestId || ticker !== activeTicker) return;
+    render(data, ticker);
     error.hidden = true;
   } catch (reason) {
-    error.textContent = `Could not load the latest cached SPY options data: ${reason.message}`;
+    if (requestId !== latestRequestId) return;
+    if (reason.code === "AUTH_REQUIRED" || reason.code === "PRO_REQUIRED") {
+      accessState = await getAccessState();
+      updateTickerMenu();
+      redirectForLockedTicker(ticker);
+      return;
+    }
+    error.textContent = `Could not load the latest ${ticker} options data: ${reason.message}`;
     error.hidden = false;
   } finally {
-    refresh.disabled = false;
-    refresh.textContent = "Refresh data";
-    dataRequestInFlight = false;
+    if (requestId === latestRequestId) {
+      refresh.disabled = false;
+      refresh.textContent = "Refresh data";
+    }
   }
 }
 
@@ -190,18 +339,54 @@ function toggleBottomAd() {
   toggle.setAttribute("aria-expanded", String(shouldShow));
 }
 
-$("refresh-data").addEventListener("click", loadData);
+async function selectTicker(ticker, updateHistory = true) {
+  if (ticker !== PUBLIC_TICKER && !accessState.isPro) {
+    $("ticker-select").value = activeTicker;
+    redirectForLockedTicker(ticker);
+    return;
+  }
+
+  if (updateHistory) {
+    window.history.pushState({}, "", tickerPageUrl(ticker));
+  }
+  updatePageForTicker(ticker);
+  showLoadingState();
+  await loadData(ticker);
+}
+
+async function initializeOptions() {
+  accessState = await getAccessState();
+  updateTickerMenu();
+
+  const ticker = requestedTicker();
+  if (ticker !== PUBLIC_TICKER && !accessState.isPro) {
+    redirectForLockedTicker(ticker);
+    return;
+  }
+
+  updatePageForTicker(ticker);
+  showLoadingState();
+  await loadData(ticker);
+  window.setInterval(() => void loadData(), DATA_REFRESH_INTERVAL_MS);
+}
+
+$("ticker-select").addEventListener("change", (event) => {
+  void selectTicker(event.currentTarget.value);
+});
+$("refresh-data").addEventListener("click", () => void loadData());
 $("toggle-bottom-ad").addEventListener("click", toggleBottomAd);
 SIDE_AD_MEDIA.addEventListener?.("change", initializeSideAds);
 window.addEventListener("load", () => {
   initializeSideAds();
   initializeBottomAd();
 });
-window.addEventListener("focus", loadData);
+window.addEventListener("focus", () => void loadData());
+window.addEventListener("popstate", () => {
+  void selectTicker(requestedTicker(), false);
+});
 document.addEventListener("visibilitychange", () => {
-  if (document.visibilityState === "visible") loadData();
+  if (document.visibilityState === "visible") void loadData();
 });
 initializeSideAds();
 initializeBottomAd();
-loadData();
-window.setInterval(loadData, DATA_REFRESH_INTERVAL_MS);
+void initializeOptions();
