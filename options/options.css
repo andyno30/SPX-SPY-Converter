@@ -342,6 +342,11 @@
   color: #222;
 }
 
+.dashboard-site-label {
+  color: #475467;
+  font-weight: 700;
+}
+
 .site-footer {
   margin-top: auto;
 }
@@ -421,6 +426,36 @@
     margin-top: 2.25em;
     position: relative;
     width: 160px;
+  }
+}
+
+@media (min-width: 721px) {
+  .options-header {
+    align-items: flex-start;
+  }
+
+  .options-header-actions {
+    align-items: center;
+    background: #fff;
+    border: 1px solid #dfe3e8;
+    border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(31, 35, 41, 0.06);
+    gap: 1rem;
+    padding: 0.8rem 0.9rem 0.7rem;
+  }
+
+  .ticker-selector select {
+    min-width: 180px;
+    width: 100%;
+  }
+
+  .ticker-selector small {
+    max-width: none;
+    white-space: nowrap;
+  }
+
+  .refresh-button {
+    min-height: 41px;
   }
 }
 

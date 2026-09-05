@@ -146,10 +146,6 @@ function render(data, ticker) {
   $("net-gex").textContent = data.netGexFormatted || compactNumber(data.netGex);
   $("data-source").textContent = data.source || "Unusual Whales";
   $("updated-at").textContent = timestamp(data.sourceUpdatedAt || data.updatedAt || data.fetchedAt || data.asOf);
-
-  const snapshotStatus = $("snapshot-status");
-  snapshotStatus.hidden = !data.isPriorDay;
-  snapshotStatus.textContent = data.isPriorDay ? "Prior-day" : "";
 }
 
 function requestedTicker() {
