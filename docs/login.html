@@ -27,7 +27,7 @@
                     <a href="https://spyconverter.com/relationship.html">Relationship</a>
                 </div>
             </li>
-            <li><a href="#auth-section">Log in</a></li>
+            <li><a href="#auth-section" data-auth-link>Log in</a></li>
         </ul>
     </nav>
 
@@ -88,24 +88,47 @@
           return null;
         }
       })();
+      const dashboardUrl = `${window.location.origin}/docs/dashboard.html`;
+      const isOptionsReturnTo = (() => {
+        if (!safeReturnTo) return false;
+        const target = new URL(safeReturnTo);
+        return target.origin === 'https://spyconverter.com' && target.pathname === '/options/';
+      })();
 
       window.goToSignup = function goToSignup() {
         const suffix = safeReturnTo ? `?return_to=${encodeURIComponent(safeReturnTo)}` : '';
         window.location.href = `register.html${suffix}`;
       };
 
-      async function returnWithSession() {
+      async function returnWithSession(existingSession = null) {
         if (!safeReturnTo) {
-          window.location.href = 'dashboard.html';
+          window.location.replace('dashboard.html');
           return;
         }
 
-        const { data: { session } } = await supabase.auth.getSession();
+        let session = existingSession;
+        if (!session) {
+          const { data } = await supabase.auth.getSession();
+          session = data.session;
+        }
         if (!session) throw new Error('The login session could not be created.');
 
         const target = new URL(safeReturnTo);
+        if (isOptionsReturnTo) {
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('is_subscribed')
+            .eq('id', session.user.id)
+            .maybeSingle();
+
+          if (profile?.is_subscribed) {
+            window.location.replace(dashboardUrl);
+            return;
+          }
+        }
+
         if (target.origin === 'https://spyconverter.com') {
-          window.location.href = target.toString();
+          window.location.replace(target.toString());
           return;
         }
         target.hash = new URLSearchParams({
@@ -114,7 +137,7 @@
           expires_in: String(session.expires_in || 3600),
           token_type: session.token_type || 'bearer',
         }).toString();
-        window.location.href = target.toString();
+        window.location.replace(target.toString());
       }
 
       // Email/password login (keeps your function name)
@@ -134,10 +157,10 @@
         feedback.textContent = '';
 
         try {
-          await signIn(email, password);
+          const authData = await signIn(email, password);
           loginStatus.style.display = 'none';
           alert('Login successful! Redirecting...');
-          setTimeout(() => void returnWithSession(), 500);
+          await returnWithSession(authData.session);
         } catch (err) {
           loginStatus.style.display = 'none';
           feedback.textContent = err.message || 'Login failed';
@@ -148,12 +171,13 @@
       window.googleLoginSignup = async function googleLoginSignup() {
         const feedback = document.getElementById('feedback');
         try {
-          await signInWithGoogle(safeReturnTo || `${window.location.origin}/docs/dashboard.html`);
+          await signInWithGoogle(isOptionsReturnTo ? dashboardUrl : (safeReturnTo || dashboardUrl));
           // Supabase handles the redirect automatically
         } catch (err) {
           feedback.textContent = err.message || 'Google login failed';
         }
       };
     </script>
+    <script type="module" src="header-auth.js"></script>
 </body>
 </html>

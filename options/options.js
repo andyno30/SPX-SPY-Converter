@@ -149,7 +149,7 @@ function render(data, ticker) {
 
   const snapshotStatus = $("snapshot-status");
   snapshotStatus.hidden = !data.isPriorDay;
-  snapshotStatus.textContent = data.isPriorDay ? "Prior-day snapshot" : "";
+  snapshotStatus.textContent = data.isPriorDay ? "Prior-day" : "";
 }
 
 function requestedTicker() {
