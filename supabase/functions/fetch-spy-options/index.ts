@@ -10,6 +10,7 @@ const supabase = createClient(PROJECT_URL, SERVICE_ROLE_KEY, {
 });
 
 const PUBLIC_TICKER = "SPY";
+const GLOBAL_REFRESH_INTERVAL_SECONDS = 15 * 60;
 const ALLOWED_TICKERS = new Set([
   "SPY",
   "QQQ",
@@ -215,21 +216,98 @@ async function savePrivateCache(ticker: string, payload: Record<string, unknown>
     payload,
     source_updated_at: payload.sourceUpdatedAt || null,
     fetched_at: new Date().toISOString(),
+    refresh_started_at: null,
   });
   if (error) console.error(`Could not cache ${ticker} options.`, error.message);
 }
 
-async function privateCacheFallback(ticker: string): Promise<Record<string, unknown>> {
+interface OptionsCacheRecord {
+  payload: Record<string, unknown> | null;
+  fetched_at: string | null;
+  last_attempted_at: string | null;
+}
+
+function validCachedPayload(
+  record: OptionsCacheRecord | null,
+  ticker: string,
+): Record<string, unknown> | null {
+  const payload = record?.payload;
+  if (!payload || typeof payload !== "object") return null;
+  return payload.symbol === ticker ? payload : null;
+}
+
+function attemptedWithinRefreshWindow(record: OptionsCacheRecord | null): boolean {
+  if (!record?.last_attempted_at) return false;
+  const attemptedAt = Date.parse(record.last_attempted_at);
+  return Number.isFinite(attemptedAt)
+    && Date.now() - attemptedAt < GLOBAL_REFRESH_INTERVAL_SECONDS * 1_000;
+}
+
+async function readPrivateCache(ticker: string): Promise<OptionsCacheRecord | null> {
   const { data, error } = await supabase
     .from("options_cache")
-    .select("payload")
+    .select("payload,fetched_at,last_attempted_at")
     .eq("ticker", ticker)
     .maybeSingle();
 
-  if (error || !data?.payload) {
-    throw new Error(`No private ${ticker} options cache is available.`);
+  if (error) {
+    console.error(`Could not read the ${ticker} options cache.`, error.message);
+    return null;
   }
-  return data.payload as Record<string, unknown>;
+  return data as OptionsCacheRecord | null;
+}
+
+async function claimOptionsRefresh(ticker: string): Promise<boolean> {
+  const { data, error } = await supabase.rpc("claim_options_refresh", {
+    p_ticker: ticker,
+    p_interval_seconds: GLOBAL_REFRESH_INTERVAL_SECONDS,
+  });
+  if (error) {
+    console.error(`Could not claim the ${ticker} options refresh.`, error.message);
+    return false;
+  }
+  return data === true;
+}
+
+async function releaseRefreshClaim(ticker: string): Promise<void> {
+  const { error } = await supabase
+    .from("options_cache")
+    .update({ refresh_started_at: null })
+    .eq("ticker", ticker);
+  if (error) console.error(`Could not release the ${ticker} refresh claim.`, error.message);
+}
+
+async function cachedResponse(
+  ticker: string,
+  record: OptionsCacheRecord | null,
+  isPremiumTicker: boolean,
+): Promise<Response> {
+  let payload = validCachedPayload(record, ticker);
+  let dataSource = "private-cache";
+
+  if (!payload && ticker === PUBLIC_TICKER) {
+    payload = await spyStaticFallback();
+    dataSource = "static-fallback";
+  }
+  if (!payload) {
+    return jsonResponse(
+      { error: `${ticker} options data is temporarily unavailable.` },
+      503,
+      {},
+      isPremiumTicker,
+    );
+  }
+
+  return jsonResponse(
+    payload,
+    200,
+    {
+      "X-SpyConverter-Data-Source": dataSource,
+      "X-SpyConverter-Ticker": ticker,
+      "X-SpyConverter-Refresh-Policy": "global-15-minute-cache",
+    },
+    isPremiumTicker,
+  );
 }
 
 Deno.serve(async (req) => {
@@ -268,6 +346,20 @@ Deno.serve(async (req) => {
 
   const apiUrl = `https://saveticker.com/api/stocks/api/v1/tickers/${ticker}/options`;
   const referer = `https://saveticker.com/company/${ticker}`;
+  const cached = await readPrivateCache(ticker);
+
+  if (attemptedWithinRefreshWindow(cached)) {
+    return await cachedResponse(ticker, cached, isPremiumTicker);
+  }
+
+  const refreshClaimed = await claimOptionsRefresh(ticker);
+  if (!refreshClaimed) {
+    return await cachedResponse(
+      ticker,
+      await readPrivateCache(ticker),
+      isPremiumTicker,
+    );
+  }
 
   try {
     const payload = await fetchSaveTickerJson(apiUrl, referer);
@@ -280,6 +372,7 @@ Deno.serve(async (req) => {
       {
         "X-SpyConverter-Data-Source": "saveticker-live",
         "X-SpyConverter-Ticker": ticker,
+        "X-SpyConverter-Refresh-Policy": "global-15-minute-cache",
       },
       isPremiumTicker,
     );
@@ -288,22 +381,10 @@ Deno.serve(async (req) => {
       `Live SaveTicker ${ticker} options fetch failed; using the cache fallback.`,
       error instanceof Error ? error.message : "Unknown error",
     );
+    await releaseRefreshClaim(ticker);
 
     try {
-      const payload = isPremiumTicker
-        ? await privateCacheFallback(ticker)
-        : await spyStaticFallback();
-      return jsonResponse(
-        payload,
-        200,
-        {
-          "X-SpyConverter-Data-Source": isPremiumTicker
-            ? "private-cache"
-            : "static-fallback",
-          "X-SpyConverter-Ticker": ticker,
-        },
-        isPremiumTicker,
-      );
+      return await cachedResponse(ticker, cached, isPremiumTicker);
     } catch {
       return jsonResponse(
         { error: `${ticker} options data is temporarily unavailable.` },

@@ -241,7 +241,6 @@ function showLoadingState() {
 async function fetchTickerData(ticker) {
   const url = new URL(OPTIONS_FUNCTION_URL);
   url.searchParams.set("ticker", ticker);
-  url.searchParams.set("ts", String(Date.now()));
 
   const headers = { Accept: "application/json" };
   if (ticker !== PUBLIC_TICKER) {
@@ -380,12 +379,8 @@ window.addEventListener("load", () => {
   initializeSideAds();
   initializeBottomAd();
 });
-window.addEventListener("focus", () => void loadData());
 window.addEventListener("popstate", () => {
   void selectTicker(requestedTicker(), false);
-});
-document.addEventListener("visibilitychange", () => {
-  if (document.visibilityState === "visible") void loadData();
 });
 initializeSideAds();
 initializeBottomAd();
