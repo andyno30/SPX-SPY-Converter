@@ -40,6 +40,8 @@ const ALLOWED_TICKERS = new Set([
   "SNDK",
   "SNAP",
   "XYZ",
+  "SKHY",
+  "SPCX",
 ]);
 const SPY_STATIC_FALLBACK_URL =
   "https://raw.githubusercontent.com/andyno30/SPX-SPY-Converter/main/data/spy-options.json";

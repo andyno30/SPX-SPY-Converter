@@ -22,6 +22,8 @@ const TICKERS = [
   "SNDK",
   "SNAP",
   "XYZ",
+  "SKHY",
+  "SPCX",
 ];
 const TICKER_SET = new Set(TICKERS);
 const DATA_REFRESH_INTERVAL_MS = 15 * 60 * 1000;
