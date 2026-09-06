@@ -25,6 +25,13 @@ const TICKERS = [
 ];
 const TICKER_SET = new Set(TICKERS);
 const DATA_REFRESH_INTERVAL_MS = 15 * 60 * 1000;
+const PACIFIC_CLOCK = new Intl.DateTimeFormat("en-US", {
+  timeZone: "America/Los_Angeles",
+  weekday: "short",
+  hour: "2-digit",
+  minute: "2-digit",
+  hourCycle: "h23",
+});
 const SIDE_AD_MEDIA = window.matchMedia("(min-width: 1280px)");
 const $ = (id) => document.getElementById(id);
 let activeTicker = PUBLIC_TICKER;
@@ -32,6 +39,18 @@ let accessState = { session: null, isPro: false };
 let latestRequestId = 0;
 
 const hasValue = (value) => value !== null && value !== undefined && value !== "";
+
+function withinPacificRefreshWindow(now = new Date()) {
+  const parts = Object.fromEntries(
+    PACIFIC_CLOCK.formatToParts(now).map(({ type, value }) => [type, value]),
+  );
+  if (!["Mon", "Tue", "Wed", "Thu", "Fri"].includes(parts.weekday)) {
+    return false;
+  }
+
+  const minutes = Number(parts.hour) * 60 + Number(parts.minute);
+  return Number.isFinite(minutes) && minutes >= 5 * 60 + 30 && minutes < 14 * 60;
+}
 
 function numberValue(value, digits = 2) {
   if (!hasValue(value) || !Number.isFinite(Number(value))) return "—";
@@ -362,7 +381,9 @@ async function initializeOptions() {
   updatePageForTicker(ticker);
   showLoadingState();
   await loadData(ticker);
-  window.setInterval(() => void loadData(), DATA_REFRESH_INTERVAL_MS);
+  window.setInterval(() => {
+    if (withinPacificRefreshWindow()) void loadData();
+  }, DATA_REFRESH_INTERVAL_MS);
 }
 
 $("ticker-select").addEventListener("change", (event) => {

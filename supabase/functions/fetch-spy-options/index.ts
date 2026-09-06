@@ -11,6 +11,17 @@ const supabase = createClient(PROJECT_URL, SERVICE_ROLE_KEY, {
 
 const PUBLIC_TICKER = "SPY";
 const GLOBAL_REFRESH_INTERVAL_SECONDS = 15 * 60;
+const PACIFIC_TIME_ZONE = "America/Los_Angeles";
+const REFRESH_WINDOW_START_MINUTES = 5 * 60 + 30;
+const REFRESH_WINDOW_END_MINUTES = 14 * 60;
+const REFRESH_POLICY = "weekdays-0530-1400-pacific-global-15-minute-cache";
+const PACIFIC_CLOCK = new Intl.DateTimeFormat("en-US", {
+  timeZone: PACIFIC_TIME_ZONE,
+  weekday: "short",
+  hour: "2-digit",
+  minute: "2-digit",
+  hourCycle: "h23",
+});
 const ALLOWED_TICKERS = new Set([
   "SPY",
   "QQQ",
@@ -42,6 +53,20 @@ const CORS_HEADERS = {
 function tickerFromRequest(req: Request): string | null {
   const ticker = new URL(req.url).searchParams.get("ticker")?.trim().toUpperCase() || PUBLIC_TICKER;
   return ALLOWED_TICKERS.has(ticker) ? ticker : null;
+}
+
+function withinPacificRefreshWindow(now = new Date()): boolean {
+  const parts = Object.fromEntries(
+    PACIFIC_CLOCK.formatToParts(now).map(({ type, value }) => [type, value]),
+  );
+  if (!["Mon", "Tue", "Wed", "Thu", "Fri"].includes(parts.weekday)) {
+    return false;
+  }
+
+  const minutes = Number(parts.hour) * 60 + Number(parts.minute);
+  return Number.isFinite(minutes)
+    && minutes >= REFRESH_WINDOW_START_MINUTES
+    && minutes < REFRESH_WINDOW_END_MINUTES;
 }
 
 async function hasProAccess(req: Request): Promise<"allowed" | "missing-auth" | "pro-required"> {
@@ -304,7 +329,7 @@ async function cachedResponse(
     {
       "X-SpyConverter-Data-Source": dataSource,
       "X-SpyConverter-Ticker": ticker,
-      "X-SpyConverter-Refresh-Policy": "global-15-minute-cache",
+      "X-SpyConverter-Refresh-Policy": REFRESH_POLICY,
     },
     isPremiumTicker,
   );
@@ -348,6 +373,10 @@ Deno.serve(async (req) => {
   const referer = `https://saveticker.com/company/${ticker}`;
   const cached = await readPrivateCache(ticker);
 
+  if (!withinPacificRefreshWindow()) {
+    return await cachedResponse(ticker, cached, isPremiumTicker);
+  }
+
   if (attemptedWithinRefreshWindow(cached)) {
     return await cachedResponse(ticker, cached, isPremiumTicker);
   }
@@ -372,7 +401,7 @@ Deno.serve(async (req) => {
       {
         "X-SpyConverter-Data-Source": "saveticker-live",
         "X-SpyConverter-Ticker": ticker,
-        "X-SpyConverter-Refresh-Policy": "global-15-minute-cache",
+        "X-SpyConverter-Refresh-Policy": REFRESH_POLICY,
       },
       isPremiumTicker,
     );
