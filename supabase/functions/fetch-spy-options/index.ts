@@ -374,8 +374,12 @@ Deno.serve(async (req) => {
   const apiUrl = `https://saveticker.com/api/stocks/api/v1/tickers/${ticker}/options`;
   const referer = `https://saveticker.com/company/${ticker}`;
   const cached = await readPrivateCache(ticker);
+  const hasCachedPayload = Boolean(validCachedPayload(cached, ticker));
 
-  if (!withinPacificRefreshWindow()) {
+  // Outside the normal market refresh window, keep serving the last-known-good
+  // data. A newly added premium ticker gets one globally claimed fetch so its
+  // cache can be seeded instead of remaining unavailable until the next weekday.
+  if (!withinPacificRefreshWindow() && (hasCachedPayload || ticker === PUBLIC_TICKER)) {
     return await cachedResponse(ticker, cached, isPremiumTicker);
   }
 
