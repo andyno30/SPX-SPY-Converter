@@ -8,6 +8,9 @@ export function LegacySiteHeader() {
     <div className="legacy-header-container">
       <nav className="legacy-nav">
         <a href="https://spyconverter.com/index.html" className="legacy-logo">
+          <span className="legacy-logo-mark" aria-hidden="true">
+            <img src="https://spyconverter.com/Images/spyconverter-logo.png" alt="" width="60" height="34" />
+          </span>
           <h4>spyconverter.com</h4>
         </a>
         <ul className="legacy-nav-links">

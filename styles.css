@@ -23,8 +23,35 @@ body {
   }
   
   .logo {
+    align-items: center;
     color: white;
+    display: inline-flex;
+    flex: 0 0 auto;
+    gap: 0.65rem;
     text-decoration: none;
+  }
+
+  .logo h4 {
+    margin: 0;
+  }
+
+  .site-logo-mark {
+    background: #000;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 7px;
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.24);
+    display: grid;
+    height: 34px;
+    overflow: hidden;
+    place-items: center;
+    width: 60px;
+  }
+
+  .site-logo-mark img {
+    display: block;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
   }
   
   .nav-links {
@@ -266,12 +293,5 @@ body {
 }
 
 .logo {
-  display: inline-block;
   padding: 5px; /* Adjust as needed */
-}
-
-/* Optionally, you can adjust the size of the logo image */
-.logo img {
-  width: 150px; /* Adjust the width as needed */
-  height: auto; /* Maintain aspect ratio */
 }

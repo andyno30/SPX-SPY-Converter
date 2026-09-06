@@ -32,8 +32,36 @@
             box-sizing: border-box;
         }
 
+        .logo {
+            align-items: center;
+            color: #fff;
+            display: inline-flex;
+            flex: 0 0 auto;
+            gap: 0.65rem;
+            text-decoration: none;
+        }
+
         .logo h4 {
             margin: 0;
+        }
+
+        .site-logo-mark {
+            background: #000;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 7px;
+            box-shadow: 0 5px 14px rgba(0, 0, 0, 0.24);
+            display: grid;
+            height: 34px;
+            overflow: hidden;
+            place-items: center;
+            width: 60px;
+        }
+
+        .site-logo-mark img {
+            display: block;
+            height: 100%;
+            object-fit: cover;
+            width: 100%;
         }
 
         .nav-links {
@@ -194,7 +222,7 @@
 <body>
 
     <nav>
-
+        <a href="index.html" class="logo"><span class="site-logo-mark" aria-hidden="true"><img src="Images/spyconverter-logo.png" alt="" width="60" height="34"></span><h4>spyconverter.com</h4></a>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="https://news.spyconverter.com/news">News</a></li>

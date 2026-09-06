@@ -43,7 +43,11 @@ a {
 }
 
 .legacy-logo {
+  align-items: center;
   color: #fff;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 0.65rem;
   text-decoration: none;
 }
 
@@ -51,6 +55,25 @@ a {
   margin: 0;
   font-size: 1rem;
   font-weight: 700;
+}
+
+.legacy-logo-mark {
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 7px;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.24);
+  display: grid;
+  height: 34px;
+  overflow: hidden;
+  place-items: center;
+  width: 60px;
+}
+
+.legacy-logo-mark img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
 }
 
 .legacy-nav-links {

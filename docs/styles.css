@@ -28,15 +28,45 @@
   }
   
   .logo {
+    align-items: center;
     color: white;
     text-decoration: none;
-    display: inline-block;
+    display: inline-flex;
+    flex: 0 0 auto;
+    gap: 0.65rem;
     padding: 5px;
+  }
+
+  .logo h4 {
+    margin: 0;
   }
   
   .logo img {
     width: 150px;
     height: auto;
+  }
+
+  .site-logo-mark {
+    background: #000;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 7px;
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.24);
+    display: grid;
+    height: 34px;
+    overflow: hidden;
+    place-items: center;
+    width: 60px;
+  }
+
+  .logo .site-logo-mark img {
+    display: block;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  .brand-only-nav {
+    justify-content: flex-start;
   }
   
   .nav-links {
@@ -290,6 +320,33 @@
     .pro-feature-buttons #premium-feature-btn,
     .pro-feature-buttons #dow-russell-feature-btn {
         min-height: 62px;
+    }
+  }
+
+  @media (max-width: 700px) {
+    nav {
+      align-items: stretch;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    nav .logo {
+      align-self: flex-start;
+    }
+
+    .nav-links {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 0.9rem;
+      justify-content: space-between;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+    }
+
+    .nav-links li {
+      margin-left: 0;
     }
   }
   
