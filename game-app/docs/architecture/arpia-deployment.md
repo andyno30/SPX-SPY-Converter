@@ -13,13 +13,17 @@ One repository: `andyno30/SPX-SPY-Converter`. All game code, content, documentat
 | spyconverter-news | andyno30/SPX-SPY-Converter | news-app | Existing, unchanged |
 | spyconverter-game | andyno30/SPX-SPY-Converter | game-app | Live hosting preview; see verification report |
 
-Game project ID: `prj_DdSykPQqzmA4O0sazFSA0Xru0ZQ3`. Generated public origin: `https://project-6mpze.vercel.app`; use `/game`. The existing GitHub integration is connected; the main branch remains the eventual production source. The initial hosting preview is deployed explicitly from the isolated game branch.
+Game project ID: `prj_DdSykPQqzmA4O0sazFSA0Xru0ZQ3`. Public origin: `https://spyconverter-game.vercel.app`; use `/game`. The owner explicitly approved this Game-only hostname rename. The existing GitHub integration is connected; the main branch remains the eventual production source. The initial hosting preview is deployed explicitly from the isolated game branch.
 
 Game preset: Next.js. Node: 22.x. Install: `npm ci`. Build: `npm run build`. Output: framework default. Include files outside root: disabled. No root workspace/package file is required. Pinning Next.js/React here does not upgrade News.
 
 Game-only automatic skipping is enabled in Vercel and verified after reload. The checked-in Vercel ignored-build script compares the previous deployment SHA with the current SHA scoped to game-app. Missing/shallow history builds conservatively. An existing-root change does not become a Game dependency. The first build always runs. The preview branch is `codex/game-production-foundation`; main and production domain routing are unchanged.
 
-News currently has automatic skipping disabled and includes files outside its root. Automatic approval review rejected saving a News skip-setting change because the user requested no changes to the existing website. The unsaved change was discarded and disabled state verified. Do not work around this through another API or commit. If explicitly approved later, configure a News-scoped ignored build command or the supported monorepo skipping setting, retaining any real News data dependencies. No News configuration was saved in this pass.
+The owner reaffirmed: **Keep the existing News deployment behavior exactly as it is. Configure the Game Vercel project so changes outside game-app/ do not trigger a Game deployment unless they are files that game-app explicitly depends on.** No such outside dependencies currently exist. Preserve this boundary when adding dependencies; do not turn unrelated root files into implicit inputs.
+
+The path-scoped ignored-build command is the effective fallback for this repository: Vercel's automatic workspace optimization requires a workspace layout, which this isolated-app repository does not use. Vercel may still create a canceled deployment entry before the ignored-build command runs. First builds or unavailable comparison history build conservatively; this configuration is not a guarantee of zero dashboard entries. Branches without game-app cannot run its script. No root workspace file or unrelated test commit was added to change existing website behavior.
+
+News retains its existing settings, including disabled automatic skipping and inclusion of files outside its root. The latest explicit instruction to preserve News governs this pass; no News configuration was saved.
 
 ## Routes
 
@@ -34,7 +38,9 @@ Next.js `basePath` is `/game`, built into routing and framework resources. `next
 
 Visiting the project URL at `/` intentionally returns 404: verify using `/game`. Existing SpyConverter pages import no Game JavaScript. The hosting preview itself imports no Phaser, gameplay library, mission data or Supabase snapshot adapter. A future playable route must introduce explicit dynamic loading and pass new gameplay gates before that audit boundary changes.
 
-## Final domain routing is pending
+## Final domain routing belongs to the owner
+
+The owner will manually connect the future spyconverter.com/game URL. Do not add links to/from the existing website, attach its domain to Vercel, or change its DNS, routing, hosting, or News settings. The Game preview has no link to the main website. The notes below are reference information for the owner's later work, not an instruction to apply changes.
 
 Read-only HTTP checks identify the main site as **GitHub Pages** and News as **Vercel** at `news.spyconverter.com`. GitHub Pages cannot acquire a Vercel rewrite from game-app/vercel.json. A DNS record also cannot route a URL path by itself.
 
@@ -58,6 +64,6 @@ The preview audit can pass because it publishes only a development notice and he
 
 Sources: [Next.js basePath](https://nextjs.org/docs/app/api-reference/config/next-config-js/basePath), [Vercel monorepos](https://vercel.com/docs/monorepos), [Vercel configuration](https://vercel.com/docs/project-configuration/vercel-json).
 
-## Generated-domain name
+## Game Vercel hostname
 
-The project is named spyconverter-game, but its automatically assigned domain remains project-6mpze.vercel.app. Automatic approval review rejected renaming that address to spyconverter-game.vercel.app because the exact domain change was not explicitly authorized. The unsaved rename was discarded and the original valid domain verified. No alternative alias, domain transfer or DNS workaround was applied.
+The approved hostname spyconverter-game.vercel.app is attached only to the Game project's Production environment and has Valid Configuration. The old generated address project-6mpze.vercel.app redirects to the new Game hostname with status 307, preserving existing preview links. Neither address changes or routes through the existing SpyConverter domain.

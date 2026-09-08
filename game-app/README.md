@@ -2,7 +2,9 @@
 
 Everything for the game lives in this directory. It builds independently of the existing static website, News app and root Supabase configuration.
 
-Live hosting preview: [project-6mpze.vercel.app/game](https://project-6mpze.vercel.app/game).
+Live hosting preview: [spyconverter-game.vercel.app/game](https://spyconverter-game.vercel.app/game).
+
+Keep the existing News deployment behavior exactly as it is. Game's build filter is scoped to `game-app/`; it currently has no dependencies on repository files outside that directory. Do not add links, DNS records, or routing to the existing SpyConverter website. The owner will connect the future `/game` URL manually.
 
 The Next.js host mounts at **/game**, including nested routes, API endpoints and assets. Its current release is an honest **hosting preview**; no quests are playable and no cloud saves or authentication are exposed. The separate engine remains a library awaiting researched maps and approved replacement assets.
 
