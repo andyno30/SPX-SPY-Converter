@@ -1,0 +1,25 @@
+project_id = "arpia-reconstruction-local"
+
+[api]
+enabled = true
+port = 55321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 55322
+shadow_port = 55320
+major_version = 17
+
+[studio]
+enabled = true
+port = 55323
+
+[auth]
+enabled = true
+site_url = "http://localhost:3200/game/"
+additional_redirect_urls = ["http://localhost:3200/game/auth/callback"]
+
+[db.seed]
+enabled = false

@@ -1,0 +1,38 @@
+{
+  "date": "2026-09-07",
+  "main": {
+    "cataloged": 103,
+    "narrativeFound": 103,
+    "titleVariants": 9,
+    "researched": 0,
+    "scripted": 0,
+    "playable": 0,
+    "verified": 0
+  },
+  "free": {
+    "cataloged": 37,
+    "narrativeFound": 15,
+    "exhaustive": false
+  },
+  "entities": {
+    "npc": 94,
+    "map": 75,
+    "pet": 22,
+    "spell": 28,
+    "monster": 47,
+    "item": 8
+  },
+  "sources": {
+    "total": 83,
+    "unavailable": 4
+  },
+  "assets": {
+    "requiredIds": 387,
+    "approved": 0
+  },
+  "runtime": {
+    "quests": 0,
+    "maps": 0
+  },
+  "unresolvedFields": 923
+}

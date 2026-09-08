@@ -1,0 +1,1227 @@
+[
+  {
+    "id": "spell.fire",
+    "kind": "spell",
+    "name": {
+      "koOriginal": "파이어",
+      "en": "Fire"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-185",
+        "section": "파이어",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "element",
+        "value": "FLAME",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-185",
+            "section": "FLAME section",
+            "proves": "Listed in elemental section."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Original damage/status formula",
+      "Teacher, rank, lesson count and class price",
+      "Meaning of SP label; do not treat as Virtue Points",
+      "MP/mastery values require screenshot cross-check"
+    ],
+    "assetIds": [
+      "spell.fire.icon",
+      "spell.fire.effect"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "spell.fire-arrow",
+    "kind": "spell",
+    "name": {
+      "koOriginal": "파이어 애로우",
+      "en": "Fire Arrow"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-185",
+        "section": "파이어 애로우",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "element",
+        "value": "FLAME",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-185",
+            "section": "FLAME section",
+            "proves": "Listed in elemental section."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Original damage/status formula",
+      "Teacher, rank, lesson count and class price",
+      "Meaning of SP label; do not treat as Virtue Points",
+      "MP/mastery values require screenshot cross-check"
+    ],
+    "assetIds": [
+      "spell.fire-arrow.icon",
+      "spell.fire-arrow.effect"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "spell.fire-ball",
+    "kind": "spell",
+    "name": {
+      "koOriginal": "파이어 볼",
+      "en": "Fire Ball"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-185",
+        "section": "파이어 볼",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "element",
+        "value": "FLAME",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-185",
+            "section": "FLAME section",
+            "proves": "Listed in elemental section."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Original damage/status formula",
+      "Teacher, rank, lesson count and class price",
+      "Meaning of SP label; do not treat as Virtue Points",
+      "MP/mastery values require screenshot cross-check"
+    ],
+    "assetIds": [
+      "spell.fire-ball.icon",
+      "spell.fire-ball.effect"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "spell.fire-burst",
+    "kind": "spell",
+    "name": {
+      "koOriginal": "파이어 버스트",
+      "en": "Fire Burst"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-185",
+        "section": "파이어 버스트",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "element",
+        "value": "FLAME",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-185",
+            "section": "FLAME section",
+            "proves": "Listed in elemental section."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Original damage/status formula",
+      "Teacher, rank, lesson count and class price",
+      "Meaning of SP label; do not treat as Virtue Points",
+      "MP/mastery values require screenshot cross-check"
+    ],
+    "assetIds": [
+      "spell.fire-burst.icon",
+      "spell.fire-burst.effect"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "spell.rising-flare",
+    "kind": "spell",
+    "name": {
+      "koOriginal": "라이징 플레어",
+      "en": "Rising Flare"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-185",
+        "section": "라이징 플레어",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "element",
+        "value": "FLAME",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-185",
+            "section": "FLAME section",
+            "proves": "Listed in elemental section."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Original damage/status formula",
+      "Teacher, rank, lesson count and class price",
+      "Meaning of SP label; do not treat as Virtue Points",
+      "MP/mastery values require screenshot cross-check"
+    ],
+    "assetIds": [
+      "spell.rising-flare.icon",
+      "spell.rising-flare.effect"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "spell.magma",
+    "kind": "spell",
+    "name": {
+      "koOriginal": "마그마",
+      "en": "Magma"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-185",
+        "section": "마그마",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "element",
+        "value": "FLAME",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-185",
+            "section": "FLAME section",
+            "proves": "Listed in elemental section."
+          }
+        ]
+      },
+      {
+        "field": "reportedReleaseStatus",
+        "value": "UNIMPLEMENTED",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-185",
+            "section": "Magma",
+            "proves": "Listed as unimplemented; do not make available based on name presence."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Original damage/status formula",
+      "Teacher, rank, lesson count and class price",
+      "Meaning of SP label; do not treat as Virtue Points",
+      "MP/mastery values require screenshot cross-check"
+    ],
+    "assetIds": [
+      "spell.magma.icon",
+      "spell.magma.effect"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "spell.fire-dragon",
+    "kind": "spell",
+    "name": {
+      "koOriginal": "파이어 드래곤",
+      "en": "Fire Dragon"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-185",
+        "section": "파이어 드래곤",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "element",
+        "value": "FLAME",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-185",
+            "section": "FLAME section",
+            "proves": "Listed in elemental section."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Original damage/status formula",
+      "Teacher, rank, lesson count and class price",
+      "Meaning of SP label; do not treat as Virtue Points",
+      "MP/mastery values require screenshot cross-check"
+    ],
+    "assetIds": [
+      "spell.fire-dragon.icon",
+      "spell.fire-dragon.effect"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "spell.ice",
+    "kind": "spell",
+    "name": {
+      "koOriginal": "아이스",
+      "en": "Ice"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-185",
+        "section": "아이스",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "element",
+        "value": "ICE",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-185",
+            "section": "ICE section",
+            "proves": "Listed in elemental section."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Original damage/status formula",
+      "Teacher, rank, lesson count and class price",
+      "Meaning of SP label; do not treat as Virtue Points",
+      "MP/mastery values require screenshot cross-check"
+    ],
+    "assetIds": [
+      "spell.ice.icon",
+      "spell.ice.effect"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "spell.ice-spear",
+    "kind": "spell",
+    "name": {
+      "koOriginal": "아이스 스피어",
+      "en": "Ice Spear"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-185",
+        "section": "아이스 스피어",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "element",
+        "value": "ICE",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-185",
+            "section": "ICE section",
+            "proves": "Listed in elemental section."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Original damage/status formula",
+      "Teacher, rank, lesson count and class price",
+      "Meaning of SP label; do not treat as Virtue Points",
+      "MP/mastery values require screenshot cross-check"
+    ],
+    "assetIds": [
+      "spell.ice-spear.icon",
+      "spell.ice-spear.effect"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "spell.ice-stone",
+    "kind": "spell",
+    "name": {
+      "koOriginal": "아이스 스톤",
+      "en": "Ice Stone"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-185",
+        "section": "아이스 스톤",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "element",
+        "value": "ICE",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-185",
+            "section": "ICE section",
+            "proves": "Listed in elemental section."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Original damage/status formula",
+      "Teacher, rank, lesson count and class price",
+      "Meaning of SP label; do not treat as Virtue Points",
+      "MP/mastery values require screenshot cross-check"
+    ],
+    "assetIds": [
+      "spell.ice-stone.icon",
+      "spell.ice-stone.effect"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "spell.ice-trap",
+    "kind": "spell",
+    "name": {
+      "koOriginal": "아이스 트랩",
+      "en": "Ice Trap"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-185",
+        "section": "아이스 트랩",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "element",
+        "value": "ICE",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-185",
+            "section": "ICE section",
+            "proves": "Listed in elemental section."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Original damage/status formula",
+      "Teacher, rank, lesson count and class price",
+      "Meaning of SP label; do not treat as Virtue Points",
+      "MP/mastery values require screenshot cross-check"
+    ],
+    "assetIds": [
+      "spell.ice-trap.icon",
+      "spell.ice-trap.effect"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "spell.frozen-blast",
+    "kind": "spell",
+    "name": {
+      "koOriginal": "프로즌 블래스트",
+      "en": "Frozen Blast"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-185",
+        "section": "프로즌 블래스트",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "element",
+        "value": "ICE",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-185",
+            "section": "ICE section",
+            "proves": "Listed in elemental section."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Original damage/status formula",
+      "Teacher, rank, lesson count and class price",
+      "Meaning of SP label; do not treat as Virtue Points",
+      "MP/mastery values require screenshot cross-check"
+    ],
+    "assetIds": [
+      "spell.frozen-blast.icon",
+      "spell.frozen-blast.effect"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "spell.snow-storm",
+    "kind": "spell",
+    "name": {
+      "koOriginal": "스노우 스톰",
+      "en": "Snow Storm"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-185",
+        "section": "스노우 스톰",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "element",
+        "value": "ICE",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-185",
+            "section": "ICE section",
+            "proves": "Listed in elemental section."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Original damage/status formula",
+      "Teacher, rank, lesson count and class price",
+      "Meaning of SP label; do not treat as Virtue Points",
+      "MP/mastery values require screenshot cross-check"
+    ],
+    "assetIds": [
+      "spell.snow-storm.icon",
+      "spell.snow-storm.effect"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "spell.mega-frozen",
+    "kind": "spell",
+    "name": {
+      "koOriginal": "메가 프로즌",
+      "en": "Mega Frozen"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-185",
+        "section": "메가 프로즌",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "element",
+        "value": "ICE",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-185",
+            "section": "ICE section",
+            "proves": "Listed in elemental section."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Original damage/status formula",
+      "Teacher, rank, lesson count and class price",
+      "Meaning of SP label; do not treat as Virtue Points",
+      "MP/mastery values require screenshot cross-check"
+    ],
+    "assetIds": [
+      "spell.mega-frozen.icon",
+      "spell.mega-frozen.effect"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "spell.stone-shower",
+    "kind": "spell",
+    "name": {
+      "koOriginal": "스톤 샤워",
+      "en": "Stone Shower"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-185",
+        "section": "스톤 샤워",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "element",
+        "value": "EARTH",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-185",
+            "section": "EARTH section",
+            "proves": "Listed in elemental section."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Original damage/status formula",
+      "Teacher, rank, lesson count and class price",
+      "Meaning of SP label; do not treat as Virtue Points",
+      "MP/mastery values require screenshot cross-check"
+    ],
+    "assetIds": [
+      "spell.stone-shower.icon",
+      "spell.stone-shower.effect"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "spell.stone-hand",
+    "kind": "spell",
+    "name": {
+      "koOriginal": "스톤 핸드",
+      "en": "Stone Hand"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-185",
+        "section": "스톤 핸드",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "element",
+        "value": "EARTH",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-185",
+            "section": "EARTH section",
+            "proves": "Listed in elemental section."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Original damage/status formula",
+      "Teacher, rank, lesson count and class price",
+      "Meaning of SP label; do not treat as Virtue Points",
+      "MP/mastery values require screenshot cross-check"
+    ],
+    "assetIds": [
+      "spell.stone-hand.icon",
+      "spell.stone-hand.effect"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "spell.stone-golem",
+    "kind": "spell",
+    "name": {
+      "koOriginal": "스톤 골렘",
+      "en": "Stone Golem"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-185",
+        "section": "스톤 골렘",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "element",
+        "value": "EARTH",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-185",
+            "section": "EARTH section",
+            "proves": "Listed in elemental section."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Original damage/status formula",
+      "Teacher, rank, lesson count and class price",
+      "Meaning of SP label; do not treat as Virtue Points",
+      "MP/mastery values require screenshot cross-check"
+    ],
+    "assetIds": [
+      "spell.stone-golem.icon",
+      "spell.stone-golem.effect"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "spell.earth-shaking",
+    "kind": "spell",
+    "name": {
+      "koOriginal": "어스 쉐이킹",
+      "en": "Earth Shaking"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-185",
+        "section": "어스 쉐이킹",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "element",
+        "value": "EARTH",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-185",
+            "section": "EARTH section",
+            "proves": "Listed in elemental section."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Original damage/status formula",
+      "Teacher, rank, lesson count and class price",
+      "Meaning of SP label; do not treat as Virtue Points",
+      "MP/mastery values require screenshot cross-check"
+    ],
+    "assetIds": [
+      "spell.earth-shaking.icon",
+      "spell.earth-shaking.effect"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "spell.dust-blast",
+    "kind": "spell",
+    "name": {
+      "koOriginal": "더스트 블래스트",
+      "en": "Dust Blast"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-185",
+        "section": "더스트 블래스트",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "element",
+        "value": "EARTH",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-185",
+            "section": "EARTH section",
+            "proves": "Listed in elemental section."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Original damage/status formula",
+      "Teacher, rank, lesson count and class price",
+      "Meaning of SP label; do not treat as Virtue Points",
+      "MP/mastery values require screenshot cross-check"
+    ],
+    "assetIds": [
+      "spell.dust-blast.icon",
+      "spell.dust-blast.effect"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "spell.poison-bugs",
+    "kind": "spell",
+    "name": {
+      "koOriginal": "포이즌 벅스",
+      "en": "Poison Bugs"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-185",
+        "section": "포이즌 벅스",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "element",
+        "value": "EARTH",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-185",
+            "section": "EARTH section",
+            "proves": "Listed in elemental section."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Original damage/status formula",
+      "Teacher, rank, lesson count and class price",
+      "Meaning of SP label; do not treat as Virtue Points",
+      "MP/mastery values require screenshot cross-check"
+    ],
+    "assetIds": [
+      "spell.poison-bugs.icon",
+      "spell.poison-bugs.effect"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "spell.stone-trap",
+    "kind": "spell",
+    "name": {
+      "koOriginal": "스톤 트랩",
+      "en": "Stone Trap"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-185",
+        "section": "스톤 트랩",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "element",
+        "value": "EARTH",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-185",
+            "section": "EARTH section",
+            "proves": "Listed in elemental section."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Original damage/status formula",
+      "Teacher, rank, lesson count and class price",
+      "Meaning of SP label; do not treat as Virtue Points",
+      "MP/mastery values require screenshot cross-check"
+    ],
+    "assetIds": [
+      "spell.stone-trap.icon",
+      "spell.stone-trap.effect"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "spell.healing",
+    "kind": "spell",
+    "name": {
+      "koOriginal": "힐링",
+      "en": "Healing"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-185",
+        "section": "힐링",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "element",
+        "value": "NONE",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-185",
+            "section": "NONE section",
+            "proves": "Listed in elemental section."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Original damage/status formula",
+      "Teacher, rank, lesson count and class price",
+      "Meaning of SP label; do not treat as Virtue Points",
+      "MP/mastery values require screenshot cross-check"
+    ],
+    "assetIds": [
+      "spell.healing.icon",
+      "spell.healing.effect"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "spell.restore",
+    "kind": "spell",
+    "name": {
+      "koOriginal": "리스토어",
+      "en": "Restore"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-185",
+        "section": "리스토어",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "element",
+        "value": "NONE",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-185",
+            "section": "NONE section",
+            "proves": "Listed in elemental section."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Original damage/status formula",
+      "Teacher, rank, lesson count and class price",
+      "Meaning of SP label; do not treat as Virtue Points",
+      "MP/mastery values require screenshot cross-check"
+    ],
+    "assetIds": [
+      "spell.restore.icon",
+      "spell.restore.effect"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "spell.anti-paralysis",
+    "kind": "spell",
+    "name": {
+      "koOriginal": "안티페럴링",
+      "en": "Anti-Paralysis"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-185",
+        "section": "안티페럴링",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "element",
+        "value": "NONE",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-185",
+            "section": "NONE section",
+            "proves": "Listed in elemental section."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Original damage/status formula",
+      "Teacher, rank, lesson count and class price",
+      "Meaning of SP label; do not treat as Virtue Points",
+      "MP/mastery values require screenshot cross-check"
+    ],
+    "assetIds": [
+      "spell.anti-paralysis.icon",
+      "spell.anti-paralysis.effect"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "spell.shout",
+    "kind": "spell",
+    "name": {
+      "koOriginal": "샤우팅",
+      "en": "Shout"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-185",
+        "section": "샤우팅",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "element",
+        "value": "NONE",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-185",
+            "section": "NONE section",
+            "proves": "Listed in elemental section."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Original damage/status formula",
+      "Teacher, rank, lesson count and class price",
+      "Meaning of SP label; do not treat as Virtue Points",
+      "MP/mastery values require screenshot cross-check"
+    ],
+    "assetIds": [
+      "spell.shout.icon",
+      "spell.shout.effect"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "spell.detox",
+    "kind": "spell",
+    "name": {
+      "koOriginal": "디클리어리",
+      "en": "Detox"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-185",
+        "section": "디클리어리",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "element",
+        "value": "NONE",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-185",
+            "section": "NONE section",
+            "proves": "Listed in elemental section."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Original damage/status formula",
+      "Teacher, rank, lesson count and class price",
+      "Meaning of SP label; do not treat as Virtue Points",
+      "MP/mastery values require screenshot cross-check"
+    ],
+    "assetIds": [
+      "spell.detox.icon",
+      "spell.detox.effect"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "spell.blessing",
+    "kind": "spell",
+    "name": {
+      "koOriginal": "블레싱",
+      "en": "Blessing"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-185",
+        "section": "블레싱",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "element",
+        "value": "NONE",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-185",
+            "section": "NONE section",
+            "proves": "Listed in elemental section."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Original damage/status formula",
+      "Teacher, rank, lesson count and class price",
+      "Meaning of SP label; do not treat as Virtue Points",
+      "MP/mastery values require screenshot cross-check"
+    ],
+    "assetIds": [
+      "spell.blessing.icon",
+      "spell.blessing.effect"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "spell.powering",
+    "kind": "spell",
+    "name": {
+      "koOriginal": null,
+      "en": "Powering"
+    },
+    "provenance": "INFERRED",
+    "confidence": "LOW",
+    "sourceNotes": [
+      {
+        "sourceId": "brief",
+        "section": "Spell candidates",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Not located in inspected Wonavy spell list; Korean label, release and effects unknown"
+    ],
+    "assetIds": [],
+    "relatedIds": [],
+    "runtimeReady": false
+  }
+]

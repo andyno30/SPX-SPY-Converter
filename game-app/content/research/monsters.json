@@ -1,0 +1,1959 @@
+[
+  {
+    "id": "monster.snake",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "뱀",
+      "en": "Snake"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "EARTH category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "EARTH",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "EARTH category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.snake.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.spider",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "거미",
+      "en": "Spider"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "EARTH category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "EARTH",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "EARTH category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.spider.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.queen-spider",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "여왕 거미",
+      "en": "Queen Spider"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "EARTH category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "EARTH",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "EARTH category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.queen-spider.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.hula-mushroom",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "훌라 버섯",
+      "en": "Hula Mushroom"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "EARTH category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "EARTH",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "EARTH category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.hula-mushroom.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.worm",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "지렁이",
+      "en": "Worm"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "EARTH category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "EARTH",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "EARTH category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.worm.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.ryongryong-snake",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "룡룡뱀",
+      "en": "Ryongryong Snake"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "EARTH category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "EARTH",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "EARTH category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.ryongryong-snake.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.scorpion-boss",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "전갈 보스",
+      "en": "Scorpion Boss"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "EARTH category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "EARTH",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "EARTH category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.scorpion-boss.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.golem",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "골렘",
+      "en": "Golem"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "EARTH category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "EARTH",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "EARTH category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.golem.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.earth-jomsuni",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "대지 좀순이",
+      "en": "Earth Jomsuni"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "EARTH category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "EARTH",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "EARTH category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.earth-jomsuni.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.earth-ghost-horse",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "대지 유령마",
+      "en": "Earth Ghost Horse"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "EARTH category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "EARTH",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "EARTH category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.earth-ghost-horse.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.earth-dragon",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "어쓰 드래곤",
+      "en": "Earth Dragon"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "EARTH category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "EARTH",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "EARTH category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.earth-dragon.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.ancient-earth-dragon",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "에인션트 어쓰드래곤",
+      "en": "Ancient Earth Dragon"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "EARTH category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "EARTH",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "EARTH category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.ancient-earth-dragon.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.baby-earth-dragon",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "아기 대지용",
+      "en": "Baby Earth Dragon"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "EARTH category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "EARTH",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "EARTH category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.baby-earth-dragon.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.hunger",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "헝거",
+      "en": "Hunger"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "ICE category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "ICE",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "ICE category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.hunger.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.wolf",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "늑대",
+      "en": "Wolf"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "ICE category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "ICE",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "ICE category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.wolf.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.legged-fish",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "다리 물고기",
+      "en": "Legged Fish"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "ICE category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "ICE",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "ICE category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.legged-fish.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.ferocious-octopus",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "포악한문어",
+      "en": "Ferocious Octopus"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "ICE category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "ICE",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "ICE category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.ferocious-octopus.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.ink-squid",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "먹물 오징어",
+      "en": "Ink Squid"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "ICE category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "ICE",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "ICE category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.ink-squid.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.hyena",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "하이에나",
+      "en": "Hyena"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "ICE category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "ICE",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "ICE category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.hyena.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.jellyfish",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "해파리",
+      "en": "Jellyfish"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "ICE category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "ICE",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "ICE category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.jellyfish.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.ghost-puppy",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "혼령강아지",
+      "en": "Ghost Puppy"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "ICE category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "ICE",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "ICE category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.ghost-puppy.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.ice-golem",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "아이스 골렘",
+      "en": "Ice Golem"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "ICE category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "ICE",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "ICE category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.ice-golem.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.ice-jomsuni",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "얼음 좀순이",
+      "en": "Ice Jomsuni"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "ICE category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "ICE",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "ICE category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.ice-jomsuni.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.ice-ghost-horse",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "얼음 유령마",
+      "en": "Ice Ghost Horse"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "ICE category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "ICE",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "ICE category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.ice-ghost-horse.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.ice-dragon",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "아이스 드래곤",
+      "en": "Ice Dragon"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "ICE category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "ICE",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "ICE category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.ice-dragon.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.baby-ice-dragon",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "아기 얼음용",
+      "en": "Baby Ice Dragon"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "ICE category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "ICE",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "ICE category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.baby-ice-dragon.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.crystal-spider",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "크리스탈 거미",
+      "en": "Crystal Spider"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "ICE category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "ICE",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "ICE category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.crystal-spider.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.goblin",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "고블린",
+      "en": "Goblin"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "FLAME category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "FLAME",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "FLAME category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.goblin.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.wood-chunk",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "나무토막",
+      "en": "Wood Chunk"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "FLAME category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "FLAME",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "FLAME category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.wood-chunk.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.field-mouse",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "들쥐",
+      "en": "Field Mouse"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "FLAME category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "FLAME",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "FLAME category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.field-mouse.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.bat",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "박쥐",
+      "en": "Bat"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "FLAME category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "FLAME",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "FLAME category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.bat.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.mushroom",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "버섯",
+      "en": "Mushroom"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "FLAME category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "FLAME",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "FLAME category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.mushroom.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.rainbow-worm",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "무지개 지렁이",
+      "en": "Rainbow Worm"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "FLAME category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "FLAME",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "FLAME category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.rainbow-worm.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.teddy-bear",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "곰 인형",
+      "en": "Teddy Bear"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "FLAME category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "FLAME",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "FLAME category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.teddy-bear.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.orc",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "오크",
+      "en": "Orc"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "FLAME category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "FLAME",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "FLAME category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.orc.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.wandering-mercenary",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "떠돌이 용병",
+      "en": "Wandering Mercenary"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "FLAME category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "FLAME",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "FLAME category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.wandering-mercenary.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.cowboy-doll",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "카우보이 인형",
+      "en": "Cowboy Doll"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "FLAME category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "FLAME",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "FLAME category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.cowboy-doll.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.fire-golem",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "파이어 골렘",
+      "en": "Fire Golem"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "FLAME category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "FLAME",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "FLAME category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.fire-golem.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.mummy",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "미이라",
+      "en": "Mummy"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "FLAME category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "FLAME",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "FLAME category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.mummy.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.flame-jomsuni",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "불꽃 좀순이",
+      "en": "Flame Jomsuni"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "FLAME category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "FLAME",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "FLAME category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.flame-jomsuni.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.female-mummy",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "여자 미이라",
+      "en": "Female Mummy"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "FLAME category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "FLAME",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "FLAME category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.female-mummy.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.skeleton-warrior",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "해골 전사",
+      "en": "Skeleton Warrior"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "FLAME category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "FLAME",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "FLAME category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.skeleton-warrior.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.ghost-horse",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "유령마",
+      "en": "Ghost Horse"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "FLAME category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "FLAME",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "FLAME category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.ghost-horse.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.fire-dragon",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "파이어 드래곤",
+      "en": "Fire Dragon"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "FLAME category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "FLAME",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "FLAME category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.fire-dragon.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.baby-flame-dragon",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "아기 불꽃용",
+      "en": "Baby Flame Dragon"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "FLAME category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "FLAME",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "FLAME category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.baby-flame-dragon.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.black-wood-chunk",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "검은 나무토막",
+      "en": "Black Wood Chunk"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "uman-monsters",
+        "section": "FLAME category",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedElement",
+        "value": "FLAME",
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "uman-monsters",
+            "section": "FLAME category",
+            "proves": "Wiki section grouping; needs direct in-game corroboration."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "HP/MP, level and formulas",
+      "Locations and battle composition",
+      "Drops, EXP, Pin and resistances"
+    ],
+    "assetIds": [
+      "monster.black-wood-chunk.battle"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "monster.fire-scorpion",
+    "kind": "monster",
+    "name": {
+      "koOriginal": "화염 전갈",
+      "en": "Fire Scorpion"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "brief",
+        "section": "Free Mission 37",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Identity relative to scorpion boss",
+      "All combat parameters"
+    ],
+    "assetIds": [],
+    "relatedIds": [],
+    "runtimeReady": false
+  }
+]

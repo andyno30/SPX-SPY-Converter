@@ -1,0 +1,2713 @@
+[
+  {
+    "id": "npc.morris",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "모리스",
+      "en": "Morris"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "모리스",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.morris.overworld",
+      "npc.morris.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.julia",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "줄리아",
+      "en": "Julia"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "줄리아",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.julia.overworld",
+      "npc.julia.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.amela",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "아멜라",
+      "en": "Amela"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "아멜라",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.amela.overworld",
+      "npc.amela.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.skoll",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "스콜",
+      "en": "Skoll"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "스콜",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.skoll.overworld",
+      "npc.skoll.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.esta",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "에스타",
+      "en": "Esta"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "에스타",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.esta.overworld",
+      "npc.esta.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.aaron",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "아론",
+      "en": "Aaron"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "아론",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.aaron.overworld",
+      "npc.aaron.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.naomi",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "나오미",
+      "en": "Naomi"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "나오미",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.naomi.overworld",
+      "npc.naomi.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.ishubike",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "이슈비케",
+      "en": "Ishubike"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "이슈비케",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.ishubike.overworld",
+      "npc.ishubike.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.ryoma",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "료마",
+      "en": "Ryoma"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "료마",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.ryoma.overworld",
+      "npc.ryoma.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.rie",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "리에",
+      "en": "Rie"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "리에",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.rie.overworld",
+      "npc.rie.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.chili",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "칠리",
+      "en": "Chili"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "칠리",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.chili.overworld",
+      "npc.chili.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.pelita",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "펠리타",
+      "en": "Pelita"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "펠리타",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.pelita.overworld",
+      "npc.pelita.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.george",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "조지",
+      "en": "George"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "조지",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.george.overworld",
+      "npc.george.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.mina",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "미나",
+      "en": "Mina"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "미나",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.mina.overworld",
+      "npc.mina.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.samuel",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "사무엘",
+      "en": "Samuel"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "사무엘",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.samuel.overworld",
+      "npc.samuel.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.barbara",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "바바라",
+      "en": "Barbara"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "바바라",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.barbara.overworld",
+      "npc.barbara.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.conrad",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "콘라드",
+      "en": "Conrad"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "콘라드",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.conrad.overworld",
+      "npc.conrad.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.kesno",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "케스노",
+      "en": "Kesno"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "케스노",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.kesno.overworld",
+      "npc.kesno.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.hina",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "히나",
+      "en": "Hina"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "히나",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.hina.overworld",
+      "npc.hina.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.shou",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "쇼우",
+      "en": "Shou"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "쇼우",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.shou.overworld",
+      "npc.shou.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.sophia",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "소피아",
+      "en": "Sophia"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "소피아",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.sophia.overworld",
+      "npc.sophia.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.isaac",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "아이작",
+      "en": "Isaac"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "아이작",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.isaac.overworld",
+      "npc.isaac.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.matilda",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "마틸다 공주",
+      "en": "Matilda"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "마틸다 공주",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.matilda.overworld",
+      "npc.matilda.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.kadija",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "카디쟈",
+      "en": "Kadija"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "카디쟈",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.kadija.overworld",
+      "npc.kadija.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.jackal",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "쟈칼",
+      "en": "Jackal"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "쟈칼",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.jackal.overworld",
+      "npc.jackal.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.shaiya",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "샤이아",
+      "en": "Shaiya"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "샤이아",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.shaiya.overworld",
+      "npc.shaiya.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.gluglu",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "글루글루",
+      "en": "Gluglu"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "글루글루",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.gluglu.overworld",
+      "npc.gluglu.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.hunger",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "헝거",
+      "en": "Hunger"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "헝거",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.hunger.overworld",
+      "npc.hunger.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.odangka",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "오당카",
+      "en": "Odangka"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "오당카",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.odangka.overworld",
+      "npc.odangka.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.garuda",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "가루다",
+      "en": "Garuda"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "가루다",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.garuda.overworld",
+      "npc.garuda.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.shiva",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "시바",
+      "en": "Shiva"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "시바",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.shiva.overworld",
+      "npc.shiva.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.guillaume",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "기욤",
+      "en": "Guillaume"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "기욤",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.guillaume.overworld",
+      "npc.guillaume.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.baldi",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "발디",
+      "en": "Baldi"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "발디",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.baldi.overworld",
+      "npc.baldi.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.kobi",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "코비",
+      "en": "Kobi"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "코비",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.kobi.overworld",
+      "npc.kobi.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.abdullah",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "압둘라",
+      "en": "Abdullah"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "압둘라",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.abdullah.overworld",
+      "npc.abdullah.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.quiz-pocket",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "퀴즈포켓",
+      "en": "Quiz Pocket"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "퀴즈포켓",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.quiz-pocket.overworld",
+      "npc.quiz-pocket.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.murphy",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "머피",
+      "en": "Murphy"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "머피",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.murphy.overworld",
+      "npc.murphy.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.melly",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "멜리",
+      "en": "Melly"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "멜리",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.melly.overworld",
+      "npc.melly.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.buma",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "부마",
+      "en": "Buma"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "부마",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.buma.overworld",
+      "npc.buma.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.dick",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "딕",
+      "en": "Dick"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "딕",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.dick.overworld",
+      "npc.dick.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.douglas",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "더글라스",
+      "en": "Douglas"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "더글라스",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.douglas.overworld",
+      "npc.douglas.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.mojilan",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "모질란",
+      "en": "Mojilan"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "모질란",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.mojilan.overworld",
+      "npc.mojilan.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.kobold",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "코볼트",
+      "en": "Kobold"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "코볼트",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.kobold.overworld",
+      "npc.kobold.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.barney",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "바니",
+      "en": "Barney"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "바니",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.barney.overworld",
+      "npc.barney.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.hurad",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "휴라드",
+      "en": "Hurad"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "휴라드",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.hurad.overworld",
+      "npc.hurad.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.woody",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "우디",
+      "en": "Woody"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "우디",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.woody.overworld",
+      "npc.woody.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.burby",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "버비",
+      "en": "Burby"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "버비",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.burby.overworld",
+      "npc.burby.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.puki",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "푸키",
+      "en": "Puki"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "푸키",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.puki.overworld",
+      "npc.puki.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.rio",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "리오",
+      "en": "Rio"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "리오",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.rio.overworld",
+      "npc.rio.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.odmon",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "오드몬",
+      "en": "Odmon"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "오드몬",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.odmon.overworld",
+      "npc.odmon.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.misery",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "미저리",
+      "en": "Misery"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "미저리",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.misery.overworld",
+      "npc.misery.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.ruko",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "루코",
+      "en": "Ruko"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "루코",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.ruko.overworld",
+      "npc.ruko.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.dobiel",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "도비엘",
+      "en": "Dobiel"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "도비엘",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.dobiel.overworld",
+      "npc.dobiel.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.caesar-iii",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "세자르 3세",
+      "en": "Caesar III"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "세자르 3세",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.caesar-iii.overworld",
+      "npc.caesar-iii.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.edward",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "에드워드",
+      "en": "Edward"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "에드워드",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.edward.overworld",
+      "npc.edward.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.muhammad-ali-iv",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "무함마드 알리 4세",
+      "en": "Muhammad Ali IV"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "무함마드 알리 4세",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.muhammad-ali-iv.overworld",
+      "npc.muhammad-ali-iv.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.shasha",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "샤샤",
+      "en": "Shasha"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "샤샤",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.shasha.overworld",
+      "npc.shasha.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.joker",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "조커",
+      "en": "Joker"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "조커",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.joker.overworld",
+      "npc.joker.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.talisha",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "탈리샤",
+      "en": "Talisha"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "탈리샤",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.talisha.overworld",
+      "npc.talisha.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.emery",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "에머리",
+      "en": "Emery"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "에머리",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.emery.overworld",
+      "npc.emery.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.ralph",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "랄프",
+      "en": "Ralph"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "랄프",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.ralph.overworld",
+      "npc.ralph.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.laura",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "라우라",
+      "en": "Laura"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "라우라",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.laura.overworld",
+      "npc.laura.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.metui",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "메튀",
+      "en": "Metui"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "메튀",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.metui.overworld",
+      "npc.metui.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.humphrey",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "험프리",
+      "en": "Humphrey"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "험프리",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.humphrey.overworld",
+      "npc.humphrey.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.nell",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "넬",
+      "en": "Nell"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "넬",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.nell.overworld",
+      "npc.nell.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.curious",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "큐리어스 마녀",
+      "en": "Curious"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "큐리어스 마녀",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.curious.overworld",
+      "npc.curious.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.antonio",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "안토니오",
+      "en": "Antonio"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "안토니오",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.antonio.overworld",
+      "npc.antonio.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.rudolph",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "루돌프",
+      "en": "Rudolph"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "루돌프",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.rudolph.overworld",
+      "npc.rudolph.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.leona",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "레오나",
+      "en": "Leona"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "레오나",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.leona.overworld",
+      "npc.leona.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.selenis",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "셀레니스",
+      "en": "Selenis"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "셀레니스",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.selenis.overworld",
+      "npc.selenis.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.halahala",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "할라할라",
+      "en": "Halahala"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "할라할라",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.halahala.overworld",
+      "npc.halahala.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.jjulujjulu",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "쭐루쭐루",
+      "en": "Jjulujjulu"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "쭐루쭐루",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.jjulujjulu.overworld",
+      "npc.jjulujjulu.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.shark",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "샤크",
+      "en": "Shark"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "샤크",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.shark.overworld",
+      "npc.shark.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.cathy",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "캐시",
+      "en": "Cathy"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "캐시",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.cathy.overworld",
+      "npc.cathy.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.big",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "빅",
+      "en": "Big"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "빅",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.big.overworld",
+      "npc.big.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.hugh",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "휴",
+      "en": "Hugh"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "휴",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.hugh.overworld",
+      "npc.hugh.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.queen-serdin",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "세르딘 여왕",
+      "en": "Queen Serdin"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "세르딘 여왕",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.queen-serdin.overworld",
+      "npc.queen-serdin.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.catherine",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "캐트린",
+      "en": "Catherine"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "캐트린",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.catherine.overworld",
+      "npc.catherine.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.king-jeroni",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "제로니 왕",
+      "en": "King Jeroni"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "제로니 왕",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.king-jeroni.overworld",
+      "npc.king-jeroni.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.brutus",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "브루터스",
+      "en": "Brutus"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "브루터스",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.brutus.overworld",
+      "npc.brutus.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.devil-eye",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "데빌아이",
+      "en": "Devil Eye"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "데빌아이",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.devil-eye.overworld",
+      "npc.devil-eye.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.minotaur",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "미노타우로스",
+      "en": "Minotaur"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "미노타우로스",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.minotaur.overworld",
+      "npc.minotaur.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.dragon-king",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "드래곤 킹",
+      "en": "Dragon King"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "드래곤 킹",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.dragon-king.overworld",
+      "npc.dragon-king.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.wutan",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "우탄",
+      "en": "Wutan"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "우탄",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.wutan.overworld",
+      "npc.wutan.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.woodcutter-monster",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "나무꾼 괴물",
+      "en": "Woodcutter Monster"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "나무꾼 괴물",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.woodcutter-monster.overworld",
+      "npc.woodcutter-monster.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.kai",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "카이",
+      "en": "Kai"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "카이",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.kai.overworld",
+      "npc.kai.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.dakil",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "다킬",
+      "en": "Dakil"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "다킬",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.dakil.overworld",
+      "npc.dakil.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.captain-cook",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "쿠크 선장",
+      "en": "Captain Cook"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "쿠크 선장",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.captain-cook.overworld",
+      "npc.captain-cook.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.leon",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "레온",
+      "en": "Leon"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "레온",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Precise placement and alternate quest locations",
+      "Dialogue, relationships and services pending claim-level extraction",
+      "Official Latin spelling not recovered"
+    ],
+    "assetIds": [
+      "npc.leon.overworld",
+      "npc.leon.portrait"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.leo",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "레오",
+      "en": "Leo"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-276",
+        "section": "Episode 88",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Official spelling",
+      "Stats and placement",
+      "Full character dossier"
+    ],
+    "assetIds": [],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.meteor",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "메테오",
+      "en": "Meteor"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-240",
+        "section": "Episode 56",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Official spelling",
+      "Stats and placement",
+      "Full character dossier"
+    ],
+    "assetIds": [],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.albino",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "앨비노",
+      "en": "Albino"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-238",
+        "section": "Episode 52",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Official spelling",
+      "Stats and placement",
+      "Full character dossier"
+    ],
+    "assetIds": [],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.nakkeo",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "나꺼",
+      "en": "Nakkeo"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-233",
+        "section": "Episode 41",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Official spelling",
+      "Stats and placement",
+      "Full character dossier"
+    ],
+    "assetIds": [],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "npc.delphin",
+    "kind": "npc",
+    "name": {
+      "koOriginal": "델핀",
+      "en": "Delphin"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-285",
+        "section": "Episode 93",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Official spelling",
+      "Stats and placement",
+      "Full character dossier"
+    ],
+    "assetIds": [],
+    "relatedIds": [],
+    "runtimeReady": false
+  }
+]

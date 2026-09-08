@@ -1,0 +1,2137 @@
+[
+  {
+    "id": "map.dwarf-mine",
+    "kind": "map",
+    "name": {
+      "koOriginal": "난쟁이 광산",
+      "en": "Dwarf Mine"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "난쟁이 광산",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.dwarf-mine.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.dwarf-mine-interior",
+    "kind": "map",
+    "name": {
+      "koOriginal": "난쟁이 광산안",
+      "en": "Dwarf Mine Interior"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "난쟁이 광산안",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.dwarf-mine-interior.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.magic-school-arpia",
+    "kind": "map",
+    "name": {
+      "koOriginal": "마법학교 아르피아",
+      "en": "Magic School Arpia"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "마법학교 아르피아",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.magic-school-arpia.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.school-building",
+    "kind": "map",
+    "name": {
+      "koOriginal": "학교",
+      "en": "School Building"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "학교",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.school-building.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.asuria-kingdom",
+    "kind": "map",
+    "name": {
+      "koOriginal": "아수리아 왕국",
+      "en": "Asuria Kingdom"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "아수리아 왕국",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.asuria-kingdom.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.wizard-city",
+    "kind": "map",
+    "name": {
+      "koOriginal": "마법사의 도시",
+      "en": "Wizard City"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "마법사의 도시",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.wizard-city.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.curious-mansion",
+    "kind": "map",
+    "name": {
+      "koOriginal": "큐리어스 저택",
+      "en": "Curious Mansion"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "큐리어스 저택",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.curious-mansion.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.curious-room",
+    "kind": "map",
+    "name": {
+      "koOriginal": "큐리어스 마법사의 방",
+      "en": "Curious Room"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "큐리어스 마법사의 방",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.curious-room.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.ice-village",
+    "kind": "map",
+    "name": {
+      "koOriginal": "얼음 마을",
+      "en": "Ice Village"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "얼음 마을",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.ice-village.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.skull-island",
+    "kind": "map",
+    "name": {
+      "koOriginal": "해골섬",
+      "en": "Skull Island"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "해골섬",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.skull-island.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.odangka-cabin",
+    "kind": "map",
+    "name": {
+      "koOriginal": "오당카 오두막",
+      "en": "Odangka Cabin"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "오당카 오두막",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.odangka-cabin.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.fairy-castle-nymphen",
+    "kind": "map",
+    "name": {
+      "koOriginal": "요정의 성 님펜",
+      "en": "Fairy Castle Nymphen"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "요정의 성 님펜",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.fairy-castle-nymphen.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.earth-village",
+    "kind": "map",
+    "name": {
+      "koOriginal": "대지 마을",
+      "en": "Earth Village"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "대지 마을",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.earth-village.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.grandfather-metui-house",
+    "kind": "map",
+    "name": {
+      "koOriginal": "메튀 할아버지의 집",
+      "en": "Grandfather Metui House"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "메튀 할아버지의 집",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.grandfather-metui-house.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.chief-laura-house",
+    "kind": "map",
+    "name": {
+      "koOriginal": "라우라 촌장의 집",
+      "en": "Chief Laura House"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "라우라 촌장의 집",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.chief-laura-house.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.school-colosseum",
+    "kind": "map",
+    "name": {
+      "koOriginal": "콜로세움",
+      "en": "School Colosseum"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "콜로세움",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.school-colosseum.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.shopping-district",
+    "kind": "map",
+    "name": {
+      "koOriginal": "상점가",
+      "en": "Shopping District"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "상점가",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.shopping-district.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.magic-item-shop",
+    "kind": "map",
+    "name": {
+      "koOriginal": "마법 도구점",
+      "en": "Magic Item Shop"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "마법 도구점",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.magic-item-shop.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.post-office",
+    "kind": "map",
+    "name": {
+      "koOriginal": "우체국",
+      "en": "Post Office"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "우체국",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.post-office.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.furniture-shop",
+    "kind": "map",
+    "name": {
+      "koOriginal": "가구점",
+      "en": "Furniture Shop"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "가구점",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.furniture-shop.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.barbara-house",
+    "kind": "map",
+    "name": {
+      "koOriginal": "바바라의 집",
+      "en": "Barbara House"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "바바라의 집",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.barbara-house.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.library",
+    "kind": "map",
+    "name": {
+      "koOriginal": "도서관",
+      "en": "Library"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "도서관",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.library.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.pet-center",
+    "kind": "map",
+    "name": {
+      "koOriginal": "펫 센터",
+      "en": "Pet Center"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "펫 센터",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.pet-center.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.pet-shop",
+    "kind": "map",
+    "name": {
+      "koOriginal": "펫 샵",
+      "en": "Pet Shop"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "펫 샵",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.pet-shop.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.pet-hospital",
+    "kind": "map",
+    "name": {
+      "koOriginal": "펫 병원",
+      "en": "Pet Hospital"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "펫 병원",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.pet-hospital.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.pet-training-center",
+    "kind": "map",
+    "name": {
+      "koOriginal": "펫 육성소",
+      "en": "Pet Training Center"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "펫 육성소",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.pet-training-center.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.school-basement",
+    "kind": "map",
+    "name": {
+      "koOriginal": "학교지하",
+      "en": "School Basement"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "학교지하",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.school-basement.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.restroom",
+    "kind": "map",
+    "name": {
+      "koOriginal": "화장실",
+      "en": "Restroom"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "화장실",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.restroom.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.homeroom",
+    "kind": "map",
+    "name": {
+      "koOriginal": "우리반 교실",
+      "en": "Homeroom"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "우리반 교실",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.homeroom.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.ishubike-earth-classroom",
+    "kind": "map",
+    "name": {
+      "koOriginal": "이슈비케의 대지마법 교실",
+      "en": "Ishubike Earth Classroom"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "이슈비케의 대지마법 교실",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.ishubike-earth-classroom.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.skoll-ice-classroom",
+    "kind": "map",
+    "name": {
+      "koOriginal": "스콜의 얼음마법 교실",
+      "en": "Skoll Ice Classroom"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "스콜의 얼음마법 교실",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.skoll-ice-classroom.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.esta-flame-classroom",
+    "kind": "map",
+    "name": {
+      "koOriginal": "애스타의 불꽃마법 교실",
+      "en": "Esta Flame Classroom"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "애스타의 불꽃마법 교실",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.esta-flame-classroom.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.aaron-advanced-flame-classroom",
+    "kind": "map",
+    "name": {
+      "koOriginal": "아론의 불꽃마법 고급반",
+      "en": "Aaron Advanced Flame Classroom"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "아론의 불꽃마법 고급반",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.aaron-advanced-flame-classroom.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.naomi-advanced-ice-classroom",
+    "kind": "map",
+    "name": {
+      "koOriginal": "나오미의 얼음마법 고급반",
+      "en": "Naomi Advanced Ice Classroom"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "나오미의 얼음마법 고급반",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.naomi-advanced-ice-classroom.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.ryoma-advanced-earth-classroom",
+    "kind": "map",
+    "name": {
+      "koOriginal": "료마의 대지마법 고급반",
+      "en": "Ryoma Advanced Earth Classroom"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "료마의 대지마법 고급반",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.ryoma-advanced-earth-classroom.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.rie-non-elemental-classroom",
+    "kind": "map",
+    "name": {
+      "koOriginal": "리에의 비속성 마법교실",
+      "en": "Rie Non-elemental Classroom"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "리에의 비속성 마법교실",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.rie-non-elemental-classroom.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.pet-classroom",
+    "kind": "map",
+    "name": {
+      "koOriginal": "펫 교실",
+      "en": "Pet Classroom"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "펫 교실",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.pet-classroom.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.magic-material-room",
+    "kind": "map",
+    "name": {
+      "koOriginal": "마법 재료실",
+      "en": "Magic Material Room"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "마법 재료실",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.magic-material-room.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.nurse-office",
+    "kind": "map",
+    "name": {
+      "koOriginal": "양호실",
+      "en": "Nurse Office"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "양호실",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.nurse-office.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.third-floor",
+    "kind": "map",
+    "name": {
+      "koOriginal": "3층",
+      "en": "Third Floor"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "3층",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.third-floor.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.principal-office",
+    "kind": "map",
+    "name": {
+      "koOriginal": "교장실",
+      "en": "Principal Office"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "교장실",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.principal-office.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.dormitory",
+    "kind": "map",
+    "name": {
+      "koOriginal": "기숙사",
+      "en": "Dormitory"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "기숙사",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.dormitory.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.babel-temple",
+    "kind": "map",
+    "name": {
+      "koOriginal": "바벨 신전",
+      "en": "Babel Temple"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "바벨 신전",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.babel-temple.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.health-center",
+    "kind": "map",
+    "name": {
+      "koOriginal": "건강 센터",
+      "en": "Health Center"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "건강 센터",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.health-center.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.muhammad-ali-iii-palace",
+    "kind": "map",
+    "name": {
+      "koOriginal": "무함마드알리 3세의 왕궁",
+      "en": "Muhammad Ali III Palace"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "무함마드알리 3세의 왕궁",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.muhammad-ali-iii-palace.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.kadija-house",
+    "kind": "map",
+    "name": {
+      "koOriginal": "카디자의 집",
+      "en": "Kadija House"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "카디자의 집",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.kadija-house.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.juda-harbor",
+    "kind": "map",
+    "name": {
+      "koOriginal": "항구마을 주다",
+      "en": "Juda Harbor"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "항구마을 주다",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.juda-harbor.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.flame-village",
+    "kind": "map",
+    "name": {
+      "koOriginal": "불꽃 마을",
+      "en": "Flame Village"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "불꽃 마을",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.flame-village.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.grandfather-ralph-house",
+    "kind": "map",
+    "name": {
+      "koOriginal": "랄프 할아버지의 집",
+      "en": "Grandfather Ralph House"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "랄프 할아버지의 집",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.grandfather-ralph-house.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.chief-emery-house",
+    "kind": "map",
+    "name": {
+      "koOriginal": "에머리 촌장의 집",
+      "en": "Chief Emery House"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "에머리 촌장의 집",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.chief-emery-house.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.wizard-city-colosseum",
+    "kind": "map",
+    "name": {
+      "koOriginal": "마법사의 도시 콜로세움",
+      "en": "Wizard City Colosseum"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "마법사의 도시 콜로세움",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.wizard-city-colosseum.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.shaiya-tower",
+    "kind": "map",
+    "name": {
+      "koOriginal": "샤이아의 탑",
+      "en": "Shaiya Tower"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "샤이아의 탑",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.shaiya-tower.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.joker-house",
+    "kind": "map",
+    "name": {
+      "koOriginal": "조커의 집",
+      "en": "Joker House"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "조커의 집",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.joker-house.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.gluglu-temple",
+    "kind": "map",
+    "name": {
+      "koOriginal": "글루글루 신전",
+      "en": "Gluglu Temple"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "글루글루 신전",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.gluglu-temple.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.fishing-spot",
+    "kind": "map",
+    "name": {
+      "koOriginal": "낚시터",
+      "en": "Fishing Spot"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "낚시터",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.fishing-spot.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.deron-kingdom",
+    "kind": "map",
+    "name": {
+      "koOriginal": "데런 왕국",
+      "en": "Deron Kingdom"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "데런 왕국",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.deron-kingdom.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.kingdom-arena",
+    "kind": "map",
+    "name": {
+      "koOriginal": "왕국 경기장",
+      "en": "Kingdom Arena"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "왕국 경기장",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.kingdom-arena.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.caesar-iii-palace",
+    "kind": "map",
+    "name": {
+      "koOriginal": "세자르 3세의 왕궁",
+      "en": "Caesar III Palace"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "세자르 3세의 왕궁",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.caesar-iii-palace.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.grandmother-nell-house",
+    "kind": "map",
+    "name": {
+      "koOriginal": "넬 할머니의 집",
+      "en": "Grandmother Nell House"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "넬 할머니의 집",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.grandmother-nell-house.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.chief-humphrey-house",
+    "kind": "map",
+    "name": {
+      "koOriginal": "험프리 촌장의 집",
+      "en": "Chief Humphrey House"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "험프리 촌장의 집",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.chief-humphrey-house.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.eagle-village",
+    "kind": "map",
+    "name": {
+      "koOriginal": "독수리 마을",
+      "en": "Eagle Village"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "독수리 마을",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.eagle-village.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.forbidden-gate",
+    "kind": "map",
+    "name": {
+      "koOriginal": "금단의 문",
+      "en": "Forbidden Gate"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "금단의 문",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.forbidden-gate.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.forbidden-east-gate",
+    "kind": "map",
+    "name": {
+      "koOriginal": "금단의 동문",
+      "en": "Forbidden East Gate"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "금단의 동문",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.forbidden-east-gate.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.forbidden-west-gate",
+    "kind": "map",
+    "name": {
+      "koOriginal": "금단의 서문",
+      "en": "Forbidden West Gate"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "금단의 서문",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.forbidden-west-gate.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.forbidden-north-gate",
+    "kind": "map",
+    "name": {
+      "koOriginal": "금단의 북문",
+      "en": "Forbidden North Gate"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "romi-maps",
+        "section": "금단의 북문",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Logical dimensions",
+      "Collision and NPC/portal coordinates",
+      "Portal destinations and unlock conditions",
+      "Music track mapping"
+    ],
+    "assetIds": [
+      "map.forbidden-north-gate.background"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.school-grounds",
+    "kind": "map",
+    "name": {
+      "koOriginal": "학교 앞",
+      "en": "School Grounds"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-187",
+        "section": "학교 앞",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Topology and geometry",
+      "Triggers and assets"
+    ],
+    "assetIds": [],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.school-hall",
+    "kind": "map",
+    "name": {
+      "koOriginal": "학교 안 로비",
+      "en": "School Hall"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-187",
+        "section": "학교 안 로비",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Topology and geometry",
+      "Triggers and assets"
+    ],
+    "assetIds": [],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.boiler-room",
+    "kind": "map",
+    "name": {
+      "koOriginal": "보일러실",
+      "en": "Boiler Room"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "보일러실",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Topology and geometry",
+      "Triggers and assets"
+    ],
+    "assetIds": [],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.forgotten-dwarf-palace",
+    "kind": "map",
+    "name": {
+      "koOriginal": "난쟁이의 잊혀진 궁전",
+      "en": "Forgotten Dwarf Palace"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-207",
+        "section": "난쟁이의 잊혀진 궁전",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Topology and geometry",
+      "Triggers and assets"
+    ],
+    "assetIds": [],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.deron-maze",
+    "kind": "map",
+    "name": {
+      "koOriginal": "데런 왕국의 미로",
+      "en": "Deron Maze"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-231",
+        "section": "데런 왕국의 미로",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Topology and geometry",
+      "Triggers and assets"
+    ],
+    "assetIds": [],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.kalama-oasis",
+    "kind": "map",
+    "name": {
+      "koOriginal": "칼라마 오아시스",
+      "en": "Kalama Oasis"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "칼라마 오아시스",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Topology and geometry",
+      "Triggers and assets"
+    ],
+    "assetIds": [],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.merfolk-village",
+    "kind": "map",
+    "name": {
+      "koOriginal": "어인 마을",
+      "en": "Merfolk Village"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "어인 마을",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Topology and geometry",
+      "Triggers and assets"
+    ],
+    "assetIds": [],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.wolf-city",
+    "kind": "map",
+    "name": {
+      "koOriginal": "늑대의 도시",
+      "en": "Wolf City"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "늑대의 도시",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Topology and geometry",
+      "Triggers and assets"
+    ],
+    "assetIds": [],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.giant-hut",
+    "kind": "map",
+    "name": {
+      "koOriginal": "거인의 오두막",
+      "en": "Giant Hut"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "거인의 오두막",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Topology and geometry",
+      "Triggers and assets"
+    ],
+    "assetIds": [],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "map.jackal-waterfall",
+    "kind": "map",
+    "name": {
+      "koOriginal": "쟈칼의 폭포",
+      "en": "Jackal Waterfall"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-186",
+        "section": "쟈칼의 폭포",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Topology and geometry",
+      "Triggers and assets"
+    ],
+    "assetIds": [],
+    "relatedIds": [],
+    "runtimeReady": false
+  }
+]

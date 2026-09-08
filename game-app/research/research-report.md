@@ -1,0 +1,15 @@
+# Arpia research coverage
+
+Generated from validated content, 2026-09-07.
+
+- Main missions: **103/103 cataloged**, 103 narrative sources matched, 9 title variants.
+- Fully researched: 0; scripted: 0; playable: 0; historically verified: 0.
+- Free Missions: **37 cataloged**, 15 with contemporary narrative posts. Exhaustiveness is unknown.
+- Entity counts: npc: 94, map: 75, pet: 22, spell: 28, monster: 47, item: 8.
+- Sources: 83 records; 4 unavailable.
+- Assets: 387 requested logical IDs; **0 approved**.
+- Executable quests/maps: 0/0. No historical map topology is fabricated.
+
+[Source index](../docs/research/00-source-index.md) · [Main missions](../docs/research/03-main-missions.md) · [Free Missions](../docs/research/04-free-missions.md) · [Contradictions](../docs/research/22-content-uncertainties.md) · [Implementation sequence](../docs/architecture/arpia-implementation-sequence.md)
+
+Run `npm run research:check` and `npm run research:report` from game-app.

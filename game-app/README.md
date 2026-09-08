@@ -1,0 +1,38 @@
+# SpyConverter Game / Arpia
+
+Everything for the game lives in this directory. It builds independently of the existing static website, News app and root Supabase configuration.
+
+The Next.js host mounts at **/game**, including nested routes, API endpoints and assets. Its current release is an honest **hosting preview**; no quests are playable and no cloud saves or authentication are exposed. The separate engine remains a library awaiting researched maps and approved replacement assets.
+
+## Run from this directory
+
+```sh
+npm ci
+npm run research:check
+npm run research:report
+npm run typecheck
+npm test
+npm run build
+npm start
+npm run deployment:smoke -- http://127.0.0.1:3200
+```
+
+`npm run build:engine` produces the independent engine library. `npm run content:search -- "Rainbow Worm"` searches research without publishing it.
+
+`npm run public-release-audit` audits the hosting preview's source boundary, asset allowlist, secrets, flags, /game build prefix and deployment traces. `npm run gameplay-release-audit` **still fails** until playable content, approved assets, authoritative rewards and live Auth/two-user save checks exist. Passing the hosting audit does not mean the game is complete.
+
+## Isolation
+
+- `content/`, `docs/`, `research/`, `scripts/`, `tests/` and `supabase/` are package-local.
+- Only `public/assets/packs/public/` contains publishable assets, with a strict manifest allowlist.
+- Historical/reference assets belong in ignored `research/private-assets/reference/`. Nothing reference-only lives under `public/`.
+- The preview imports no Phaser, game data, cloud save adapter or research catalog. Existing SpyConverter HTML imports no game code.
+- `.env.local`, Supabase CLI state, build output and private assets are ignored here; no root ignore/package changes are needed.
+
+## Dedicated Supabase
+
+The owner created **spyconverter-game** in **Spyconverter Game** (Free), project `hpoibetvznysfsjrnxeh`. The public project URL/key are stored only in ignored `.env.local`. Production Game project variables use `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`; the latter accepts the new publishable-key format. Never copy News credentials or use service-role keys in browser variables.
+
+Migrations are under `supabase/migrations/`. Run future CLI commands from this directory and explicitly verify the new project ID. Migration 001 prepares RLS-protected prototype snapshots; migration 002 disables those writes in hosted projects until server-validated reward commands exist. Both run in the database tests. Hosted migrations and live Auth/save verification are still pending; this preview does not access the database.
+
+See [deployment preparation](docs/architecture/arpia-deployment.md), [repository audit](docs/architecture/arpia-repository-audit.md), [architecture](docs/architecture/arpia-foundation.md), [research report](research/research-report.md) and [implementation sequence](docs/architecture/arpia-implementation-sequence.md).

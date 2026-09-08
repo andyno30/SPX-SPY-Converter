@@ -1,0 +1,210 @@
+[
+  {
+    "id": "item.wand",
+    "kind": "item",
+    "name": {
+      "koOriginal": null,
+      "en": "Wand"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-188",
+        "section": "Samuel visit",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Exact item identity/icon",
+      "Stacking and prices",
+      "Award/consume quantities and prerequisites"
+    ],
+    "assetIds": [],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "item.resin-powder",
+    "kind": "item",
+    "name": {
+      "koOriginal": "송진 가루",
+      "en": "Resin Powder"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-205",
+        "section": "Crescent door",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Exact item identity/icon",
+      "Stacking and prices",
+      "Award/consume quantities and prerequisites"
+    ],
+    "assetIds": [],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "item.gold-nugget",
+    "kind": "item",
+    "name": {
+      "koOriginal": "금덩이",
+      "en": "Gold Nugget"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-207",
+        "section": "Episode 7 Guillaume",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Exact item identity/icon",
+      "Stacking and prices",
+      "Award/consume quantities and prerequisites"
+    ],
+    "assetIds": [],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "item.secret-key",
+    "kind": "item",
+    "name": {
+      "koOriginal": "비밀 열쇠",
+      "en": "Secret Key"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-207",
+        "section": "Episode 6 chest",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Exact item identity/icon",
+      "Stacking and prices",
+      "Award/consume quantities and prerequisites"
+    ],
+    "assetIds": [],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "item.mana-stone",
+    "kind": "item",
+    "name": {
+      "koOriginal": "마나스톤",
+      "en": "Mana Stone"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "alice-59",
+        "section": "Promotion materials",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Exact item identity/icon",
+      "Stacking and prices",
+      "Award/consume quantities and prerequisites"
+    ],
+    "assetIds": [],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "item.strengthened-mana-stone",
+    "kind": "item",
+    "name": {
+      "koOriginal": "강화 마나스톤",
+      "en": "Strengthened Mana Stone"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "alice-59",
+        "section": "Promotion materials",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Exact item identity/icon",
+      "Stacking and prices",
+      "Award/consume quantities and prerequisites"
+    ],
+    "assetIds": [],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "item.spirit-soil",
+    "kind": "item",
+    "name": {
+      "koOriginal": "정령의 흙",
+      "en": "Spirit Soil"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "alice-95",
+        "section": "Earth spirit reward account",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Exact item identity/icon",
+      "Stacking and prices",
+      "Award/consume quantities and prerequisites"
+    ],
+    "assetIds": [],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "item.grand-sage-stone",
+    "kind": "item",
+    "name": {
+      "koOriginal": "대현자의 돌",
+      "en": "Grand Sage Stone"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-295",
+        "section": "Final story",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Exact item identity/icon",
+      "Stacking and prices",
+      "Award/consume quantities and prerequisites"
+    ],
+    "assetIds": [],
+    "relatedIds": [],
+    "runtimeReady": false
+  }
+]

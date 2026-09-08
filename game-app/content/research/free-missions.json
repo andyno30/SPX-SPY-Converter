@@ -1,0 +1,2059 @@
+[
+  {
+    "id": "free.001",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "펫 전투 경연1",
+      "en": "Pet Battle Competition 1"
+    },
+    "suppliedKoTitle": "펫 전투 경연1",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "펫 전투 경연1"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": false,
+    "screenshotsFound": "UNKNOWN",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.002",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "펫 전투 경연2",
+      "en": "Pet Battle Competition 2"
+    },
+    "suppliedKoTitle": "펫 전투 경연2",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "펫 전투 경연2"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      },
+      {
+        "sourceId": "alice-60",
+        "section": "Article body",
+        "proves": "Contemporary walkthrough found; full screenshot transcription remains pending."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": true,
+    "screenshotsFound": "IMAGE_REFERENCES_UNCLASSIFIED",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.003",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "아론선생님의 심부름",
+      "en": "Aaron's Errand"
+    },
+    "suppliedKoTitle": "아론선생님의 심부름",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "아론선생님의 심부름"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      },
+      {
+        "sourceId": "alice-94",
+        "section": "Article body",
+        "proves": "Contemporary walkthrough found; full screenshot transcription remains pending."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": true,
+    "screenshotsFound": "IMAGE_REFERENCES_UNCLASSIFIED",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.004",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "아론선생님의 심부름2",
+      "en": "Aaron's Errand 2"
+    },
+    "suppliedKoTitle": "아론선생님의 심부름2",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "아론선생님의 심부름2"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": false,
+    "screenshotsFound": "UNKNOWN",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.005",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "휴버트의 환자 찾기",
+      "en": "Find Hubert's Patient"
+    },
+    "suppliedKoTitle": "휴버트의 환자 찾기",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "휴버트의 환자 찾기"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      },
+      {
+        "sourceId": "alice-144",
+        "section": "Article body",
+        "proves": "Contemporary walkthrough found; full screenshot transcription remains pending."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": true,
+    "screenshotsFound": "IMAGE_REFERENCES_UNCLASSIFIED",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.006",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "휴버트의 환자 찾기2",
+      "en": "Find Hubert's Patient 2"
+    },
+    "suppliedKoTitle": "휴버트의 환자 찾기2",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "휴버트의 환자 찾기2"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      },
+      {
+        "sourceId": "alice-184",
+        "section": "Article body",
+        "proves": "Contemporary walkthrough found; full screenshot transcription remains pending."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": true,
+    "screenshotsFound": "IMAGE_REFERENCES_UNCLASSIFIED",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.007",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "초보마법사 승급 시험",
+      "en": "Novice Wizard Promotion Exam"
+    },
+    "suppliedKoTitle": "초보마법사 승급 시험",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "초보마법사 승급 시험"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": false,
+    "screenshotsFound": "UNKNOWN",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.008",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "숙련마법사 승급 시험",
+      "en": "Skilled Wizard Promotion Exam"
+    },
+    "suppliedKoTitle": "숙련마법사 승급 시험",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "숙련마법사 승급 시험"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": false,
+    "screenshotsFound": "UNKNOWN",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.009",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "마도사 승급 시험",
+      "en": "Mage Promotion Exam"
+    },
+    "suppliedKoTitle": "마도사 승급 시험",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "마도사 승급 시험"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": false,
+    "screenshotsFound": "UNKNOWN",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.010",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "대마도사 승급 시험",
+      "en": "Archmage Promotion Exam"
+    },
+    "suppliedKoTitle": "대마도사 승급 시험",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "대마도사 승급 시험"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      },
+      {
+        "sourceId": "alice-59",
+        "section": "Article body",
+        "proves": "Contemporary walkthrough found; full screenshot transcription remains pending."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": true,
+    "screenshotsFound": "VISUALLY_INSPECTED_CROPS",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [
+      {
+        "field": "reportedMinimumLevel",
+        "value": 50,
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "alice-59",
+            "section": "Opening and promotion conclusion",
+            "proves": "Player describes starting above level 50 and becoming Archmage; exact equality threshold relies on wiki."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.011",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "불꽃마을주변 텔레포트 좌표받기",
+      "en": "Get Flame Village Area Teleport Coordinates"
+    },
+    "suppliedKoTitle": "불꽃마을주변 텔레포트 좌표받기",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "불꽃마을주변 텔레포트 좌표받기"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": false,
+    "screenshotsFound": "UNKNOWN",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.012",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "대지마을주변 텔레포트 좌표받기",
+      "en": "Get Earth Village Area Teleport Coordinates"
+    },
+    "suppliedKoTitle": "대지마을주변 텔레포트 좌표받기",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "대지마을주변 텔레포트 좌표받기"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": false,
+    "screenshotsFound": "UNKNOWN",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.013",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "얼음마을주변 텔레포트 좌표받기",
+      "en": "Get Ice Village Area Teleport Coordinates"
+    },
+    "suppliedKoTitle": "얼음마을주변 텔레포트 좌표받기",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "얼음마을주변 텔레포트 좌표받기"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": false,
+    "screenshotsFound": "UNKNOWN",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.014",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "대지 정령왕의 시험",
+      "en": "Trial of the Earth Spirit King"
+    },
+    "suppliedKoTitle": "대지 정령왕의 시험",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "대지 정령왕의 시험"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": false,
+    "screenshotsFound": "UNKNOWN",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period",
+      "May overlap with Angry Earth Spirit; preserve distinct catalog entries until compared."
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.015",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "얼음 정령왕의 시험",
+      "en": "Trial of the Ice Spirit King"
+    },
+    "suppliedKoTitle": "얼음 정령왕의 시험",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "얼음 정령왕의 시험"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      },
+      {
+        "sourceId": "alice-193",
+        "section": "Article body",
+        "proves": "Contemporary walkthrough found; full screenshot transcription remains pending."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": true,
+    "screenshotsFound": "IMAGE_REFERENCES_UNCLASSIFIED",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.016",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "지팡이 강화 테스트",
+      "en": "Wand Enhancement Test"
+    },
+    "suppliedKoTitle": "지팡이 강화 테스트",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "지팡이 강화 테스트"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": false,
+    "screenshotsFound": "UNKNOWN",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.017",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "난쟁이 광장 던젼의 좀비 세자매",
+      "en": "Three Zombie Sisters of the Dwarf Plaza Dungeon"
+    },
+    "suppliedKoTitle": "난쟁이 광장 던젼의 좀비 세자매",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "난쟁이 광장 던젼의 좀비 세자매"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": false,
+    "screenshotsFound": "UNKNOWN",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.018",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "나무꾼 괴물의 장작 더미",
+      "en": "The Woodcutter Monster's Firewood Pile"
+    },
+    "suppliedKoTitle": "나무꾼 괴물의 장작 더미",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "나무꾼 괴물의 장작 더미"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": false,
+    "screenshotsFound": "UNKNOWN",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.019",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "데런왕국의 귀신",
+      "en": "Ghost of Deron Kingdom"
+    },
+    "suppliedKoTitle": "데런왕국의 귀신",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "데런왕국의 귀신"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      },
+      {
+        "sourceId": "alice-157",
+        "section": "Article body",
+        "proves": "Contemporary walkthrough found; full screenshot transcription remains pending."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": true,
+    "screenshotsFound": "IMAGE_REFERENCES_UNCLASSIFIED",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.020",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "료마의 새지팡이",
+      "en": "Ryoma's New Wand"
+    },
+    "suppliedKoTitle": "료마의 새지팡이",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "료마의 새지팡이"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      },
+      {
+        "sourceId": "alice-178",
+        "section": "Article body",
+        "proves": "Contemporary walkthrough found; full screenshot transcription remains pending."
+      },
+      {
+        "sourceId": "alice-179",
+        "section": "Article body",
+        "proves": "Contemporary walkthrough found; full screenshot transcription remains pending."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": true,
+    "screenshotsFound": "IMAGE_REFERENCES_UNCLASSIFIED",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.021",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "머피아저씨 돕기",
+      "en": "Help Mr. Murphy"
+    },
+    "suppliedKoTitle": "머피아저씨 돕기",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "머피아저씨 돕기"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": false,
+    "screenshotsFound": "UNKNOWN",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.022",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "바바라 할머니의 건망증",
+      "en": "Grandma Barbara's Forgetfulness"
+    },
+    "suppliedKoTitle": "바바라 할머니의 건망증",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "바바라 할머니의 건망증"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": false,
+    "screenshotsFound": "UNKNOWN",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.023",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "부마의 맥반석 계란",
+      "en": "Buma's Stone-Baked Eggs"
+    },
+    "suppliedKoTitle": "부마의 맥반석 계란",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "부마의 맥반석 계란"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      },
+      {
+        "sourceId": "alice-85",
+        "section": "Article body",
+        "proves": "Contemporary walkthrough found; full screenshot transcription remains pending."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": true,
+    "screenshotsFound": "IMAGE_REFERENCES_UNCLASSIFIED",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.024",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "불꽃군을 찾아라",
+      "en": "Find the Flame Creature"
+    },
+    "suppliedKoTitle": "불꽃군을 찾아라",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "불꽃군을 찾아라"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      },
+      {
+        "sourceId": "alice-118",
+        "section": "Article body",
+        "proves": "Contemporary walkthrough found; full screenshot transcription remains pending."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": true,
+    "screenshotsFound": "IMAGE_REFERENCES_UNCLASSIFIED",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.025",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "샤이아의 화장품",
+      "en": "Shaiya's Cosmetics"
+    },
+    "suppliedKoTitle": "샤이아의 화장품",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "샤이아의 화장품"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": false,
+    "screenshotsFound": "UNKNOWN",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.026",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "성난 대지정령",
+      "en": "Angry Earth Spirit"
+    },
+    "suppliedKoTitle": "성난 대지정령",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "성난 대지정령"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      },
+      {
+        "sourceId": "alice-95",
+        "section": "Article body",
+        "proves": "Contemporary walkthrough found; full screenshot transcription remains pending."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": true,
+    "screenshotsFound": "IMAGE_REFERENCES_UNCLASSIFIED",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period",
+      "Relationship to Trial of Earth Spirit King unresolved; do not merge reward pools."
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.027",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "왕국경기장의 결투",
+      "en": "Kingdom Arena Duel"
+    },
+    "suppliedKoTitle": "왕국경기장의 결투",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "왕국경기장의 결투"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": false,
+    "screenshotsFound": "UNKNOWN",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.028",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "어인마을의 부탁",
+      "en": "Request from Merfolk Village"
+    },
+    "suppliedKoTitle": "어인마을의 부탁",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "어인마을의 부탁"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      },
+      {
+        "sourceId": "alice-127",
+        "section": "Article body",
+        "proves": "Contemporary walkthrough found; full screenshot transcription remains pending."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": true,
+    "screenshotsFound": "IMAGE_REFERENCES_UNCLASSIFIED",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.029",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "우탄의 십자수",
+      "en": "Wutan's Cross-Stitch"
+    },
+    "suppliedKoTitle": "우탄의 십자수",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "우탄의 십자수"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": false,
+    "screenshotsFound": "UNKNOWN",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.030",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "잃어버린 콘라드의 우편물",
+      "en": "Conrad's Lost Mail"
+    },
+    "suppliedKoTitle": "잃어버린 콘라드의 우편물",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "잃어버린 콘라드의 우편물"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      },
+      {
+        "sourceId": "alice-177",
+        "section": "Article body",
+        "proves": "Contemporary walkthrough found; full screenshot transcription remains pending."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": true,
+    "screenshotsFound": "IMAGE_REFERENCES_UNCLASSIFIED",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.031",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "쟈칼의 발가락 사이에 박힌 가시",
+      "en": "The Thorn in Jackal's Toe"
+    },
+    "suppliedKoTitle": "쟈칼의 발가락 사이에 박힌 가시",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "쟈칼의 발가락 사이에 박힌 가시"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": false,
+    "screenshotsFound": "UNKNOWN",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.032",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "조커의 변비",
+      "en": "Joker's Constipation"
+    },
+    "suppliedKoTitle": "조커의 변비",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "조커의 변비"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      },
+      {
+        "sourceId": "alice-117",
+        "section": "Article body",
+        "proves": "Contemporary walkthrough found; full screenshot transcription remains pending."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": true,
+    "screenshotsFound": "IMAGE_REFERENCES_UNCLASSIFIED",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.033",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "찾아가는 도서관",
+      "en": "Traveling Library"
+    },
+    "suppliedKoTitle": "찾아가는 도서관",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "찾아가는 도서관"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": false,
+    "screenshotsFound": "UNKNOWN",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.034",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "포악한 문어를 잡자",
+      "en": "Hunt the Ferocious Octopus"
+    },
+    "suppliedKoTitle": "포악한 문어를 잡자",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "포악한 문어를 잡자"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      },
+      {
+        "sourceId": "alice-132",
+        "section": "Article body",
+        "proves": "Contemporary walkthrough found; full screenshot transcription remains pending."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": true,
+    "screenshotsFound": "IMAGE_REFERENCES_UNCLASSIFIED",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.035",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "학교 주변 몬스터 잡기",
+      "en": "Hunt Monsters Around the School"
+    },
+    "suppliedKoTitle": "학교 주변 몬스터 잡기",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "학교 주변 몬스터 잡기"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": false,
+    "screenshotsFound": "UNKNOWN",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.036",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "험프리가의 문장",
+      "en": "Humphrey Family Crest"
+    },
+    "suppliedKoTitle": "험프리가의 문장",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "험프리가의 문장"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": false,
+    "screenshotsFound": "UNKNOWN",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  },
+  {
+    "id": "free.037",
+    "kind": "freeMission",
+    "episodeNumber": null,
+    "name": {
+      "koOriginal": "화염 전갈 사냥",
+      "en": "Fire Scorpion Hunt"
+    },
+    "suppliedKoTitle": "화염 전갈 사냥",
+    "titleVariants": [
+      {
+        "sourceId": "brief",
+        "text": "화염 전갈 사냥"
+      }
+    ],
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "readonly-main",
+        "section": "2.1 Free Mission list",
+        "proves": "Catalog identity; full prerequisites, quantities and rewards not established."
+      }
+    ],
+    "titleAgreement": "CATALOG_MATCH",
+    "walkthroughFound": false,
+    "screenshotsFound": "UNKNOWN",
+    "questStepsReconstructed": false,
+    "milestones": {
+      "cataloged": true,
+      "researched": false,
+      "scripted": false,
+      "playable": false,
+      "verified": false
+    },
+    "implementationStatus": "CATALOGED",
+    "claims": [],
+    "unknowns": [
+      "Giver and exact location",
+      "Level/rank and quest prerequisites",
+      "Full objective sequence, quantities and cooldown",
+      "Rewards and probability distribution",
+      "Original mission ID and release period"
+    ],
+    "rewards": {
+      "exp": null,
+      "pin": null,
+      "virtuePoints": null,
+      "items": null,
+      "pets": null
+    },
+    "runtimeDefinitionId": null
+  }
+]

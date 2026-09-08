@@ -1,0 +1,770 @@
+[
+  {
+    "id": "pet.flame-spirit",
+    "kind": "pet",
+    "name": {
+      "koOriginal": "불꽃 정령",
+      "en": "Flame Spirit"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-184",
+        "section": "불꽃 정령",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedMaxLevel",
+        "value": 10,
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-184",
+            "section": "Level 10",
+            "proves": "Placed under Level 10 heading in retrospective."
+          }
+        ]
+      },
+      {
+        "field": "acquisitionEpisode",
+        "value": 1,
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-184",
+            "section": "Level 10",
+            "proves": "Narrative timing only; exact trigger absent."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Stats and growth",
+      "Exact evolution trigger and artwork",
+      "Skills and affinity formula",
+      "Acquisition, prices and probabilities"
+    ],
+    "assetIds": [
+      "pet.flame-spirit.base",
+      "pet.flame-spirit.evolved"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "pet.ice-spirit",
+    "kind": "pet",
+    "name": {
+      "koOriginal": "얼음 정령",
+      "en": "Ice Spirit"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-184",
+        "section": "얼음 정령",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedMaxLevel",
+        "value": 10,
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-184",
+            "section": "Level 10",
+            "proves": "Placed under Level 10 heading in retrospective."
+          }
+        ]
+      },
+      {
+        "field": "acquisitionEpisode",
+        "value": 1,
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-184",
+            "section": "Level 10",
+            "proves": "Narrative timing only; exact trigger absent."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Stats and growth",
+      "Exact evolution trigger and artwork",
+      "Skills and affinity formula",
+      "Acquisition, prices and probabilities"
+    ],
+    "assetIds": [
+      "pet.ice-spirit.base",
+      "pet.ice-spirit.evolved"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "pet.earth-spirit",
+    "kind": "pet",
+    "name": {
+      "koOriginal": "대지 정령",
+      "en": "Earth Spirit"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-184",
+        "section": "대지 정령",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedMaxLevel",
+        "value": 10,
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-184",
+            "section": "Level 10",
+            "proves": "Placed under Level 10 heading in retrospective."
+          }
+        ]
+      },
+      {
+        "field": "acquisitionEpisode",
+        "value": 1,
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-184",
+            "section": "Level 10",
+            "proves": "Narrative timing only; exact trigger absent."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Stats and growth",
+      "Exact evolution trigger and artwork",
+      "Skills and affinity formula",
+      "Acquisition, prices and probabilities"
+    ],
+    "assetIds": [
+      "pet.earth-spirit.base",
+      "pet.earth-spirit.evolved"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "pet.baby-eagle",
+    "kind": "pet",
+    "name": {
+      "koOriginal": "아기독수리",
+      "en": "Baby Eagle"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-184",
+        "section": "아기독수리",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [
+      {
+        "field": "reportedMaxLevel",
+        "value": 10,
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-184",
+            "section": "Level 10",
+            "proves": "Placed under Level 10 heading in retrospective."
+          }
+        ]
+      },
+      {
+        "field": "acquisitionEpisode",
+        "value": 2,
+        "provenance": "RECONSTRUCTED",
+        "confidence": "MEDIUM",
+        "sourceNotes": [
+          {
+            "sourceId": "wonavy-184",
+            "section": "Level 10",
+            "proves": "Narrative timing only; exact trigger absent."
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Stats and growth",
+      "Exact evolution trigger and artwork",
+      "Skills and affinity formula",
+      "Acquisition, prices and probabilities"
+    ],
+    "assetIds": [
+      "pet.baby-eagle.base",
+      "pet.baby-eagle.evolved"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "pet.dog",
+    "kind": "pet",
+    "name": {
+      "koOriginal": "강아지",
+      "en": "Dog"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-184",
+        "section": "강아지",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Stats and growth",
+      "Exact evolution trigger and artwork",
+      "Skills and affinity formula",
+      "Acquisition, prices and probabilities"
+    ],
+    "assetIds": [
+      "pet.dog.base",
+      "pet.dog.evolved"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "pet.rabbit",
+    "kind": "pet",
+    "name": {
+      "koOriginal": "토끼",
+      "en": "Rabbit"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-184",
+        "section": "토끼",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Stats and growth",
+      "Exact evolution trigger and artwork",
+      "Skills and affinity formula",
+      "Acquisition, prices and probabilities"
+    ],
+    "assetIds": [
+      "pet.rabbit.base",
+      "pet.rabbit.evolved"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "pet.penguin",
+    "kind": "pet",
+    "name": {
+      "koOriginal": "펭귄",
+      "en": "Penguin"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-184",
+        "section": "펭귄",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Stats and growth",
+      "Exact evolution trigger and artwork",
+      "Skills and affinity formula",
+      "Acquisition, prices and probabilities"
+    ],
+    "assetIds": [
+      "pet.penguin.base",
+      "pet.penguin.evolved"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "pet.poison-moth",
+    "kind": "pet",
+    "name": {
+      "koOriginal": "독나방",
+      "en": "Poison Moth"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-184",
+        "section": "독나방",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Stats and growth",
+      "Exact evolution trigger and artwork",
+      "Skills and affinity formula",
+      "Acquisition, prices and probabilities"
+    ],
+    "assetIds": [
+      "pet.poison-moth.base",
+      "pet.poison-moth.evolved"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "pet.pillow",
+    "kind": "pet",
+    "name": {
+      "koOriginal": "베개",
+      "en": "Pillow"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-184",
+        "section": "베개",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Stats and growth",
+      "Exact evolution trigger and artwork",
+      "Skills and affinity formula",
+      "Acquisition, prices and probabilities"
+    ],
+    "assetIds": [
+      "pet.pillow.base",
+      "pet.pillow.evolved"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "pet.clam",
+    "kind": "pet",
+    "name": {
+      "koOriginal": "조개",
+      "en": "Clam"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-184",
+        "section": "조개",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Stats and growth",
+      "Exact evolution trigger and artwork",
+      "Skills and affinity formula",
+      "Acquisition, prices and probabilities"
+    ],
+    "assetIds": [
+      "pet.clam.base",
+      "pet.clam.evolved"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "pet.turtle",
+    "kind": "pet",
+    "name": {
+      "koOriginal": "거북이",
+      "en": "Turtle"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-184",
+        "section": "거북이",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Stats and growth",
+      "Exact evolution trigger and artwork",
+      "Skills and affinity formula",
+      "Acquisition, prices and probabilities"
+    ],
+    "assetIds": [
+      "pet.turtle.base",
+      "pet.turtle.evolved"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "pet.voodoo-doll",
+    "kind": "pet",
+    "name": {
+      "koOriginal": "부두인형",
+      "en": "Voodoo Doll"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-184",
+        "section": "부두인형",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Stats and growth",
+      "Exact evolution trigger and artwork",
+      "Skills and affinity formula",
+      "Acquisition, prices and probabilities"
+    ],
+    "assetIds": [
+      "pet.voodoo-doll.base",
+      "pet.voodoo-doll.evolved"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "pet.bad-dog",
+    "kind": "pet",
+    "name": {
+      "koOriginal": "불량견",
+      "en": "Bad Dog"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-184",
+        "section": "불량견",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Stats and growth",
+      "Exact evolution trigger and artwork",
+      "Skills and affinity formula",
+      "Acquisition, prices and probabilities"
+    ],
+    "assetIds": [
+      "pet.bad-dog.base",
+      "pet.bad-dog.evolved"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "pet.rag-doll",
+    "kind": "pet",
+    "name": {
+      "koOriginal": "누더기인형",
+      "en": "Rag Doll"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-184",
+        "section": "누더기인형",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Stats and growth",
+      "Exact evolution trigger and artwork",
+      "Skills and affinity formula",
+      "Acquisition, prices and probabilities"
+    ],
+    "assetIds": [
+      "pet.rag-doll.base",
+      "pet.rag-doll.evolved"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "pet.yeonjipul",
+    "kind": "pet",
+    "name": {
+      "koOriginal": "연지풀",
+      "en": "Yeonjipul"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-184",
+        "section": "연지풀",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Stats and growth",
+      "Exact evolution trigger and artwork",
+      "Skills and affinity formula",
+      "Acquisition, prices and probabilities"
+    ],
+    "assetIds": [
+      "pet.yeonjipul.base",
+      "pet.yeonjipul.evolved"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "pet.jjopaman",
+    "kind": "pet",
+    "name": {
+      "koOriginal": "쪼파맨",
+      "en": "Jjopaman"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-184",
+        "section": "쪼파맨",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Stats and growth",
+      "Exact evolution trigger and artwork",
+      "Skills and affinity formula",
+      "Acquisition, prices and probabilities"
+    ],
+    "assetIds": [
+      "pet.jjopaman.base",
+      "pet.jjopaman.evolved"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "pet.candy-girl",
+    "kind": "pet",
+    "name": {
+      "koOriginal": "캔디걸",
+      "en": "Candy Girl"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-184",
+        "section": "캔디걸",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Stats and growth",
+      "Exact evolution trigger and artwork",
+      "Skills and affinity formula",
+      "Acquisition, prices and probabilities"
+    ],
+    "assetIds": [
+      "pet.candy-girl.base",
+      "pet.candy-girl.evolved"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "pet.ice-bar",
+    "kind": "pet",
+    "name": {
+      "koOriginal": "아이스바",
+      "en": "Ice Bar"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-184",
+        "section": "아이스바",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Stats and growth",
+      "Exact evolution trigger and artwork",
+      "Skills and affinity formula",
+      "Acquisition, prices and probabilities"
+    ],
+    "assetIds": [
+      "pet.ice-bar.base",
+      "pet.ice-bar.evolved"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "pet.wood-doll",
+    "kind": "pet",
+    "name": {
+      "koOriginal": "나무인형",
+      "en": "Wood Doll"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-184",
+        "section": "나무인형",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Stats and growth",
+      "Exact evolution trigger and artwork",
+      "Skills and affinity formula",
+      "Acquisition, prices and probabilities"
+    ],
+    "assetIds": [
+      "pet.wood-doll.base",
+      "pet.wood-doll.evolved"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "pet.mole",
+    "kind": "pet",
+    "name": {
+      "koOriginal": "두더지",
+      "en": "Mole"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-184",
+        "section": "두더지",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Stats and growth",
+      "Exact evolution trigger and artwork",
+      "Skills and affinity formula",
+      "Acquisition, prices and probabilities"
+    ],
+    "assetIds": [
+      "pet.mole.base",
+      "pet.mole.evolved"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "pet.cat",
+    "kind": "pet",
+    "name": {
+      "koOriginal": "고양이",
+      "en": "Cat"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-184",
+        "section": "고양이",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Stats and growth",
+      "Exact evolution trigger and artwork",
+      "Skills and affinity formula",
+      "Acquisition, prices and probabilities"
+    ],
+    "assetIds": [
+      "pet.cat.base",
+      "pet.cat.evolved"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  },
+  {
+    "id": "pet.poin",
+    "kind": "pet",
+    "name": {
+      "koOriginal": "포인",
+      "en": "Poin"
+    },
+    "provenance": "RECONSTRUCTED",
+    "confidence": "MEDIUM",
+    "sourceNotes": [
+      {
+        "sourceId": "wonavy-184",
+        "section": "포인",
+        "proves": "Catalog name appears in this source; English is a working localization."
+      }
+    ],
+    "claims": [],
+    "unknowns": [
+      "Stats and growth",
+      "Exact evolution trigger and artwork",
+      "Skills and affinity formula",
+      "Acquisition, prices and probabilities"
+    ],
+    "assetIds": [
+      "pet.poin.base",
+      "pet.poin.evolved"
+    ],
+    "relatedIds": [],
+    "runtimeReady": false
+  }
+]

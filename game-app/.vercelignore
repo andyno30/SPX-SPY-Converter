@@ -1,0 +1,9 @@
+node_modules
+.next
+dist
+.env*
+research/private-assets
+research/.cache
+content/dialogue/reference
+supabase/.temp
+coverage

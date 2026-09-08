@@ -1,0 +1,41 @@
+{
+  "name": "spyconverter-game",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "research:check": "node --import tsx scripts/research/check-content.ts",
+    "research:report": "node --import tsx scripts/research/build-report.ts",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "build": "npm run research:check && npm run audit:source && next build --webpack && npm run public-release-audit",
+    "public-release-audit": "node --import tsx scripts/public-release-audit.ts",
+    "content:search": "node --import tsx scripts/research/search-content.ts",
+    "dev": "next dev --hostname 127.0.0.1 --port 3200",
+    "start": "next start --hostname 127.0.0.1 --port 3200",
+    "build:engine": "tsc -p tsconfig.build.json",
+    "audit:source": "node --import tsx scripts/public-release-audit.ts --source-only",
+    "gameplay-release-audit": "node --import tsx scripts/gameplay-release-audit.ts",
+    "deployment:smoke": "node --import tsx scripts/deployment-smoke.ts"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.49.8",
+    "phaser": "3.90.0",
+    "zod": "3.25.76",
+    "next": "16.3.4",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "@next/env": "16.3.4"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.8",
+    "@types/node": "20.17.24",
+    "tsx": "4.20.5",
+    "typescript": "5.8.2",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.7"
+  },
+  "engines": {
+    "node": "22.x"
+  }
+}
