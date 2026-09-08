@@ -4,10 +4,10 @@
   "installCommand": "npm ci",
   "buildCommand": "npm run build",
   "ignoreCommand": "node scripts/vercel-ignore-build.mjs",
-  "rewrites": [
+  "routes": [
     {
-      "source": "/assets/:path*",
-      "destination": "/game/route-not-found"
+      "src": "^/assets(?:/.*)?$",
+      "status": 404
     }
   ]
 }
