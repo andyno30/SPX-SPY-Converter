@@ -11,7 +11,9 @@ One repository: `andyno30/SPX-SPY-Converter`. All game code, content, documentat
 | Project | Repository | Root directory | Status |
 | --- | --- | --- | --- |
 | spyconverter-news | andyno30/SPX-SPY-Converter | news-app | Existing, unchanged |
-| spyconverter-game | andyno30/SPX-SPY-Converter | game-app | Prepared; see verification report for live deployment |
+| spyconverter-game | andyno30/SPX-SPY-Converter | game-app | Created and connected; see verification report for live deployment |
+
+Game project ID: `prj_DdSykPQqzmA4O0sazFSA0Xru0ZQ3`. The existing GitHub integration is connected; the main branch remains the eventual production source. The initial hosting preview is deployed explicitly from the isolated game branch.
 
 Game preset: Next.js. Node: 22.x. Install: `npm ci`. Build: `npm run build`. Output: framework default. Include files outside root: disabled. No root workspace/package file is required. Pinning Next.js/React here does not upgrade News.
 
@@ -21,7 +23,7 @@ News currently has automatic skipping disabled and includes files outside its ro
 
 ## Routes
 
-Next.js `basePath` is `/game`, built into routing and framework resources. `next/link` receives app-relative paths (e.g. `/status`) and applies the prefix. The engine asset resolver uses `/game/assets/packs/`; raw fetch URLs use `gameUrl`. Do not use `assetPrefix` as a substitute for route mounting.
+Next.js `basePath` is `/game`, built into routing and framework resources. `next/link` receives app-relative paths (e.g. `/status`) and applies the prefix. The engine asset resolver uses `/game/assets/packs/`; raw fetch URLs use `gameUrl`. Do not use `assetPrefix` as a substitute for route mounting. Vercel also exposes copied public files at unprefixed paths; the game-only vercel.json rewrite sends /assets/* to an app 404 path. This rule belongs only to the Game origin, not the existing SpyConverter domain.
 
 - `/game`: honest development notice; no playable content.
 - `/game/status`: public development status.
@@ -44,7 +46,7 @@ Rollback must remove only those two Game routing rules, returning the main-site 
 
 Owner-created project: `spyconverter-game`, project ID `hpoibetvznysfsjrnxeh`, organization `Spyconverter Game`, Free plan, West US (Oregon). This differs from the existing SpyConverter project, which the game adapter rejects.
 
-`NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` belong only to game-app/.env.local and the Game Vercel project. ANON_KEY uses the new publishable-key value; a service-role/secret key is never accepted. The preview does not initialize Auth or access tables. No live migrations have been applied by this deployment-preparation pass.
+`NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` are configured in ignored game-app/.env.local and in the Game Vercel project (Production, Preview and Development). ANON_KEY uses the new publishable-key value; a service-role/secret key is never accepted. The preview does not initialize Auth or access tables. No live migrations have been applied by this deployment-preparation pass.
 
 The two reproducible migrations are tested together in PostgreSQL (PGlite, mocked auth roles). Migration 001 provides versioned ownership-protected prototype storage; migration 002 revokes prototype snapshot writes from all API roles. Future CLI linking/application must run from game-app and target the exact new project, then verify migration history and live Auth/two-user isolation. Do not enable the private prototype as public gameplay.
 

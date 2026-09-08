@@ -31,7 +31,7 @@ npm run deployment:smoke -- http://127.0.0.1:3200
 
 ## Dedicated Supabase
 
-The owner created **spyconverter-game** in **Spyconverter Game** (Free), project `hpoibetvznysfsjrnxeh`. The public project URL/key are stored only in ignored `.env.local`. Production Game project variables use `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`; the latter accepts the new publishable-key format. Never copy News credentials or use service-role keys in browser variables.
+The owner created **spyconverter-game** in **Spyconverter Game** (Free), project `hpoibetvznysfsjrnxeh`. The public project URL/key are configured in ignored `.env.local` and the dedicated Game Vercel project. Production Game project variables use `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`; the latter accepts the new publishable-key format. Never copy News credentials or use service-role keys in browser variables.
 
 Migrations are under `supabase/migrations/`. Run future CLI commands from this directory and explicitly verify the new project ID. Migration 001 prepares RLS-protected prototype snapshots; migration 002 disables those writes in hosted projects until server-validated reward commands exist. Both run in the database tests. Hosted migrations and live Auth/save verification are still pending; this preview does not access the database.
 
