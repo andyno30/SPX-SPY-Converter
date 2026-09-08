@@ -2,6 +2,8 @@
 
 Everything for the game lives in this directory. It builds independently of the existing static website, News app and root Supabase configuration.
 
+Live hosting preview: [project-6mpze.vercel.app/game](https://project-6mpze.vercel.app/game).
+
 The Next.js host mounts at **/game**, including nested routes, API endpoints and assets. Its current release is an honest **hosting preview**; no quests are playable and no cloud saves or authentication are exposed. The separate engine remains a library awaiting researched maps and approved replacement assets.
 
 ## Run from this directory

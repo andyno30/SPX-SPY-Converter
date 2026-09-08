@@ -11,19 +11,19 @@ One repository: `andyno30/SPX-SPY-Converter`. All game code, content, documentat
 | Project | Repository | Root directory | Status |
 | --- | --- | --- | --- |
 | spyconverter-news | andyno30/SPX-SPY-Converter | news-app | Existing, unchanged |
-| spyconverter-game | andyno30/SPX-SPY-Converter | game-app | Created and connected; see verification report for live deployment |
+| spyconverter-game | andyno30/SPX-SPY-Converter | game-app | Live hosting preview; see verification report |
 
-Game project ID: `prj_DdSykPQqzmA4O0sazFSA0Xru0ZQ3`. The existing GitHub integration is connected; the main branch remains the eventual production source. The initial hosting preview is deployed explicitly from the isolated game branch.
+Game project ID: `prj_DdSykPQqzmA4O0sazFSA0Xru0ZQ3`. Generated public origin: `https://project-6mpze.vercel.app`; use `/game`. The existing GitHub integration is connected; the main branch remains the eventual production source. The initial hosting preview is deployed explicitly from the isolated game branch.
 
 Game preset: Next.js. Node: 22.x. Install: `npm ci`. Build: `npm run build`. Output: framework default. Include files outside root: disabled. No root workspace/package file is required. Pinning Next.js/React here does not upgrade News.
 
-The checked-in Vercel ignored-build script compares the previous deployment SHA with the current SHA scoped to game-app. Missing/shallow history builds conservatively. An existing-root change does not become a Game dependency. The first build always runs. The preview branch is `codex/game-production-foundation`; main and production domain routing are unchanged.
+Game-only automatic skipping is enabled in Vercel and verified after reload. The checked-in Vercel ignored-build script compares the previous deployment SHA with the current SHA scoped to game-app. Missing/shallow history builds conservatively. An existing-root change does not become a Game dependency. The first build always runs. The preview branch is `codex/game-production-foundation`; main and production domain routing are unchanged.
 
 News currently has automatic skipping disabled and includes files outside its root. Automatic approval review rejected saving a News skip-setting change because the user requested no changes to the existing website. The unsaved change was discarded and disabled state verified. Do not work around this through another API or commit. If explicitly approved later, configure a News-scoped ignored build command or the supported monorepo skipping setting, retaining any real News data dependencies. No News configuration was saved in this pass.
 
 ## Routes
 
-Next.js `basePath` is `/game`, built into routing and framework resources. `next/link` receives app-relative paths (e.g. `/status`) and applies the prefix. The engine asset resolver uses `/game/assets/packs/`; raw fetch URLs use `gameUrl`. Do not use `assetPrefix` as a substitute for route mounting. Vercel also exposes copied public files at unprefixed paths; the game-only vercel.json rewrite sends /assets/* to an app 404 path. This rule belongs only to the Game origin, not the existing SpyConverter domain.
+Next.js `basePath` is `/game`, built into routing and framework resources. `next/link` receives app-relative paths (e.g. `/status`) and applies the prefix. The engine asset resolver uses `/game/assets/packs/`; raw fetch URLs use `gameUrl`. Do not use `assetPrefix` as a substitute for route mounting. Vercel also exposes copied public files at unprefixed paths; the game-only vercel.json status route rejects /assets/* before static-file resolution. This rule belongs only to the Game origin, not the existing SpyConverter domain.
 
 - `/game`: honest development notice; no playable content.
 - `/game/status`: public development status.
@@ -57,3 +57,7 @@ The two reproducible migrations are tested together in PostgreSQL (PGlite, mocke
 The preview audit can pass because it publishes only a development notice and health endpoint. `npm run gameplay-release-audit` retains a separate blocking result for missing playable content, licensed assets, authoritative rewards, and live Auth/save verification. A hosting pass must never be described as finished or verified gameplay.
 
 Sources: [Next.js basePath](https://nextjs.org/docs/app/api-reference/config/next-config-js/basePath), [Vercel monorepos](https://vercel.com/docs/monorepos), [Vercel configuration](https://vercel.com/docs/project-configuration/vercel-json).
+
+## Generated-domain name
+
+The project is named spyconverter-game, but its automatically assigned domain remains project-6mpze.vercel.app. Automatic approval review rejected renaming that address to spyconverter-game.vercel.app because the exact domain change was not explicitly authorized. The unsaved rename was discarded and the original valid domain verified. No alternative alias, domain transfer or DNS workaround was applied.
