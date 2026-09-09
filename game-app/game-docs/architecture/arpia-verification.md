@@ -1,5 +1,13 @@
 # Verification — 2026-09-07 to 2026-09-08
 
+## Follow-up — 2026-09-09
+
+- The game branch remains cleanly isolated at `game-app/`; the only newer root-level commit is the owner's three-file ratio update (`script.js`, `converter.html`, `EStoSPX.html`). No News or existing-site files were changed by the game work.
+- Research validation now reports 103 main missions, 37 Free Missions, 274 entity records, 84 sources, 9 runtime quests and 111 approved public assets.
+- The complete automated suite passes: **39 tests** covering all three origins through Episode 6, save recovery, quest transactions, combat, content/provenance checks, public asset boundaries, Supabase migration behavior and Vercel ignore-build behavior.
+- `npm run typecheck`, `npm run build:engine`, the Next.js production build, source/output public-release audits and the research checker all pass.
+- A fresh browser acceptance character was created on the separate `localhost:3201` origin. The Episode 0 school tour and the opening Episode 1 scenes were exercised through the real UI; the existing saved character on `127.0.0.1` was left untouched.
+
 ## Completed
 
 - All changes made by this task are under game-app/. No original website, News, Options or root Supabase file was changed. The earlier root .gitignore edit and incidental News tsconfig.tsbuildinfo cache write were restored.
