@@ -91,6 +91,6 @@ test('Supabase config refuses existing project and privileged key formats before
   assert.throws(()=>createArpiaClient({url:'https://new-test.supabase.co',publishableKey:'sb_publishable_test',privatePrototype:false}));
 });
 test('content numbers and provenance validate; dependency cycles and missing IDs fail',()=>{
-  const c=checkContent();assert.equal(c.main.length,103);assert.equal(c.free.length,37);assert.equal(c.runtimeQuestCount,5);assert.equal(c.runtimeMapCount,24);
+  const c=checkContent();assert.equal(c.main.length,103);assert.equal(c.free.length,37);assert.equal(c.runtimeQuestCount,8);assert.equal(c.runtimeMapCount,40);
   assert.throws(()=>assertAcyclic(new Map([['a',['b']],['b',['a']]])),/cycle/);assert.throws(()=>assertAcyclic(new Map([['a',['missing']]])),/Unknown/);
 });

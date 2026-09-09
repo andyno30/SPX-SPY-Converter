@@ -419,19 +419,18 @@
     "titleAgreement": "VARIANT",
     "walkthroughFound": true,
     "screenshotsFound": "ILLUSTRATIONS_PRESENT_UNCLASSIFIED",
-    "questStepsReconstructed": false,
+    "questStepsReconstructed": true,
     "milestones": {
       "cataloged": true,
-      "researched": false,
-      "scripted": false,
+      "researched": true,
+      "scripted": true,
       "playable": false,
       "verified": false
     },
-    "implementationStatus": "CATALOGED",
+    "implementationStatus": "SCRIPTED",
     "claims": [],
     "unknowns": [
       "Exact dialogue/cutscene triggers",
-      "Full ordered objective sequence and faction branches",
       "Reward amounts and prerequisites",
       "Battle stats and encounter composition",
       "Map coordinates and collision/portal layout"
@@ -443,7 +442,7 @@
       "items": null,
       "pets": null
     },
-    "runtimeDefinitionId": null
+    "runtimeDefinitionId": "quest.main.003"
   },
   {
     "id": "main.004",
@@ -485,15 +484,15 @@
     "titleAgreement": "WHITESPACE_ONLY_OR_EXACT",
     "walkthroughFound": true,
     "screenshotsFound": "ILLUSTRATIONS_PRESENT_UNCLASSIFIED",
-    "questStepsReconstructed": false,
+    "questStepsReconstructed": true,
     "milestones": {
       "cataloged": true,
-      "researched": false,
-      "scripted": false,
+      "researched": true,
+      "scripted": true,
       "playable": false,
       "verified": false
     },
-    "implementationStatus": "CATALOGED",
+    "implementationStatus": "SCRIPTED",
     "claims": [
       {
         "field": "requiredPhraseKo",
@@ -524,7 +523,6 @@
     ],
     "unknowns": [
       "Exact dialogue/cutscene triggers",
-      "Full ordered objective sequence and faction branches",
       "Reward amounts and prerequisites",
       "Battle stats and encounter composition",
       "Map coordinates and collision/portal layout"
@@ -536,7 +534,7 @@
       "items": null,
       "pets": null
     },
-    "runtimeDefinitionId": null
+    "runtimeDefinitionId": "quest.main.004"
   },
   {
     "id": "main.005",
@@ -578,19 +576,18 @@
     "titleAgreement": "WHITESPACE_ONLY_OR_EXACT",
     "walkthroughFound": true,
     "screenshotsFound": "ILLUSTRATIONS_PRESENT_UNCLASSIFIED",
-    "questStepsReconstructed": false,
+    "questStepsReconstructed": true,
     "milestones": {
       "cataloged": true,
-      "researched": false,
-      "scripted": false,
+      "researched": true,
+      "scripted": true,
       "playable": false,
       "verified": false
     },
-    "implementationStatus": "CATALOGED",
+    "implementationStatus": "SCRIPTED",
     "claims": [],
     "unknowns": [
       "Exact dialogue/cutscene triggers",
-      "Full ordered objective sequence and faction branches",
       "Reward amounts and prerequisites",
       "Battle stats and encounter composition",
       "Map coordinates and collision/portal layout"
@@ -602,7 +599,7 @@
       "items": null,
       "pets": null
     },
-    "runtimeDefinitionId": null
+    "runtimeDefinitionId": "quest.main.005"
   },
   {
     "id": "main.006",

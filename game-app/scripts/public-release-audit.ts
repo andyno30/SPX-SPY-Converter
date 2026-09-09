@@ -7,7 +7,7 @@ import {assertPackSelection,manifestSchema} from '../src/game/engine/assets.js';
 import {deployment} from '../src/deployment.js';
 
 export const root=fileURLToPath(new URL('..',import.meta.url));
-const privatePath=/(^|[/\\])(reference|private-assets|research|docs|tests|supabase|dev|debug)([/\\]|$)/i;
+const privatePath=/(^|[/\\])(reference|private-assets|research|docs|game-docs|tests|supabase|dev|debug)([/\\]|$)/i;
 export function auditText(text:string,location:string):void {
   if (/sb_secret_[A-Za-z0-9_-]{12,}|-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/.test(text)) throw new Error('Secret in '+location);
   for (const jwt of text.matchAll(/eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/g)) {

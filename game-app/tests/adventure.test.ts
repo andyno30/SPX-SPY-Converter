@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
+import {validateAdventure} from '../src/game/adventure/validate-state.js';
 import {validateCampaign} from '../src/game/adventure/registry.js';
 import {manifestSchema} from '../src/game/engine/assets.js';
 import {newAdventure,currentQuest,currentStep,playerStats,makeParty,type AdventureState} from '../src/game/adventure/state.js';
@@ -42,22 +43,22 @@ function driver(element:'FLAME'|'ICE'|'EARTH'){
     }
     assert.equal(s.battle?.phase,'VICTORY');command({type:'FINISH_BATTLE'});talk();
   };
-  return {get state(){return s;},command,talk,move,travel,fight,completeOpening(){
+  return {get state(){return s;},command,talk,move,travel,fight,completeOpening(){this.completeThrough('story.forest.done');},completeThrough(finishFlag:string){
     let guard=0;
-    while(!s.save.world.flags['story.forest.done']){
-      assert(++guard<100,'opening terminates');const q=currentQuest(s,campaign),step=currentStep(s,campaign);assert(q&&step);
+    while(!s.save.world.flags[finishFlag]){
+      assert(++guard<250,'campaign terminates');const q=currentQuest(s,campaign),step=currentStep(s,campaign);assert(q&&step);
       const expected=step.id;travel(step.mapId);
       if(currentStep(s,campaign)?.id!==expected)continue;
       if(step.type==='ENTER_MAP')throw new Error('Entry step was not consumed');
-      move(step.targetId);command({type:'INTERACT',targetId:step.targetId});talk();
+      move(step.targetId);if(step.type==='TYPE_PHRASE'){const before=JSON.stringify(s.save.quests);command({type:'PHRASE',targetId:step.targetId,phrase:'wrong words'});assert.equal(JSON.stringify(s.save.quests),before);command({type:'PHRASE',targetId:step.targetId,phrase:step.phrase!});}else command({type:'INTERACT',targetId:step.targetId});talk();
       if(s.battle)fight();
       // Real serialized reload at every completed objective.
-      s=JSON.parse(JSON.stringify(s));
+      s=validateAdventure(JSON.parse(JSON.stringify(s)),campaign);
     }
   }};
 }
 test('opening campaign validates every map, dialogue, actor, portal, asset and evidence reference',()=>{
-  assert.equal(campaign.quests.length,5);assert.equal(campaign.maps.length,24);
+  assert.equal(campaign.quests.length,8);assert.equal(campaign.maps.length,40);
   const broken=structuredClone(campaign);broken.maps[0]!.portals[0]!.toMapId='map.missing';assert.throws(()=>validateCampaign(broken));
 });
 for(const element of ['FLAME','ICE','EARTH'] as const)test(element+' character completes Episodes 0–2 with reloads, homeland travel, duel and five-unit Odangka battle',()=>{
@@ -124,4 +125,14 @@ test('session failed save and concurrent revision preserve the last committed mi
   await assert.rejects(second.dispatch({type:'SAVE'}),/Save conflict/);assert.equal(second.state.save.revision,0);
   unavailable=true;await assert.rejects(first.dispatch({type:'SAVE'}),/Storage is full/);assert.deepEqual(first.state,committed);assert.deepEqual(saved,committed);
   await second.reload();assert.deepEqual(second.state,committed);
+});
+
+for(const element of ['FLAME','ICE','EARTH'] as const)test(element+' completes Episodes 0–5, including the typed crescent door and sword investigation',()=>{
+  const d=driver(element);d.completeThrough('story.kadija.done');
+  for(const id of ['quest.main.003','quest.main.004','quest.main.005'])assert.equal(d.state.save.quests[id]?.completed,true);
+  assert.equal(d.state.save.world.flags['story.crescent-open'],true);
+  assert.equal(d.state.save.world.flags['story.swords-altered'],true);
+  assert.equal(d.state.save.inventory['item.murphy-scroll'],1);
+  for(const id of ['item.resin-powder','item.bread','item.cold-medicine','item.firewood','item.testing-powder','item.yogurt'])assert.equal(d.state.save.inventory[id],undefined);
+  assert.equal(d.state.save.companionIds.length,0);assert.equal(d.state.save.world.flags['story.skoll-away'],false);
 });

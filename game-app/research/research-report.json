@@ -4,8 +4,8 @@
     "cataloged": 103,
     "narrativeFound": 103,
     "titleVariants": 9,
-    "researched": 3,
-    "scripted": 3,
+    "researched": 6,
+    "scripted": 6,
     "playable": 3,
     "verified": 0
   },
@@ -28,11 +28,11 @@
   },
   "assets": {
     "requiredIds": 387,
-    "approved": 75
+    "approved": 105
   },
   "runtime": {
-    "quests": 5,
-    "maps": 24
+    "quests": 8,
+    "maps": 40
   },
   "unresolvedFields": 923
 }

@@ -380,6 +380,276 @@
         "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
       }
     },
+    "npc.conrad.overworld": {
+      "path": "npcs/conrad.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.conrad.portrait": {
+      "path": "portraits/conrad.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.caesar-iii.overworld": {
+      "path": "npcs/caesar-iii.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.caesar-iii.portrait": {
+      "path": "portraits/caesar-iii.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.edward.overworld": {
+      "path": "npcs/edward.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.edward.portrait": {
+      "path": "portraits/edward.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.hina.overworld": {
+      "path": "npcs/hina.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.hina.portrait": {
+      "path": "portraits/hina.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.amela.overworld": {
+      "path": "npcs/amela.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.amela.portrait": {
+      "path": "portraits/amela.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.douglas.overworld": {
+      "path": "npcs/douglas.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.douglas.portrait": {
+      "path": "portraits/douglas.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.murphy.overworld": {
+      "path": "npcs/murphy.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.murphy.portrait": {
+      "path": "portraits/murphy.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.chili.overworld": {
+      "path": "npcs/chili.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.chili.portrait": {
+      "path": "portraits/chili.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.baldi.overworld": {
+      "path": "npcs/baldi.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.baldi.portrait": {
+      "path": "portraits/baldi.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.kobold.overworld": {
+      "path": "npcs/kobold.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.kobold.portrait": {
+      "path": "portraits/kobold.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.naomi.overworld": {
+      "path": "npcs/naomi.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.naomi.portrait": {
+      "path": "portraits/naomi.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.leona.overworld": {
+      "path": "npcs/leona.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.leona.portrait": {
+      "path": "portraits/leona.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.muhammad-ali-iv.overworld": {
+      "path": "npcs/muhammad-ali-iv.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.muhammad-ali-iv.portrait": {
+      "path": "portraits/muhammad-ali-iv.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.kadija.overworld": {
+      "path": "npcs/kadija.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.kadija.portrait": {
+      "path": "portraits/kadija.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.scorpion.overworld": {
+      "path": "npcs/scorpion.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.scorpion.portrait": {
+      "path": "portraits/scorpion.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
     "pet.flame-spirit.overworld": {
       "path": "pets/flame-spirit.svg",
       "type": "image",

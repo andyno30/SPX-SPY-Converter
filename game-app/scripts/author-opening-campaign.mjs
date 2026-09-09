@@ -17,7 +17,7 @@ for(const [id,name,element,target,kind,power,mp,status] of [
  ['fire-arrow','Fire Arrow','FLAME','ENEMY','DAMAGE',22,9,'BURN'],['ice-spear','Ice Spear','ICE','ENEMY','DAMAGE',22,9,'SLOW'],['stone-hand','Stone Hand','EARTH','ENEMY','DAMAGE',22,9,'ATTACK_DOWN'],
  ['blind','Blind','NONE','ENEMY','STATUS',0,8,'BLIND'],['silence','Silence','NONE','ENEMY','STATUS',0,8,'SILENCE'],['poison','Poison','EARTH','ENEMY','STATUS',0,6,'POISON']])c.spells.push({id:'spell.'+id,name,element,mpCost:mp,power,target,kind,...(status?{status,duration:30}:{}),minimumRank:'APPRENTICE',assetId:'icon.'+(element==='FLAME'?'fire':element==='ICE'?'ice':element==='EARTH'?'earth':'healing'),...authored,balanceEvidence:authored});
 const item=(id,name,kind,power,price,description,extra={})=>c.items.push({id:'item.'+id,name,description,kind,power,price,sellPrice:kind==='QUEST'?0:Math.floor(price/3),minimumRank:'APPRENTICE',assetId:'icon.item',...extra,...authored,balanceEvidence:authored});
-item('small-tonic','Small HP tonic','HP',45,12,'Restores 45 HP. Restoration name and value.');item('mana-tonic','Small MP tonic','MP',25,15,'Restores 25 MP. Restoration name and value.');item('antidote','Antidote','CURE',0,10,'Removes status effects.');item('revive-tonic','Revival tonic','REVIVE',30,30,'Revives a fallen ally with 30 HP.');
+item('small-tonic','Small HP tonic','HP',45,12,'Restores 45 HP.');item('mana-tonic','Small MP tonic','MP',25,15,'Restores 25 MP.');item('antidote','Antidote','CURE',0,10,'Removes status effects.');item('revive-tonic','Revival tonic','REVIVE',30,30,'Revives a fallen ally with 30 HP.');
 item('wand','School wand','EQUIPMENT',0,40,'Samuel supplies a wand before the Kesno duel.',{slot:'WAND',bonus:{magicAttack:3}});item('medicine','Morris’s medicine','QUEST',0,0,'Bring this to Odangka with Aaron.');item('bread','Cafeteria bread','QUEST',0,0,'Isaac has found a use for yesterday’s bread.');
 for(const [element,name,spell,pet,power] of [['FLAME','Flame Village','fire','flame-spirit',stats(105,28,16,10,10,6)],['ICE','Ice Village','ice','ice-spirit',stats(80,48,10,6,17,11)],['EARTH','Earth Village','stone-crash','earth-spirit',stats(94,38,13,8,13,8)]]){
  const key=element.toLowerCase();c.origins.push({element,name,mapId:'map.'+key+'-village',startingSpellId:'spell.'+spell,petId:'pet.'+pet,maleAssetId:`character.${key}.male`,femaleAssetId:`character.${key}.female`,stats:power,...authored,balanceEvidence:authored});
@@ -130,9 +130,13 @@ service('supplies','samuel','magic-item-shop','Magic supplies','SHOP',{itemIds:[
 for(const [actorId,mapId,spell] of [['esta','flame-classroom','fire-arrow'],['skoll','ice-classroom','ice-spear'],['ishubike','earth-classroom','stone-hand'],['rie','non-elemental-classroom','healing']])service('lesson.'+spell,actorId,mapId,'Study '+c.spells.find(s=>s.id==='spell.'+spell).name,'LESSON',{spellId:'spell.'+spell,virtueCost:3,lessonCount:3});
 service('recovery','hubert','health-center','Rest and recover','HEAL',{pinCost:5});
 service('training','pelita','pet-center','Train the selected pet','PET_TRAIN',{pinCost:10});
-// Only the opening is active. Later research catalog entries remain explicitly unplayable.
+const {extendFirstJourneys}=await import('./author-first-journeys.mjs');
+extendFirstJourneys(c,{actor,map,portal,link,getMap,quest,step,tx,flag,item,ev,authored,stats});
+const researchedActors=JSON.parse(readFileSync(join(root,'content/research/npcs.json'),'utf8'));
+for(const a of c.actors){const r=researchedActors.find(r=>r.id===a.id);if(r)a.koOriginal=r.name.koOriginal;}
+// Only Episodes 0–5 are active. Later research catalog entries remain explicitly unplayable.
 mkdirSync(join(root,'content/adventure'),{recursive:true});writeFileSync(join(root,'content/adventure/opening.json'),JSON.stringify(c,null,2)+'\n');
 const manifestPath=join(root,'public/assets/packs/public/manifest.json');const manifest=JSON.parse(readFileSync(manifestPath,'utf8'));
 for(const [key,base] of [['chief','samuel'],['family','julia']])for(const [kind,folder] of [['overworld','npcs'],['portrait','portraits']])manifest.assets[`npc.${key}.${kind}`]={...manifest.assets[`npc.${base}.${kind}`],path:`${folder}/${base}.svg`};
 writeFileSync(manifestPath,JSON.stringify(manifest,null,2)+'\n');
-console.log(`Authored ${c.quests.length} quest branches, ${c.maps.length} maps and ${c.dialogue.length} dialogue sequences for Episodes 0–2.`);
+console.log(`Authored ${c.quests.length} quest branches, ${c.maps.length} maps and ${c.dialogue.length} dialogue sequences for Episodes 0–5.`);

@@ -8,7 +8,7 @@ export default {
   productionBrowserSourceMaps: false,
   outputFileTracingRoot: fileURLToPath(new URL('.', import.meta.url)),
   outputFileTracingExcludes: {
-    '/*': ['./research/**/*', './docs/**/*', './content/**/*', './tests/**/*', './supabase/**/*'],
+    '/*': ['./research/**/*', './game-docs/**/*', './content/**/*', './tests/**/*', './supabase/**/*'],
   },
   async headers() {
     return [{source: '/:path*', headers: [
