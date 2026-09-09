@@ -16,7 +16,8 @@
     "build:engine": "tsc -p tsconfig.build.json",
     "audit:source": "node --import tsx scripts/public-release-audit.ts --source-only",
     "gameplay-release-audit": "node --import tsx scripts/gameplay-release-audit.ts",
-    "deployment:smoke": "node --import tsx scripts/deployment-smoke.ts"
+    "deployment:smoke": "node --import tsx scripts/deployment-smoke.ts",
+    "playtest": "next dev workbench --webpack --hostname 127.0.0.1 --port 3201"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.49.8",

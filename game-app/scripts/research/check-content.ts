@@ -4,6 +4,8 @@ import {fileURLToPath} from 'node:url';
 import {sourceSchema,researchRecordSchema,missionSchema} from '../../src/content/research-schema.js';
 import {questDefinitionSchema,mapDefinitionSchema,mazeDefinitionSchema} from '../../src/content/runtime-schema.js';
 import {manifestSchema} from '../../src/game/engine/assets.js';
+import {validateCampaign} from '../../src/game/adventure/registry.js';
+import type {Campaign} from '../../src/game/adventure/schema.js';
 
 export const root=resolve(fileURLToPath(new URL('../..',import.meta.url)));
 export const readJson=(path:string):unknown=>JSON.parse(readFileSync(join(root,path),'utf8'));
@@ -48,6 +50,7 @@ export function checkContent(){
   }
   // Unknown schemas fail closed: catalog records can never silently become runtime content.
   const quests:ReturnType<typeof questDefinitionSchema.parse>[]=[],maps:ReturnType<typeof mapDefinitionSchema.parse>[]=[];
+  const campaigns:Campaign[]=[];
   const knownResearch=new Set(['sources','missions','free-missions','npcs','maps','pets','spells','monsters','items','discovery']);
   for(const path of jsonFiles(join(root,'content'))){
     const rel=relative(join(root,'content'),path),data=JSON.parse(readFileSync(path,'utf8'));
@@ -55,10 +58,12 @@ export function checkContent(){
     if(rel.startsWith('missions/'))quests.push(questDefinitionSchema.parse(data));
     else if(rel.startsWith('maps/'))maps.push(mapDefinitionSchema.parse(data));
     else if(rel.startsWith('mazes/'))mazeDefinitionSchema.parse(data);
+    else if(rel.startsWith('adventure/'))campaigns.push(validateCampaign(data,manifest,new Set(sources.filter(s=>s.accessStatus!=='UNAVAILABLE').map(s=>s.id))));
     else throw new Error(`Runtime schema must be added before activating ${rel}`);
   }
-  const runtimeMapIds=new Set(maps.map(m=>m.id)),runtimeQuestIds=new Set(quests.map(q=>q.id));
-  if(runtimeMapIds.size!==maps.length||runtimeQuestIds.size!==quests.length)throw new Error('Duplicate runtime ID');
+  const campaignMaps=campaigns.flatMap(c=>c.maps),campaignQuests=campaigns.flatMap(c=>c.quests);
+  const runtimeMapIds=new Set([...maps,...campaignMaps].map(m=>m.id)),runtimeQuestIds=new Set([...quests,...campaignQuests].map(q=>q.id));
+  if(runtimeMapIds.size!==maps.length+campaignMaps.length||runtimeQuestIds.size!==quests.length+campaignQuests.length)throw new Error('Duplicate runtime ID');
   for(const m of maps){
     if(!manifest.assets[m.backgroundAssetId])throw new Error(`Missing runtime map asset ${m.backgroundAssetId}`);
     for(const p of m.portals)if(!runtimeMapIds.has(p.toMapId))throw new Error(`Broken portal ${p.id}`);
@@ -73,7 +78,7 @@ export function checkContent(){
     }
     for(const tx of [q.rewards,...q.steps.map(s=>s.effects)])for(const id of Object.keys(tx.items??{}))if(!records.some(r=>r.kind==='item'&&r.id===id))throw new Error(`Unknown reward item ${id}`);
   }
-  return {...catalog,runtimeQuestCount:quests.length,runtimeMapCount:maps.length,approvedAssets:Object.keys(manifest.assets).length};
+  return {...catalog,runtimeQuestCount:runtimeQuestIds.size,runtimeMapCount:runtimeMapIds.size,approvedAssets:Object.keys(manifest.assets).length};
 }
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
   const c=checkContent();console.log(`Validated ${c.main.length} main missions, ${c.free.length} Free Missions, ${c.records.length} entity records and ${c.sources.length} sources. Runtime quests: ${c.runtimeQuestCount}. Approved assets: ${c.approvedAssets}.`);

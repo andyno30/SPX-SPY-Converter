@@ -39,15 +39,15 @@
     "titleAgreement": "WHITESPACE_ONLY_OR_EXACT",
     "walkthroughFound": true,
     "screenshotsFound": "ILLUSTRATIONS_PRESENT_UNCLASSIFIED",
-    "questStepsReconstructed": false,
+    "questStepsReconstructed": true,
     "milestones": {
       "cataloged": true,
-      "researched": false,
-      "scripted": false,
-      "playable": false,
+      "researched": true,
+      "scripted": true,
+      "playable": true,
       "verified": false
     },
-    "implementationStatus": "CATALOGED",
+    "implementationStatus": "PLAYABLE",
     "claims": [
       {
         "field": "openingNpcId",
@@ -100,11 +100,23 @@
             "proves": "Supports this narrative detail; exact runtime trigger/wording not recovered."
           }
         ]
+      },
+      {
+        "field": "restorationRuntimeScope",
+        "value": "Local playtest only; opening objectives/browser flow verified, original values and geometry remain unknown. Episode 1 has Flame, Ice and Earth branches.",
+        "provenance": "RESTORATION",
+        "confidence": "LOW",
+        "sourceNotes": [
+          {
+            "sourceId": "brief",
+            "section": "Phases 3–5 and provenance rules",
+            "proves": "Defines the executable restoration target; this implementation report is not historical evidence."
+          }
+        ]
       }
     ],
     "unknowns": [
       "Exact dialogue/cutscene triggers",
-      "Full ordered objective sequence and faction branches",
       "Reward amounts and prerequisites",
       "Battle stats and encounter composition",
       "Map coordinates and collision/portal layout"
@@ -116,7 +128,7 @@
       "items": null,
       "pets": null
     },
-    "runtimeDefinitionId": null
+    "runtimeDefinitionId": "quest.main.000"
   },
   {
     "id": "main.001",
@@ -158,15 +170,15 @@
     "titleAgreement": "WHITESPACE_ONLY_OR_EXACT",
     "walkthroughFound": true,
     "screenshotsFound": "ILLUSTRATIONS_PRESENT_UNCLASSIFIED",
-    "questStepsReconstructed": false,
+    "questStepsReconstructed": true,
     "milestones": {
       "cataloged": true,
-      "researched": false,
-      "scripted": false,
-      "playable": false,
+      "researched": true,
+      "scripted": true,
+      "playable": true,
       "verified": false
     },
-    "implementationStatus": "CATALOGED",
+    "implementationStatus": "PLAYABLE",
     "claims": [
       {
         "field": "openingNpcId",
@@ -219,11 +231,23 @@
             "proves": "Timing reported in pet retrospective; absent from the shorter Episode 1 narrative."
           }
         ]
+      },
+      {
+        "field": "restorationRuntimeScope",
+        "value": "Local playtest only; opening objectives/browser flow verified, original values and geometry remain unknown. Episode 1 has Flame, Ice and Earth branches.",
+        "provenance": "RESTORATION",
+        "confidence": "LOW",
+        "sourceNotes": [
+          {
+            "sourceId": "brief",
+            "section": "Phases 3–5 and provenance rules",
+            "proves": "Defines the executable restoration target; this implementation report is not historical evidence."
+          }
+        ]
       }
     ],
     "unknowns": [
       "Exact dialogue/cutscene triggers",
-      "Full ordered objective sequence and faction branches",
       "Reward amounts and prerequisites",
       "Battle stats and encounter composition",
       "Map coordinates and collision/portal layout"
@@ -235,7 +259,7 @@
       "items": null,
       "pets": null
     },
-    "runtimeDefinitionId": null
+    "runtimeDefinitionId": "quest.main.001.flame"
   },
   {
     "id": "main.002",
@@ -277,15 +301,15 @@
     "titleAgreement": "VARIANT",
     "walkthroughFound": true,
     "screenshotsFound": "ILLUSTRATIONS_PRESENT_UNCLASSIFIED",
-    "questStepsReconstructed": false,
+    "questStepsReconstructed": true,
     "milestones": {
       "cataloged": true,
-      "researched": false,
-      "scripted": false,
-      "playable": false,
+      "researched": true,
+      "scripted": true,
+      "playable": true,
       "verified": false
     },
-    "implementationStatus": "CATALOGED",
+    "implementationStatus": "PLAYABLE",
     "claims": [
       {
         "field": "openingNpcId",
@@ -325,11 +349,23 @@
             "proves": "Baby Eagle associated with Episode 2; exact award trigger unknown."
           }
         ]
+      },
+      {
+        "field": "restorationRuntimeScope",
+        "value": "Local playtest only; opening objectives/browser flow verified, original values and geometry remain unknown. Episode 1 has Flame, Ice and Earth branches.",
+        "provenance": "RESTORATION",
+        "confidence": "LOW",
+        "sourceNotes": [
+          {
+            "sourceId": "brief",
+            "section": "Phases 3–5 and provenance rules",
+            "proves": "Defines the executable restoration target; this implementation report is not historical evidence."
+          }
+        ]
       }
     ],
     "unknowns": [
       "Exact dialogue/cutscene triggers",
-      "Full ordered objective sequence and faction branches",
       "Reward amounts and prerequisites",
       "Battle stats and encounter composition",
       "Map coordinates and collision/portal layout"
@@ -341,7 +377,7 @@
       "items": null,
       "pets": null
     },
-    "runtimeDefinitionId": null
+    "runtimeDefinitionId": "quest.main.002"
   },
   {
     "id": "main.003",

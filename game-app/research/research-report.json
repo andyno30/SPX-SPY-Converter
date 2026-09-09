@@ -1,12 +1,12 @@
 {
-  "date": "2026-09-07",
+  "date": "2026-09-08",
   "main": {
     "cataloged": 103,
     "narrativeFound": 103,
     "titleVariants": 9,
-    "researched": 0,
-    "scripted": 0,
-    "playable": 0,
+    "researched": 3,
+    "scripted": 3,
+    "playable": 3,
     "verified": 0
   },
   "free": {
@@ -28,11 +28,11 @@
   },
   "assets": {
     "requiredIds": 387,
-    "approved": 0
+    "approved": 75
   },
   "runtime": {
-    "quests": 0,
-    "maps": 0
+    "quests": 5,
+    "maps": 24
   },
   "unresolvedFields": 923
 }

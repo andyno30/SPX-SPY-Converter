@@ -13,6 +13,7 @@
     "src/app",
     "tests",
     "scripts",
-    "node_modules"
+    "node_modules",
+    "src/ui"
   ]
 }

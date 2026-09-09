@@ -1,5 +1,681 @@
 {
   "id": "public",
-  "version": 1,
-  "assets": {}
+  "version": 2,
+  "assets": {
+    "character.flame.male": {
+      "path": "characters/flame-male.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "character.flame.female": {
+      "path": "characters/flame-female.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "character.ice.male": {
+      "path": "characters/ice-male.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "character.ice.female": {
+      "path": "characters/ice-female.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "character.earth.male": {
+      "path": "characters/earth-male.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "character.earth.female": {
+      "path": "characters/earth-female.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.george.overworld": {
+      "path": "npcs/george.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.george.portrait": {
+      "path": "portraits/george.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.skoll.overworld": {
+      "path": "npcs/skoll.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.skoll.portrait": {
+      "path": "portraits/skoll.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.morris.overworld": {
+      "path": "npcs/morris.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.morris.portrait": {
+      "path": "portraits/morris.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.julia.overworld": {
+      "path": "npcs/julia.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.julia.portrait": {
+      "path": "portraits/julia.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.mina.overworld": {
+      "path": "npcs/mina.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.mina.portrait": {
+      "path": "portraits/mina.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.shou.overworld": {
+      "path": "npcs/shou.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.shou.portrait": {
+      "path": "portraits/shou.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.samuel.overworld": {
+      "path": "npcs/samuel.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.samuel.portrait": {
+      "path": "portraits/samuel.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.kesno.overworld": {
+      "path": "npcs/kesno.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.kesno.portrait": {
+      "path": "portraits/kesno.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.isaac.overworld": {
+      "path": "npcs/isaac.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.isaac.portrait": {
+      "path": "portraits/isaac.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.aaron.overworld": {
+      "path": "npcs/aaron.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.aaron.portrait": {
+      "path": "portraits/aaron.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.odangka.overworld": {
+      "path": "npcs/odangka.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.odangka.portrait": {
+      "path": "portraits/odangka.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.matilda.overworld": {
+      "path": "npcs/matilda.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.matilda.portrait": {
+      "path": "portraits/matilda.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.esta.overworld": {
+      "path": "npcs/esta.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.esta.portrait": {
+      "path": "portraits/esta.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.ishubike.overworld": {
+      "path": "npcs/ishubike.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.ishubike.portrait": {
+      "path": "portraits/ishubike.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.rie.overworld": {
+      "path": "npcs/rie.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.rie.portrait": {
+      "path": "portraits/rie.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.pelita.overworld": {
+      "path": "npcs/pelita.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.pelita.portrait": {
+      "path": "portraits/pelita.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.barbara.overworld": {
+      "path": "npcs/barbara.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.barbara.portrait": {
+      "path": "portraits/barbara.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.hubert.overworld": {
+      "path": "npcs/hubert.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.hubert.portrait": {
+      "path": "portraits/hubert.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "pet.flame-spirit.overworld": {
+      "path": "pets/flame-spirit.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "pet.flame-spirit.evolved": {
+      "path": "pets/flame-spirit-evolved.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "pet.ice-spirit.overworld": {
+      "path": "pets/ice-spirit.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "pet.ice-spirit.evolved": {
+      "path": "pets/ice-spirit-evolved.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "pet.earth-spirit.overworld": {
+      "path": "pets/earth-spirit.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "pet.earth-spirit.evolved": {
+      "path": "pets/earth-spirit-evolved.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "pet.baby-eagle.overworld": {
+      "path": "pets/baby-eagle.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "pet.baby-eagle.evolved": {
+      "path": "pets/eagle.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.shiva.overworld": {
+      "path": "npcs/shiva.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.shiva.portrait": {
+      "path": "portraits/shiva.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "icon.fire": {
+      "path": "ui/fire.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "icon.ice": {
+      "path": "ui/ice.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "icon.earth": {
+      "path": "ui/earth.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "icon.healing": {
+      "path": "ui/healing.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "icon.item": {
+      "path": "ui/item.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "icon.object": {
+      "path": "ui/object.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "icon.encounter": {
+      "path": "ui/encounter.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "map.grounds.background": {
+      "path": "maps/grounds.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "map.hall.background": {
+      "path": "maps/hall.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "map.classroom.background": {
+      "path": "maps/classroom.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "map.office.background": {
+      "path": "maps/office.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "map.village.background": {
+      "path": "maps/village.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "map.shop.background": {
+      "path": "maps/shop.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "map.forest.background": {
+      "path": "maps/forest.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "map.basement.background": {
+      "path": "maps/basement.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "map.arena.background": {
+      "path": "maps/arena.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "map.maze.background": {
+      "path": "maps/maze.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "map.library.background": {
+      "path": "maps/library.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "map.dorm.background": {
+      "path": "maps/dorm.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.chief.overworld": {
+      "path": "npcs/samuel.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.chief.portrait": {
+      "path": "portraits/samuel.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.family.overworld": {
+      "path": "npcs/julia.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.family.portrait": {
+      "path": "portraits/julia.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    }
+  }
 }
