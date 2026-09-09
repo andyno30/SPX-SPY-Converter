@@ -1,11 +1,11 @@
 {
-  "date": "2026-09-08",
+  "date": "2026-09-09",
   "main": {
     "cataloged": 103,
     "narrativeFound": 103,
     "titleVariants": 9,
-    "researched": 6,
-    "scripted": 6,
+    "researched": 9,
+    "scripted": 7,
     "playable": 3,
     "verified": 0
   },
@@ -23,16 +23,16 @@
     "item": 8
   },
   "sources": {
-    "total": 83,
+    "total": 84,
     "unavailable": 4
   },
   "assets": {
     "requiredIds": 387,
-    "approved": 105
+    "approved": 111
   },
   "runtime": {
-    "quests": 8,
-    "maps": 40
+    "quests": 9,
+    "maps": 44
   },
   "unresolvedFields": 923
 }

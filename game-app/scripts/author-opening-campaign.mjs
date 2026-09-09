@@ -132,11 +132,13 @@ service('recovery','hubert','health-center','Rest and recover','HEAL',{pinCost:5
 service('training','pelita','pet-center','Train the selected pet','PET_TRAIN',{pinCost:10});
 const {extendFirstJourneys}=await import('./author-first-journeys.mjs');
 extendFirstJourneys(c,{actor,map,portal,link,getMap,quest,step,tx,flag,item,ev,authored,stats});
+const {extendSecretKey}=await import('./author-secret-key.mjs');
+extendSecretKey(c,{actor,map,portal,link,getMap,quest,step,tx,flag,item,ev,authored,stats});
 const researchedActors=JSON.parse(readFileSync(join(root,'content/research/npcs.json'),'utf8'));
 for(const a of c.actors){const r=researchedActors.find(r=>r.id===a.id);if(r)a.koOriginal=r.name.koOriginal;}
-// Only Episodes 0–5 are active. Later research catalog entries remain explicitly unplayable.
+// Only Episodes 0–6 are active. Later research catalog entries remain explicitly unplayable.
 mkdirSync(join(root,'content/adventure'),{recursive:true});writeFileSync(join(root,'content/adventure/opening.json'),JSON.stringify(c,null,2)+'\n');
 const manifestPath=join(root,'public/assets/packs/public/manifest.json');const manifest=JSON.parse(readFileSync(manifestPath,'utf8'));
 for(const [key,base] of [['chief','samuel'],['family','julia']])for(const [kind,folder] of [['overworld','npcs'],['portrait','portraits']])manifest.assets[`npc.${key}.${kind}`]={...manifest.assets[`npc.${base}.${kind}`],path:`${folder}/${base}.svg`};
 writeFileSync(manifestPath,JSON.stringify(manifest,null,2)+'\n');
-console.log(`Authored ${c.quests.length} quest branches, ${c.maps.length} maps and ${c.dialogue.length} dialogue sequences for Episodes 0–5.`);
+console.log(`Authored ${c.quests.length} quest branches, ${c.maps.length} maps and ${c.dialogue.length} dialogue sequences for Episodes 0–6.`);

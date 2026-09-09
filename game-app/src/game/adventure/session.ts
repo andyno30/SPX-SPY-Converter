@@ -1,4 +1,6 @@
 import {validateAdventure} from './validate-state.js';
+import {commandSchema,type Command} from './commands.js';
+export type {Command} from './commands.js';
 import {meets,ranks,type Element} from '../engine/model.js';
 import {findPath,type Point} from '../engine/navigation.js';
 import {SaveConflict} from '../engine/saves.js';
@@ -7,12 +9,6 @@ import {act,tickBattle,type BattleAction} from './combat.js';
 import {adventureStateSchema,newAdventure,currentQuest,currentStep,openStepDialogue,nextDialogue,beginEncounter,finishEncounter,applyEffects,playerStats,notice,type AdventureState} from './state.js';
 
 export interface AdventureStore {load():Promise<AdventureState|null>;commit(state:AdventureState,expectedRevision:number):Promise<AdventureState>}
-export type Command=
-  |{type:'INTERACT';targetId:string}|{type:'PORTAL';portalId:string}|{type:'NEXT_DIALOGUE'}
-  |{type:'PHRASE';targetId:string;phrase:string}|{type:'BATTLE_ACTION';action:Omit<BattleAction,'item'>;itemId?:string}|{type:'FINISH_BATTLE'}
-  |{type:'EQUIP';itemId:string}|{type:'UNEQUIP';slot:string}|{type:'USE_ITEM';itemId:string}
-  |{type:'BUY'|'SELL';serviceId:string;itemId:string;quantity:number}|{type:'SERVICE';serviceId:string;petId?:string}
-  |{type:'TOGGLE_PET';petId:string}|{type:'SELECT_QUEST';questId:string}|{type:'SAVE'};
 export const distance=(a:Point,b:Point)=>Math.abs(a.x-b.x)+Math.abs(a.y-b.y);
 export function mapFor(s:AdventureState,c:Campaign):WorldMap {const map=c.maps.find(m=>m.id===s.save.world.mapId);if(!map)throw new Error('Unknown saved map');return map;}
 export function visibleTargets(s:AdventureState,c:Campaign){
@@ -24,7 +20,8 @@ export function visibleTargets(s:AdventureState,c:Campaign){
     ...m.portals.filter(p=>allowed(p.conditions)&&(!p.element||p.element===s.save.character.element)).map(p=>({id:p.id,name:p.name,position:p.position,kind:'PORTAL' as const})),
   ];
 }
-export function reduceCommand(input:AdventureState,c:Campaign,command:Command):AdventureState {
+export function reduceCommand(input:AdventureState,c:Campaign,intent:Command):AdventureState {
+  const command=commandSchema.parse(intent);
   let s=structuredClone(input);
   const inWorld=()=>{if(s.battle||s.dialogue)throw new Error('Finish the current conversation or encounter first');};
   const near=(id:string)=>{const target=visibleTargets(s,c).find(t=>t.id===id);if(!target||distance(s.save.world,target.position)>1)throw new Error('Move closer to interact');return target;};
@@ -35,6 +32,10 @@ export function reduceCommand(input:AdventureState,c:Campaign,command:Command):A
   if(command.type==='NEXT_DIALOGUE')return nextDialogue(s,c);
   if(command.type==='INTERACT'||command.type==='PHRASE'){
     inWorld();const target=near(command.targetId);const q=currentQuest(s,c),step=currentStep(s,c);
+    if(command.type==='PHRASE'){
+      if(target.kind!=='OBJECT')throw new Error('There is no object here that responds to a phrase');
+      notice(s,s.save.character.name+': '+command.phrase);
+    }
     if(target.kind==='PORTAL')return reduceCommand(s,c,{type:'PORTAL',portalId:target.id});
     if(target.kind==='BATTLE')return beginEncounter(s,c,target.id);
     if(q&&step&&step.mapId===s.save.world.mapId&&step.targetId===target.id&&step.conditions.every(x=>meets(s.save,x))){
@@ -161,10 +162,20 @@ export class BrowserAdventureStore implements AdventureStore {
     if(await this.load())throw new Error('A character already exists. Continue it or export and reset it first.');
     return this.commit(newAdventure(c,name,element,appearance,crypto.randomUUID()),0);
   }
-  export(state:AdventureState){return JSON.stringify(adventureStateSchema.parse(state),null,2);}
-  async import(raw:string){
-    const state=validateAdventure(JSON.parse(raw),this.campaign);
+  export(state:AdventureState){return JSON.stringify(validateAdventure(state,this.campaign),null,2);}
+  prepareImport(raw:string){
+    if(raw.length>2_000_000)throw new Error('Save backups must be smaller than 2 MB');
+    return {state:validateAdventure(JSON.parse(raw),this.campaign),expectedRaw:localStorage.getItem(this.key)};
+  }
+  async import(raw:string,expectedRaw:string|null){
+    const {state}=this.prepareImport(raw);
     if(!navigator.locks)throw new Error('Web Locks are required');
-    return navigator.locks.request(this.key,async()=>{const current=await this.load();const next={...state,save:{...state.save,revision:(current?.save.revision??0)+1}};localStorage.setItem(this.key,JSON.stringify(next));return next;});
+    return navigator.locks.request(this.key,async()=>{
+      if(localStorage.getItem(this.key)!==expectedRaw)throw new SaveConflict();
+      // An explicitly reviewed backup can recover an unreadable local save. Retain the raw original until setItem succeeds.
+      let revision=0;try{revision=(await this.load())?.save.revision??0;}catch{/* The candidate has already passed full validation. */}
+      const next=validateAdventure({...state,save:{...state.save,revision:revision+1}},this.campaign);
+      localStorage.setItem(this.key,JSON.stringify(next));return next;
+    });
   }
 }

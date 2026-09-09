@@ -89,7 +89,11 @@ export function tickBattle(input:Battle,spells:Spell[],ticks=1):Battle {
     b.tick++;
     for(const unit of b.units){
       if(unit.hp===0)continue;
-      if(b.tick%RESTORATION_COMBAT.statusPeriod===0&&unit.statuses.some(s=>['POISON','BURN','BLEED'].includes(s.kind))){unit.hp=Math.max(0,unit.hp-Math.max(1,Math.floor(unit.maxHP/16)));}
+      if(b.tick%RESTORATION_COMBAT.statusPeriod===0&&unit.statuses.some(s=>['POISON','BURN','BLEED'].includes(s.kind))){
+        unit.hp=Math.max(0,unit.hp-Math.max(1,Math.floor(unit.maxHP/16)));
+        if(unit.side==='ALLY'&&b.escapeTicks!==null){b.escapeTicks=null;log(b,'The escape attempt was interrupted.');}
+        if(unit.hp===0){unit.gauge=0;unit.statuses=[];log(b,unit.name+' is unable to fight.');}
+      }
       unit.statuses=unit.statuses.map(s=>({...s,remaining:s.remaining-1})).filter(s=>s.remaining>0);
       if(unit.hp>0&&!has(unit,'PARALYSIS')&&!has(unit,'SLEEP'))unit.gauge=Math.min(100,unit.gauge+Math.max(1,Math.floor(unit.agility*(has(unit,'SLOW')?0.5:1))));
     }

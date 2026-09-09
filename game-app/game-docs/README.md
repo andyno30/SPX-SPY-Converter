@@ -15,3 +15,5 @@ Individual mission dossiers live in `research/missions/main/` and `research/miss
 On 2026-09-09, all 173 files from `game-app/docs/` were moved here with matching hashes before references were updated. The 27 files in the website's root `docs/` were checked byte-for-byte and left unchanged. The report generator and production exclusions now use `game-docs/`. Both the current and legacy documentation directory names remain blocked from public assets and host imports.
 
 The original repository migration inventory preserves historical `from` paths and hashes; its game-documentation destinations now point here. These historical hashes describe the original migration, not later edited documents.
+
+Latest development checkpoint: [Episode 6 and save recovery](architecture/arpia-continuation-2026-09-09.md).

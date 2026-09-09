@@ -6,7 +6,7 @@ import {currentStep} from '../game/adventure/state';
 
 const iso=(p:Point)=>{const v=toIso(p,48,24);return {x:v.x+432,y:v.y+76};};
 export interface WorldView {destroy():void;approach(id:string):void}
-export function createWorld(parent:HTMLElement,session:AdventureSession,assets:AssetResolver,onError:(message:string)=>void):WorldView {
+export function createWorld(parent:HTMLElement,session:AdventureSession,assets:AssetResolver,onError:(message:string)=>void,onApproach:(id:string)=>void):WorldView {
   let scene:SchoolScene|undefined;
   class SchoolScene extends Phaser.Scene {
     private worldKey='';private figures=new Map<string,Phaser.GameObjects.Image>();
@@ -38,7 +38,7 @@ export function createWorld(parent:HTMLElement,session:AdventureSession,assets:A
       if(this.disposed||!this.add)return;
       const s=session.state,b=s.battle,m=mapFor(s,session.campaign);
       const targets=visibleTargets(s,session.campaign);
-      const key=b?'battle:'+b.id:JSON.stringify([m.id,targets.map(t=>t.id),currentStep(s,session.campaign)?.id,s.save.activePetIds,s.save.companionIds]);
+      const key=b?'battle:'+b.id:JSON.stringify([m.id,s.save.characterId,s.save.character.appearanceId,targets.map(t=>t.id),currentStep(s,session.campaign)?.id,s.save.activePetIds.map(id=>[id,s.save.pets.find(p=>p.id===id)?.level]),s.save.companionIds]);
       if(key!==this.worldKey){
         this.worldKey=key;this.clear();
         const bg=b?session.campaign.battles.find(x=>x.id===b.id)!.backgroundAssetId:m.backgroundAssetId;
@@ -100,6 +100,7 @@ export function createWorld(parent:HTMLElement,session:AdventureSession,assets:A
     approach(id:string){
       if(this.disposed)return;
       const target=visibleTargets(session.state,session.campaign).find(t=>t.id===id);if(!target)return;
+      onApproach(id);
       const m=mapFor(session.state,session.campaign),start=session.state.save.world,p=target.position;
       const routes=[{x:p.x+1,y:p.y},{x:p.x-1,y:p.y},{x:p.x,y:p.y+1},{x:p.x,y:p.y-1}].map(end=>findPath(m,start,end)).filter((r):r is Point[]=>!!r).sort((a,b)=>a.length-b.length);
       if(!routes[0])return;this.walk(routes[0].at(-1)!,{type:'INTERACT',targetId:id});

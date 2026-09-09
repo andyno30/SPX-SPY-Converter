@@ -641,22 +641,22 @@
     "titleAgreement": "WHITESPACE_ONLY_OR_EXACT",
     "walkthroughFound": true,
     "screenshotsFound": "ILLUSTRATIONS_PRESENT_UNCLASSIFIED",
-    "questStepsReconstructed": false,
+    "questStepsReconstructed": true,
     "milestones": {
       "cataloged": true,
-      "researched": false,
-      "scripted": false,
+      "researched": true,
+      "scripted": true,
       "playable": false,
       "verified": false
     },
-    "implementationStatus": "CATALOGED",
+    "implementationStatus": "SCRIPTED",
     "claims": [],
     "unknowns": [
       "Exact dialogue/cutscene triggers",
-      "Full ordered objective sequence and faction branches",
       "Reward amounts and prerequisites",
       "Battle stats and encounter composition",
-      "Map coordinates and collision/portal layout"
+      "Map coordinates and collision/portal layout",
+      "Exact active-party handoff between Naomi, Jackal and Skoll"
     ],
     "rewards": {
       "exp": null,
@@ -665,7 +665,7 @@
       "items": null,
       "pets": null
     },
-    "runtimeDefinitionId": null
+    "runtimeDefinitionId": "quest.main.006"
   },
   {
     "id": "main.007",
@@ -710,12 +710,12 @@
     "questStepsReconstructed": false,
     "milestones": {
       "cataloged": true,
-      "researched": false,
+      "researched": true,
       "scripted": false,
       "playable": false,
       "verified": false
     },
-    "implementationStatus": "CATALOGED",
+    "implementationStatus": "RESEARCHED",
     "claims": [
       {
         "field": "guillaumeGoldNuggets",
@@ -803,12 +803,12 @@
     "questStepsReconstructed": false,
     "milestones": {
       "cataloged": true,
-      "researched": false,
+      "researched": true,
       "scripted": false,
       "playable": false,
       "verified": false
     },
-    "implementationStatus": "CATALOGED",
+    "implementationStatus": "RESEARCHED",
     "claims": [
       {
         "field": "bossId",

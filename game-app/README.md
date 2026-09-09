@@ -6,7 +6,7 @@ Live hosting preview: [spyconverter-game.vercel.app/game](https://spyconverter-g
 
 Keep the existing News deployment behavior exactly as it is. Game's build filter is scoped to `game-app/`; it currently has no dependencies on repository files outside that directory. Do not add links, DNS records, or routing to the existing SpyConverter website. The owner will connect the future `/game` URL manually.
 
-The Next.js host mounts at **/game**, including nested routes, API endpoints and assets. Its public release remains a **hosting preview**, with gameplay, cloud saves and authentication disabled. The separate local workbench now runs the shared engine and playable reconstruction: Episodes 0–2 have browser acceptance, and Episodes 3–5 pass engine playthroughs while browser checks continue.
+The Next.js host mounts at **/game**, including nested routes, API endpoints and assets. Its public release remains a **hosting preview**, with gameplay, cloud saves and authentication disabled. The separate local workbench now runs the shared engine and playable reconstruction: Episodes 0–2 have browser acceptance, and Episodes 3–6 pass engine playthroughs while browser checks continue.
 
 ## Run from this directory
 

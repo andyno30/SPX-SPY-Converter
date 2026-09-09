@@ -1,6 +1,6 @@
 # Source index
 
-Accessed 2026-09-07. Primary evidence outranks recollection. Mirrors and press-release republications share a source family; count families, not URLs, when assessing independence. A source supports only the claim/section named in a record. English names are working localizations.
+Source-specific access dates are recorded in sources.json. Primary evidence outranks recollection. Mirrors and press-release republications share a source family; count families, not URLs, when assessing independence. A source supports only the claim/section named in a record. English names are working localizations.
 
 | ID | Source | Type / family | Access | Proves | Limits |
 | --- | --- | --- | --- | --- | --- |
@@ -87,5 +87,6 @@ Accessed 2026-09-07. Primary evidence outranks recollection. Mirrors and press-r
 | wonavy-288 | [[마법학교 아르피아] 메인미션 제 94~97화. '대지마을의 재앙' 편](https://wonavy.tistory.com/288) | RETROSPECTIVE / wonavy-retrospective | READ | Episode headings and illustrated narrative. | HTML and text inspected. Image references do not imply screenshots are visually verified; no original internal game data recovered. |
 | wonavy-292 | [[마법학교 아르피아] 메인미션 제 98~100 화. '과거로의 여행' 편](https://wonavy.tistory.com/292) | RETROSPECTIVE / wonavy-retrospective | READ | Episode headings and illustrated narrative. | HTML and text inspected. Image references do not imply screenshots are visually verified; no original internal game data recovered. |
 | wonavy-295 | [[마법학교 아르피아] 메인미션 제 101~102화. '대현자의 돌' 편 (完)](https://wonavy.tistory.com/295) | RETROSPECTIVE / wonavy-retrospective | READ | Episode headings and illustrated narrative. | HTML and text inspected. Image references do not imply screenshots are visually verified; no original internal game data recovered. |
+| alice-161 | [Have Alice — Episode 70, part 2](https://alicer.tistory.com/161) | CONTEMPORARY_PLAYER / have-alice | READ | 2011 player account revisits a star riddle room and refers to a map and refresher images. | Text inspected; linked map and riddle images could not be fetched. Later-episode evidence does not establish Episode 8 topology or answers. |
 
 Discovery inspected six Wonavy category pages and the Have Alice Free Mission category, then followed article links sequentially with cached, one-second-spaced HTML requests. No media was downloaded. Missing Romi subpages returned 404 and are recorded as unavailable. discovery.json stores headings and image-reference counts, not a transcript of each article.

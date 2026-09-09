@@ -4,8 +4,8 @@ import {readFileSync} from 'node:fs';
 import {validateAdventure} from '../src/game/adventure/validate-state.js';
 import {validateCampaign} from '../src/game/adventure/registry.js';
 import {manifestSchema} from '../src/game/engine/assets.js';
-import {newAdventure,currentQuest,currentStep,playerStats,makeParty,type AdventureState} from '../src/game/adventure/state.js';
-import {reduceCommand,mapFor,visibleTargets,distance,type Command} from '../src/game/adventure/session.js';
+import {newAdventure,currentQuest,currentStep,playerStats,makeParty,finishEncounter,beginEncounter,type AdventureState} from '../src/game/adventure/state.js';
+import {reduceCommand,mapFor,visibleTargets,distance,BrowserAdventureStore,type Command} from '../src/game/adventure/session.js';
 import {findPath} from '../src/game/engine/navigation.js';
 import {meets} from '../src/game/engine/model.js';
 import {act,tickBattle,isReady,combatant,startBattle} from '../src/game/adventure/combat.js';
@@ -58,8 +58,33 @@ function driver(element:'FLAME'|'ICE'|'EARTH'){
   }};
 }
 test('opening campaign validates every map, dialogue, actor, portal, asset and evidence reference',()=>{
-  assert.equal(campaign.quests.length,8);assert.equal(campaign.maps.length,40);
+  assert.equal(campaign.quests.length,9);assert.equal(campaign.maps.length,44);
   const broken=structuredClone(campaign);broken.maps[0]!.portals[0]!.toMapId='map.missing';assert.throws(()=>validateCampaign(broken));
+});
+
+for(const element of ['FLAME','ICE','EARTH'] as const)test(element+' completes Episode 6 with the secret key and a persistent two-companion handoff',()=>{
+  const d=driver(element);d.completeThrough('story.secret-key.done');
+  assert.equal(d.state.save.quests['quest.main.006']?.completed,true);
+  assert.equal(d.state.save.inventory['item.secret-key'],1);
+  assert.equal(d.state.save.inventory['item.morris-postcard'],undefined);
+  assert.deepEqual(d.state.save.companionIds,['npc.jackal','npc.skoll']);
+  assert.equal(currentQuest(d.state,campaign),undefined);
+  // Revisiting a completed chest cannot duplicate its key or rewards.
+  d.travel('map.basement-key-room');const before=structuredClone(d.state);
+  assert.throws(()=>d.command({type:'INTERACT',targetId:'object.secret-chest'}));
+  assert.deepEqual(d.state,before);
+});
+
+test('unrecognized and malformed commands fail before touching saved state',()=>{
+  const d=driver('FLAME'),before=structuredClone(d.state);
+  const invalid:unknown[]=[
+    {type:'GRANT_REWARD',pin:999},{type:'SAVE',pin:999},
+    {type:'UNEQUIP',slot:'unexpected'},
+    {type:'PHRASE',targetId:'object.crescent-door',phrase:'a'.repeat(121)},
+    {type:'BATTLE_ACTION',action:{actorId:'player',kind:'ITEM',targetId:'player',item:{kind:'HP',power:9999}},itemId:'item.small-tonic'},
+    {type:'BATTLE_ACTION',action:{actorId:'player',kind:'ATTACK',targetId:'enemy',spellId:'spell.fire'}},
+  ];
+  for(const command of invalid){assert.throws(()=>d.command(command as Command));assert.deepEqual(d.state,before);}
 });
 for(const element of ['FLAME','ICE','EARTH'] as const)test(element+' character completes Episodes 0–2 with reloads, homeland travel, duel and five-unit Odangka battle',()=>{
   const d=driver(element);d.completeOpening();
@@ -135,4 +160,51 @@ for(const element of ['FLAME','ICE','EARTH'] as const)test(element+' completes E
   assert.equal(d.state.save.inventory['item.murphy-scroll'],1);
   for(const id of ['item.resin-powder','item.bread','item.cold-medicine','item.firewood','item.testing-powder','item.yogurt'])assert.equal(d.state.save.inventory[id],undefined);
   assert.equal(d.state.save.companionIds.length,0);assert.equal(d.state.save.world.flags['story.skoll-away'],false);
+});
+
+test('campaign rejects broken conditions, ambiguous portals and services with missing behavior',()=>{
+  for(const mutate of [
+    (c:typeof campaign)=>{c.maps[0]!.portals[0]!.conditions.push({type:'inventory',id:'item.missing',quantity:1});},
+    (c:typeof campaign)=>{c.maps[0]!.npcs[0]!.conditions.push({type:'quest',id:'quest.missing'});},
+    (c:typeof campaign)=>{c.maps[1]!.portals[0]!.id=c.maps[0]!.portals[0]!.id;},
+    (c:typeof campaign)=>{c.services.find(s=>s.kind==='LESSON')!.spellId=undefined;},
+    (c:typeof campaign)=>{c.services[0]!.actorId='npc.morris';},
+    (c:typeof campaign)=>{c.quests[0]!.repeatable=true;},
+  ]){const invalid=structuredClone(campaign);mutate(invalid);assert.throws(()=>validateCampaign(invalid),/Campaign:/);}
+});
+
+test('backup restore validates the candidate, detects changes after review, and preserves progress on quota failure',async()=>{
+  const descriptors=['localStorage','navigator'].map(key=>[key,Object.getOwnPropertyDescriptor(globalThis,key)] as const);
+  const values=new Map<string,string>();let full=false;
+  let tail:Promise<unknown>=Promise.resolve();
+  Object.defineProperty(globalThis,'localStorage',{configurable:true,value:{getItem:(key:string)=>values.get(key)??null,setItem:(key:string,value:string)=>{if(full)throw new Error('Storage is full');values.set(key,value);}}});
+  Object.defineProperty(globalThis,'navigator',{configurable:true,value:{locks:{request:(_key:string,fn:()=>Promise<unknown>)=>{const next=tail.then(fn);tail=next.catch(()=>{});return next;}}}});
+  try{
+    const store=new BrowserAdventureStore(campaign);
+    const current=await store.commit(newAdventure(campaign,'Aria','FLAME','female','current'),0);
+    const replacement=newAdventure(campaign,'Rowan','ICE','male','replacement');
+    const raw=store.export(replacement),preview=store.prepareImport(raw);
+    const changed=await store.commit(current,current.save.revision),before=JSON.stringify(await store.load());
+    await assert.rejects(store.import(raw,preview.expectedRaw),/changed elsewhere/i);
+    assert.equal(JSON.stringify(await store.load()),before);
+    assert.throws(()=>store.prepareImport('{broken'));assert.throws(()=>store.prepareImport(' '.repeat(2_000_001)));
+    const latest=store.prepareImport(raw);full=true;
+    await assert.rejects(store.import(raw,latest.expectedRaw),/full/);assert.equal(JSON.stringify(await store.load()),before);
+    full=false;const restored=await store.import(raw,latest.expectedRaw);
+    assert.equal(restored.save.characterId,'replacement');assert.equal(restored.save.revision,changed.save.revision+1);
+    // Recovery from an unreadable save requires the exact raw value seen during review.
+    values.set('arpia.adventure.v1','{damaged');const recovery=store.prepareImport(raw);
+    const recovered=await store.import(raw,recovery.expectedRaw);assert.equal(recovered.save.character.name,'Rowan');
+  }finally{for(const [key,descriptor] of descriptors){if(descriptor)Object.defineProperty(globalThis,key,descriptor);else Reflect.deleteProperty(globalThis,key);}}
+});
+
+test('status damage interrupts escape and a fallen student recovers after companions win',()=>{
+  const d=driver('EARTH');d.completeOpening();
+  const party=makeParty(d.state,campaign),enemy=combatant('enemy','Enemy','npc.kesno.overworld','ENEMY','ENEMY','NONE',{hp:100,mp:0,attack:1,defense:1,magicAttack:1,magicDefense:1,agility:1},[]);
+  party[0]!.statuses=[{kind:'POISON',remaining:20}];party.forEach(u=>{u.agility=1;});
+  const battle=startBattle('battle.scorpions',[...party,enemy],true);battle.tick=9;battle.escapeTicks=2;
+  const hurt=tickBattle(battle,campaign.spells);assert.equal(hurt.escapeTicks,null);assert(hurt.units[0]!.hp<party[0]!.hp);
+  hurt.units[0]!.hp=0;hurt.units[0]!.gauge=0;hurt.units[0]!.statuses=[];hurt.units.find(u=>u.side==='ENEMY')!.hp=0;hurt.phase='VICTORY';
+  const recovered=finishEncounter({...d.state,battle:hurt},campaign);assert.equal(recovered.hp,1);
+  assert.doesNotThrow(()=>beginEncounter(recovered,campaign,'battle.scorpions'));
 });

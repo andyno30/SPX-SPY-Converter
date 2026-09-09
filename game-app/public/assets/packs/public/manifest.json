@@ -740,6 +740,60 @@
         "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
       }
     },
+    "npc.garuda.overworld": {
+      "path": "npcs/garuda.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.garuda.portrait": {
+      "path": "portraits/garuda.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.jackal.overworld": {
+      "path": "npcs/jackal.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.jackal.portrait": {
+      "path": "portraits/jackal.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.dobiel.overworld": {
+      "path": "npcs/dobiel.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
+    "npc.dobiel.portrait": {
+      "path": "portraits/dobiel.svg",
+      "type": "image",
+      "rights": {
+        "license": "ORIGINAL",
+        "creator": "SpyConverter Game restoration project",
+        "source": "Code-authored vector study; scripts/create-restoration-assets.mjs. Not historical artwork."
+      }
+    },
     "icon.fire": {
       "path": "ui/fire.svg",
       "type": "image",

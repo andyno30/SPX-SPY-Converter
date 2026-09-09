@@ -2923,6 +2923,397 @@
         }
       ],
       "balanceNotes": "English wording, map coordinates, triggers, starting resources, EXP and currency amounts are RESTORATION. Historical unknowns remain in the research dossier."
+    },
+    {
+      "id": "quest.main.006",
+      "episodeNumber": 6,
+      "name": "The Secret Key",
+      "summary": "Morris sends you to seek an old friend before the mine investigation can continue.",
+      "prerequisites": [
+        {
+          "type": "flag",
+          "id": "story.kadija.done",
+          "value": true
+        }
+      ],
+      "steps": [
+        {
+          "id": "key.julia",
+          "label": "Report the sword findings to Julia",
+          "mapId": "map.homeroom",
+          "type": "TALK",
+          "targetId": "npc.julia",
+          "conditions": [],
+          "effects": [],
+          "provenance": "RESTORATION",
+          "confidence": "LOW",
+          "sourceNotes": [
+            {
+              "sourceId": "brief",
+              "section": "Public reconstruction and balancing rules",
+              "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+            }
+          ],
+          "dialogueId": "dialogue.key.julia"
+        },
+        {
+          "id": "key.morris",
+          "label": "Hear the principal’s instructions",
+          "mapId": "map.principal-office",
+          "type": "TALK",
+          "targetId": "npc.morris",
+          "conditions": [],
+          "effects": [
+            {
+              "type": "transaction",
+              "flags": {
+                "story.key-chamber": true
+              },
+              "items": {},
+              "pin": 0,
+              "virtuePoints": 0
+            }
+          ],
+          "provenance": "RESTORATION",
+          "confidence": "LOW",
+          "sourceNotes": [
+            {
+              "sourceId": "brief",
+              "section": "Public reconstruction and balancing rules",
+              "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+            }
+          ],
+          "dialogueId": "dialogue.key.morris"
+        },
+        {
+          "id": "key.chest",
+          "label": "Open the chest in the right-hand chamber",
+          "mapId": "map.basement-key-room",
+          "type": "INTERACT",
+          "targetId": "object.secret-chest",
+          "conditions": [],
+          "effects": [
+            {
+              "type": "transaction",
+              "flags": {
+                "story.secret-key-found": true
+              },
+              "items": {
+                "item.secret-key": 1
+              },
+              "pin": 0,
+              "virtuePoints": 0
+            }
+          ],
+          "provenance": "RESTORATION",
+          "confidence": "LOW",
+          "sourceNotes": [
+            {
+              "sourceId": "brief",
+              "section": "Public reconstruction and balancing rules",
+              "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+            }
+          ],
+          "dialogueId": "dialogue.key.chest"
+        },
+        {
+          "id": "key.naomi",
+          "label": "Ask Naomi where Skoll has gone",
+          "mapId": "map.advanced-ice-classroom",
+          "type": "TALK",
+          "targetId": "npc.naomi",
+          "conditions": [],
+          "effects": [
+            {
+              "type": "transaction",
+              "flags": {
+                "story.skoll-away": true
+              },
+              "items": {},
+              "pin": 0,
+              "virtuePoints": 0
+            },
+            {
+              "type": "companion",
+              "actorId": "npc.naomi",
+              "join": true
+            }
+          ],
+          "provenance": "RESTORATION",
+          "confidence": "LOW",
+          "sourceNotes": [
+            {
+              "sourceId": "brief",
+              "section": "Public reconstruction and balancing rules",
+              "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+            }
+          ],
+          "dialogueId": "dialogue.key.naomi"
+        },
+        {
+          "id": "key.postcard",
+          "label": "Collect Morris’s message for Garuda",
+          "mapId": "map.principal-office",
+          "type": "TALK",
+          "targetId": "npc.morris",
+          "conditions": [
+            {
+              "type": "inventory",
+              "id": "item.secret-key",
+              "quantity": 1
+            }
+          ],
+          "effects": [
+            {
+              "type": "transaction",
+              "flags": {
+                "story.eagle-journey": true
+              },
+              "items": {
+                "item.morris-postcard": 1
+              },
+              "pin": 0,
+              "virtuePoints": 0
+            }
+          ],
+          "provenance": "RESTORATION",
+          "confidence": "LOW",
+          "sourceNotes": [
+            {
+              "sourceId": "brief",
+              "section": "Public reconstruction and balancing rules",
+              "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+            }
+          ],
+          "dialogueId": "dialogue.key.postcard"
+        },
+        {
+          "id": "key.shiva",
+          "label": "Greet Shiva in Eagle Village",
+          "mapId": "map.eagle-village",
+          "type": "TALK",
+          "targetId": "npc.shiva",
+          "conditions": [],
+          "effects": [],
+          "provenance": "RESTORATION",
+          "confidence": "LOW",
+          "sourceNotes": [
+            {
+              "sourceId": "brief",
+              "section": "Public reconstruction and balancing rules",
+              "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+            }
+          ],
+          "dialogueId": "dialogue.key.shiva"
+        },
+        {
+          "id": "key.garuda",
+          "label": "Deliver the postcard to Garuda",
+          "mapId": "map.eagle-village",
+          "type": "TALK",
+          "targetId": "npc.garuda",
+          "conditions": [
+            {
+              "type": "inventory",
+              "id": "item.morris-postcard",
+              "quantity": 1
+            }
+          ],
+          "effects": [
+            {
+              "type": "transaction",
+              "flags": {
+                "story.waterfall-flight": true
+              },
+              "items": {
+                "item.morris-postcard": -1
+              },
+              "pin": 0,
+              "virtuePoints": 0
+            }
+          ],
+          "provenance": "RESTORATION",
+          "confidence": "LOW",
+          "sourceNotes": [
+            {
+              "sourceId": "brief",
+              "section": "Public reconstruction and balancing rules",
+              "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+            }
+          ],
+          "dialogueId": "dialogue.key.garuda"
+        },
+        {
+          "id": "key.dobiel",
+          "label": "Speak to Dobiel at the waterfall",
+          "mapId": "map.jackal-waterfall",
+          "type": "TALK",
+          "targetId": "npc.dobiel",
+          "conditions": [],
+          "effects": [
+            {
+              "type": "transaction",
+              "flags": {
+                "story.wake-jackal": true
+              },
+              "items": {},
+              "pin": 0,
+              "virtuePoints": 0
+            }
+          ],
+          "provenance": "RESTORATION",
+          "confidence": "LOW",
+          "sourceNotes": [
+            {
+              "sourceId": "brief",
+              "section": "Public reconstruction and balancing rules",
+              "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+            }
+          ],
+          "dialogueId": "dialogue.key.dobiel"
+        },
+        {
+          "id": "key.jackal",
+          "label": "Wake Jackal and explain Morris’s request",
+          "mapId": "map.jackal-den",
+          "type": "TALK",
+          "targetId": "npc.jackal",
+          "conditions": [],
+          "effects": [
+            {
+              "type": "transaction",
+              "flags": {
+                "story.jackal-joined": true
+              },
+              "items": {},
+              "pin": 0,
+              "virtuePoints": 0
+            },
+            {
+              "type": "companion",
+              "actorId": "npc.jackal",
+              "join": true
+            }
+          ],
+          "provenance": "RESTORATION",
+          "confidence": "LOW",
+          "sourceNotes": [
+            {
+              "sourceId": "brief",
+              "section": "Public reconstruction and balancing rules",
+              "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+            }
+          ],
+          "dialogueId": "dialogue.key.jackal"
+        },
+        {
+          "id": "key.skoll",
+          "label": "Meet Skoll at the mine entrance",
+          "mapId": "map.dwarf-mine",
+          "type": "TALK",
+          "targetId": "npc.skoll",
+          "conditions": [],
+          "effects": [
+            {
+              "type": "companion",
+              "actorId": "npc.naomi",
+              "join": false
+            },
+            {
+              "type": "companion",
+              "actorId": "npc.skoll",
+              "join": true
+            }
+          ],
+          "provenance": "RESTORATION",
+          "confidence": "LOW",
+          "sourceNotes": [
+            {
+              "sourceId": "brief",
+              "section": "Public reconstruction and balancing rules",
+              "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+            }
+          ],
+          "dialogueId": "dialogue.key.skoll"
+        },
+        {
+          "id": "key.baldi",
+          "label": "Negotiate entry with Baldi",
+          "mapId": "map.dwarf-mine",
+          "type": "TALK",
+          "targetId": "npc.baldi",
+          "conditions": [],
+          "effects": [
+            {
+              "type": "transaction",
+              "flags": {
+                "story.charcoal-bargain": true
+              },
+              "items": {},
+              "pin": 0,
+              "virtuePoints": 0
+            }
+          ],
+          "provenance": "RESTORATION",
+          "confidence": "LOW",
+          "sourceNotes": [
+            {
+              "sourceId": "brief",
+              "section": "Public reconstruction and balancing rules",
+              "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+            }
+          ],
+          "dialogueId": "dialogue.key.baldi"
+        },
+        {
+          "id": "key.kobold",
+          "label": "Ask Kobold for charcoal",
+          "mapId": "map.kobold-room",
+          "type": "TALK",
+          "targetId": "npc.kobold",
+          "conditions": [],
+          "effects": [],
+          "provenance": "RESTORATION",
+          "confidence": "LOW",
+          "sourceNotes": [
+            {
+              "sourceId": "brief",
+              "section": "Public reconstruction and balancing rules",
+              "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+            }
+          ],
+          "dialogueId": "dialogue.key.kobold"
+        }
+      ],
+      "rewards": [
+        {
+          "type": "transaction",
+          "flags": {
+            "story.secret-key.done": true
+          },
+          "items": {},
+          "pin": 25,
+          "virtuePoints": 6
+        },
+        {
+          "type": "exp",
+          "amount": 80
+        },
+        {
+          "type": "restore"
+        }
+      ],
+      "repeatable": false,
+      "provenance": "RECONSTRUCTED",
+      "confidence": "MEDIUM",
+      "sourceNotes": [
+        {
+          "sourceId": "wonavy-207",
+          "section": "Episode 6 narrative",
+          "proves": "Key, postcard, eagle village, Jackal recruitment and charcoal negotiation; exact triggers, party handoffs and rewards are not documented."
+        }
+      ],
+      "balanceNotes": "English wording, map coordinates, triggers, starting resources, EXP and currency amounts are RESTORATION. Historical unknowns remain in the research dossier."
     }
   ],
   "maps": [
@@ -8210,6 +8601,26 @@
               "value": true
             }
           ]
+        },
+        {
+          "id": "portal.80",
+          "name": "School basement · Right-hand chamber",
+          "position": {
+            "x": 14,
+            "y": 7
+          },
+          "toMapId": "map.basement-key-room",
+          "spawn": {
+            "x": 8,
+            "y": 11
+          },
+          "conditions": [
+            {
+              "type": "flag",
+              "id": "story.key-chamber",
+              "value": true
+            }
+          ]
         }
       ],
       "encounters": []
@@ -8554,6 +8965,26 @@
             {
               "type": "flag",
               "id": "story.shiva-flight",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "portal.82",
+          "name": "Eagle Village",
+          "position": {
+            "x": 4,
+            "y": 5
+          },
+          "toMapId": "map.eagle-village",
+          "spawn": {
+            "x": 8,
+            "y": 11
+          },
+          "conditions": [
+            {
+              "type": "flag",
+              "id": "story.eagle-journey",
               "value": true
             }
           ]
@@ -16136,6 +16567,1284 @@
         }
       ],
       "encounters": []
+    },
+    {
+      "id": "map.basement-key-room",
+      "name": "School basement · Right-hand chamber",
+      "provenance": "RESTORATION",
+      "confidence": "LOW",
+      "sourceNotes": [
+        {
+          "sourceId": "brief",
+          "section": "Public reconstruction and balancing rules",
+          "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+        }
+      ],
+      "geometryEvidence": {
+        "provenance": "RESTORATION",
+        "confidence": "LOW",
+        "sourceNotes": [
+          {
+            "sourceId": "brief",
+            "section": "Public reconstruction and balancing rules",
+            "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+          }
+        ]
+      },
+      "width": 18,
+      "height": 14,
+      "spawn": {
+        "x": 8,
+        "y": 11
+      },
+      "blocked": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 1
+        },
+        {
+          "x": 0,
+          "y": 2
+        },
+        {
+          "x": 0,
+          "y": 3
+        },
+        {
+          "x": 0,
+          "y": 4
+        },
+        {
+          "x": 0,
+          "y": 5
+        },
+        {
+          "x": 0,
+          "y": 6
+        },
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 0,
+          "y": 8
+        },
+        {
+          "x": 0,
+          "y": 9
+        },
+        {
+          "x": 0,
+          "y": 10
+        },
+        {
+          "x": 0,
+          "y": 11
+        },
+        {
+          "x": 0,
+          "y": 12
+        },
+        {
+          "x": 0,
+          "y": 13
+        },
+        {
+          "x": 1,
+          "y": 0
+        },
+        {
+          "x": 1,
+          "y": 13
+        },
+        {
+          "x": 2,
+          "y": 0
+        },
+        {
+          "x": 2,
+          "y": 13
+        },
+        {
+          "x": 3,
+          "y": 0
+        },
+        {
+          "x": 3,
+          "y": 13
+        },
+        {
+          "x": 4,
+          "y": 0
+        },
+        {
+          "x": 4,
+          "y": 13
+        },
+        {
+          "x": 5,
+          "y": 0
+        },
+        {
+          "x": 5,
+          "y": 13
+        },
+        {
+          "x": 6,
+          "y": 0
+        },
+        {
+          "x": 6,
+          "y": 13
+        },
+        {
+          "x": 7,
+          "y": 0
+        },
+        {
+          "x": 7,
+          "y": 13
+        },
+        {
+          "x": 8,
+          "y": 0
+        },
+        {
+          "x": 8,
+          "y": 13
+        },
+        {
+          "x": 9,
+          "y": 0
+        },
+        {
+          "x": 9,
+          "y": 13
+        },
+        {
+          "x": 10,
+          "y": 0
+        },
+        {
+          "x": 10,
+          "y": 13
+        },
+        {
+          "x": 11,
+          "y": 0
+        },
+        {
+          "x": 11,
+          "y": 13
+        },
+        {
+          "x": 12,
+          "y": 0
+        },
+        {
+          "x": 12,
+          "y": 13
+        },
+        {
+          "x": 13,
+          "y": 0
+        },
+        {
+          "x": 13,
+          "y": 13
+        },
+        {
+          "x": 14,
+          "y": 0
+        },
+        {
+          "x": 14,
+          "y": 13
+        },
+        {
+          "x": 15,
+          "y": 0
+        },
+        {
+          "x": 15,
+          "y": 13
+        },
+        {
+          "x": 16,
+          "y": 0
+        },
+        {
+          "x": 16,
+          "y": 13
+        },
+        {
+          "x": 17,
+          "y": 0
+        },
+        {
+          "x": 17,
+          "y": 1
+        },
+        {
+          "x": 17,
+          "y": 2
+        },
+        {
+          "x": 17,
+          "y": 3
+        },
+        {
+          "x": 17,
+          "y": 4
+        },
+        {
+          "x": 17,
+          "y": 5
+        },
+        {
+          "x": 17,
+          "y": 6
+        },
+        {
+          "x": 17,
+          "y": 7
+        },
+        {
+          "x": 17,
+          "y": 8
+        },
+        {
+          "x": 17,
+          "y": 9
+        },
+        {
+          "x": 17,
+          "y": 10
+        },
+        {
+          "x": 17,
+          "y": 11
+        },
+        {
+          "x": 17,
+          "y": 12
+        },
+        {
+          "x": 17,
+          "y": 13
+        }
+      ],
+      "backgroundAssetId": "map.basement.background",
+      "theme": "BASEMENT",
+      "npcs": [],
+      "objects": [
+        {
+          "id": "object.secret-chest",
+          "name": "Small wooden chest",
+          "assetId": "icon.object",
+          "position": {
+            "x": 7,
+            "y": 5
+          },
+          "conditions": [
+            {
+              "type": "flag",
+              "id": "story.secret-key-found",
+              "value": false
+            }
+          ]
+        }
+      ],
+      "portals": [
+        {
+          "id": "portal.81",
+          "name": "The hidden shortcut",
+          "position": {
+            "x": 8,
+            "y": 12
+          },
+          "toMapId": "map.basement-shortcut",
+          "spawn": {
+            "x": 8,
+            "y": 11
+          },
+          "conditions": []
+        }
+      ],
+      "encounters": []
+    },
+    {
+      "id": "map.eagle-village",
+      "name": "Eagle Village",
+      "provenance": "RESTORATION",
+      "confidence": "LOW",
+      "sourceNotes": [
+        {
+          "sourceId": "brief",
+          "section": "Public reconstruction and balancing rules",
+          "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+        }
+      ],
+      "geometryEvidence": {
+        "provenance": "RESTORATION",
+        "confidence": "LOW",
+        "sourceNotes": [
+          {
+            "sourceId": "brief",
+            "section": "Public reconstruction and balancing rules",
+            "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+          }
+        ]
+      },
+      "width": 18,
+      "height": 14,
+      "spawn": {
+        "x": 8,
+        "y": 11
+      },
+      "blocked": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 1
+        },
+        {
+          "x": 0,
+          "y": 2
+        },
+        {
+          "x": 0,
+          "y": 3
+        },
+        {
+          "x": 0,
+          "y": 4
+        },
+        {
+          "x": 0,
+          "y": 5
+        },
+        {
+          "x": 0,
+          "y": 6
+        },
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 0,
+          "y": 8
+        },
+        {
+          "x": 0,
+          "y": 9
+        },
+        {
+          "x": 0,
+          "y": 10
+        },
+        {
+          "x": 0,
+          "y": 11
+        },
+        {
+          "x": 0,
+          "y": 12
+        },
+        {
+          "x": 0,
+          "y": 13
+        },
+        {
+          "x": 1,
+          "y": 0
+        },
+        {
+          "x": 1,
+          "y": 13
+        },
+        {
+          "x": 2,
+          "y": 0
+        },
+        {
+          "x": 2,
+          "y": 13
+        },
+        {
+          "x": 3,
+          "y": 0
+        },
+        {
+          "x": 3,
+          "y": 13
+        },
+        {
+          "x": 4,
+          "y": 0
+        },
+        {
+          "x": 4,
+          "y": 13
+        },
+        {
+          "x": 5,
+          "y": 0
+        },
+        {
+          "x": 5,
+          "y": 13
+        },
+        {
+          "x": 6,
+          "y": 0
+        },
+        {
+          "x": 6,
+          "y": 13
+        },
+        {
+          "x": 7,
+          "y": 0
+        },
+        {
+          "x": 7,
+          "y": 13
+        },
+        {
+          "x": 8,
+          "y": 0
+        },
+        {
+          "x": 8,
+          "y": 13
+        },
+        {
+          "x": 9,
+          "y": 0
+        },
+        {
+          "x": 9,
+          "y": 13
+        },
+        {
+          "x": 10,
+          "y": 0
+        },
+        {
+          "x": 10,
+          "y": 13
+        },
+        {
+          "x": 11,
+          "y": 0
+        },
+        {
+          "x": 11,
+          "y": 13
+        },
+        {
+          "x": 12,
+          "y": 0
+        },
+        {
+          "x": 12,
+          "y": 13
+        },
+        {
+          "x": 13,
+          "y": 0
+        },
+        {
+          "x": 13,
+          "y": 13
+        },
+        {
+          "x": 14,
+          "y": 0
+        },
+        {
+          "x": 14,
+          "y": 13
+        },
+        {
+          "x": 15,
+          "y": 0
+        },
+        {
+          "x": 15,
+          "y": 13
+        },
+        {
+          "x": 16,
+          "y": 0
+        },
+        {
+          "x": 16,
+          "y": 13
+        },
+        {
+          "x": 17,
+          "y": 0
+        },
+        {
+          "x": 17,
+          "y": 1
+        },
+        {
+          "x": 17,
+          "y": 2
+        },
+        {
+          "x": 17,
+          "y": 3
+        },
+        {
+          "x": 17,
+          "y": 4
+        },
+        {
+          "x": 17,
+          "y": 5
+        },
+        {
+          "x": 17,
+          "y": 6
+        },
+        {
+          "x": 17,
+          "y": 7
+        },
+        {
+          "x": 17,
+          "y": 8
+        },
+        {
+          "x": 17,
+          "y": 9
+        },
+        {
+          "x": 17,
+          "y": 10
+        },
+        {
+          "x": 17,
+          "y": 11
+        },
+        {
+          "x": 17,
+          "y": 12
+        },
+        {
+          "x": 17,
+          "y": 13
+        }
+      ],
+      "backgroundAssetId": "map.village.background",
+      "theme": "VILLAGE",
+      "npcs": [
+        {
+          "actorId": "npc.shiva",
+          "position": {
+            "x": 6,
+            "y": 8
+          },
+          "conditions": []
+        },
+        {
+          "actorId": "npc.garuda",
+          "position": {
+            "x": 10,
+            "y": 5
+          },
+          "conditions": []
+        }
+      ],
+      "objects": [],
+      "portals": [
+        {
+          "id": "portal.83",
+          "name": "Oak Forest",
+          "position": {
+            "x": 8,
+            "y": 12
+          },
+          "toMapId": "map.oak-forest",
+          "spawn": {
+            "x": 8,
+            "y": 11
+          },
+          "conditions": []
+        },
+        {
+          "id": "portal.84",
+          "name": "Jackal’s Waterfall",
+          "position": {
+            "x": 12,
+            "y": 4
+          },
+          "toMapId": "map.jackal-waterfall",
+          "spawn": {
+            "x": 8,
+            "y": 11
+          },
+          "conditions": [
+            {
+              "type": "flag",
+              "id": "story.waterfall-flight",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "encounters": []
+    },
+    {
+      "id": "map.jackal-waterfall",
+      "name": "Jackal’s Waterfall",
+      "provenance": "RESTORATION",
+      "confidence": "LOW",
+      "sourceNotes": [
+        {
+          "sourceId": "brief",
+          "section": "Public reconstruction and balancing rules",
+          "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+        }
+      ],
+      "geometryEvidence": {
+        "provenance": "RESTORATION",
+        "confidence": "LOW",
+        "sourceNotes": [
+          {
+            "sourceId": "brief",
+            "section": "Public reconstruction and balancing rules",
+            "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+          }
+        ]
+      },
+      "width": 18,
+      "height": 14,
+      "spawn": {
+        "x": 8,
+        "y": 11
+      },
+      "blocked": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 1
+        },
+        {
+          "x": 0,
+          "y": 2
+        },
+        {
+          "x": 0,
+          "y": 3
+        },
+        {
+          "x": 0,
+          "y": 4
+        },
+        {
+          "x": 0,
+          "y": 5
+        },
+        {
+          "x": 0,
+          "y": 6
+        },
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 0,
+          "y": 8
+        },
+        {
+          "x": 0,
+          "y": 9
+        },
+        {
+          "x": 0,
+          "y": 10
+        },
+        {
+          "x": 0,
+          "y": 11
+        },
+        {
+          "x": 0,
+          "y": 12
+        },
+        {
+          "x": 0,
+          "y": 13
+        },
+        {
+          "x": 1,
+          "y": 0
+        },
+        {
+          "x": 1,
+          "y": 13
+        },
+        {
+          "x": 2,
+          "y": 0
+        },
+        {
+          "x": 2,
+          "y": 13
+        },
+        {
+          "x": 3,
+          "y": 0
+        },
+        {
+          "x": 3,
+          "y": 13
+        },
+        {
+          "x": 4,
+          "y": 0
+        },
+        {
+          "x": 4,
+          "y": 13
+        },
+        {
+          "x": 5,
+          "y": 0
+        },
+        {
+          "x": 5,
+          "y": 13
+        },
+        {
+          "x": 6,
+          "y": 0
+        },
+        {
+          "x": 6,
+          "y": 13
+        },
+        {
+          "x": 7,
+          "y": 0
+        },
+        {
+          "x": 7,
+          "y": 13
+        },
+        {
+          "x": 8,
+          "y": 0
+        },
+        {
+          "x": 8,
+          "y": 13
+        },
+        {
+          "x": 9,
+          "y": 0
+        },
+        {
+          "x": 9,
+          "y": 13
+        },
+        {
+          "x": 10,
+          "y": 0
+        },
+        {
+          "x": 10,
+          "y": 13
+        },
+        {
+          "x": 11,
+          "y": 0
+        },
+        {
+          "x": 11,
+          "y": 13
+        },
+        {
+          "x": 12,
+          "y": 0
+        },
+        {
+          "x": 12,
+          "y": 13
+        },
+        {
+          "x": 13,
+          "y": 0
+        },
+        {
+          "x": 13,
+          "y": 13
+        },
+        {
+          "x": 14,
+          "y": 0
+        },
+        {
+          "x": 14,
+          "y": 13
+        },
+        {
+          "x": 15,
+          "y": 0
+        },
+        {
+          "x": 15,
+          "y": 13
+        },
+        {
+          "x": 16,
+          "y": 0
+        },
+        {
+          "x": 16,
+          "y": 13
+        },
+        {
+          "x": 17,
+          "y": 0
+        },
+        {
+          "x": 17,
+          "y": 1
+        },
+        {
+          "x": 17,
+          "y": 2
+        },
+        {
+          "x": 17,
+          "y": 3
+        },
+        {
+          "x": 17,
+          "y": 4
+        },
+        {
+          "x": 17,
+          "y": 5
+        },
+        {
+          "x": 17,
+          "y": 6
+        },
+        {
+          "x": 17,
+          "y": 7
+        },
+        {
+          "x": 17,
+          "y": 8
+        },
+        {
+          "x": 17,
+          "y": 9
+        },
+        {
+          "x": 17,
+          "y": 10
+        },
+        {
+          "x": 17,
+          "y": 11
+        },
+        {
+          "x": 17,
+          "y": 12
+        },
+        {
+          "x": 17,
+          "y": 13
+        }
+      ],
+      "backgroundAssetId": "map.forest.background",
+      "theme": "FOREST",
+      "npcs": [
+        {
+          "actorId": "npc.dobiel",
+          "position": {
+            "x": 7,
+            "y": 6
+          },
+          "conditions": []
+        },
+        {
+          "actorId": "npc.shiva",
+          "position": {
+            "x": 11,
+            "y": 9
+          },
+          "conditions": []
+        }
+      ],
+      "objects": [],
+      "portals": [
+        {
+          "id": "portal.85",
+          "name": "Eagle Village",
+          "position": {
+            "x": 8,
+            "y": 12
+          },
+          "toMapId": "map.eagle-village",
+          "spawn": {
+            "x": 8,
+            "y": 11
+          },
+          "conditions": []
+        },
+        {
+          "id": "portal.86",
+          "name": "The den beneath the waterfall",
+          "position": {
+            "x": 8,
+            "y": 4
+          },
+          "toMapId": "map.jackal-den",
+          "spawn": {
+            "x": 8,
+            "y": 11
+          },
+          "conditions": [
+            {
+              "type": "flag",
+              "id": "story.wake-jackal",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "encounters": []
+    },
+    {
+      "id": "map.jackal-den",
+      "name": "The den beneath the waterfall",
+      "provenance": "RESTORATION",
+      "confidence": "LOW",
+      "sourceNotes": [
+        {
+          "sourceId": "brief",
+          "section": "Public reconstruction and balancing rules",
+          "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+        }
+      ],
+      "geometryEvidence": {
+        "provenance": "RESTORATION",
+        "confidence": "LOW",
+        "sourceNotes": [
+          {
+            "sourceId": "brief",
+            "section": "Public reconstruction and balancing rules",
+            "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+          }
+        ]
+      },
+      "width": 18,
+      "height": 14,
+      "spawn": {
+        "x": 8,
+        "y": 11
+      },
+      "blocked": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 1
+        },
+        {
+          "x": 0,
+          "y": 2
+        },
+        {
+          "x": 0,
+          "y": 3
+        },
+        {
+          "x": 0,
+          "y": 4
+        },
+        {
+          "x": 0,
+          "y": 5
+        },
+        {
+          "x": 0,
+          "y": 6
+        },
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 0,
+          "y": 8
+        },
+        {
+          "x": 0,
+          "y": 9
+        },
+        {
+          "x": 0,
+          "y": 10
+        },
+        {
+          "x": 0,
+          "y": 11
+        },
+        {
+          "x": 0,
+          "y": 12
+        },
+        {
+          "x": 0,
+          "y": 13
+        },
+        {
+          "x": 1,
+          "y": 0
+        },
+        {
+          "x": 1,
+          "y": 13
+        },
+        {
+          "x": 2,
+          "y": 0
+        },
+        {
+          "x": 2,
+          "y": 13
+        },
+        {
+          "x": 3,
+          "y": 0
+        },
+        {
+          "x": 3,
+          "y": 13
+        },
+        {
+          "x": 4,
+          "y": 0
+        },
+        {
+          "x": 4,
+          "y": 13
+        },
+        {
+          "x": 5,
+          "y": 0
+        },
+        {
+          "x": 5,
+          "y": 13
+        },
+        {
+          "x": 6,
+          "y": 0
+        },
+        {
+          "x": 6,
+          "y": 13
+        },
+        {
+          "x": 7,
+          "y": 0
+        },
+        {
+          "x": 7,
+          "y": 13
+        },
+        {
+          "x": 8,
+          "y": 0
+        },
+        {
+          "x": 8,
+          "y": 13
+        },
+        {
+          "x": 9,
+          "y": 0
+        },
+        {
+          "x": 9,
+          "y": 13
+        },
+        {
+          "x": 10,
+          "y": 0
+        },
+        {
+          "x": 10,
+          "y": 13
+        },
+        {
+          "x": 11,
+          "y": 0
+        },
+        {
+          "x": 11,
+          "y": 13
+        },
+        {
+          "x": 12,
+          "y": 0
+        },
+        {
+          "x": 12,
+          "y": 13
+        },
+        {
+          "x": 13,
+          "y": 0
+        },
+        {
+          "x": 13,
+          "y": 13
+        },
+        {
+          "x": 14,
+          "y": 0
+        },
+        {
+          "x": 14,
+          "y": 13
+        },
+        {
+          "x": 15,
+          "y": 0
+        },
+        {
+          "x": 15,
+          "y": 13
+        },
+        {
+          "x": 16,
+          "y": 0
+        },
+        {
+          "x": 16,
+          "y": 13
+        },
+        {
+          "x": 17,
+          "y": 0
+        },
+        {
+          "x": 17,
+          "y": 1
+        },
+        {
+          "x": 17,
+          "y": 2
+        },
+        {
+          "x": 17,
+          "y": 3
+        },
+        {
+          "x": 17,
+          "y": 4
+        },
+        {
+          "x": 17,
+          "y": 5
+        },
+        {
+          "x": 17,
+          "y": 6
+        },
+        {
+          "x": 17,
+          "y": 7
+        },
+        {
+          "x": 17,
+          "y": 8
+        },
+        {
+          "x": 17,
+          "y": 9
+        },
+        {
+          "x": 17,
+          "y": 10
+        },
+        {
+          "x": 17,
+          "y": 11
+        },
+        {
+          "x": 17,
+          "y": 12
+        },
+        {
+          "x": 17,
+          "y": 13
+        }
+      ],
+      "backgroundAssetId": "map.forest.background",
+      "theme": "FOREST",
+      "npcs": [
+        {
+          "actorId": "npc.jackal",
+          "position": {
+            "x": 8,
+            "y": 5
+          },
+          "conditions": [
+            {
+              "type": "flag",
+              "id": "story.jackal-joined",
+              "value": false
+            }
+          ]
+        }
+      ],
+      "objects": [],
+      "portals": [
+        {
+          "id": "portal.87",
+          "name": "Jackal’s Waterfall",
+          "position": {
+            "x": 8,
+            "y": 12
+          },
+          "toMapId": "map.jackal-waterfall",
+          "spawn": {
+            "x": 8,
+            "y": 11
+          },
+          "conditions": []
+        }
+      ],
+      "encounters": []
     }
   ],
   "actors": [
@@ -17524,6 +19233,123 @@
         "magicAttack": 6,
         "magicDefense": 5,
         "agility": 6
+      },
+      "skillIds": [],
+      "provenance": "RESTORATION",
+      "confidence": "LOW",
+      "sourceNotes": [
+        {
+          "sourceId": "brief",
+          "section": "Public reconstruction and balancing rules",
+          "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+        }
+      ],
+      "balanceEvidence": {
+        "provenance": "RESTORATION",
+        "confidence": "LOW",
+        "sourceNotes": [
+          {
+            "sourceId": "brief",
+            "section": "Public reconstruction and balancing rules",
+            "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+          }
+        ]
+      }
+    },
+    {
+      "id": "npc.garuda",
+      "name": "Garuda",
+      "koOriginal": "가루다",
+      "spriteAssetId": "npc.garuda.overworld",
+      "portraitAssetId": "npc.garuda.portrait",
+      "element": "NONE",
+      "defaultDialogueId": "npc.garuda.idle",
+      "stats": {
+        "hp": 80,
+        "mp": 30,
+        "attack": 12,
+        "defense": 7,
+        "magicAttack": 12,
+        "magicDefense": 7,
+        "agility": 8
+      },
+      "skillIds": [],
+      "provenance": "RESTORATION",
+      "confidence": "LOW",
+      "sourceNotes": [
+        {
+          "sourceId": "brief",
+          "section": "Public reconstruction and balancing rules",
+          "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+        }
+      ],
+      "balanceEvidence": {
+        "provenance": "RESTORATION",
+        "confidence": "LOW",
+        "sourceNotes": [
+          {
+            "sourceId": "brief",
+            "section": "Public reconstruction and balancing rules",
+            "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+          }
+        ]
+      }
+    },
+    {
+      "id": "npc.dobiel",
+      "name": "Dobiel",
+      "koOriginal": "도비엘",
+      "spriteAssetId": "npc.dobiel.overworld",
+      "portraitAssetId": "npc.dobiel.portrait",
+      "element": "NONE",
+      "defaultDialogueId": "npc.dobiel.idle",
+      "stats": {
+        "hp": 80,
+        "mp": 30,
+        "attack": 12,
+        "defense": 7,
+        "magicAttack": 12,
+        "magicDefense": 7,
+        "agility": 8
+      },
+      "skillIds": [],
+      "provenance": "RESTORATION",
+      "confidence": "LOW",
+      "sourceNotes": [
+        {
+          "sourceId": "brief",
+          "section": "Public reconstruction and balancing rules",
+          "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+        }
+      ],
+      "balanceEvidence": {
+        "provenance": "RESTORATION",
+        "confidence": "LOW",
+        "sourceNotes": [
+          {
+            "sourceId": "brief",
+            "section": "Public reconstruction and balancing rules",
+            "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+          }
+        ]
+      }
+    },
+    {
+      "id": "npc.jackal",
+      "name": "Jackal",
+      "koOriginal": "쟈칼",
+      "spriteAssetId": "npc.jackal.overworld",
+      "portraitAssetId": "npc.jackal.portrait",
+      "element": "NONE",
+      "defaultDialogueId": "npc.jackal.idle",
+      "stats": {
+        "hp": 230,
+        "mp": 30,
+        "attack": 28,
+        "defense": 18,
+        "magicAttack": 15,
+        "magicDefense": 16,
+        "agility": 8
       },
       "skillIds": [],
       "provenance": "RESTORATION",
@@ -19938,6 +21764,288 @@
           "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
         }
       ]
+    },
+    {
+      "id": "npc.garuda.idle",
+      "lines": [
+        {
+          "speakerId": "npc.garuda",
+          "text": "There is always something happening at Arpia."
+        }
+      ],
+      "provenance": "RESTORATION",
+      "confidence": "LOW",
+      "sourceNotes": [
+        {
+          "sourceId": "brief",
+          "section": "Public reconstruction and balancing rules",
+          "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+        }
+      ]
+    },
+    {
+      "id": "npc.dobiel.idle",
+      "lines": [
+        {
+          "speakerId": "npc.dobiel",
+          "text": "There is always something happening at Arpia."
+        }
+      ],
+      "provenance": "RESTORATION",
+      "confidence": "LOW",
+      "sourceNotes": [
+        {
+          "sourceId": "brief",
+          "section": "Public reconstruction and balancing rules",
+          "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+        }
+      ]
+    },
+    {
+      "id": "npc.jackal.idle",
+      "lines": [
+        {
+          "speakerId": "npc.jackal",
+          "text": "There is always something happening at Arpia."
+        }
+      ],
+      "provenance": "RESTORATION",
+      "confidence": "LOW",
+      "sourceNotes": [
+        {
+          "sourceId": "brief",
+          "section": "Public reconstruction and balancing rules",
+          "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+        }
+      ]
+    },
+    {
+      "id": "dialogue.key.julia",
+      "lines": [
+        {
+          "speakerId": "npc.julia",
+          "text": "The trouble reaches beyond a broken sword. Morris must hear this."
+        }
+      ],
+      "provenance": "RESTORATION",
+      "confidence": "LOW",
+      "sourceNotes": [
+        {
+          "sourceId": "brief",
+          "section": "Public reconstruction and balancing rules",
+          "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+        }
+      ]
+    },
+    {
+      "id": "dialogue.key.morris",
+      "lines": [
+        {
+          "speakerId": "npc.morris",
+          "text": "The right-hand chamber off Isaac’s basement passage is open. Bring back what lies in its chest."
+        }
+      ],
+      "provenance": "RESTORATION",
+      "confidence": "LOW",
+      "sourceNotes": [
+        {
+          "sourceId": "brief",
+          "section": "Public reconstruction and balancing rules",
+          "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+        }
+      ]
+    },
+    {
+      "id": "dialogue.key.chest",
+      "lines": [
+        {
+          "speakerId": "narrator",
+          "text": "Among the dust lies a small key."
+        }
+      ],
+      "provenance": "RESTORATION",
+      "confidence": "LOW",
+      "sourceNotes": [
+        {
+          "sourceId": "brief",
+          "section": "Public reconstruction and balancing rules",
+          "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+        }
+      ]
+    },
+    {
+      "id": "dialogue.key.naomi",
+      "lines": [
+        {
+          "speakerId": "npc.naomi",
+          "text": "Back to Asuria, of course. Kadija again! I’ll come with you to Morris."
+        }
+      ],
+      "provenance": "RESTORATION",
+      "confidence": "LOW",
+      "sourceNotes": [
+        {
+          "sourceId": "brief",
+          "section": "Public reconstruction and balancing rules",
+          "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+        }
+      ]
+    },
+    {
+      "id": "dialogue.key.postcard",
+      "lines": [
+        {
+          "speakerId": "npc.morris",
+          "text": "Keep the key safe. Give this postcard to Garuda in Eagle Village."
+        }
+      ],
+      "provenance": "RESTORATION",
+      "confidence": "LOW",
+      "sourceNotes": [
+        {
+          "sourceId": "brief",
+          "section": "Public reconstruction and balancing rules",
+          "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+        }
+      ]
+    },
+    {
+      "id": "dialogue.key.shiva",
+      "lines": [
+        {
+          "speakerId": "npc.shiva",
+          "text": "Back for another flight? Garuda is just ahead."
+        }
+      ],
+      "provenance": "RESTORATION",
+      "confidence": "LOW",
+      "sourceNotes": [
+        {
+          "sourceId": "brief",
+          "section": "Public reconstruction and balancing rules",
+          "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+        }
+      ]
+    },
+    {
+      "id": "dialogue.key.garuda",
+      "lines": [
+        {
+          "speakerId": "npc.garuda",
+          "text": "Morris is asking for an old friend. Shiva will take you to Jackal’s Waterfall."
+        }
+      ],
+      "provenance": "RESTORATION",
+      "confidence": "LOW",
+      "sourceNotes": [
+        {
+          "sourceId": "brief",
+          "section": "Public reconstruction and balancing rules",
+          "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+        }
+      ]
+    },
+    {
+      "id": "dialogue.key.dobiel",
+      "lines": [
+        {
+          "speakerId": "npc.dobiel",
+          "text": "Quietly! Jackal is sleeping inside. If this is urgent, you had better explain yourself."
+        }
+      ],
+      "provenance": "RESTORATION",
+      "confidence": "LOW",
+      "sourceNotes": [
+        {
+          "sourceId": "brief",
+          "section": "Public reconstruction and balancing rules",
+          "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+        }
+      ]
+    },
+    {
+      "id": "dialogue.key.jackal",
+      "lines": [
+        {
+          "speakerId": "npc.jackal",
+          "text": "Who disturbs my rest?"
+        },
+        {
+          "speakerId": "npc.jackal",
+          "text": "A friend of Morris? Then let us hear what is wrong at the mine."
+        }
+      ],
+      "provenance": "RESTORATION",
+      "confidence": "LOW",
+      "sourceNotes": [
+        {
+          "sourceId": "brief",
+          "section": "Public reconstruction and balancing rules",
+          "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+        }
+      ]
+    },
+    {
+      "id": "dialogue.key.skoll",
+      "lines": [
+        {
+          "speakerId": "npc.skoll",
+          "text": "What an enormous pet—Jackal?! Forgive me!"
+        },
+        {
+          "speakerId": "npc.skoll",
+          "text": "I’ll lead from here. Naomi, will you keep Morris informed?"
+        }
+      ],
+      "provenance": "RESTORATION",
+      "confidence": "LOW",
+      "sourceNotes": [
+        {
+          "sourceId": "brief",
+          "section": "Public reconstruction and balancing rules",
+          "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+        }
+      ]
+    },
+    {
+      "id": "dialogue.key.baldi",
+      "lines": [
+        {
+          "speakerId": "npc.baldi",
+          "text": "No visitors in the workings. Unless you can bring Kobold’s charcoal. That would be a fair trade."
+        }
+      ],
+      "provenance": "RESTORATION",
+      "confidence": "LOW",
+      "sourceNotes": [
+        {
+          "sourceId": "brief",
+          "section": "Public reconstruction and balancing rules",
+          "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+        }
+      ]
+    },
+    {
+      "id": "dialogue.key.kobold",
+      "lines": [
+        {
+          "speakerId": "npc.kobold",
+          "text": "A tiger! Please keep those teeth over there."
+        },
+        {
+          "speakerId": "npc.kobold",
+          "text": "You helped me, so take the charcoal from the other room."
+        }
+      ],
+      "provenance": "RESTORATION",
+      "confidence": "LOW",
+      "sourceNotes": [
+        {
+          "sourceId": "brief",
+          "section": "Public reconstruction and balancing rules",
+          "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+        }
+      ]
     }
   ],
   "spells": [
@@ -20862,6 +22970,68 @@
       "id": "item.yogurt",
       "name": "The last yogurt",
       "description": "Skoll insists on delivering this one personally.",
+      "kind": "QUEST",
+      "power": 0,
+      "price": 0,
+      "sellPrice": 0,
+      "minimumRank": "APPRENTICE",
+      "assetId": "icon.item",
+      "provenance": "RESTORATION",
+      "confidence": "LOW",
+      "sourceNotes": [
+        {
+          "sourceId": "brief",
+          "section": "Public reconstruction and balancing rules",
+          "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+        }
+      ],
+      "balanceEvidence": {
+        "provenance": "RESTORATION",
+        "confidence": "LOW",
+        "sourceNotes": [
+          {
+            "sourceId": "brief",
+            "section": "Public reconstruction and balancing rules",
+            "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+          }
+        ]
+      }
+    },
+    {
+      "id": "item.secret-key",
+      "name": "Secret key",
+      "description": "A small key from the chest Principal Morris asked you to open.",
+      "kind": "QUEST",
+      "power": 0,
+      "price": 0,
+      "sellPrice": 0,
+      "minimumRank": "APPRENTICE",
+      "assetId": "icon.item",
+      "provenance": "RESTORATION",
+      "confidence": "LOW",
+      "sourceNotes": [
+        {
+          "sourceId": "brief",
+          "section": "Public reconstruction and balancing rules",
+          "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+        }
+      ],
+      "balanceEvidence": {
+        "provenance": "RESTORATION",
+        "confidence": "LOW",
+        "sourceNotes": [
+          {
+            "sourceId": "brief",
+            "section": "Public reconstruction and balancing rules",
+            "proves": "Original English retelling, vector art, interaction placement and conservative playable estimates; not original game data."
+          }
+        ]
+      }
+    },
+    {
+      "id": "item.morris-postcard",
+      "name": "Morris’s postcard",
+      "description": "A message for Garuda in Eagle Village.",
       "kind": "QUEST",
       "power": 0,
       "price": 0,

@@ -994,5 +994,17 @@
     "accessStatus": "READ",
     "proves": "Episode headings and illustrated narrative.",
     "limitations": "HTML and text inspected. Image references do not imply screenshots are visually verified; no original internal game data recovered."
+  },
+  {
+    "id": "alice-161",
+    "title": "Have Alice — Episode 70, part 2",
+    "url": "https://alicer.tistory.com/161",
+    "domain": "alicer.tistory.com",
+    "family": "have-alice",
+    "type": "CONTEMPORARY_PLAYER",
+    "accessedDate": "2026-09-09",
+    "accessStatus": "READ",
+    "proves": "2011 player account revisits a star riddle room and refers to a map and refresher images.",
+    "limitations": "Text inspected; linked map and riddle images could not be fetched. Later-episode evidence does not establish Episode 8 topology or answers."
   }
 ]

@@ -99,6 +99,9 @@ export function finishEncounter(input:AdventureState,c:Campaign):AdventureState 
     const map=c.maps.find(m=>m.id===c.startMapId)!;s.save.world.mapId=map.id;s.save.world.x=map.spawn.x;s.save.world.y=map.spawn.y;
     applyEffects(s,c,[{type:'restore'}]);notice(s,'The school nurse helped you recover. Your mission can be retried.');return s;
   }
+  // Restoration recovery rule: surviving allies help a fallen student stand, without a full heal.
+  // Otherwise a pet-led victory or escape can leave the next story encounter impossible to enter.
+  if(s.hp===0){s.hp=1;notice(s,'Your companions help you stand with 1 HP. Rest before the next encounter.');}
   if(battle.phase==='ESCAPED'){notice(s,'Escaped without rewards.');return s;}
   const q=currentQuest(s,c),step=currentStep(s,c);
   if(!s.completedBattles.includes(battle.id)){applyEffects(s,c,c.battles.find(b=>b.id===battle.id)!.rewards);s.completedBattles.push(battle.id);}
