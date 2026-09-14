@@ -1,0 +1,66 @@
+{
+  "fetchedAt": "2026-09-14T13:35:08.904Z",
+  "rows": [
+    {
+      "selection": "AUTO",
+      "symbol": "ES=F",
+      "contract": "ESU26",
+      "price": 7607.25,
+      "timestamp": "2026-09-14T13:25:07.000Z",
+      "delayMinutes": 10,
+      "esSpyRatio": 10.026954710813518,
+      "esSpxRatio": 1.0010935735773674
+    },
+    {
+      "selection": "ESU26",
+      "symbol": "ESU26.CME",
+      "contract": "ESU26",
+      "price": 7607.25,
+      "timestamp": "2026-09-14T13:25:07.000Z",
+      "delayMinutes": 10,
+      "esSpyRatio": 10.026954710813518,
+      "esSpxRatio": 1.0010935735773674
+    },
+    {
+      "selection": "ESZ26",
+      "symbol": "ESZ26.CME",
+      "contract": "ESZ26",
+      "price": 7674.25,
+      "timestamp": "2026-09-14T13:25:07.000Z",
+      "delayMinutes": 10,
+      "esSpyRatio": 10.11526598829546,
+      "esSpxRatio": 1.0099105927932055
+    },
+    {
+      "selection": "ESH27",
+      "symbol": "ESH27.CME",
+      "contract": "ESH27",
+      "price": 7763.5,
+      "timestamp": "2026-09-14T11:36:29.000Z",
+      "delayMinutes": 10,
+      "esSpyRatio": 10.232904518374019,
+      "esSpxRatio": 1.021655651972512
+    },
+    {
+      "selection": "ESM27",
+      "symbol": "ESM27.CME",
+      "contract": "ESM27",
+      "price": 7887.75,
+      "timestamp": "2026-09-10T19:50:00.000Z",
+      "delayMinutes": 10,
+      "esSpyRatio": 10.396675805346128,
+      "esSpxRatio": 1.038006616712331
+    },
+    {
+      "selection": "ESU27",
+      "symbol": "ESU27.CME",
+      "contract": "ESU27",
+      "price": 7971,
+      "timestamp": "2026-09-03T15:33:55.000Z",
+      "delayMinutes": 10,
+      "esSpyRatio": 10.506405862814363,
+      "esSpxRatio": 1.0489620920812641
+    }
+  ],
+  "december2027": null
+}

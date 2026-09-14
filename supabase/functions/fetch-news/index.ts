@@ -492,7 +492,7 @@ function resolvePublishedAt(source: string, rawDate: string, originalUrl: string
     if (inferredFromUrl) return inferredFromUrl;
   }
 
-  return parseDate(normalizeDateLabel(rawDate));
+  return parseDate(normalizeDateLabel(stripCDATA(rawDate)));
 }
 
 function extractTickers(input: string): string[] {
@@ -531,8 +531,24 @@ function normalizeArticle(input: Partial<NewsArticle>): NewsArticle | null {
     return null;
   }
   if (source === "SEC") {
-    const secPublishedAt = new Date(published_at).getTime();
-    if (Number.isNaN(secPublishedAt) || secPublishedAt < SEC_MIN_ALLOWED_PUBLISHED_AT_MS) {
+    // Validate the publisher's date before parseDate can substitute today's date.
+    const secPublishedAt = new Date(
+      normalizeDateLabel(stripCDATA(input.published_at ?? "")),
+    ).getTime();
+    // Archived releases can reappear with incorrect feed dates. Their release
+    // numbers retain the original year (e.g. 97-114 and 99-110).
+    const releaseYearLabel = new URL(original_url).pathname.match(
+      /^\/(?:newsroom\/press-releases|news\/press-release|news\/press)\/(\d{4}|\d{2})-/i,
+    )?.[1];
+    const releaseYear = releaseYearLabel
+      ? Number(releaseYearLabel) + (releaseYearLabel.length === 2 ? 1900 : 0)
+      : null;
+    if (
+      Number.isNaN(secPublishedAt) ||
+      secPublishedAt < SEC_MIN_ALLOWED_PUBLISHED_AT_MS ||
+      secPublishedAt > Date.now() + 15 * 60 * 1000 ||
+      (releaseYear !== null && releaseYear < 2020)
+    ) {
       return null;
     }
   }
