@@ -33,14 +33,14 @@ async function setup() {
 test('Auto and explicit selection immediately recalculate both ES conversions without changing unrelated ratios or To',async()=>{
   const s=await setup();
   try {
-    assert.match(s.el('es-contract-status').textContent,/Auto.*ESU26/);
+    assert.equal(s.el('es-contract-status').textContent,''); assert.equal(s.el('es-contract-status').hidden,true);
     await s.select('from-ticker','ES');await s.select('to-ticker','SPY');s.el('convert-input').value='7600';s.context.window.convertPremium();
     assert.match(s.el('convert-output').textContent,/SPY: 760\.00000000/);
     const nq=s.el('ratio-nq-qqq').textContent;
     await s.select('es-contract','ESZ26');
     assert.equal(s.el('to-ticker').value,'SPY'); assert.equal(s.el('ratio-es-spy').textContent,(7670/760).toFixed(8));
     assert.match(s.el('convert-output').textContent,new RegExp((7600/(7670/760)).toFixed(8)));
-    assert.match(s.el('es-contract-status').textContent,/December 2026.*Last trade:.*Yahoo delay: 10 min/);
+    assert.equal(s.el('es-contract-status').textContent,''); assert.equal(s.el('es-contract-status').hidden,true);
     await s.select('to-ticker','SPX');await s.select('es-contract','ESH27');
     assert.equal(s.el('ratio-es-spx').textContent,(7740/7600).toFixed(8));
     assert.match(s.el('convert-output').textContent,new RegExp((7600/(7740/7600)).toFixed(8)));
@@ -63,7 +63,7 @@ test('Rapid switches ignore late responses and unavailable contracts cannot reus
     await s.select('es-contract','ESZ26');assert.equal(s.el('ratio-es-spy').textContent,'N/A');
     assert.match(s.el('convert-output').textContent,/Loading December/);
     await s.select('es-contract','ESH27');pending.ESH27(payload('ESH27'));await flush();pending.ESZ26(payload('ESZ26'));await flush();
-    assert.match(s.el('es-contract-status').textContent,/March 2027/);assert.equal(s.el('ratio-es-spy').textContent,(7740/760).toFixed(8));
+    assert.equal(s.el('es-contract').value,'ESH27'); assert.equal(s.el('es-contract-status').hidden,true);assert.equal(s.el('ratio-es-spy').textContent,(7740/760).toFixed(8));
     s.setFetch(async()=>{throw Error('Unavailable');});await s.select('es-contract','ESZ26');
     assert.equal(s.el('ratio-es-spy').textContent,'N/A');assert.match(s.el('convert-output').textContent,/ES quote unavailable/);
     s.setFetch(async()=>payload('AUTO'));await s.select('es-contract','ESH27');

@@ -61,7 +61,8 @@ async function updateProRatios({ esOnly = false } = {}) {
   activeRequest = new AbortController();
   esLoading = true;
   if (esOnly) clearES();
-  contractStatus.textContent = `ES: ${selectedContractLabel()} — loading quote…`;
+  contractStatus.hidden = false;
+  contractStatus.textContent = `Loading ${selectedContractLabel()}…`;
   document.getElementById('conversionDate').textContent = esOnly ? lastValidDate : 'Loading...';
   updateRatioDisplay();
   recalculateESConversion();
@@ -95,18 +96,13 @@ async function updateProRatios({ esOnly = false } = {}) {
     ratios['ES/SPY'] = finitePrice(prices.ES) && finitePrice(prices.SPY) ? prices.ES / prices.SPY : null;
     ratios['ES/SPX'] = finitePrice(prices.ES) && finitePrice(prices.SPX) ? prices.ES / prices.SPX : null;
     esLoading = false;
-    const identity = contract === 'AUTO'
-      ? `Auto / Front Month${data.ESContract ? ` (${data.ESContract})` : ''}`
-      : selectedContractLabel();
-    const quoteTime = data.ESQuote?.timestamp ? new Date(data.ESQuote.timestamp).toLocaleString() : null;
-    const delay = data.ESQuote?.delayMinutes;
-    contractStatus.textContent = `ES: ${identity} · ${finitePrice(prices.ES) ? `$${prices.ES.toFixed(2)}` : 'Quote unavailable'}` +
-      (quoteTime ? ` · Last trade: ${quoteTime}` : '') +
-      (typeof delay === 'number' && delay > 0 ? ` · Yahoo delay: ${delay} min` : '');
+    contractStatus.textContent = finitePrice(prices.ES) ? '' : 'ES quote unavailable. Choose another contract or try again.';
+    contractStatus.hidden = finitePrice(prices.ES);
   } catch (error) {
     if (version !== requestVersion || error.name === 'AbortError') return;
     clearES();
     esLoading = false;
+    contractStatus.hidden = false;
     contractStatus.textContent = `ES: ${selectedContractLabel()} · ${error.message}`;
     if (error.status === 401 || error.status === 403) {
       prices = {}; lastPrices = {}; ratios = {};
