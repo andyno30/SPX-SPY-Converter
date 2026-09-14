@@ -312,7 +312,7 @@
   <script type="module">
     import { supabase } from './auth.js';
 
-    const proBackendURL = 'https://isvzhpqrmjtqnqyyidxr.functions.supabase.co/get-live-price-pro';
+    import { fetchProPrices } from './pro_prices_api.js';
     const CHART_STORAGE_KEY = 'spxSpyOverlapChartPoints';
     const MAX_POINTS = 390;
     const REFRESH_MS = 60_000;
@@ -785,9 +785,7 @@
     async function fetchLivePoint() {
       try {
         setStatus('Fetching live SPX/SPY Ratio and prices...');
-        const response = await fetch(proBackendURL);
-        if (!response.ok) throw new Error(`Live price request failed: ${response.status}`);
-        const data = await response.json();
+        const data = await fetchProPrices();
         appendLivePoint(data);
         setStatus('Live overlap chart updated. The SPY right axis is derived from SPX ÷ live SPX/SPY Ratio.');
       } catch (error) {

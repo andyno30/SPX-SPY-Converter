@@ -1,4 +1,4 @@
-const proBackendURL = "https://isvzhpqrmjtqnqyyidxr.functions.supabase.co/get-live-price-pro";
+import { fetchProPrices } from './pro_prices_api.js';
 
 let prices = {};
 let lastPrices = {};
@@ -50,13 +50,7 @@ function updateDowRussellRatios() {
     document.getElementById("conversionDate").textContent = lastValidDate;
   }
 
-  fetch(proBackendURL)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.statusText}`);
-      }
-      return response.json();
-    })
+  fetchProPrices()
     .then(data => {
       if (!data || !data.Prices) {
         throw new Error("Invalid data format received from backend.");
@@ -204,3 +198,5 @@ setInterval(updateRatioDisplay, 1000);
 setInterval(updatePriceDisplay, 1000);
 setInterval(updateDowRussellRatios, 60000);
 updateDowRussellRatios();
+
+window.convertDowRussell = convertDowRussell;

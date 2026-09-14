@@ -1,4 +1,4 @@
-const proBackendURL = "https://isvzhpqrmjtqnqyyidxr.functions.supabase.co/get-live-price-pro";
+import { fetchProPrices } from './pro_prices_api.js';
 
 let prices = {};     // Holds the latest market prices
 let lastPrices = {}; // Holds the last known valid prices
@@ -15,104 +15,115 @@ const validConversions = {
   "NDX": ["QQQ", "NQ"]
 };
 
-// Cache keys
-const CACHE_KEY = 'liveRatios';
-const CACHE_EXPIRATION = 1 * 60 * 1000; // 5 minutes in milliseconds
+let selectedESContract = 'AUTO';
+let requestVersion = 0;
+let activeRequest = null;
+let esLoading = true;
+const contractSelect = document.getElementById('es-contract');
+const contractStatus = document.getElementById('es-contract-status');
+const finitePrice = value => typeof value === 'number' && Number.isFinite(value) && value > 0;
 
-// Helper function to get cached data
-function getCachedData() {
-  const cachedData = localStorage.getItem(CACHE_KEY);
-  if (cachedData) {
-    const { ratios, timestamp } = JSON.parse(cachedData);
-    const now = new Date().getTime();
-    if (now - timestamp < CACHE_EXPIRATION) {
-      return ratios;
+function selectedContractLabel() {
+  return contractSelect.selectedOptions[0]?.textContent || 'Auto / Front Month';
+}
+function clearES() {
+  prices.ES = null;
+  delete lastPrices.ES;
+  ratios['ES/SPY'] = null;
+  ratios['ES/SPX'] = null;
+}
+function recalculateESConversion() {
+  const from = document.getElementById('from-ticker').value;
+  const to = document.getElementById('to-ticker').value;
+  if ((from === 'ES' || to === 'ES') && document.getElementById('convert-input').value !== '') convertPremium();
+}
+function updateContractOptions(contracts) {
+  const previousLabel = selectedContractLabel();
+  contractSelect.replaceChildren(new Option('Auto / Front Month', 'AUTO'));
+  for (const contract of contracts || []) {
+    contractSelect.add(new Option(contract.label, contract.contract));
+  }
+  if (selectedESContract !== 'AUTO' && !Array.from(contractSelect.options).some(o => o.value === selectedESContract)) {
+    const unavailable = new Option(previousLabel, selectedESContract);
+    unavailable.disabled = true;
+    contractSelect.add(unavailable);
+  }
+  contractSelect.value = selectedESContract;
+  contractSelect.disabled = false;
+}
+
+// Contract changes use the server's shared snapshot, but update only ES locally.
+// Abort + generation checking prevent a slower old selection replacing a new one.
+async function updateProRatios({ esOnly = false } = {}) {
+  const version = ++requestVersion;
+  const contract = selectedESContract;
+  activeRequest?.abort();
+  activeRequest = new AbortController();
+  esLoading = true;
+  if (esOnly) clearES();
+  contractStatus.textContent = `ES: ${selectedContractLabel()} — loading quote…`;
+  document.getElementById('conversionDate').textContent = esOnly ? lastValidDate : 'Loading...';
+  updateRatioDisplay();
+  recalculateESConversion();
+  try {
+    const data = await fetchProPrices(contract, activeRequest.signal);
+    if (version !== requestVersion) return;
+    if (!data?.Prices) throw new Error('Invalid price response.');
+    // Auto also accepts the old payload during a staged frontend-first release.
+    if ((data.ESSelection && data.ESSelection !== contract) ||
+        (contract !== 'AUTO' && (data.ESContract !== contract || data.ESSymbol !== `${contract}.CME`))) {
+      throw new Error('The requested ES contract was not returned.');
+    }
+    updateContractOptions(data.ESContracts);
+    if (esOnly) {
+      prices.ES = data.Prices.ES;
+    } else {
+      prices = data.Prices;
+      for (const [ticker, price] of Object.entries(prices)) {
+        if (ticker !== 'ES' && finitePrice(price)) lastPrices[ticker] = price;
+      }
+      ratios['SPX/SPY'] = data['SPX/SPY Ratio'];
+      ratios['NQ/QQQ'] = data['NQ/QQQ Ratio'];
+      ratios['NDX/QQQ'] = data['NDX/QQQ Ratio'];
+      ratios['NQ/NDX'] = finitePrice(prices.NQ) && finitePrice(prices.NDX) ? prices.NQ / prices.NDX : null;
+      if (data.Datetime) lastValidDate = new Date(data.Datetime).toLocaleString('en-US', {
+        month: 'numeric', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true,
+      });
+    }
+    // Always derive ES ratios from the displayed base prices, including when a
+    // contract-only request lands after the server's base snapshot has refreshed.
+    ratios['ES/SPY'] = finitePrice(prices.ES) && finitePrice(prices.SPY) ? prices.ES / prices.SPY : null;
+    ratios['ES/SPX'] = finitePrice(prices.ES) && finitePrice(prices.SPX) ? prices.ES / prices.SPX : null;
+    esLoading = false;
+    const identity = contract === 'AUTO'
+      ? `Auto / Front Month${data.ESContract ? ` (${data.ESContract})` : ''}`
+      : selectedContractLabel();
+    const quoteTime = data.ESQuote?.timestamp ? new Date(data.ESQuote.timestamp).toLocaleString() : null;
+    const delay = data.ESQuote?.delayMinutes;
+    contractStatus.textContent = `ES: ${identity} · ${finitePrice(prices.ES) ? `$${prices.ES.toFixed(2)}` : 'Quote unavailable'}` +
+      (quoteTime ? ` · Last trade: ${quoteTime}` : '') +
+      (typeof delay === 'number' && delay > 0 ? ` · Yahoo delay: ${delay} min` : '');
+  } catch (error) {
+    if (version !== requestVersion || error.name === 'AbortError') return;
+    clearES();
+    esLoading = false;
+    contractStatus.textContent = `ES: ${selectedContractLabel()} · ${error.message}`;
+    if (error.status === 401 || error.status === 403) {
+      prices = {}; lastPrices = {}; ratios = {};
+      document.getElementById('convert-output').textContent = error.message;
+      contractSelect.disabled = true;
     }
   }
-  return null;
+  if (version !== requestVersion) return;
+  document.getElementById('conversionDate').textContent = lastValidDate;
+  updateRatioDisplay();
+  updatePriceDisplay();
+  recalculateESConversion();
 }
-
-// Helper function to set cached data
-function setCachedData(ratios) {
-  const now = new Date().getTime();
-  localStorage.setItem(CACHE_KEY, JSON.stringify({ ratios, timestamp: now }));
-}
-
-// Fetch live ratios and prices from the backend
-function updateProRatios() {
-  document.getElementById("conversionDate").textContent = "Loading...";
-
-  // Check for cached data
-  const cachedRatios = getCachedData();
-  if (cachedRatios) {
-    ratios = cachedRatios;
-    updateRatioDisplay();
-    updatePriceDisplay();
-    document.getElementById("conversionDate").textContent = lastValidDate;
-  }
-
-  fetch(proBackendURL)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.statusText}`);
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log("Received data:", data);
-      if (!data || !data.Prices) {
-        throw new Error("Invalid data format received from backend.");
-      }
-
-      // Store latest prices
-      prices = data.Prices;
-
-      // Update last known valid prices
-      Object.keys(prices).forEach(ticker => {
-        if (prices[ticker] !== null && prices[ticker] !== undefined) {
-          lastPrices[ticker] = prices[ticker];
-        }
-      });
-
-      // Store latest ratios
-      ratios = {
-        "SPX/SPY": data["SPX/SPY Ratio"],
-        "ES/SPY": data["ES/SPY Ratio"],
-        "NQ/QQQ": data["NQ/QQQ Ratio"],
-        "NDX/QQQ": data["NDX/QQQ Ratio"],
-        "ES/SPX": data["ES/SPX Ratio"],
-        "NQ/NDX":
-          (typeof prices.NQ === "number" &&
-           typeof prices.NDX === "number" &&
-           prices.NDX !== 0)
-            ? prices.NQ / prices.NDX
-            : null
-      };
-
-      // Parse the UTC timestamp and convert to local time
-      if (data.Datetime) {
-        const serverDateUTC = new Date(data.Datetime);  // Parses ISO UTC timestamp
-        lastValidDate = serverDateUTC.toLocaleString('en-US', {
-          month: 'numeric',
-          day: 'numeric',
-          year: 'numeric',
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: true
-        });
-      }
-      document.getElementById("conversionDate").textContent = lastValidDate;
-
-      // Cache the fresh ratios
-      setCachedData(ratios);
-
-      updateDropdownOptions();
-    })
-    .catch(error => {
-      console.error('Error fetching premium data:', error);
-      document.getElementById("conversionDate").textContent = lastValidDate; // Use last valid timestamp
-    });
-}
+contractSelect.addEventListener('change', () => {
+  selectedESContract = contractSelect.value;
+  updateProRatios({ esOnly: true });
+});
 
 // Update the "To" dropdown based on the selected "From" ticker
 function updateDropdownOptions() {
@@ -144,6 +155,14 @@ function convertPremium() {
     return;
   }
 
+  if ((fromTicker === 'ES' || toTicker === 'ES') &&
+      (esLoading || !finitePrice(ratios['ES/SPY']) || !finitePrice(ratios['ES/SPX']))) {
+    document.getElementById('convert-output').textContent = esLoading
+      ? `Loading ${selectedContractLabel()}…`
+      : `ES quote unavailable for ${selectedContractLabel()}. Choose another contract or try again.`;
+    return;
+  }
+
   const conversionMapping = {
     "SPX->SPY": (v) => v / ratios["SPX/SPY"],
     "SPY->SPX": (v) => v * ratios["SPX/SPY"],
@@ -162,13 +181,14 @@ function convertPremium() {
   const key = `${fromTicker}->${toTicker}`;
   const conversionFunction = conversionMapping[key];
 
-  if (!conversionFunction || conversionFunction(inputValue) === undefined) {
+  if (!conversionFunction || !Number.isFinite(conversionFunction(inputValue))) {
     document.getElementById("convert-output").textContent = "Invalid conversion.";
     return;
   }
 
   const convertedValue = conversionFunction(inputValue);
-  document.getElementById("convert-output").textContent = `${toTicker}: ${convertedValue.toFixed(8)}`;
+  const esLabel = fromTicker === 'ES' || toTicker === 'ES' ? ` · ES: ${selectedContractLabel()}` : '';
+  document.getElementById("convert-output").textContent = `${toTicker}: ${convertedValue.toFixed(8)}${esLabel}`;
 }
 
 // Update displayed ratios on the UI
@@ -213,9 +233,8 @@ function updatePriceDisplay() {
   });
 }
 
-// Automatically update the UI every second
-setInterval(updateRatioDisplay, 1000);
-setInterval(updatePriceDisplay, 1000);
+window.convertPremium = convertPremium;
+updateDropdownOptions();
 
 // Fetch new data every 60 seconds
 setInterval(updateProRatios, 60000);

@@ -343,6 +343,8 @@ verify_jwt = true
 verify_jwt = false
 
 [functions."get-live-price-pro"]
+# The handler verifies user JWTs via auth.getUser and enforces Pro on every GET.
+# Keep gateway verification off for compatibility with current Supabase signing keys.
 verify_jwt = false
 
 [functions."fetch-news"]
