@@ -5,11 +5,11 @@ Visitors read News rows from Supabase; their browsers never call SaveTicker.
 
 ## Data flow
 
-`.github/workflows/update-saveticker-news.yml` runs about every 15 minutes and can
-also be started manually from **Actions → Update SaveTicker News → Run workflow**.
+`.github/workflows/update-news.yml` runs about every 15 minutes and can
+also be started manually from **Actions → Update News → Run workflow**.
 It restores the encrypted `SAVETICKER_AUTH_JSON_B64` secret into a temporary
-runner file, runs `scripts/sync_saveticker_news.py`, commits the normalized
-`data/saveticker-news.json` cache only when it changes, and removes the temporary
+runner file, runs `scripts/sync_news.py`, commits the normalized
+`data/news.json` cache only when it changes, and removes the temporary
 session file.
 
 The existing Supabase `fetch-news` function reads that normalized cache during
@@ -44,16 +44,16 @@ normalized cache cannot be read.
 Use the existing private session refresh flow:
 
 ```bash
-python -m pip install -r scripts/requirements-saveticker.txt
+python -m pip install -r scripts/requirements-news.txt
 python -m playwright install chromium
-python scripts/refresh_saveticker_auth.py
+python scripts/refresh_auth.py
 ```
 
 After manually signing in, replace the GitHub Actions secret with a fresh base64
-encoding of the ignored `saveticker-auth.json` file:
+encoding of the ignored `news-auth.json` file:
 
 ```bash
-base64 < saveticker-auth.json | pbcopy
+base64 < news-auth.json | pbcopy
 ```
 
 Never commit or paste the decoded session into logs, issues, or source files.
@@ -63,14 +63,14 @@ Never commit or paste the decoded session into logs, issues, or source files.
 Run a local cache update with an ignored local session:
 
 ```bash
-python scripts/sync_saveticker_news.py
+python scripts/sync_news.py
 ```
 
 Or point to a session held outside the repository:
 
 ```bash
-SAVETICKER_AUTH_FILE=/private/path/saveticker-auth.json \
-  python scripts/sync_saveticker_news.py
+SAVETICKER_AUTH_FILE=/private/path/news-auth.json \
+  python scripts/sync_news.py
 ```
 
 Deploy/run the server-side importer with:

@@ -19,8 +19,8 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-AUTH_FILE = Path(os.environ.get("SAVETICKER_AUTH_FILE", ROOT / "saveticker-auth.json"))
-OUTPUT_FILE = ROOT / "data" / "saveticker-news.json"
+AUTH_FILE = Path(os.environ.get("SAVETICKER_AUTH_FILE", ROOT / "news-auth.json"))
+OUTPUT_FILE = ROOT / "data" / "news.json"
 TIMEOUT_SECONDS = 20
 MAX_ITEMS_PER_SOURCE = 300
 MAX_TICKERS_PER_ITEM = 8
@@ -43,7 +43,7 @@ SOURCE_LABELS = {
 def load_storage_state_cookies() -> str:
     if not AUTH_FILE.exists():
         raise SystemExit(
-            f"Missing {AUTH_FILE.name}. Run scripts/refresh_saveticker_auth.py first."
+            f"Missing {AUTH_FILE.name}. Run scripts/refresh_auth.py first."
         )
 
     try:
@@ -270,7 +270,7 @@ def write_cache(items: list[dict]) -> None:
             mode="w",
             encoding="utf-8",
             dir=OUTPUT_FILE.parent,
-            prefix=".saveticker-news-",
+            prefix=".news-",
             suffix=".tmp",
             delete=False,
         ) as handle:

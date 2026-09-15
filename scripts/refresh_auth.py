@@ -9,7 +9,7 @@ from playwright.async_api import async_playwright
 
 
 ROOT = Path(__file__).resolve().parents[1]
-AUTH_FILE = Path(os.environ.get("SAVETICKER_AUTH_FILE", ROOT / "saveticker-auth.json"))
+AUTH_FILE = Path(os.environ.get("SAVETICKER_AUTH_FILE", ROOT / "news-auth.json"))
 
 
 async def main():

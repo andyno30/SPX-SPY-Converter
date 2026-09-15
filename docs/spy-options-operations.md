@@ -9,7 +9,7 @@ The public page is [spyconverter.com/options/](https://spyconverter.com/options/
 Each run:
 
 1. Restores the encrypted `SAVETICKER_AUTH_JSON_B64` repository secret to a temporary runner file.
-2. Calls the authenticated SaveTicker SPY options endpoint once through `scripts/sync_saveticker_direct.py`.
+2. Calls the authenticated options endpoint once through `scripts/sync_direct.py`.
 3. Validates and normalizes the response.
 4. Commits `data/spy-options.json` only when the generated data changed.
 5. Removes the temporary session file.
@@ -21,33 +21,33 @@ The updater does not write raw response captures. It writes the public JSON only
 The private session is never stored in Git. To refresh it locally:
 
 ```bash
-python -m pip install -r scripts/requirements-saveticker.txt
+python -m pip install -r scripts/requirements-news.txt
 python -m playwright install chromium
-python scripts/refresh_saveticker_auth.py
+python scripts/refresh_auth.py
 ```
 
-Log in manually in the Chromium window and press Enter in the terminal. The script writes the ignored `saveticker-auth.json` file in the repository root. It does not automate or store a username/password.
+Log in manually in the Chromium window and press Enter in the terminal. The script writes the ignored `news-auth.json` file in the repository root. It does not automate or store a username/password.
 
 Then replace the GitHub Actions secret with a fresh base64 encoding of that file:
 
 ```bash
-base64 < saveticker-auth.json | pbcopy
+base64 < news-auth.json | pbcopy
 ```
 
 In GitHub, open **Settings → Secrets and variables → Actions**, select `SAVETICKER_AUTH_JSON_B64`, and paste the clipboard value. Never paste the session contents into source code, issues, or logs.
 
 ## Manual local update
 
-With a local ignored `saveticker-auth.json` present:
+With a local ignored `news-auth.json` present:
 
 ```bash
-python scripts/sync_saveticker_direct.py
+python scripts/sync_direct.py
 ```
 
 To use a session file stored elsewhere without copying it into the repository:
 
 ```bash
-SAVETICKER_AUTH_FILE=/path/to/saveticker-auth.json python scripts/sync_saveticker_direct.py
+SAVETICKER_AUTH_FILE=/path/to/news-auth.json python scripts/sync_direct.py
 ```
 
 The successful update time is stored in `data/spy-options.json` as `sourceUpdatedAt`, and the most recent workflow run is visible under the repository’s **Actions** tab.

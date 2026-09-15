@@ -1,4 +1,4 @@
-name: Update SaveTicker News
+name: Update News
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: update-saveticker-news
+  group: update-news
   cancel-in-progress: false
 
 jobs:
@@ -23,7 +23,7 @@ jobs:
         with:
           python-version: "3.13"
 
-      - name: Restore encrypted SaveTicker session
+      - name: Restore encrypted provider session
         env:
           SAVETICKER_AUTH_JSON_B64: ${{ secrets.SAVETICKER_AUTH_JSON_B64 }}
         run: |
@@ -32,19 +32,19 @@ jobs:
             echo "Missing SAVETICKER_AUTH_JSON_B64 repository secret." >&2
             exit 1
           fi
-          printf '%s' "$SAVETICKER_AUTH_JSON_B64" | base64 --decode > "$RUNNER_TEMP/saveticker-auth.json"
-          chmod 600 "$RUNNER_TEMP/saveticker-auth.json"
+          printf '%s' "$SAVETICKER_AUTH_JSON_B64" | base64 --decode > "$RUNNER_TEMP/news-auth.json"
+          chmod 600 "$RUNNER_TEMP/news-auth.json"
 
       - name: Fetch normalized Reuters and Financial Juice metadata
         env:
-          SAVETICKER_AUTH_FILE: ${{ runner.temp }}/saveticker-auth.json
-        run: python scripts/sync_saveticker_news.py
+          SAVETICKER_AUTH_FILE: ${{ runner.temp }}/news-auth.json
+        run: python scripts/sync_news.py
 
       - name: Commit only when the normalized cache changed
         run: |
-          git add data/saveticker-news.json
+          git add data/news.json
           if git diff --cached --quiet; then
-            echo "No new SaveTicker news metadata."
+            echo "No new Reuters or Financial Juice news metadata."
             exit 0
           fi
           git config user.name "github-actions[bot]"
@@ -53,6 +53,6 @@ jobs:
           git pull --rebase origin main
           git push
 
-      - name: Remove temporary SaveTicker session
+      - name: Remove temporary provider session
         if: always()
-        run: rm -f "$RUNNER_TEMP/saveticker-auth.json"
+        run: rm -f "$RUNNER_TEMP/news-auth.json"

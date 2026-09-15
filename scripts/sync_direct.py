@@ -17,7 +17,7 @@ from playwright.async_api import async_playwright
 
 
 ROOT = Path(__file__).resolve().parents[1]
-AUTH_FILE = Path(os.environ.get("SAVETICKER_AUTH_FILE", ROOT / "saveticker-auth.json"))
+AUTH_FILE = Path(os.environ.get("SAVETICKER_AUTH_FILE", ROOT / "news-auth.json"))
 OUTPUT_FILE = ROOT / "data" / "spy-options.json"
 API_URL = "https://saveticker.com/api/stocks/api/v1/tickers/SPY/options"
 
@@ -167,7 +167,7 @@ def write_public_json(payload):
 async def fetch_source_payload():
     if not AUTH_FILE.exists():
         raise SystemExit(
-            f"Missing {AUTH_FILE.name}. Run scripts/refresh_saveticker_auth.py first."
+            f"Missing {AUTH_FILE.name}. Run scripts/refresh_auth.py first."
         )
 
     async with async_playwright() as playwright:
@@ -185,7 +185,7 @@ async def fetch_source_payload():
             if response.status == 401:
                 raise SystemExit(
                     "SaveTicker returned HTTP 401: the saved login session expired. "
-                    "Run scripts/refresh_saveticker_auth.py and update the "
+                    "Run scripts/refresh_auth.py and update the "
                     "SAVETICKER_AUTH_JSON_B64 GitHub secret."
                 )
 

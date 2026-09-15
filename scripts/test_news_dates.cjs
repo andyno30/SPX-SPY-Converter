@@ -17,7 +17,7 @@ const context = vm.createContext({
   Deno: { env: { get: () => "test" }, serve: () => {} },
   require: (name) => {
     if (name === "npm:@supabase/supabase-js@2") return { createClient: () => ({}) };
-    if (name === "../_shared/saveticker.ts") return {};
+    if (name === "../_shared/provider.ts") return {};
     throw new Error(`Unexpected dependency: ${name}`);
   },
 });

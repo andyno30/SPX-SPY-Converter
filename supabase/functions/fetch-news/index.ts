@@ -2,7 +2,7 @@
 
 import { createClient } from "npm:@supabase/supabase-js@2";
 
-import { fetchSaveTickerJson } from "../_shared/saveticker.ts";
+import { fetchSaveTickerJson } from "../_shared/provider.ts";
 
 /**
  * Supabase Edge Function: fetch-news
@@ -76,7 +76,7 @@ const SEC_PRESS_RELEASES_RSS_URL = "https://www.sec.gov/news/pressreleases.rss";
 const WHITE_HOUSE_RELEASES_URL = "https://www.whitehouse.gov/releases/";
 const SAVETICKER_NEWS_CACHE_URL =
   Deno.env.get("SAVETICKER_NEWS_CACHE_URL")?.trim() ||
-  "https://raw.githubusercontent.com/andyno30/SPX-SPY-Converter/main/data/saveticker-news.json";
+  "https://raw.githubusercontent.com/andyno30/SPX-SPY-Converter/main/data/news.json";
 const SAVETICKER_NEWS_ENDPOINTS = [
   "https://saveticker.com/api/news/list?page=1&page_size=100&sort=created_at_desc&label_group=1&label_name=1",
   "https://saveticker.com/api/news/list?page=1&page_size=100&sort=created_at_desc&label_group=6&label_name=1",
