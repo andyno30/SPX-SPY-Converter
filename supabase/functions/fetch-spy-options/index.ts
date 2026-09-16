@@ -405,7 +405,7 @@ Deno.serve(async (req) => {
       normalized,
       200,
       {
-        "X-SpyConverter-Data-Source": "saveticker-live",
+        "X-SpyConverter-Data-Source": "live",
         "X-SpyConverter-Ticker": ticker,
         "X-SpyConverter-Refresh-Policy": REFRESH_POLICY,
       },

@@ -4,6 +4,7 @@ __pycache__/
 *.py[cod]
 
 # Private SaveTicker browser sessions. Never commit these files.
+news-auth.json
 saveticker-auth.json
 .saveticker-profile/
 

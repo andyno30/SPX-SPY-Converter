@@ -24,7 +24,7 @@ jobs:
           python-version: "3.13"
 
       - name: Install SaveTicker updater dependency
-        run: python -m pip install -r scripts/requirements-saveticker.txt
+        run: python -m pip install -r scripts/requirements-news.txt
 
       - name: Install Playwright Chromium
         run: python -m playwright install --with-deps chromium
@@ -44,7 +44,7 @@ jobs:
       - name: Fetch latest SPY options
         env:
           SAVETICKER_AUTH_FILE: ${{ runner.temp }}/saveticker-auth.json
-        run: python scripts/sync_saveticker_direct.py
+        run: python scripts/sync_direct.py
 
       - name: Commit only when data changed
         run: |

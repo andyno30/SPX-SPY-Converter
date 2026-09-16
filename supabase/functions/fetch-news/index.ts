@@ -2,8 +2,6 @@
 
 import { createClient } from "npm:@supabase/supabase-js@2";
 
-import { fetchSaveTickerJson } from "../_shared/provider.ts";
-
 /**
  * Supabase Edge Function: fetch-news
  *
@@ -815,9 +813,7 @@ function normalizeDirectSaveTickerItem(input: any): NewsArticle | null {
 
 async function fetchDirectSaveTickerNews(): Promise<FetchResult> {
   const payloads = await Promise.all(
-    SAVETICKER_NEWS_ENDPOINTS.map((url) =>
-      fetchSaveTickerJson(url, "https://saveticker.com/news")
-    ),
+    SAVETICKER_NEWS_ENDPOINTS.map((url) => fetchJson(url)),
   );
 
   const items = payloads.flatMap((payload) => {

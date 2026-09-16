@@ -43,7 +43,7 @@ function cookieHeaderFromSecret(): string {
       ? cookie.domain.replace(/^\./, "").toLowerCase()
       : "";
 
-    if (name && value && domain && SAVETICKER_HOST.endsWith(domain)) {
+    if (name === "access_token" && value && domain && SAVETICKER_HOST.endsWith(domain)) {
       pairs.push(`${name}=${value}`);
     }
   }

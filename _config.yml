@@ -1,0 +1,22 @@
+# GitHub Pages publishes main / (root). Keep server/development files out of
+# its static output; these exclusions do not affect Vercel or Supabase builds.
+# docs/ also contains the Pro frontend, so exclude its Markdown only.
+exclude:
+  - scripts
+  - supabase
+  - news-app
+  - tests
+  - "Spyconverter Pro Backend"
+  - "docs/*.md"
+  - "docs/**/*.md"
+  - requirements.txt
+  - news-auth.json
+  - saveticker-auth.json
+  - debug
+  - debug-v2
+  - node_modules
+  - vendor
+  - .github
+  - .vscode
+  - .venv
+  - .saveticker-profile
