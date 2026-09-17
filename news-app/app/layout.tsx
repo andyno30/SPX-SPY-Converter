@@ -32,6 +32,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head dangerouslySetInnerHTML={{ __html: '<script type="text/javascript" async="async" data-noptimize="1" data-cfasync="false" src="//scripts.mediavine.com/tags/dcb201d1-cf0e-4e2f-b04e-c1d8469eba55.js"></script>' }} />
       <body className={manrope.variable}>
         {children}
         <GoogleAnalytics />
