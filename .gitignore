@@ -3,6 +3,11 @@
 __pycache__/
 *.py[cod]
 
+# Backend-only credentials for the local Mac fallback updater.
+/.env.local
+/.env.local.*
+/.local-fallback/
+
 # Private SaveTicker browser sessions. Never commit these files.
 news-auth.json
 saveticker-auth.json

@@ -13,9 +13,6 @@ import os
 import tempfile
 from pathlib import Path
 
-from playwright.async_api import async_playwright
-
-
 ROOT = Path(__file__).resolve().parents[1]
 AUTH_FILE = Path(os.environ.get("SAVETICKER_AUTH_FILE", ROOT / "news-auth.json"))
 OUTPUT_FILE = ROOT / "data" / "spy-options.json"
@@ -62,11 +59,11 @@ def relative_volume(data, window):
     return round(float(fallback) * 100, 1)
 
 
-def validate_source_payload(data):
+def validate_source_payload(data, ticker="SPY"):
     if not isinstance(data, dict):
         raise ValueError("SaveTicker returned a non-object JSON payload.")
 
-    if data.get("symbol") not in (None, "SPY"):
+    if data.get("symbol") not in (None, ticker):
         raise ValueError("SaveTicker returned data for an unexpected symbol.")
 
     required_fields = (
@@ -92,13 +89,13 @@ def validate_source_payload(data):
             raise ValueError(f"SaveTicker payload has no valid {field} object.")
 
 
-def normalize(data):
+def normalize(data, ticker="SPY"):
     """Map SaveTicker's private response to the public page's stable schema."""
     source_updated_at = data.get("snapshotUpdatedAt") or data.get("batchUpdatedAt")
     net_gex = data.get("gammaPer1Pct")
 
     return {
-        "symbol": data.get("symbol") or "SPY",
+        "symbol": data.get("symbol") or ticker,
         "source": "Unusual Whales",
         "sourceUpdatedAt": source_updated_at,
         "asOf": data.get("asOf"),
@@ -165,6 +162,10 @@ def write_public_json(payload):
 
 
 async def fetch_source_payload():
+    # Keep normalization importable by ordinary-HTTP local updaters without
+    # importing or requiring a browser automation dependency.
+    from playwright.async_api import async_playwright
+
     if not AUTH_FILE.exists():
         raise SystemExit(
             f"Missing {AUTH_FILE.name}. Run scripts/refresh_auth.py first."
