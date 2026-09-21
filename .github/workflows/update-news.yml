@@ -1,58 +1,97 @@
-name: Update News
-
+name: Temporary upstream connectivity diagnostic
+run-name: One-time runner connectivity test - Sep 20 production baseline
 on:
   workflow_dispatch:
-
-permissions:
-  contents: write
-
-concurrency:
-  group: update-news
-  cancel-in-progress: false
-
+permissions: {}
 jobs:
-  update:
+  connectivity:
+    if: github.ref == 'refs/heads/codex/runner-connectivity-sep21' && github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 3
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.13"
-
-      - name: Restore encrypted provider session
+      - name: Four read-only requests with metadata-only output
+        shell: bash
         env:
           SAVETICKER_AUTH_JSON_B64: ${{ secrets.SAVETICKER_AUTH_JSON_B64 }}
         run: |
-          set -eu
-          if [ -z "${SAVETICKER_AUTH_JSON_B64:-}" ]; then
-            echo "Missing SAVETICKER_AUTH_JSON_B64 repository secret." >&2
-            exit 1
-          fi
-          printf '%s' "$SAVETICKER_AUTH_JSON_B64" | base64 --decode > "$RUNNER_TEMP/news-auth.json"
-          chmod 600 "$RUNNER_TEMP/news-auth.json"
-
-      - name: Fetch normalized Reuters and Financial Juice metadata
-        env:
-          SAVETICKER_AUTH_FILE: ${{ runner.temp }}/news-auth.json
-        run: python scripts/sync_news.py
-
-      - name: Commit only when the normalized cache changed
-        run: |
-          git add data/news.json
-          if git diff --cached --quiet; then
-            echo "No new Reuters or Financial Juice news metadata."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Update Reuters and Financial Juice news"
-          git pull --rebase origin main
-          git push
-
-      - name: Remove temporary provider session
-        if: always()
-        run: rm -f "$RUNNER_TEMP/news-auth.json"
+          python3 - <<'PY'
+          import base64
+          import json
+          import os
+          import re
+          import urllib.error
+          import urllib.request
+          
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self, req, fp, code, msg, headers, newurl):
+                  return None
+          
+          def application_cookie():
+              try:
+                  state = json.loads(base64.b64decode(os.environ.get("SAVETICKER_AUTH_JSON_B64", "").strip(), validate=True))
+                  pairs = []
+                  values = []
+                  for cookie in state.get("cookies", []):
+                      if not isinstance(cookie, dict):
+                          continue
+                      domain = str(cookie.get("domain") or "").lstrip(".").lower()
+                      value = cookie.get("value")
+                      if cookie.get("name") == "access_token" and domain == "saveticker.com" and isinstance(value, str) and value:
+                          if not re.fullmatch(r"[\x21\x23-\x2b\x2d-\x3a\x3c-\x5b\x5d-\x7e]+", value):
+                              return None, []
+                          pairs.append("access_token=" + value)
+                          values.append(value)
+                  return ("; ".join(pairs), values) if pairs else (None, [])
+              except Exception:
+                  return None, []
+          
+          cookie, sensitive = application_cookie()
+          opener = urllib.request.build_opener(NoRedirect())
+          def safe_header(value):
+              if value is None:
+                  return None
+              if len(value) > 160 or re.search(r"[\x00-\x1f\x7f]|cookie|authorization|bearer|token|secret|password|session|clearance", value, re.I):
+                  return "[redacted]"
+              if any(part in value for part in sensitive):
+                  return "[redacted]"
+              return value
+          
+          def probe(label, url, headers):
+              record = {"endpoint": label, "HTTP status": None, "content-type": None, "server": None, "cf-ray": None, "valid JSON": False}
+              response = None
+              try:
+                  req = urllib.request.Request(url, headers=headers, method="GET")
+                  try:
+                      response = opener.open(req, timeout=20)
+                  except urllib.error.HTTPError as error:
+                      response = error
+                  record["HTTP status"] = response.code
+                  for key in ("content-type", "server", "cf-ray"):
+                      record[key] = safe_header(response.headers.get(key))
+                  body = response.read(8 * 1024 * 1024 + 1)
+                  if len(body) <= 8 * 1024 * 1024:
+                      try:
+                          json.loads(body)
+                          record["valid JSON"] = True
+                      except Exception:
+                          pass
+              except Exception:
+                  pass
+              finally:
+                  if response is not None:
+                      response.close()
+              print(json.dumps(record), flush=True)
+          
+          for group in (1, 6):
+              probe("News group " + str(group),
+                  "https://saveticker.com/api/news/list?page=1&page_size=100&sort=created_at_desc&label_group=" + str(group) + "&label_name=1",
+                  {"Accept": "application/json", "User-Agent": "SpyConverterNewsBot/1.0 (+https://spyconverter.com)"})
+          if not cookie:
+              raise SystemExit("Options credential unavailable; no Options requests made.")
+          for ticker in ("SPY", "SNDK"):
+              probe(ticker + " Options",
+                  "https://saveticker.com/api/stocks/api/v1/tickers/" + ticker + "/options",
+                  {"Accept": "application/json", "Cookie": cookie,
+                   "Referer": "https://saveticker.com/company/" + ticker,
+                   "User-Agent": "SpyConverterSaveTickerEdge/1.0 (+https://spyconverter.com)"})
+          PY
