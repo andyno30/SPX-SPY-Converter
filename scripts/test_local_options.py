@@ -28,6 +28,12 @@ def incoming():
 
 
 class OptionsSafetyTests(unittest.TestCase):
+    def setUp(self):
+        # Keep cache/auth tests independent of the actual local day and time.
+        window = patch.object(fallback, "within_options_refresh_window", return_value=True)
+        window.start()
+        self.addCleanup(window.stop)
+
     def test_stale_and_strictly_newer_updates(self):
         self.assertEqual(fallback.options_decision(row(), incoming(), NOW), "update")
 
@@ -194,6 +200,41 @@ class OptionsSafetyTests(unittest.TestCase):
                 fallback.request_json("https://example.test", {}, "Options SPY")
         self.assertIn("HTTP 403", str(caught.exception))
         self.assertNotIn("synthetic-secret", str(caught.exception))
+
+
+class OptionsWindowTests(unittest.TestCase):
+    def test_pacific_weekday_boundaries_in_summer_and_winter(self):
+        for day, offset in (("2026-09-21", "-07:00"), ("2026-01-05", "-08:00")):
+            for clock, expected in (("05:29:59", False), ("05:30:00", True),
+                                    ("13:59:59", True), ("14:00:00", False)):
+                with self.subTest(day=day, clock=clock):
+                    instant = datetime.fromisoformat(f"{day}T{clock}{offset}").astimezone(timezone.utc)
+                    self.assertEqual(fallback.within_options_refresh_window(instant), expected)
+
+    def test_weekends_use_pacific_date(self):
+        for instant in ("2026-09-19T12:30:00Z", "2026-09-20T20:59:59Z",
+                        "2026-09-21T01:00:00Z"):
+            self.assertFalse(fallback.within_options_refresh_window(datetime.fromisoformat(instant)))
+
+    def test_outside_window_never_reads_or_fetches_options(self):
+        db = Mock()
+        with patch.object(fallback, "within_options_refresh_window", return_value=False), \
+                patch.object(fallback, "fetch_options") as fetch, contextlib.redirect_stdout(io.StringIO()):
+            self.assertEqual(fallback.run_options(db, "fixture"), 0)
+        db.options_row.assert_not_called()
+        db.save_options.assert_not_called()
+        fetch.assert_not_called()
+
+    def test_crossing_end_of_window_stops_remaining_fetches(self):
+        db = Mock()
+        db.options_row.return_value = row()
+        with patch.object(fallback, "within_options_refresh_window", side_effect=[True, True, False]), \
+                patch.object(fallback, "allowed_tickers", return_value=["SPY", "QQQ"]), \
+                patch.object(fallback, "fetch_options", return_value=incoming()) as fetch, \
+                contextlib.redirect_stdout(io.StringIO()):
+            self.assertEqual(fallback.run_options(db, "fixture", dry_run=True), 0)
+        fetch.assert_called_once_with("SPY", "fixture")
+        db.save_options.assert_not_called()
 
 
 if __name__ == "__main__":

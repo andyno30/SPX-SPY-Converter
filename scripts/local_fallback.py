@@ -18,6 +18,7 @@ import urllib.request
 from contextlib import contextmanager
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 from sync_news import LIST_ENDPOINTS, SOURCE_LABELS, normalize_item, normalize_timestamp
 from sync_direct import normalize as normalize_options, validate_source_payload
@@ -283,7 +284,16 @@ def fetch_options(ticker, token):
     return payload
 
 
+def within_options_refresh_window(now=None):
+    pacific = (now or datetime.now(timezone.utc)).astimezone(ZoneInfo("America/Los_Angeles"))
+    minutes = pacific.hour * 60 + pacific.minute
+    return pacific.weekday() < 5 and 5 * 60 + 30 <= minutes < 14 * 60
+
+
 def run_options(db, token, *, dry_run=False):
+    if not within_options_refresh_window():
+        log("Options: skipped outside weekdays 05:30–14:00 Pacific")
+        return 0
     failures = 0
     for ticker in allowed_tickers():
         try:
@@ -292,6 +302,10 @@ def run_options(db, token, *, dry_run=False):
             if status != "stale":
                 log(f"Options {ticker}: skipped because {status}")
                 continue
+            # A run may cross 14:00 while processing the earlier tickers.
+            if not within_options_refresh_window():
+                log("Options: refresh window closed; remaining fetches skipped")
+                break
             incoming = fetch_options(ticker, token)
             # Reread before every decision/write, including after upstream HTTP.
             row = db.options_row(ticker)
