@@ -96,10 +96,28 @@ when checking the 20-minute freshness threshold. Payload-only manual edits
 therefore remain protected even when table `fetched_at` is old.
 
 For each stale ticker, it fetches JSON, normalizes it, and rereads the cache.
-The incoming source timestamp must be strictly greater than every existing
-source timestamp, and `asOf` must not regress. Unknown or malformed timestamps,
-recent data, and active Supabase refreshes are skipped. The fallback does not
-change or claim the production refresh gate.
+Snapshot timestamps and `asOf` cannot regress. Gamma data has a separate
+upstream `gammaUpdatedAt` clock: SPY/QQQ/IWM can receive newer gamma values
+while `snapshotUpdatedAt` stays unchanged. The updater keeps that revision in
+memory without adding keys to the website's payload or changing its normalizer.
+Equal-snapshot updates require changed gamma/price fields with a provably newer
+gamma revision; other snapshot fields must remain unchanged. Changes only to
+`fetchedAt` or `nextPollAfterMs` never justify an update. Changed gamma values
+without a newer gamma timestamp remain protected.
+
+After a verified conditional write, `.local-fallback/options-revisions.json`
+stores only the gamma revision and a SHA-256 hash of the payload plus table
+source/fetch timestamps. This ignored owner-only file contains no payload or
+authentication data. When that hash still matches the database, later runs can
+compare the exact gamma revisions even if upstream publication is delayed.
+A manual/live cache edit invalidates the hash; an equal-snapshot gamma update
+then fails closed rather than overwriting an edit of unknown age.
+
+Legacy rows without local revision metadata require a gamma revision strictly
+later than both their source and recorded observation/fetch timestamps before
+changed gamma values can be replaced. Missing or malformed evidence is skipped.
+The fallback does not change or claim the production refresh gate, and the
+weekday 05:30–14:00 Pacific Options fetch window remains in place.
 
 Writes use a conditional PATCH matching the entire previous JSONB payload and
 all cache timestamp/gate columns. If a manual or live update changes the row
@@ -157,6 +175,12 @@ All local environment files and runtime logs are Git-ignored.
 - launchd: installed/enabled, 900-second interval. First automatic run exited 0,
   skipped both fresh News sources and all 19 fresh Options tickers, and logged
   `Run complete: mode=live, failures=0`.
+- Gamma comparator follow-up: SPY, QQQ and IWM had a newer `gammaUpdatedAt`
+  despite unchanged snapshot timestamps. Controlled dry-runs and conditional
+  writes updated those three and verified the results; the other 16 payloads
+  were preserved. AMD/MU value changes without a newer gamma revision were
+  deliberately rejected. These one-off diagnostic requests did not change the
+  scheduled Options hours, News behavior, or launchd configuration.
 - Safety/regression tests cover manual edits, equal/older source timestamps,
   concurrent refreshes, dry-run, overlap, cookie restrictions, and scheduling.
 

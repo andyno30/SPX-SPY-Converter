@@ -41,7 +41,7 @@ class OptionsSafetyTests(unittest.TestCase):
         for age in (-60, -70):
             new = incoming()
             new["sourceUpdatedAt"] = iso(age)
-            self.assertIn("older or equal", fallback.options_decision(row(), new, NOW))
+            self.assertNotEqual(fallback.options_decision(row(), new, NOW), "update")
 
     def test_recent_manual_payload_fetch_time_wins_over_old_table(self):
         old = row()

@@ -22,6 +22,7 @@ from zoneinfo import ZoneInfo
 
 from sync_news import LIST_ENDPOINTS, SOURCE_LABELS, normalize_item, normalize_timestamp
 from sync_direct import normalize as normalize_options, validate_source_payload
+from options_revisions import OptionsPayload, OptionsRevisions
 
 ROOT = Path(__file__).resolve().parents[1]
 STALE_AFTER = timedelta(minutes=20)
@@ -236,7 +237,11 @@ def options_status(row, now):
     return "stale"
 
 
-def options_decision(row, incoming, now):
+GAMMA_FIELDS = frozenset(("currentPrice", "gammaFlip", "netGex", "netGexFormatted",
+                          "rawNetGammaExposure", "callWall", "putWall"))
+
+
+def options_decision(row, incoming, now, known_gamma=None, gamma_cache_changed=False):
     status = options_status(row, now)
     if status != "stale":
         return status
@@ -255,11 +260,46 @@ def options_decision(row, incoming, now):
             old.get("snapshotUpdatedAt"), old.get("batchUpdatedAt")) if value is not None]
         if not old_sources or any(value is None for value in old_sources):
             return "unknown existing source timestamp; preserved"
-        if new_source <= max(old_sources):
+        if new_source < max(old_sources):
             return "incoming source is older or equal; preserved"
         old_asof = timestamp(old.get("asOf"))
         if old_asof is None or new_asof < old_asof or new_source < old_asof:
             return "incoming asOf would regress or cannot be compared; preserved"
+        # Retrieval time and polling hints are not market-data revisions.
+        changed = {key for key in set(old) | set(incoming)
+                   if key not in ("fetchedAt", "nextPollAfterMs") and old.get(key) != incoming.get(key)}
+        new_gamma = timestamp(getattr(incoming, "gamma_updated_at", None))
+        previous_gamma = timestamp(known_gamma)
+        if new_gamma and new_gamma > now + timedelta(minutes=5):
+            return "incoming gamma timestamp is in the future; preserved"
+        if previous_gamma and (not new_gamma or new_gamma < previous_gamma):
+            return "incoming gamma revision would regress; preserved"
+        gamma_fields = GAMMA_FIELDS
+        if new_source > max(old_sources):
+            # referencePrice can also advance with the ordinary snapshot.
+            gamma_fields = gamma_fields - {"currentPrice"}
+        gamma_changed = bool(changed & gamma_fields)
+        if gamma_changed:
+            if gamma_cache_changed and new_source == max(old_sources):
+                return "cache edited outside local updater; gamma-only age unknown; preserved"
+            # Legacy/manual payloads have no gamma revision in the public schema.
+            # Their observation timestamps are a conservative lower bound: only
+            # a gamma revision AFTER that observation can replace those values.
+            # For a verified unchanged row we wrote, use the exact recorded gamma
+            # revision instead, so delayed upstream releases are not misclassified.
+            if previous_gamma is None:
+                observations = [timestamp(row.get("fetched_at")), timestamp(old.get("fetchedAt"))]
+                if not all(observations):
+                    return "unknown manual gamma observation timestamp; preserved"
+                previous_gamma = max(*observations, *old_sources)
+            if new_gamma is None or new_gamma <= previous_gamma:
+                return "gamma changed without a provably newer revision; preserved"
+        if new_source == max(old_sources):
+            if not changed:
+                return "incoming data is unchanged; preserved"
+            if not gamma_changed or changed - GAMMA_FIELDS:
+                return "snapshot values changed without a newer snapshot revision; preserved"
+            return "update"
     return "update"
 
 
@@ -276,7 +316,7 @@ def fetch_options(ticker, token):
     )
     try:
         validate_source_payload(raw, ticker)
-        payload = normalize_options(raw, ticker)
+        payload = OptionsPayload(normalize_options(raw, ticker), raw.get("gammaUpdatedAt"))
         payload["fetchedAt"] = datetime.now(timezone.utc).isoformat()
         json.dumps(payload, allow_nan=False)
     except (ValueError, TypeError, OverflowError, AttributeError):
@@ -295,6 +335,7 @@ def run_options(db, token, *, dry_run=False):
         log("Options: skipped outside weekdays 05:30–14:00 Pacific")
         return 0
     failures = 0
+    revisions = OptionsRevisions(ROOT / ".local-fallback/options-revisions.json")
     for ticker in allowed_tickers():
         try:
             row = db.options_row(ticker)
@@ -309,7 +350,8 @@ def run_options(db, token, *, dry_run=False):
             incoming = fetch_options(ticker, token)
             # Reread before every decision/write, including after upstream HTTP.
             row = db.options_row(ticker)
-            decision = options_decision(row, incoming, datetime.now(timezone.utc))
+            decision = options_decision(row, incoming, datetime.now(timezone.utc),
+                                        revisions.matching_gamma(row), revisions.cache_changed(row))
             if decision != "update":
                 log(f"Options {ticker}: skipped because {decision}")
             elif dry_run:
@@ -320,6 +362,10 @@ def run_options(db, token, *, dry_run=False):
                 if changed:
                     verified = db.options_row(ticker)
                     if verified and verified.get("payload") == incoming:
+                        try:
+                            revisions.remember(verified, incoming)
+                        except (OSError, ValueError):
+                            log(f"Options {ticker}: revision metadata unavailable; future comparisons fail closed")
                         log(f"Options {ticker}: updated stale cache with newer source data; verified")
                     else:
                         log(f"Options {ticker}: row changed again after update; preserved subsequent write")
