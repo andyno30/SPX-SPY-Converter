@@ -1,6 +1,7 @@
 /// <reference lib="deno.ns" />
 
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { logUpstreamFailure } from "../_shared/upstream-diagnostics.ts";
 
 /**
  * Supabase Edge Function: fetch-news
@@ -604,7 +605,15 @@ async function fetchJson(url: string): Promise<any | null> {
     },
   });
 
-  if (!response.ok) return null;
+  if (!response.ok) {
+    const source = url === SAVETICKER_NEWS_ENDPOINTS[0]
+      ? "news-label-group-1"
+      : url === SAVETICKER_NEWS_ENDPOINTS[1]
+        ? "news-label-group-6"
+        : "news";
+    await logUpstreamFailure(source, response);
+    return null;
+  }
   return await response.json();
 }
 

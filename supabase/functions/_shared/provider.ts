@@ -1,3 +1,5 @@
+import { logUpstreamFailure } from "./upstream-diagnostics.ts";
+
 const SAVETICKER_HOST = "saveticker.com";
 const REQUEST_TIMEOUT_MS = 20_000;
 
@@ -71,6 +73,7 @@ export async function fetchSaveTickerJson(
   });
 
   if (!response.ok) {
+    await logUpstreamFailure("options", response);
     throw new Error(`SaveTicker returned HTTP ${response.status}.`);
   }
 

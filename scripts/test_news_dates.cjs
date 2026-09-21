@@ -17,6 +17,7 @@ const context = vm.createContext({
   Deno: { env: { get: () => "test" }, serve: () => {} },
   require: (name) => {
     if (name === "npm:@supabase/supabase-js@2") return { createClient: () => ({}) };
+    if (name === "../_shared/upstream-diagnostics.ts") return { logUpstreamFailure: () => {} };
     throw new Error(`Unexpected dependency: ${name}`);
   },
 });
