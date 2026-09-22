@@ -105,10 +105,11 @@ class NewsSafetyTests(unittest.TestCase):
         for call in request.call_args_list:
             self.assertEqual(call.args[1]["source"], "eq.Reuters")
 
-    def test_twenty_minute_boundary_and_invalid_dates(self):
+    def test_fifteen_minute_boundary_and_invalid_dates(self):
         now = datetime.now(timezone.utc)
-        self.assertFalse(fallback.is_recent((now - timedelta(minutes=20)).isoformat(), now))
-        self.assertTrue(fallback.is_recent((now - timedelta(minutes=19)).isoformat(), now))
+        self.assertFalse(fallback.is_recent((now - timedelta(minutes=15)).isoformat(), now))
+        self.assertFalse(fallback.is_recent((now - timedelta(minutes=15, seconds=1)).isoformat(), now))
+        self.assertTrue(fallback.is_recent((now - timedelta(minutes=14, seconds=59)).isoformat(), now))
         self.assertFalse(fallback.is_recent("invalid", now))
 
     def test_news_headers_are_cookie_and_auth_free(self):

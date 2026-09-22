@@ -25,7 +25,7 @@ from sync_direct import normalize as normalize_options, validate_source_payload
 from options_revisions import OptionsPayload, OptionsRevisions
 
 ROOT = Path(__file__).resolve().parents[1]
-STALE_AFTER = timedelta(minutes=20)
+STALE_AFTER = timedelta(minutes=15)
 HTTP_TIMEOUT = 20
 RUN_TIMEOUT = 600
 MAX_RESPONSE_BYTES = 8 * 1024 * 1024

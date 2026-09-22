@@ -56,7 +56,7 @@ python3 scripts/local_fallback.py --news-only
 ```
 
 Each run reads Reuters and Financial Juice freshness independently from
-`news_articles`. A `fetched_at` or `published_at` within 20 minutes makes that
+`news_articles`. A `fetched_at` or `published_at` within 15 minutes makes that
 source fresh. CNBC never satisfies this check. With both sources fresh, no
 upstream requests are made. When either is stale, the updater fetches group 1
 then group 6 using the existing production News headers and no authentication.
@@ -92,7 +92,7 @@ The production schema maps upstream `snapshotUpdatedAt || batchUpdatedAt` to
 `payload.sourceUpdatedAt`, preserves `asOf`, and records `payload.fetchedAt`.
 The table also has `source_updated_at`, `fetched_at`, `last_attempted_at`, and
 `refresh_started_at`. The updater considers the payload and table timestamps
-when checking the 20-minute freshness threshold. Payload-only manual edits
+when checking the 15-minute freshness threshold. Payload-only manual edits
 therefore remain protected even when table `fetched_at` is old.
 
 For each stale ticker, it fetches JSON, normalizes it, and rereads the cache.
@@ -129,8 +129,10 @@ Successful writes are read back for verification. Dry-run performs no writes.
 
 The user LaunchAgent is `com.spyconverter.local-fallback`, configured with
 `RunAtLoad=true` and `StartInterval=900`. It runs after login and checks every
-15 minutes while the Mac is awake and connected. With the 20-minute freshness
-threshold, a check may skip data refreshed on the previous run. macOS can defer
+15 minutes while the Mac is awake and connected. The freshness threshold is
+also 15 minutes, so data becomes eligible at the next interval. A newer manual
+or Supabase refresh can still make a ticker/source fresh and skip its fallback.
+Options writes still require genuinely newer upstream data. macOS can defer
 runs while asleep; no sleep settings are changed. The job does not need an
 open Terminal and remains scheduled after script errors.
 
@@ -145,7 +147,9 @@ python3 scripts/local_fallback_service.py logs
 ```
 
 `stop` unloads and disables this job; `start` enables and loads it. `run` asks
-launchd to run now without killing an active run. The OS job and filesystem lock
+launchd to run now without killing an active run. It returns before the background
+check finishes; use `logs` to see the result. Manual runs use the same 15-minute
+freshness threshold and data-protection checks. The OS job and filesystem lock
 prevent overlap. `status` showing `state = not running` and `last exit code = 0`
 means the enabled job completed normally and is waiting for its next interval.
 

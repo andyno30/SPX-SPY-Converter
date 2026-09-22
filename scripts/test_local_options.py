@@ -37,6 +37,18 @@ class OptionsSafetyTests(unittest.TestCase):
     def test_stale_and_strictly_newer_updates(self):
         self.assertEqual(fallback.options_decision(row(), incoming(), NOW), "update")
 
+    def test_fifteen_minute_boundary_preserves_fresh_manual_data(self):
+        for field in ("fetched_at", "payload.fetchedAt"):
+            for seconds, expected in ((899, "fresh"), (900, "update"), (901, "update")):
+                with self.subTest(field=field, seconds=seconds):
+                    old = row()
+                    stamp = (NOW - timedelta(seconds=seconds)).isoformat()
+                    if field == "fetched_at":
+                        old["fetched_at"] = stamp
+                    else:
+                        old["payload"]["fetchedAt"] = stamp
+                    self.assertEqual(fallback.options_decision(old, incoming(), NOW), expected)
+
     def test_equal_or_older_source_never_overwrites(self):
         for age in (-60, -70):
             new = incoming()
