@@ -7,6 +7,7 @@ from pathlib import Path
 import local_fallback as fallback
 from options_revisions import OptionsPayload, OptionsRevisions
 from test_local_options import NOW, iso, row
+from test_local_fallback_permissions import assert_private_file
 
 
 def gamma_pair():
@@ -101,7 +102,7 @@ class GammaRevisionTests(unittest.TestCase):
             # Request-driven refresh gate activity does not change the data.
             old["last_attempted_at"] = iso(-1)
             self.assertEqual(loaded.matching_gamma(old), new.gamma_updated_at)
-            self.assertEqual(path.stat().st_mode & 0o777, 0o600)
+            assert_private_file(self, path)
             contents = json.loads(path.read_text())
             self.assertEqual(set(contents["SPY"]), {"row_digest", "gamma_updated_at"})
 
