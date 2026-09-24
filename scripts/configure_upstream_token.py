@@ -9,7 +9,56 @@ import sys
 import tempfile
 from pathlib import Path
 
+from local_fallback_permissions import make_private
+
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def _clear_windows_token_clipboard(token):
+    import ctypes
+    from ctypes import wintypes
+
+    user = ctypes.WinDLL("user32", use_last_error=True)
+    kernel = ctypes.WinDLL("kernel32", use_last_error=True)
+    user.OpenClipboard.argtypes = [wintypes.HWND]
+    user.OpenClipboard.restype = wintypes.BOOL
+    user.GetClipboardData.argtypes = [wintypes.UINT]
+    user.GetClipboardData.restype = wintypes.HANDLE
+    user.EmptyClipboard.argtypes = []
+    user.EmptyClipboard.restype = wintypes.BOOL
+    user.CloseClipboard.argtypes = []
+    user.CloseClipboard.restype = wintypes.BOOL
+    kernel.GlobalLock.argtypes = [wintypes.HGLOBAL]
+    kernel.GlobalLock.restype = ctypes.c_void_p
+    kernel.GlobalUnlock.argtypes = [wintypes.HGLOBAL]
+    kernel.GlobalUnlock.restype = wintypes.BOOL
+    if not user.OpenClipboard(None):
+        return
+    try:
+        contents = user.GetClipboardData(13)  # CF_UNICODETEXT
+        pointer = kernel.GlobalLock(contents) if contents else None
+        if pointer:
+            try:
+                matches = ctypes.wstring_at(pointer).strip() == token
+            finally:
+                kernel.GlobalUnlock(contents)
+            if matches:
+                user.EmptyClipboard()
+    finally:
+        user.CloseClipboard()
+
+
+def _clear_token_clipboard(token):
+    # Never put a token in a subprocess argument or clear unrelated contents.
+    try:
+        if os.name == "nt":
+            _clear_windows_token_clipboard(token)
+        else:
+            clipboard = subprocess.run(["/usr/bin/pbpaste"], capture_output=True, timeout=3)
+            if clipboard.stdout.decode("utf-8").strip() == token:
+                subprocess.run(["/usr/bin/pbcopy"], input=b"", check=True, timeout=3)
+    except (OSError, subprocess.SubprocessError, UnicodeError):
+        pass
 
 
 def main():
@@ -47,7 +96,7 @@ def main():
         with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=ROOT,
                                          prefix=".env.local.", delete=False) as handle:
             temporary = Path(handle.name)
-            os.fchmod(handle.fileno(), 0o600)
+            make_private(handle)
             handle.write("\n".join(lines + [assignment]) + "\n")
             handle.flush()
             os.fsync(handle.fileno())
@@ -57,12 +106,7 @@ def main():
             temporary.unlink(missing_ok=True)
     # If the user copied exactly this value, remove our token from the clipboard.
     # Do not clear unrelated clipboard contents.
-    try:
-        clipboard = subprocess.run(["/usr/bin/pbpaste"], capture_output=True, timeout=3)
-        if clipboard.stdout.decode("utf-8").strip() == token:
-            subprocess.run(["/usr/bin/pbcopy"], input=b"", check=True, timeout=3)
-    except (OSError, subprocess.SubprocessError, UnicodeError):
-        pass
+    _clear_token_clipboard(token)
     print("Saved UPSTREAM_ACCESS_TOKEN in root .env.local with owner-only permissions.")
 
 

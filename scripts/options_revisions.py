@@ -6,9 +6,10 @@ A manual or live cache edit invalidates the hash and the caller fails closed.
 
 import hashlib
 import json
-import os
 import tempfile
 from pathlib import Path
+
+from local_fallback_permissions import make_private
 
 
 class OptionsPayload(dict):
@@ -59,7 +60,7 @@ class OptionsRevisions:
         try:
             with tempfile.NamedTemporaryFile(mode="w", dir=self.path.parent, delete=False) as handle:
                 temporary = Path(handle.name)
-                os.fchmod(handle.fileno(), 0o600)
+                make_private(handle)
                 json.dump(self.records, handle)
             temporary.replace(self.path)
         finally:

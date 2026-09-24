@@ -4,7 +4,7 @@
 from __future__ import annotations
 
 import argparse
-import fcntl
+import errno
 import json
 import logging
 from logging.handlers import RotatingFileHandler
@@ -19,6 +19,13 @@ from contextlib import contextmanager
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
+
+if sys.platform == "win32":
+    import msvcrt
+    import os
+    import threading
+else:
+    import fcntl
 
 from sync_news import LIST_ENDPOINTS, SOURCE_LABELS, normalize_item, normalize_timestamp
 from sync_direct import normalize as normalize_options, validate_source_payload
@@ -198,7 +205,8 @@ class Database:
 
 
 def allowed_tickers():
-    source = (ROOT / "supabase/functions/fetch-spy-options/index.ts").read_text()
+    source = (ROOT / "supabase/functions/fetch-spy-options/index.ts").read_text(
+        encoding="utf-8" if sys.platform == "win32" else None)
     match = re.search(r"const ALLOWED_TICKERS\s*=\s*new Set\(\[(.*?)\]\)", source, re.S)
     if not match:
         raise SafeError("Could not read the production Options allowlist.")
@@ -461,11 +469,26 @@ def single_run():
     state = ROOT / ".local-fallback"
     state.mkdir(mode=0o700, exist_ok=True)
     with (state / "run.lock").open("a") as handle:
+        if sys.platform == "win32":
+            # Always lock byte zero, including when the file is empty.
+            handle.seek(0)
+            try:
+                msvcrt.locking(handle.fileno(), msvcrt.LK_NBLCK, 1)
+            except OSError as error:
+                if error.errno != errno.EACCES:
+                    raise
+                raise SafeError("Skipped: another local fallback run is active.") from None
+        else:
+            try:
+                fcntl.flock(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except BlockingIOError:
+                raise SafeError("Skipped: another local fallback run is active.") from None
         try:
-            fcntl.flock(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        except BlockingIOError:
-            raise SafeError("Skipped: another local fallback run is active.") from None
-        yield
+            yield
+        finally:
+            if sys.platform == "win32":
+                handle.seek(0)
+                msvcrt.locking(handle.fileno(), msvcrt.LK_UNLCK, 1)
 
 
 def timeout_handler(signum, frame):
@@ -474,6 +497,10 @@ def timeout_handler(signum, frame):
 
 def main():
     global LOGGER
+    if sys.platform == "win32":
+        for stream in (sys.stdout, sys.stderr):
+            if hasattr(stream, "reconfigure"):
+                stream.reconfigure(encoding="utf-8")
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dry-run", action="store_true", help="No Supabase writes")
     parser.add_argument("--scheduled", action="store_true", help="Write bounded, safe local logs")
@@ -481,17 +508,27 @@ def main():
     group.add_argument("--news-only", action="store_true")
     group.add_argument("--options-only", action="store_true")
     args = parser.parse_args()
+    watchdog = None
     try:
         if args.scheduled:
             state = ROOT / ".local-fallback"
             state.mkdir(mode=0o700, exist_ok=True)
-            handler = RotatingFileHandler(state / "fallback.log", maxBytes=1_000_000, backupCount=3)
+            handler = RotatingFileHandler(state / "fallback.log", maxBytes=1_000_000, backupCount=3,
+                                          encoding="utf-8" if sys.platform == "win32" else None)
             LOGGER = logging.getLogger("spyconverter-fallback")
             LOGGER.setLevel(logging.INFO)
             LOGGER.addHandler(handler)
         with single_run():
-            signal.signal(signal.SIGALRM, timeout_handler)
-            signal.alarm(RUN_TIMEOUT)
+            if sys.platform == "win32":
+                # A thread exception cannot interrupt blocked main-thread I/O.
+                # Hard exit stops the run and releases its OS-owned lock; avoid
+                # logging here because a held logger lock could delay the exit.
+                watchdog = threading.Timer(RUN_TIMEOUT, os._exit, args=(1,))
+                watchdog.daemon = True
+                watchdog.start()
+            else:
+                signal.signal(signal.SIGALRM, timeout_handler)
+                signal.alarm(RUN_TIMEOUT)
             credentials = load_credentials()
             db = Database(credentials)
             failures = 0
@@ -515,7 +552,13 @@ def main():
         log("Unexpected local updater failure; no sensitive diagnostics logged.")
         return 1
     finally:
-        signal.alarm(0)
+        if sys.platform == "win32":
+            if watchdog is not None:
+                watchdog.cancel()
+                if watchdog.ident is not None:
+                    watchdog.join()
+        else:
+            signal.alarm(0)
     return 0
 
 
