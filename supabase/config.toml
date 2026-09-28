@@ -347,6 +347,11 @@ verify_jwt = false
 # Keep gateway verification off for compatibility with current Supabase signing keys.
 verify_jwt = false
 
+[functions."refresh-pro-prices"]
+# Internal cron endpoint: gateway JWT verification plus an exact service-role
+# credential check in the handler. Ordinary subscriber JWTs cannot refresh Yahoo.
+verify_jwt = true
+
 [functions."fetch-news"]
 verify_jwt = false
 

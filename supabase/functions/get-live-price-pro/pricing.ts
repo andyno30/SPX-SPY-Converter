@@ -27,7 +27,6 @@ export type Quote = {
   exchangeDataDelayedBy?: number;
 };
 export type Snapshot = { quotes: Quote[]; fetchedAt: string };
-export const CACHE_MS = 60_000;
 export const QUERY_SYMBOLS = [...new Set([
   ...Object.values(SYMBOLS), ...ES_CONTRACTS.map(c => c.symbol),
 ])];
@@ -95,24 +94,5 @@ export function priceResponse(snapshot: Snapshot, selection: string, now = Date.
       delayMinutes: quote?.exchangeDataDelayedBy ?? null,
     },
     ESContracts: contracts,
-  };
-}
-
-// One 60-second snapshot and in-flight latch per warm instance. All selections use
-// the same base instruments; changing contracts does not refetch twelve tickers.
-export function createSnapshotCache(fetchQuotes: () => Promise<Quote[]>, now = Date.now) {
-  let cached: Snapshot | null = null;
-  let cachedAt = 0;
-  let inFlight: Promise<Snapshot> | null = null;
-  return () => {
-    if (cached && now() - cachedAt < CACHE_MS) return Promise.resolve(cached);
-    if (!inFlight) {
-      inFlight = fetchQuotes().then(quotes => {
-        cachedAt = now();
-        cached = { quotes, fetchedAt: new Date(cachedAt).toISOString() };
-        return cached;
-      }).finally(() => { inFlight = null; });
-    }
-    return inFlight;
   };
 }

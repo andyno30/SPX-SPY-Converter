@@ -1,9 +1,8 @@
 /// <reference lib="deno.ns" />
-import YahooFinance from 'npm:yahoo-finance2@4.0.2';
 import { createClient } from 'npm:@supabase/supabase-js@2';
 import { createAuthorizer } from './authorization.ts';
 import { createHandler } from './handler.ts';
-import { createSnapshotCache, QUERY_SYMBOLS } from './pricing.ts';
+import { createSnapshotReader } from './snapshot.ts';
 
 const supabase = createClient(
   Deno.env.get('PROJECT_URL') ?? Deno.env.get('SUPABASE_URL')!,
@@ -23,10 +22,12 @@ const authorize = createAuthorizer({
     return data?.is_subscribed === true;
   },
 });
-const yf = new YahooFinance();
-const snapshot = createSnapshotCache(async () => {
-  const quotes = await yf.quote(QUERY_SYMBOLS);
-  return quotes.filter(quote => quote.quoteType === 'FUTURE' ||
-    quote.quoteType === 'INDEX' || quote.quoteType === 'ETF' || quote.quoteType === 'EQUITY');
+// Visitor requests can only read the private snapshot. Even an empty/stale cache
+// must never trigger Yahoo work; only the separately protected updater does that.
+const snapshot = createSnapshotReader(async () => {
+  const { data, error } = await supabase.from('pro_price_cache')
+    .select('quotes,fetched_at').eq('id', 1).maybeSingle();
+  if (error) throw new Error('Price snapshot lookup failed');
+  return data;
 });
 Deno.serve(createHandler({ authorize, snapshot }));
