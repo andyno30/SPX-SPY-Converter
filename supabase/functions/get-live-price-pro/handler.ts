@@ -19,7 +19,10 @@ export function createHandler(deps: {
   now?: () => number;
 }) {
   return async (req: Request): Promise<Response> => {
-    if (req.method === 'OPTIONS') return new Response(null, { status: 204, headers: CORS });
+    // Cache only CORS permission, never prices or authentication decisions.
+    if (req.method === 'OPTIONS') return new Response(null, {
+      status: 204, headers: { ...CORS, 'Access-Control-Max-Age': '3600' },
+    });
     if (req.method !== 'GET') return json({ message: 'Method not allowed' }, 405);
     const token = req.headers.get('authorization')?.match(/^Bearer\s+(\S+)$/i)?.[1];
     if (!token) return json({ message: 'Sign in to access Pro prices.' }, 401);

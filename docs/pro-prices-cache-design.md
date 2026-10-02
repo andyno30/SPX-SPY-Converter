@@ -4,6 +4,12 @@ Status: deployment authorized on 2026-09-27 after clarifying that this protects
 Yahoo usage and does not make unlimited incoming traffic harmless or free.
 Commit/push message requested by the user: `9/27/26 api limit rate update`.
 
+October 2 follow-up: ingestion optimization combines the two private database
+reads, removes routine Yahoo success logs, and enables preflight reuse. The
+shared frontend helper's HTTP cache mode changes, while server price responses
+remain `private, no-store`; UI, price freshness rules, and auth are unchanged.
+See [the follow-up record](pro-prices-log-ingestion.md).
+
 Agreed scope: 2026-09-27. Change only Supabase Pro price acquisition/delivery.
 
 - Keep every website file, UI, feature, ratio, ES contract selection, response
@@ -33,8 +39,10 @@ so late workers cannot replace a newer snapshot. Failures retain the attempted
 minute, and there is no visitor-triggered retry or Yahoo fallback.
 
 `get-live-price-pro` still verifies the real user and `profiles.is_subscribed`
-before reading the snapshot. Cache tables/RPCs are inaccessible to anonymous and
-authenticated browser roles. Quotes remain shared server-side only.
+on every GET. Since October 2, one service-role-only read RPC returns the current
+subscription and snapshot together, with no quote data for non-subscribers.
+Cache tables/RPCs are inaccessible to anonymous and authenticated browser roles.
+Quotes remain shared server-side only. See [ingestion reduction](pro-prices-log-ingestion.md).
 
 No frontend deployment is needed. A snapshot must be populated and the scheduler
 verified before switching the public Pro function to cache-only delivery.
@@ -45,7 +53,8 @@ most 1,440 quote-refresh attempts per UTC day. Each attempt requests the existin
 also counts Yahoo session/consent/crumb traffic. This is a fixed upstream bound,
 not a claim that the number of HTTP requests always equals the number of refreshes.
 Failed attempts are not retried until a later minute. Consent flows exceeding the
-budget fail closed. Safe endpoint/count/status logs exclude URLs and credentials.
+budget fail closed. Safe failure logs exclude URLs and credentials. Successful
+Yahoo HTTP request diagnostics were removed on October 2 to reduce ingestion.
 
 The browser's unchanged polling timer and the scheduler are independent. A poll
 just before a refresh completes can receive the preceding snapshot. No deliberate

@@ -11,7 +11,9 @@ export async function fetchProPrices(esContract = 'AUTO', signal) {
   if (esContract !== 'AUTO') url.searchParams.set('esContract', esContract);
   const request = () => fetch(url, {
     headers: { Authorization: `Bearer ${session.access_token}` },
-    cache: 'no-store', signal,
+    // The API's private, no-store response prevents price caching. Default mode
+    // lets browsers reuse CORS preflight permission without caching Pro access.
+    cache: 'default', signal,
   });
   if (!session) {
     window.location.href = 'login.html';

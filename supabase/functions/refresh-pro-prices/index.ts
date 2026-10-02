@@ -11,7 +11,7 @@ const supabase = createClient(
   { auth: { persistSession: false, autoRefreshToken: false } },
 );
 
-// The provider wrapper emits only safe counts/statuses. Library diagnostics can
+// Emit safe diagnostics for failed requests only. Library diagnostics can
 // include Yahoo cookies or crumb URLs, so keep those diagnostics disabled.
 const silent = () => {};
 const yf = new YahooFinance({
@@ -32,7 +32,14 @@ Deno.serve(createUpdater({
     return data as string | null;
   },
   fetchQuotes: createYahooFetcher(yf, {
-    log: event => console.info('pro_prices_yahoo_request', JSON.stringify(event)),
+    log: event => {
+      // Session redirects/404s can be normal Yahoo cookie negotiation. The
+      // updater logs any overall failure; retain HTTP errors on actual quotes.
+      if (event.outcome === 'network_error' ||
+          (event.endpoint === 'quote' && event.status !== undefined && event.status >= 400)) {
+        console.error('pro_prices_yahoo_request', JSON.stringify(event));
+      }
+    },
   }),
   async complete(claim, quotes) {
     const { data, error } = await supabase.rpc('finish_pro_price_refresh', {
