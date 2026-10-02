@@ -9,7 +9,8 @@ const stripe = new Stripe(STRIPE_SECRET_KEY, { apiVersion: "2024-06-20" });
 const supabase = createClient(PROJECT_URL, SERVICE_ROLE_KEY);
 
 function json(body: Record<string, unknown>, status = 200) {
-  return new Response(JSON.stringify(body), {
+  // A 204 response MUST have no body, including during CORS preflight.
+  return new Response(status === 204 ? null : JSON.stringify(body), {
     status,
     headers: {
       "Access-Control-Allow-Origin": "*",

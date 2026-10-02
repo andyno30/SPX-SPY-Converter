@@ -7,8 +7,10 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 const PROJECT_URL = Deno.env.get("PROJECT_URL")!;                 // e.g. https://isvzhpqrmjtqnqyyidxr.supabase.co
 const SERVICE_ROLE_KEY = Deno.env.get("SERVICE_ROLE_KEY")!;       // service role key
 const STRIPE_SECRET_KEY = Deno.env.get("STRIPE_SECRET_KEY")!;     // sk_live_... 
-const SUCCESS_URL = Deno.env.get("SUCCESS_URL")!;                 // e.g. https://spyconverter.com/docs/dashboard.html?success=true
-const CANCEL_URL = Deno.env.get("CANCEL_URL")!;                   // e.g. https://spyconverter.com/docs/dashboard.html?cancel=true
+// Keep return routes in source control alongside the actual GitHub Pages files.
+// A stale Edge Function secret must not send paid customers to a missing page.
+const SUCCESS_URL = "https://spyconverter.com/docs/subscription-success.html";
+const CANCEL_URL = "https://spyconverter.com/pro.html?checkout=cancelled#pricing";
 const STRIPE_PRICE_MONTHLY = Deno.env.get("STRIPE_PRICE_MONTHLY")!;       // price_...
 const STRIPE_PRICE_SIXMONTHS = Deno.env.get("STRIPE_PRICE_SIXMONTHS")!;   // price_...
 

@@ -1,0 +1,28 @@
+.confirmation-page { display: flex; flex-direction: column; }
+.confirmation-shell { width: min(680px, calc(100% - 2rem)); margin: auto; padding: 3.5rem 0 2rem; }
+.confirmation-card { padding: clamp(1.5rem, 5vw, 3rem); text-align: center; border: 1px solid #dce3ee; border-radius: 24px; background: #fff; box-shadow: 0 22px 65px rgba(36, 53, 93, .09); }
+.confirmation-mark { display: grid; place-items: center; width: 76px; height: 76px; margin: 0 auto 1.5rem; color: #18795c; background: #e3f8ee; border: 1px solid #c8eddc; border-radius: 50%; box-shadow: 0 0 0 8px #f3fbf7; }
+.confirmation-mark svg { width: 48px; height: 48px; }
+.confirmation-card .section-kicker { margin-bottom: .7rem; }
+.confirmation-card h1 { font-size: clamp(2rem, 5vw, 2.65rem); line-height: 1.12; letter-spacing: -.045em; margin-bottom: .9rem; }
+.confirmation-description { color: #667185; font-size: 1.05rem; line-height: 1.7; max-width: 460px; margin: 0 auto 1.8rem; }
+.confirmation-plan { display: flex; gap: .85rem; align-items: center; text-align: left; background: #f7f9fd; border: 1px solid #e4e9f2; border-radius: 14px; padding: 1.15rem; }
+.pro-monogram { display: grid; place-items: center; width: 40px; height: 42px; flex: 0 0 auto; border-radius: 11px; color: #3856d8; background: #e7ecff; font-weight: 850; }
+.confirmation-plan strong { font-size: .95rem; }
+.confirmation-plan p { margin: .25rem 0 0; font-size: .8rem; color: #697386; line-height: 1.4; }
+.confirmation-plan .plan-badge { margin-left: auto; }
+.confirmation-actions { display: grid; gap: .9rem; margin-top: 1.6rem; }
+.confirmation-actions .primary-button { gap: .8rem; min-height: 50px; }
+.confirmation-secondary { border: 0; background: none; color: #3856d8; text-decoration: none; font: inherit; font-size: .87rem; cursor: pointer; }
+.confirmation-secondary:hover { text-decoration: underline; }
+.confirmation-status { color: #697386; line-height: 1.6; font-size: .8rem; margin: 1.3rem 0 0; }
+.confirmation-help { margin-top: 1.6rem; padding-top: 1.2rem; border-top: 1px solid #e6eaf1; color: #697386; font-size: .82rem; }
+.confirmation-help a, .confirmation-note a { color: #3856d8; text-underline-offset: 3px; }
+.confirmation-note { color: #697386; text-align: center; max-width: 500px; font-size: .82rem; line-height: 1.7; margin: 1.35rem auto 0; }
+.confirmation-page .settings-footer { margin-top: auto; }
+@media (max-width: 480px) {
+  .confirmation-shell { padding-top: 2rem; }
+  .confirmation-card { border-radius: 20px; }
+  .confirmation-plan { gap: .6rem; padding: .9rem; }
+  .confirmation-plan p { font-size: .74rem; }
+}

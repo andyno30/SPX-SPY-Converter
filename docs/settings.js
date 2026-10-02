@@ -104,7 +104,7 @@ async function initialize() {
       .maybeSingle(),
     supabase
       .from('profiles')
-      .select('is_subscribed')
+      .select('is_subscribed,stripe_customer_id,subscription_id')
       .eq('id', user.id)
       .maybeSingle(),
   ]);
@@ -115,13 +115,19 @@ async function initialize() {
 
   const subscribed = !billingError && Boolean(billing?.is_subscribed);
   planBadge.textContent = subscribed ? 'Pro' : 'Free';
-  billingBadge.textContent = subscribed ? 'Active' : 'Free';
   planBadge.classList.toggle('is-pro', subscribed);
   billingBadge.classList.toggle('is-pro', subscribed);
-  billingDescription.textContent = subscribed
+  const hasBillingAccount = subscribed || Boolean(billing?.stripe_customer_id || billing?.subscription_id);
+  billingBadge.textContent = billingError ? 'Unavailable' : subscribed ? 'Active' : hasBillingAccount ? 'Inactive' : 'Free';
+  billingDescription.textContent = billingError
+    ? 'Your subscription could not be loaded. You can still try opening Stripe billing.'
+    : subscribed
     ? 'Active subscription — billing is securely managed by Stripe.'
+    : hasBillingAccount
+    ? 'Your subscription is inactive. Manage payment details and invoices in Stripe.'
     : 'No active subscription. Upgrade for the professional converter.';
-  manageBillingButton.hidden = !subscribed;
+  // Past-due subscribers must still be able to repair their payment method.
+  manageBillingButton.hidden = !hasBillingAccount && !billingError;
   viewPlansLink.hidden = subscribed;
 
   shell.setAttribute('aria-busy', 'false');
@@ -267,19 +273,33 @@ document.getElementById('password-form').addEventListener('submit', async (event
 });
 
 manageBillingButton.addEventListener('click', async () => {
+  if (manageBillingButton.disabled) return;
   manageBillingButton.disabled = true;
   setStatus('billing-status', 'Opening secure billing portal…');
-  const { data: { session } } = await supabase.auth.getSession();
   try {
-    const response = await fetch('https://isvzhpqrmjtqnqyyidxr.functions.supabase.co/customer-portal', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${session?.access_token || ''}` },
-    });
-    const data = await response.json().catch(() => ({}));
-    if (!response.ok || !data.url) throw new Error(data.message || 'Billing portal unavailable.');
-    window.location.href = data.url;
+    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+    if (sessionError || !session) {
+      window.location.href = 'login.html?return_to=' + encodeURIComponent('https://spyconverter.com/docs/settings.html');
+      return;
+    }
+    // The SDK supplies both apikey and the current user's bearer token.
+    const { data, error } = await supabase.functions.invoke('customer-portal', { body: {} });
+    if (error) {
+      if (error.context?.status === 401) {
+        throw new Error('Your session has expired. Please log in again to manage billing.');
+      }
+      const details = await error.context?.json?.().catch(() => null);
+      throw new Error(details?.message || 'We couldn’t connect to secure billing. Please try again in a moment.');
+    }
+    const target = new URL(data?.url);
+    if (target.origin !== 'https://billing.stripe.com') throw new Error('The billing link could not be verified. Please try again.');
+    window.location.href = target.href;
   } catch (error) {
-    setStatus('billing-status', error.message || 'Billing portal could not be opened.', 'error');
+    const message = error instanceof TypeError
+      ? 'We couldn’t connect to secure billing. Please check your connection and try again.'
+      : error.message || 'Billing portal could not be opened. Please try again.';
+    setStatus('billing-status', message, 'error');
+  } finally {
     manageBillingButton.disabled = false;
   }
 });
