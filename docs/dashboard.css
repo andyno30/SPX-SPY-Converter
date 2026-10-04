@@ -18,6 +18,13 @@ body {
 
 button { font: inherit; }
 
+.dashboard-footer {
+    padding: 1.5rem 1rem;
+    color: var(--muted);
+    font-size: 0.82rem;
+    text-align: center;
+}
+
 .dashboard-topbar {
     display: flex;
     align-items: center;

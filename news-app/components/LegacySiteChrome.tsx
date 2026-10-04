@@ -51,7 +51,7 @@ export function LegacySiteHeader() {
 export function LegacySiteFooter() {
   return (
     <footer className="legacy-footer">
-      <p>© 2026 spyconverter.com. All rights reserved.</p>
+      <p>© 2023-2026 spyconverter.com. All rights reserved.</p>
     </footer>
   );
 }
