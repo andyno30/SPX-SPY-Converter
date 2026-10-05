@@ -1,6 +1,6 @@
 import { supabase } from './auth.js';
 
-const proBackendURL = 'https://isvzhpqrmjtqnqyyidxr.functions.supabase.co/get-live-price-pro';
+const proBackendURL = 'https://isvzhpqrmjtqnqyyidxr.functions.supabase.co/contact-for-licencing';
 
 // getSession refreshes expiring sessions through the existing Supabase client.
 // The backend validates the JWT and subscription; client state grants no access.

@@ -1,4 +1,4 @@
-import { fetchProPrices } from './pro_prices_api.js';
+import { fetchProPrices } from './pro_prices_api.js?v=20261005-endpoint';
 
 let prices = {};     // Holds the latest market prices
 let lastPrices = {}; // Holds the last known valid prices

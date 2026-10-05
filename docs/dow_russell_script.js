@@ -1,4 +1,4 @@
-import { fetchProPrices } from './pro_prices_api.js';
+import { fetchProPrices } from './pro_prices_api.js?v=20261005-endpoint';
 
 let prices = {};
 let lastPrices = {};

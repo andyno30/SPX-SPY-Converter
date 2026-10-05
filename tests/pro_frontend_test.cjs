@@ -91,7 +91,10 @@ function apiContext(session, statuses=[200]) {
 test('Pricing API sends session, refreshes expired tokens once, redirects missing/non-Pro sessions',async()=>{
   let s=apiContext({access_token:'existing'},[401,200]);await s.request();
   assert.equal(s.calls[0].headers.Authorization,'Bearer existing');assert.equal(s.calls[1].headers.Authorization,'Bearer renewed');assert.equal(s.refreshed(),1);
-  assert.match(s.calls[0].url,/esContract=ESZ26/);assert.equal(s.calls[0].cache,'default');
+  for (const call of s.calls) assert.equal(call.url,'https://isvzhpqrmjtqnqyyidxr.functions.supabase.co/contact-for-licencing?esContract=ESZ26');
+  assert.equal(s.calls[0].cache,'default');
+  s=apiContext({access_token:'existing'});await runInNewContext('fetchProPrices()',s.context);
+  assert.equal(s.calls[0].url,'https://isvzhpqrmjtqnqyyidxr.functions.supabase.co/contact-for-licencing');
   s=apiContext(null);await assert.rejects(s.request());assert.equal(s.calls.length,0);assert.equal(s.context.window.location.href,'login.html');
   s=apiContext({access_token:'free'},[403]);await assert.rejects(s.request());assert.equal(s.context.window.location.href,'dashboard.html');
   s=apiContext({access_token:'bad'},[401,401]);await assert.rejects(s.request());assert.equal(s.refreshed(),1);assert.equal(s.context.window.location.href,'login.html');
