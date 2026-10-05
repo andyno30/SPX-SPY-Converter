@@ -5,7 +5,7 @@ exclude:
   - scripts
   - supabase
   - news-app
-  - trading-journal
+  - trading-journal/
   - tests
   - "Spyconverter Pro Backend"
   - "docs/*.md"
