@@ -79,7 +79,7 @@
           ]);
           const isNews = target.origin === 'https://news.spyconverter.com' && target.pathname === '/news';
           const isAccountPage = target.origin === 'https://spyconverter.com'
-            && ['/docs/settings.html', '/docs/dashboard.html'].includes(target.pathname);
+            && ['/docs/settings.html', '/docs/dashboard.html', '/trading-journal.html'].includes(target.pathname);
           const optionsTicker = (target.searchParams.get('ticker') || 'SPY').toUpperCase();
           const isOptionsPage = target.origin === 'https://spyconverter.com'
             && target.pathname === '/options/'

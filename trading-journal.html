@@ -7,6 +7,7 @@
     <script src="/analytics.js"></script>
     <link rel="icon" type="image/x-icon" href="/Images/favicon.ico">
     <link rel="stylesheet" href="styles.css?v=20260906-header-logo">
+    <link rel="stylesheet" href="trading-journal.css?v=20261005">
   <script async src="https://fundingchoicesmessages.google.com/i/pub-2918914879248661?ers=1"></script><script>(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();</script>
   <script type="text/javascript" async="async" data-noptimize="1" data-cfasync="false" src="//scripts.mediavine.com/tags/dcb201d1-cf0e-4e2f-b04e-c1d8469eba55.js"></script>
 </head>
@@ -32,12 +33,73 @@
         </ul>
     </nav>
 
+    <main class="journal">
+        <header class="journal-heading">
+            <h1>Trading Journal</h1>
+            <p>Trade screenshots, notes, and lessons.</p>
+        </header>
+
+        <div class="journal-tabs" role="tablist" aria-label="Trading journal market">
+            <button type="button" id="options-tab" role="tab" aria-selected="true" aria-controls="options-panel">Options</button>
+            <button type="button" id="futures-tab" role="tab" aria-selected="false" aria-controls="futures-panel" tabindex="-1">Futures</button>
+        </div>
+
+        <p class="journal-notice">A public journal. <a id="journal-login" href="docs/login.html?return_to=https%3A%2F%2Fspyconverter.com%2Ftrading-journal.html">Owner sign in</a><span id="journal-owner-status" hidden>Signed in as the journal owner.</span></p>
+        <p id="journal-notice" class="journal-notice" role="status">Loading entries…</p>
+
+        <section id="options-panel" class="journal-panel" role="tabpanel" aria-labelledby="options-tab" tabindex="0">
+            <div class="journal-panel-heading">
+                <h2>Options journal</h2>
+                <button type="button" class="journal-button" data-add-entry="options" hidden>Add entry</button>
+            </div>
+            <div data-editor="options"></div>
+            <div class="journal-entries" data-entries="options">
+                <section class="journal-day">
+                    <h3><time datetime="2026-10-05">10/5/26</time></h3>
+                    <p class="journal-empty">No options entries yet.</p>
+                </section>
+            </div>
+        </section>
+
+        <section id="futures-panel" class="journal-panel" role="tabpanel" aria-labelledby="futures-tab" tabindex="0" hidden>
+            <div class="journal-panel-heading">
+                <h2>Futures journal</h2>
+                <button type="button" class="journal-button" data-add-entry="futures" hidden>Add entry</button>
+            </div>
+            <div data-editor="futures"></div>
+            <div class="journal-entries" data-entries="futures">
+                <section class="journal-day">
+                    <h3><time datetime="2026-10-05">10/5/26</time></h3>
+                    <p class="journal-empty">No futures entries yet.</p>
+                </section>
+            </div>
+        </section>
+        <noscript><p>Enable JavaScript to switch journals and add entries.</p></noscript>
+    </main>
+
+    <template id="journal-editor-template">
+        <form class="journal-editor" hidden>
+            <h3 class="journal-editor-title">New entry</h3>
+            <label>Date<input name="date" type="date" value="2026-10-05" required></label>
+            <label>Description<textarea name="description" rows="5" maxlength="20000" placeholder="What was the setup? How did the trade go? What did you learn?"></textarea></label>
+            <label class="journal-upload">Add images<input name="images" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple></label>
+            <p class="journal-hint">PNG, JPG, WebP, or GIF. Up to 10 images, 10 MB each.</p>
+            <p class="journal-hint">Saved entries and images are visible to everyone.</p>
+            <div class="journal-image-previews"></div>
+            <p class="journal-editor-status" role="status"></p>
+            <div class="journal-editor-actions">
+                <button type="submit" class="journal-button">Save entry</button>
+                <button type="button" class="journal-button journal-button-secondary" data-cancel>Cancel</button>
+            </div>
+        </form>
+    </template>
+
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2918914879248661" crossorigin="anonymous"></script>
 
     <footer>
         <p>&copy; 2023-2026 spyconverter.com. All rights reserved.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="trading-journal.js?v=20261005" defer></script>
 </body>
 </html>
