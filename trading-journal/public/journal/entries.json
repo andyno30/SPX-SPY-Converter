@@ -1,5 +1,17 @@
 [
   {
+    "id": "0915abb8-135c-413d-a729-2060cb2515f3",
+    "market": "futures",
+    "entry_date": "2026-10-05",
+    "description": "",
+    "image_paths": [
+      "journal/images/0915abb8-135c-413d-a729-2060cb2515f3/1c3a87e115729b1ad12b5efea69561628fe29fac.png",
+      "journal/images/0915abb8-135c-413d-a729-2060cb2515f3/b49ed7fa4e45842500652efa053f7dc29e2ca83d.png"
+    ],
+    "created_at": "2026-10-05T23:03:22.702Z",
+    "updated_at": "2026-10-05T23:03:22.702Z"
+  },
+  {
     "id": "57f5e311-1325-498e-810b-466e6499c072",
     "market": "options",
     "entry_date": "2026-10-05",
