@@ -1,0 +1,12 @@
+{
+  "framework": null,
+  "outputDirectory": "public",
+  "functions": { "api/journal.js": { "maxDuration": 60 } },
+  "headers": [{
+    "source": "/journal/:path*",
+    "headers": [
+      { "key": "Access-Control-Allow-Origin", "value": "https://spyconverter.com" },
+      { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+    ]
+  }]
+}

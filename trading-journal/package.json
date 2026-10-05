@@ -1,0 +1,6 @@
+{
+  "name": "spyconverter-trading-journal",
+  "private": true,
+  "type": "module",
+  "engines": { "node": "22.x" }
+}

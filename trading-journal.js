@@ -4,13 +4,13 @@
     const markets = ['options', 'futures'];
     const tabs = markets.map(market => document.getElementById(`${market}-tab`));
     const notice = document.getElementById('journal-notice');
-    const bucket = 'trading-journal';
+    const journalHost = 'https://spyconverter-journal.vercel.app';
+    const pendingImages = new Map();
     const starterDate = '2026-10-05';
     const extensions = { 'image/png': 'png', 'image/jpeg': 'jpg', 'image/webp': 'webp', 'image/gif': 'gif' };
     const editors = new Map();
     let client;
     let owner = false;
-    let userId = null;
     let entries = [];
     let authVersion = 0;
 
@@ -53,7 +53,7 @@
     }
 
     function imageUrl(path) {
-        return client.storage.from(bucket).getPublicUrl(path).data.publicUrl;
+        return pendingImages.get(path) || `${journalHost}/${path}`;
     }
 
     function renderEntries() {
@@ -173,41 +173,51 @@
         state.saving = true;
         state.form.querySelectorAll('button, input, textarea').forEach(control => { control.disabled = true; });
         status.textContent = 'Saving entry…';
-        const uploaded = [];
-        let writeStarted = false;
         try {
-            const { data: allowed, error: permissionError } = await client.rpc('is_trading_journal_owner');
-            if (permissionError || !allowed) throw new Error('Please sign in with the journal owner account before saving.');
+            const { data: { session } } = await client.auth.getSession();
+            if (!session) throw new Error('Please sign in with the journal owner account before saving.');
+            async function publish(body) {
+                const response = await fetch(`${journalHost}/api/journal`, {
+                    method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${session.access_token}` },
+                    body: JSON.stringify(body),
+                });
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.error || 'Publishing failed. Your changes are still in the editor.');
+                return result;
+            }
             const paths = [];
+            const uploaded = [];
             for (const item of state.images) {
                 if (item.path) { paths.push(item.path); continue; }
-                const path = `${userId}/${state.id}/${crypto.randomUUID()}.${extensions[item.file.type]}`;
-                const { error } = await client.storage.from(bucket).upload(path, item.file, { contentType: item.file.type, upsert: false });
-                if (error) throw error;
-                uploaded.push(path);
-                paths.push(path);
+                if (!item.upload) {
+                    const content = await new Promise((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.onload = () => resolve(reader.result.split(',')[1]);
+                        reader.onerror = () => reject(new Error('This image could not be read.'));
+                        reader.readAsDataURL(item.file);
+                    });
+                    item.upload = await publish({ action: 'image', content });
+                }
+                uploaded.push(item.upload);
             }
-            const content = { entry_date: state.form.elements.date.value, description, image_paths: paths };
-            writeStarted = true;
-            const query = state.entry
-                ? client.from('trading_journal_entries').update(content).eq('id', state.id).eq('updated_at', state.entry.updated_at)
-                : client.from('trading_journal_entries').insert({ id: state.id, market, ...content });
-            const { data, error } = await query.select().single();
-            if (error) {
-                if (error.code === 'PGRST116') throw new Error('This entry changed in another window. Copy your notes, then reload before editing again.');
-                if (error.code === '23505') throw new Error('This entry may already have saved. Reload the page to check before adding it again.');
-                throw error;
+            const { entry: data } = await publish({
+                action: 'entry', id: state.id, market, entry_date: state.form.elements.date.value,
+                description, image_paths: paths, uploaded_images: uploaded, updated_at: state.entry?.updated_at || null,
+            });
+            for (const item of state.images) {
+                if (item.file && item.upload) {
+                    const path = `journal/images/${state.id}/${item.upload.sha}.${item.upload.extension}`;
+                    if (pendingImages.has(path)) URL.revokeObjectURL(pendingImages.get(path));
+                    pendingImages.set(path, URL.createObjectURL(item.file));
+                }
             }
             entries = entries.filter(entry => entry.id !== data.id);
             entries.push(data);
             clearEditor(state);
             renderEntries();
-            notice.textContent = 'Entry saved. Everyone can now view it.';
+            notice.textContent = 'Entry saved. It will be public once publishing finishes, usually in a few minutes.';
             document.querySelector(`[data-add-entry="${market}"]`).focus();
         } catch (error) {
-            // Once a database write starts, a network error may hide a successful
-            // commit. Keep the uploaded files so that published images stay intact.
-            if (!writeStarted && uploaded.length) await client.storage.from(bucket).remove(uploaded).catch(() => {});
             status.textContent = error.message || 'The entry could not be saved. Your changes are still in the editor.';
         } finally {
             state.saving = false;
@@ -237,8 +247,8 @@
                 status.textContent = 'Each entry can have up to 10 images.';
                 return;
             }
-            if (files.some(file => !extensions[file.type] || file.size > 10 * 1024 * 1024 || !file.size)) {
-                status.textContent = 'Choose PNG, JPG, WebP, or GIF images no larger than 10 MB each.';
+            if (files.some(file => !extensions[file.type] || file.size > 3 * 1024 * 1024 || !file.size)) {
+                status.textContent = 'Choose PNG, JPG, WebP, or GIF images no larger than 3 MB each.';
                 return;
             }
             files.forEach(file => state.images.push({ file, url: URL.createObjectURL(file) }));
@@ -260,12 +270,11 @@
         const version = ++authVersion;
         let allowed = false;
         if (session) {
-            const { data, error } = await client.rpc('is_trading_journal_owner');
-            allowed = !error && data === true;
+            const { data, error } = await client.auth.getUser(session.access_token);
+            allowed = !error && data.user?.email?.toLowerCase() === 'andyno30@gmail.com' && !!data.user.email_confirmed_at;
         }
         if (version !== authVersion) return;
         owner = allowed;
-        userId = allowed ? session.user.id : null;
         document.querySelectorAll('[data-add-entry]').forEach(button => { button.hidden = !owner; });
         document.getElementById('journal-login').hidden = owner;
         document.getElementById('journal-owner-status').hidden = !owner;
@@ -273,32 +282,32 @@
         renderEntries();
     }
 
-    async function initialize() {
+    async function loadEntries() {
         try {
-            ({ supabase: client } = await import('./docs/auth.js'));
-            const loaded = [];
-            for (let offset = 0; ; offset += 500) {
-                const { data, error } = await client.from('trading_journal_entries')
-                    .select('id, market, entry_date, description, image_paths, created_at, updated_at')
-                    .order('entry_date', { ascending: false }).order('created_at', { ascending: false })
-                    .order('id', { ascending: false }).range(offset, offset + 499);
-                if (error) throw error;
-                loaded.push(...data);
-                if (data.length < 500) break;
-            }
-            entries = loaded;
+            const response = await fetch(`${journalHost}/journal/entries.json`, { cache: 'no-store' });
+            if (!response.ok) throw new Error('Journal unavailable');
+            entries = await response.json();
             renderEntries();
             notice.textContent = '';
-            client.auth.onAuthStateChange((_event, session) => {
-                // Run outside the auth callback's lock before issuing another request.
-                setTimeout(() => { updateOwner(session).catch(() => {}); }, 0);
-            });
-            const { data: { session } } = await client.auth.getSession();
-            await updateOwner(session);
         } catch {
             notice.textContent = 'The journal could not be loaded. Please refresh to try again.';
         }
     }
 
-    initialize();
+    async function initializeAuth() {
+        try {
+            ({ supabase: client } = await import('./docs/auth.js'));
+            client.auth.onAuthStateChange((_event, session) => {
+                // Run outside the auth callback's lock before verifying the user.
+                setTimeout(() => { updateOwner(session).catch(() => {}); }, 0);
+            });
+            const { data: { session } } = await client.auth.getSession();
+            await updateOwner(session);
+        } catch {
+            // Public entries remain available when login verification is unavailable.
+        }
+    }
+
+    loadEntries();
+    initializeAuth();
 })();

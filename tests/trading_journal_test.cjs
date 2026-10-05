@@ -13,47 +13,37 @@ async function setup(owner = false, initial = []) {
     win.document.body.innerHTML = readFileSync(path.join(__dirname, '../trading-journal.html'), 'utf8').replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, '');
     const state = { rows: structuredClone(initial), uploads: [], failure: null, time: 0 };
     const clientMock = {
-        rpc: async () => ({ data: owner, error: null }),
-        auth: { getSession: async () => ({ data: { session: owner ? { user: { id: 'owner-id' } } : null } }), onAuthStateChange() {} },
-        storage: { from: () => ({
-            getPublicUrl: imagePath => ({ data: { publicUrl: `https://example.com/${imagePath}` } }),
-            upload: async (imagePath, file) => { state.uploads.push({ imagePath, file }); return { error: null }; },
-            remove: async () => ({ error: null }),
-        }) },
-        from() {
-            let action, payload;
-            const filters = {};
-            return {
-                select() { return this; }, order() { return this; },
-                range: async (start, end) => ({ data: state.rows.slice(start, end + 1), error: null }),
-                insert(value) { action = 'insert'; payload = value; return this; },
-                update(value) { action = 'update'; payload = value; return this; },
-                eq(key, value) { filters[key] = value; return this; },
-                async single() {
-                    if (state.failure) return { data: null, error: state.failure };
-                    const stamp = `2026-10-05T19:00:${String(++state.time).padStart(2, '0')}Z`;
-                    let row;
-                    if (action === 'insert') {
-                        row = { ...payload, created_at: stamp, updated_at: stamp };
-                        state.rows.push(row);
-                    } else {
-                        row = state.rows.find(item => Object.entries(filters).every(([key, value]) => item[key] === value));
-                        if (!row) return { data: null, error: { code: 'PGRST116' } };
-                        Object.assign(row, payload, { updated_at: stamp });
-                    }
-                    return { data: structuredClone(row), error: null };
-                },
-            };
+        auth: {
+            getSession: async () => ({ data: { session: owner ? { access_token: 'test-login' } : null } }),
+            getUser: async () => ({ data: { user: owner ? { email: 'andyno30@gmail.com', email_confirmed_at: '2026-01-01' } : null } }),
+            onAuthStateChange() {},
         },
+    };
+    const fetchMock = async (url, options) => {
+        if (url.endsWith('/journal/entries.json')) return { ok: true, json: async () => structuredClone(state.rows) };
+        assert.equal(url, 'https://spyconverter-journal.vercel.app/api/journal');
+        assert.equal(options.headers.Authorization, 'Bearer test-login');
+        const payload = JSON.parse(options.body);
+        if (state.failure) return { ok: false, json: async () => ({ error: state.failure.message }) };
+        if (payload.action === 'image') {
+            state.uploads.push(payload);
+            return { ok: true, json: async () => ({ sha: 'a'.repeat(40), extension: 'png' }) };
+        }
+        const old = state.rows.find(row => row.id === payload.id);
+        const stamp = `2026-10-05T19:00:${String(++state.time).padStart(2, '0')}Z`;
+        const row = { ...payload, created_at: old?.created_at || stamp, updated_at: stamp,
+            image_paths: [...payload.image_paths, ...payload.uploaded_images.map(image => `journal/images/${payload.id}/${image.sha}.${image.extension}`)] };
+        state.rows = state.rows.filter(item => item.id !== row.id).concat(row);
+        return { ok: true, json: async () => ({ entry: structuredClone(row) }) };
     };
     win.confirm = () => true;
     const source = readFileSync(path.join(__dirname, '../trading-journal.js'), 'utf8')
         .replace("import('./docs/auth.js')", 'Promise.resolve({ supabase: clientMock })');
-    runInNewContext(source, { document: win.document, window: win, clientMock, crypto: { randomUUID },
+    runInNewContext(source, { document: win.document, window: win, clientMock, fetch: fetchMock, FileReader: win.FileReader, crypto: { randomUUID },
         URL: { createObjectURL: () => `blob:${randomUUID()}`, revokeObjectURL() {} }, setTimeout, console });
     await flush();
     const el = selector => win.document.querySelector(selector);
-    const submit = async form => { form.dispatchEvent(new win.Event('submit', { cancelable: true })); await flush(); };
+    const submit = async form => { form.dispatchEvent(new win.Event('submit', { cancelable: true })); await win.happyDOM.whenAsyncComplete(); await flush(); };
     return { win, state, el, submit, close: () => win.happyDOM.close() };
 }
 
@@ -91,7 +81,7 @@ test('Owner saves images and descriptions; newer entries go first and markets st
         assert.equal(s.state.uploads.length, 1);
         assert.equal(s.el('.journal-entry-description').textContent, '<script>alert("test")</script> First trade');
         assert.equal(s.el('.journal-entry script'), null);
-        assert.equal(s.el('.journal-entry img').getAttribute('src').startsWith('https://example.com/owner-id/'), true);
+        assert.equal(s.el('.journal-entry img').getAttribute('src').startsWith('blob:'), true);
         s.el('[data-add-entry="options"]').click();
         form.elements.date.value = '2026-10-05';
         form.elements.description.value = 'Second trade';
