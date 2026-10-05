@@ -54,7 +54,7 @@ body > footer {
     box-shadow: 0 2px 4px #183c2420;
 }
 
-.journal :is(button, a, input, textarea):focus-visible {
+.journal :is(button, a, input, textarea, [contenteditable]):focus-visible {
     outline: 3px solid #539a77;
     outline-offset: 3px;
 }
@@ -138,6 +138,11 @@ body > footer {
 
 .journal-editor input[type="date"] { max-width: 210px; }
 .journal-editor textarea { resize: vertical; }
+.journal-paste-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 14px; }
+.journal-paste-controls span { color: #626b73; font-size: 0.85rem; line-height: 1.5; }
+.journal-paste-box { min-height: 82px; margin-top: 12px; padding: 22px 16px; border: 1px dashed #9aafa0; border-radius: 7px; background: #fff; cursor: text; line-height: 1.5; }
+.journal-paste-box:empty::before { content: attr(data-placeholder); color: #626b73; pointer-events: none; }
+.journal-paste-box.is-dragging { background: #edf5ef; border-color: #245c45; }
 .journal-hint { margin-top: 8px; font-size: 0.8rem; }
 .journal-editor-actions { justify-content: flex-start; }
 .journal-editor-status { line-height: 1.5; color: #914121; }

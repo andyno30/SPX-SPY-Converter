@@ -8,7 +8,7 @@
     <link rel="icon" type="image/x-icon" href="/Images/favicon.ico">
     <link rel="stylesheet" href="styles.css?v=20260906-header-logo">
     <link rel="stylesheet" href="docs/account-nav.css?v=20260830">
-    <link rel="stylesheet" href="trading-journal.css?v=20261005">
+    <link rel="stylesheet" href="trading-journal.css?v=20261005-paste">
   <script async src="https://fundingchoicesmessages.google.com/i/pub-2918914879248661?ers=1"></script><script>(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();</script>
   <script type="text/javascript" async="async" data-noptimize="1" data-cfasync="false" src="//scripts.mediavine.com/tags/dcb201d1-cf0e-4e2f-b04e-c1d8469eba55.js"></script>
 </head>
@@ -92,6 +92,11 @@
             <label>Date<input name="date" type="date" value="2026-10-05" required></label>
             <label>Description<textarea name="description" rows="5" maxlength="20000" placeholder="What was the setup? How did the trade go? What did you learn?"></textarea></label>
             <label class="journal-upload">Add images<input name="images" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple></label>
+            <div class="journal-paste-controls">
+                <button type="button" class="journal-button journal-button-secondary" data-paste-image>Paste image</button>
+                <span>Or right-click the box below and choose Paste.</span>
+            </div>
+            <div class="journal-paste-box" data-image-paste contenteditable="true" role="textbox" aria-label="Paste or drop images" spellcheck="false" data-placeholder="Click here and press Ctrl+V / ⌘V, or drop images."></div>
             <p class="journal-hint">PNG, JPG, WebP, or GIF. Up to 10 images, 3 MB each.</p>
             <p class="journal-hint">Entries and images become public after publishing finishes.</p>
             <div class="journal-image-previews"></div>
@@ -110,7 +115,7 @@
     </footer>
 
     <script type="module" src="docs/header-auth.js"></script>
-    <script src="trading-journal.js?v=20261005-visitor-intro" defer></script>
+    <script src="trading-journal.js?v=20261005-paste" defer></script>
     <script src="side-ads.js?v=20260830" defer></script>
 </body>
 </html>

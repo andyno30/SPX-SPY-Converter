@@ -108,14 +108,77 @@
     }
 
     function clearEditor(state) {
+        state.revision++;
         state.images.forEach(image => { if (image.file) URL.revokeObjectURL(image.url); });
         state.images = [];
         state.form.reset();
         state.form.hidden = true;
         state.form.querySelector('.journal-image-previews').replaceChildren();
         state.form.querySelector('.journal-editor-status').textContent = '';
+        state.form.querySelector('[data-image-paste]').replaceChildren();
+        state.form.querySelector('[data-image-paste]').classList.remove('is-dragging');
         state.dirty = false;
         state.entry = null;
+    }
+
+    function addImages(state, files) {
+        if (!owner || state.saving || state.form.hidden || !files.length) return;
+        const status = state.form.querySelector('.journal-editor-status');
+        if (state.images.length + files.length > 10) {
+            status.textContent = 'Each entry can have up to 10 images.';
+            return;
+        }
+        if (files.some(file => !extensions[file.type] || file.size > 3 * 1024 * 1024 || !file.size)) {
+            status.textContent = 'Choose PNG, JPG, WebP, or GIF images no larger than 3 MB each.';
+            return;
+        }
+        files.forEach(file => state.images.push({ file, url: URL.createObjectURL(file) }));
+        status.textContent = '';
+        state.dirty = true;
+        renderPreviews(state);
+    }
+
+    function transferredFiles(transfer) {
+        const files = Array.from(transfer?.files || []);
+        return files.length ? files : Array.from(transfer?.items || [])
+            .filter(item => item.kind === 'file').map(item => item.getAsFile()).filter(Boolean);
+    }
+
+    async function pasteImage(state) {
+        if (!owner || state.saving || state.pasting || state.form.hidden) return;
+        const status = state.form.querySelector('.journal-editor-status');
+        const box = state.form.querySelector('[data-image-paste]');
+        const button = state.form.querySelector('[data-paste-image]');
+        const fallback = 'Click the image box and press Ctrl+V / ⌘V, or right-click it and choose Paste.';
+        if (!navigator.clipboard?.read) {
+            status.textContent = fallback;
+            box.focus();
+            return;
+        }
+        const revision = state.revision;
+        state.pasting = true;
+        button.disabled = true;
+        try {
+            const items = await navigator.clipboard.read();
+            const files = [];
+            for (const item of items) {
+                const type = item.types.find(type => extensions[type]);
+                if (!type) continue;
+                const blob = await item.getType(type);
+                files.push(new File([blob], `pasted-image-${crypto.randomUUID()}.${extensions[type]}`, { type }));
+            }
+            if (state.revision !== revision || state.form.hidden || !owner) return;
+            if (!files.length) status.textContent = 'No image found. Copy an image or screenshot, then paste it here.';
+            else addImages(state, files);
+        } catch {
+            if (state.revision === revision && !state.form.hidden) {
+                status.textContent = `Clipboard access is unavailable. ${fallback}`;
+                box.focus();
+            }
+        } finally {
+            state.pasting = false;
+            button.disabled = state.saving;
+        }
     }
 
     function renderPreviews(state) {
@@ -165,6 +228,10 @@
         event.preventDefault();
         if (!owner || state.saving) return;
         const status = state.form.querySelector('.journal-editor-status');
+        if (state.pasting) {
+            status.textContent = 'Finish pasting the image before saving.';
+            return;
+        }
         const description = state.form.elements.description.value.trim();
         if (!description && !state.images.length) {
             status.textContent = 'Add a description or at least one image.';
@@ -228,7 +295,7 @@
     for (const market of markets) {
         const form = document.getElementById('journal-editor-template').content.firstElementChild.cloneNode(true);
         document.querySelector(`[data-editor="${market}"]`).append(form);
-        const state = { form, images: [], dirty: false, saving: false, entry: null };
+        const state = { form, images: [], dirty: false, saving: false, pasting: false, revision: 0, entry: null };
         editors.set(market, state);
         form.elements.date.min = '1900-01-01';
         form.elements.date.max = '9999-12-31';
@@ -239,22 +306,31 @@
             clearEditor(state);
             document.querySelector(`[data-add-entry="${market}"]`).focus();
         });
-        form.elements.images.addEventListener('change', async () => {
+        form.elements.images.addEventListener('change', () => {
             const files = Array.from(form.elements.images.files);
-            const status = form.querySelector('.journal-editor-status');
             form.elements.images.value = '';
-            if (state.images.length + files.length > 10) {
-                status.textContent = 'Each entry can have up to 10 images.';
-                return;
-            }
-            if (files.some(file => !extensions[file.type] || file.size > 3 * 1024 * 1024 || !file.size)) {
-                status.textContent = 'Choose PNG, JPG, WebP, or GIF images no larger than 3 MB each.';
-                return;
-            }
-            files.forEach(file => state.images.push({ file, url: URL.createObjectURL(file) }));
-            status.textContent = '';
-            state.dirty = true;
-            renderPreviews(state);
+            addImages(state, files);
+        });
+        form.querySelector('[data-paste-image]').addEventListener('click', () => pasteImage(state));
+        const pasteBox = form.querySelector('[data-image-paste]');
+        pasteBox.addEventListener('beforeinput', event => event.preventDefault());
+        pasteBox.addEventListener('input', () => pasteBox.replaceChildren());
+        pasteBox.addEventListener('paste', event => {
+            event.preventDefault();
+            if (!owner || state.saving || form.hidden) return;
+            const files = transferredFiles(event.clipboardData);
+            if (files.length) addImages(state, files);
+            else form.querySelector('.journal-editor-status').textContent = 'No image found. Copy an image or screenshot, then paste it here.';
+        });
+        pasteBox.addEventListener('dragover', event => {
+            event.preventDefault();
+            if (!state.saving) pasteBox.classList.add('is-dragging');
+        });
+        pasteBox.addEventListener('dragleave', () => pasteBox.classList.remove('is-dragging'));
+        pasteBox.addEventListener('drop', event => {
+            event.preventDefault();
+            pasteBox.classList.remove('is-dragging');
+            addImages(state, transferredFiles(event.dataTransfer));
         });
         document.querySelector(`[data-add-entry="${market}"]`).addEventListener('click', () => openEditor(market));
     }
