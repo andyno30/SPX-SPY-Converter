@@ -24,7 +24,13 @@ export function LegacySiteHeader() {
             <a href="https://spyconverter.com/options/">Options</a>
           </li>
           <li>
-            <a href="https://spyconverter.com/blog.html">Blog</a>
+            <details className="blog-menu">
+              <summary>Blog</summary>
+              <div className="blog-menu-links">
+                <a href="https://spyconverter.com/blog.html">Blog posts</a>
+                <a href="https://spyconverter.com/trading-journal.html">Trading Journal</a>
+              </div>
+            </details>
           </li>
           <li className="legacy-dropdown">
             <a href="https://spyconverter.com/aboutus.html">About Us</a>
