@@ -275,6 +275,7 @@
         }
         if (version !== authVersion) return;
         owner = allowed;
+        document.querySelectorAll('[data-journal-owner-only]').forEach(node => { node.hidden = !owner; });
         document.querySelectorAll('[data-add-entry]').forEach(button => { button.hidden = !owner; });
         document.getElementById('journal-login').hidden = owner;
         document.getElementById('journal-owner-status').hidden = !owner;
