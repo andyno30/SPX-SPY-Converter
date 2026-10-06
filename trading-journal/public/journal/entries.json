@@ -1,5 +1,17 @@
 [
   {
+    "id": "a518c53c-0278-4d30-825f-23e880db2a9a",
+    "market": "futures",
+    "entry_date": "2026-10-06",
+    "description": "I entered a short position at 7831 around 4:58 pm PST yesterday, got stopped out overnight at 7846 for 30pts. I made several long scalps at open on the way up and short position on the first pull back, managed to recover to +2 pts for the day. Then during the reversal, I did enter couple short positions but got stopped out due to tight stops. I was hoping for a continuation after breaking the VWAP but it stayed choppy towards the close. Frustrating day as my positions were hitting stops every time I moved it down for a point or two to secure profit. Gave up what I recovered during the morning scalps from those little chops, ended the day back at -30pts. Definitely overtraded today.\n\n-30 pts; +30 round turns",
+    "image_paths": [
+      "journal/images/a518c53c-0278-4d30-825f-23e880db2a9a/183d24516ce6f3a0f0a709fe451bb5153e317b2c.png",
+      "journal/images/a518c53c-0278-4d30-825f-23e880db2a9a/4db09fc04ca98374dce13b2994e50645f2ba5e41.png"
+    ],
+    "created_at": "2026-10-06T21:01:54.807Z",
+    "updated_at": "2026-10-06T21:01:54.807Z"
+  },
+  {
     "id": "13c96c68-9cec-4bca-96f4-eadd75907848",
     "market": "options",
     "entry_date": "2026-10-06",
