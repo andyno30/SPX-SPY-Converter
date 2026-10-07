@@ -3,13 +3,10 @@
     "id": "914893d4-f323-4365-b5ea-f41136d4ede9",
     "market": "options",
     "entry_date": "2026-10-07",
-    "description": "When ES was at +0.13% I entered a long position (2 lots) at 7881.50 (yesterday 3:30 pm PST). I got stopped out for 47pts total for both contracts overnight and around 2:30am PST I switched to a short position (2 lots) when the S&P 500 futures hit -0.22%. \n\nI got out of that position at the open drop for a total of 50pts, ending the day at +3 pts. I did not make any additional trades throughout the day as I was expecting a continuation on a 4 hour chart (MACD) into today instead of this overnight drop.",
-    "image_paths": [
-      "journal/images/914893d4-f323-4365-b5ea-f41136d4ede9/c90362036397af6dace8e2ee601d2c7f8e3253db.png",
-      "journal/images/914893d4-f323-4365-b5ea-f41136d4ede9/6c6730faaac4db9f8da7e4bdc121869237c3cf85.png"
-    ],
+    "description": "Deleted",
+    "image_paths": [],
     "created_at": "2026-10-07T21:01:45.125Z",
-    "updated_at": "2026-10-07T21:01:45.125Z"
+    "updated_at": "2026-10-07T21:03:26.920Z"
   },
   {
     "id": "242412fb-9fc5-4e2b-9ed0-6cf0ad502805",
