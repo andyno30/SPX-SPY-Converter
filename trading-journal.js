@@ -79,8 +79,13 @@
                         const actions = element('div', 'journal-entry-heading');
                         const edit = element('button', 'journal-button journal-button-secondary', 'Edit entry');
                         edit.type = 'button';
+                        edit.disabled = editors.get(market).saving;
                         edit.addEventListener('click', () => openEditor(market, entry));
-                        actions.append(edit);
+                        const remove = element('button', 'journal-button journal-button-danger', 'Delete entry');
+                        remove.type = 'button';
+                        remove.disabled = editors.get(market).saving;
+                        remove.addEventListener('click', () => deleteEntry(entry));
+                        actions.append(edit, remove);
                         article.append(actions);
                     }
                     if (entry.description) article.append(element('p', 'journal-entry-description', entry.description));
@@ -224,6 +229,50 @@
         state.form.elements.description.focus();
     }
 
+    function setBusy(market, state, busy) {
+        state.saving = busy;
+        document.getElementById(`${market}-panel`).querySelectorAll('button, input, textarea').forEach(control => {
+            control.disabled = busy || (control.hasAttribute('data-paste-image') && state.pasting);
+        });
+    }
+
+    async function publish(body, session) {
+        const response = await fetch(`${journalHost}/api/journal`, {
+            method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${session.access_token}` },
+            body: JSON.stringify(body),
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || 'Publishing failed. Please retry.');
+        return result;
+    }
+
+    async function deleteEntry(entry) {
+        const state = editors.get(entry.market);
+        if (!owner || state.saving) return;
+        const draftWarning = state.entry?.id === entry.id && state.dirty ? ' Unsaved edits to this entry will also be discarded.' : '';
+        if (!window.confirm(`Delete this ${entry.market} entry for ${displayDate(entry.entry_date)} and its images from the journal?${draftWarning}`)) return;
+        setBusy(entry.market, state, true);
+        notice.textContent = 'Deleting entry…';
+        try {
+            const { data: { session } } = await client.auth.getSession();
+            if (!session) throw new Error('Please sign in with the journal owner account before deleting.');
+            await publish({ action: 'delete', id: entry.id, market: entry.market, updated_at: entry.updated_at }, session);
+            if (state.entry?.id === entry.id) clearEditor(state);
+            entry.image_paths.forEach(path => {
+                if (pendingImages.has(path)) URL.revokeObjectURL(pendingImages.get(path));
+                pendingImages.delete(path);
+            });
+            entries = entries.filter(row => row.id !== entry.id);
+            renderEntries();
+            notice.textContent = 'Entry deleted. The public page will update once publishing finishes, usually in a few minutes.';
+        } catch (error) {
+            notice.textContent = error.message || 'The entry could not be deleted. Please retry.';
+        } finally {
+            setBusy(entry.market, state, false);
+            document.querySelector(`[data-add-entry="${entry.market}"]`).focus();
+        }
+    }
+
     async function saveEntry(event, market, state) {
         event.preventDefault();
         if (!owner || state.saving) return;
@@ -237,21 +286,11 @@
             status.textContent = 'Add a description or at least one image.';
             return;
         }
-        state.saving = true;
-        state.form.querySelectorAll('button, input, textarea').forEach(control => { control.disabled = true; });
+        setBusy(market, state, true);
         status.textContent = 'Saving entry…';
         try {
             const { data: { session } } = await client.auth.getSession();
             if (!session) throw new Error('Please sign in with the journal owner account before saving.');
-            async function publish(body) {
-                const response = await fetch(`${journalHost}/api/journal`, {
-                    method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${session.access_token}` },
-                    body: JSON.stringify(body),
-                });
-                const result = await response.json();
-                if (!response.ok) throw new Error(result.error || 'Publishing failed. Your changes are still in the editor.');
-                return result;
-            }
             const paths = [];
             const uploaded = [];
             for (const item of state.images) {
@@ -263,14 +302,14 @@
                         reader.onerror = () => reject(new Error('This image could not be read.'));
                         reader.readAsDataURL(item.file);
                     });
-                    item.upload = await publish({ action: 'image', content });
+                    item.upload = await publish({ action: 'image', content }, session);
                 }
                 uploaded.push(item.upload);
             }
             const { entry: data } = await publish({
                 action: 'entry', id: state.id, market, entry_date: state.form.elements.date.value,
                 description, image_paths: paths, uploaded_images: uploaded, updated_at: state.entry?.updated_at || null,
-            });
+            }, session);
             for (const item of state.images) {
                 if (item.file && item.upload) {
                     const path = `journal/images/${state.id}/${item.upload.sha}.${item.upload.extension}`;
@@ -283,12 +322,11 @@
             clearEditor(state);
             renderEntries();
             notice.textContent = 'Entry saved. It will be public once publishing finishes, usually in a few minutes.';
-            document.querySelector(`[data-add-entry="${market}"]`).focus();
         } catch (error) {
             status.textContent = error.message || 'The entry could not be saved. Your changes are still in the editor.';
         } finally {
-            state.saving = false;
-            state.form.querySelectorAll('button, input, textarea').forEach(control => { control.disabled = false; });
+            setBusy(market, state, false);
+            if (state.form.hidden && owner) document.querySelector(`[data-add-entry="${market}"]`).focus();
         }
     }
 

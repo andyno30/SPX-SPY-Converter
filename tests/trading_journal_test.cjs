@@ -11,7 +11,7 @@ async function setup(owner = false, initial = [], clipboard = {}) {
     const { Window } = await import(pathToFileURL(require.resolve('happy-dom')).href);
     const win = new Window();
     win.document.body.innerHTML = readFileSync(path.join(__dirname, '../trading-journal.html'), 'utf8').replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, '');
-    const state = { rows: structuredClone(initial), uploads: [], failure: null, time: 0 };
+    const state = { rows: structuredClone(initial), uploads: [], requests: [], failure: null, time: 0 };
     const clientMock = {
         auth: {
             getSession: async () => ({ data: { session: owner ? { access_token: 'test-login' } : null } }),
@@ -24,12 +24,19 @@ async function setup(owner = false, initial = [], clipboard = {}) {
         assert.equal(url, 'https://spyconverter-journal.vercel.app/api/journal');
         assert.equal(options.headers.Authorization, 'Bearer test-login');
         const payload = JSON.parse(options.body);
+        state.requests.push(payload);
         if (state.failure) return { ok: false, json: async () => ({ error: state.failure.message }) };
         if (payload.action === 'image') {
             state.uploads.push(payload);
             return { ok: true, json: async () => ({ sha: 'a'.repeat(40), extension: 'png' }) };
         }
         const old = state.rows.find(row => row.id === payload.id);
+        if (payload.action === 'delete') {
+            assert.equal(payload.updated_at, old.updated_at);
+            assert.equal(payload.market, old.market);
+            state.rows = state.rows.filter(row => row.id !== payload.id);
+            return { ok: true, json: async () => ({ deleted: payload.id }) };
+        }
         const stamp = `2026-10-05T19:00:${String(++state.time).padStart(2, '0')}Z`;
         const row = { ...payload, created_at: old?.created_at || stamp, updated_at: stamp,
             image_paths: [...payload.image_paths, ...payload.uploaded_images.map(image => `journal/images/${payload.id}/${image.sha}.${image.extension}`)] };
@@ -226,4 +233,65 @@ test('A pending clipboard read cannot publish early or add images to a different
         assert.equal(form.querySelectorAll('.journal-image-preview').length, 0);
         assert.equal(form.querySelector('[data-paste-image]').disabled, false);
     } finally { await s.close(); }
+});
+
+const savedRow = { id: randomUUID(), market: 'options', entry_date: '2026-10-05', description: 'Original entry', image_paths: [],
+    created_at: '2026-10-05T18:00:00Z', updated_at: '2026-10-05T18:00:00Z' };
+
+test('Deletion confirms first, retains drafts on failure, and clears the deleted entry on success', async () => {
+    const other = { ...savedRow, id: randomUUID(), market: 'futures', description: 'Keep this entry' };
+    const s = await setup(true, [savedRow, other]);
+    try {
+        s.el('#options-panel .journal-entry button').click();
+        const form = s.el('[data-editor="options"] form');
+        form.elements.description.value = 'Unsaved edits';
+        form.elements.description.dispatchEvent(new s.win.Event('input', { bubbles: true }));
+        s.win.confirm = message => {
+            assert.match(message, /10\/5\/26/);
+            assert.match(message, /Unsaved edits/);
+            return false;
+        };
+        s.el('#options-panel .journal-button-danger').click();
+        await flush();
+        assert.equal(s.state.requests.length, 0);
+        assert.equal(form.elements.description.value, 'Unsaved edits');
+        s.win.confirm = () => true;
+        s.state.failure = { message: 'This entry changed in another window. Reload before editing or deleting it.' };
+        s.el('#options-panel .journal-button-danger').click();
+        await flush();
+        assert.match(s.el('#journal-notice').textContent, /changed in another window/);
+        assert.equal(form.hidden, false);
+        assert.equal(form.elements.description.value, 'Unsaved edits');
+        assert.ok(s.el('#options-panel .journal-entry'));
+        s.state.failure = null;
+        s.el('#options-panel .journal-button-danger').click();
+        assert.equal(form.querySelector('button[type="submit"]').disabled, true);
+        await s.submit(form);
+        assert.equal(s.state.requests.filter(request => request.action === 'entry').length, 0);
+        assert.equal(form.hidden, true);
+        assert.equal(s.el('#options-panel .journal-entry'), null);
+        assert.deepEqual(s.state.rows, [other]);
+        assert.match(s.el('#journal-notice').textContent, /Entry deleted/);
+        assert.equal(s.el('[data-add-entry="options"]').disabled, false);
+    } finally { await s.close(); }
+});
+
+test('Deleting an entry preserves a separate draft; visitors never get delete controls', async () => {
+    const s = await setup(true, [savedRow]);
+    try {
+        s.el('[data-add-entry="options"]').click();
+        const form = s.el('[data-editor="options"] form');
+        form.elements.description.value = 'New draft to keep';
+        s.el('.journal-button-danger').click();
+        await flush();
+        assert.equal(form.hidden, false);
+        assert.equal(form.elements.description.value, 'New draft to keep');
+        assert.equal(form.elements.description.disabled, false);
+    } finally { await s.close(); }
+    const visitor = await setup(false, [savedRow]);
+    try {
+        assert.ok(visitor.el('.journal-entry'));
+        assert.equal(visitor.el('.journal-entry-heading'), null);
+        assert.equal(visitor.el('.journal-button-danger'), null);
+    } finally { await visitor.close(); }
 });
