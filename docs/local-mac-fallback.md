@@ -58,9 +58,31 @@ python3 scripts/local_fallback.py --news-only
 Each run reads Reuters and Financial Juice freshness independently from
 `news_articles`. A `fetched_at` or `published_at` within 15 minutes makes that
 source fresh. CNBC never satisfies this check. With both sources fresh, no
-upstream requests are made. When either is stale, the updater fetches group 1
-then group 6 using the existing production News headers and no authentication.
-Both feeds can contain both sources.
+upstream requests are made. When either is stale, the Mac updater fetches group 1
+then group 6 through standard headed Playwright Chromium, without authentication,
+imported cookies, custom headers, or challenge handling. Both feeds can contain
+both sources. Other platforms retain their existing HTTP News retrieval.
+
+The LaunchAgent's Python interpreter and configuration do not change. On macOS,
+`scripts/news_browser.py` starts a bounded worker using `.venv/bin/python`, where
+Playwright and Chromium are installed. To prepare this dependency on a new Mac:
+
+```sh
+.venv/bin/python -m pip install -r scripts/requirements-news.txt
+.venv/bin/python -m playwright install chromium
+```
+
+Each fetch uses a fresh temporary profile, closes Chromium, and removes the
+profile. The worker receives no backend credentials; only the existing updater
+accesses Supabase. Article bodies and unrelated upstream fields are excluded
+from the worker pipe. HTTP errors, HTML responses, invalid JSON, and Cloudflare
+challenges fail closed without retries. A challenge is logged explicitly.
+
+Headed Chromium passed repeated isolated tests under the existing LaunchAgent's
+system Python, working directory, and logged-in GUI session on October 8, 2026.
+Headless Chromium returned a challenge and is not used. A Chromium window can
+appear briefly during a stale-News refresh. The Mac must remain logged in,
+awake, and online; upstream access can still change.
 
 Existing Python normalization supplies English titles, source identities,
 timestamps and tickers. A small adapter matches the production database row
@@ -71,9 +93,13 @@ unique constraint with `resolution=ignore-duplicates`. It never updates or
 deletes News rows. Concurrent duplicate inserts cannot replace manual rows.
 
 Dry-run performs these reads/comparisons without writes. A filesystem lock
-prevents overlapping local runs; HTTP requests have a 20-second timeout and the
-CLI has a ten-minute overall limit, shorter than the scheduling interval. Redirects are rejected. Diagnostics contain
-status and counts, never bodies, cookies, credentials, or request headers.
+prevents overlapping local runs. Browser startup/navigation have 25-second
+timeouts, and the parent enforces a 90-second deadline for the entire browser
+worker. On failure or interruption it terminates the worker's process group,
+including Chromium, before removing the profile. Existing HTTP requests retain
+their 20-second timeout and redirect rejection. The CLI retains its ten-minute
+overall limit. Diagnostics contain status and counts, never bodies, cookies,
+credentials, or request headers. A News failure still allows Options to run.
 
 Freshness is based on inserted news, because the existing schema has no
 source-specific successful-poll timestamp. A quiet feed with no new articles may
@@ -163,6 +189,45 @@ Safe operational logs are in `.local-fallback/fallback.log`, rotated at 1 MB
 with three backups. Launchd startup errors go to `.local-fallback/launchd.log`.
 No payloads, credentials, cookies, request headers, or auth files are logged.
 All local environment files and runtime logs are Git-ignored.
+
+## Mac News browser rollback and deployment
+
+This change activates locally as soon as the updated Python files are present;
+the LaunchAgent needs no restart or reinstall. No frontend, Edge Function, or
+database deployment is involved. This repository's main branch is connected to
+Vercel News and Journal deployments, so a local-only updater commit must not be
+pushed unless those deployment effects are intentionally addressed.
+
+To restore the pre-browser News retrieval on this checkout without changing the
+schedule, restore just the updater from its rollback revision:
+
+```sh
+git restore --source=aeae24d -- scripts/local_fallback.py
+```
+
+The next run will use the previous HTTP implementation; on October 8 that
+implementation was receiving 403 responses. Existing database rows remain intact.
+
+## Verification on October 8, 2026
+
+- Both News groups returned HTTP 200 and valid JSON in repeated fresh Chromium
+  profiles, including two unattended runs under a temporary LaunchAgent matching
+  the production interpreter and GUI-session conditions. The test job was removed.
+- The controlled production run inserted 80 Reuters and 57 Financial Juice
+  articles and exited successfully. Both sources appeared on the live News page.
+- All 18,660 pre-existing News rows were unchanged, with no Reuters/FJ duplicate
+  keys. All 19 Options payloads and timestamps were unchanged; CNBC was unchanged.
+- A subsequent live dry-run skipped both fresh sources without fetching upstream.
+- The next automatic production run completed at 9:03 PM Pacific, with both groups
+  returning HTTP 200/valid JSON and exit code 0. It inserted one additional Reuters
+  article; Financial Juice had no new articles. Launchd advanced to run 1254 with
+  the original 900-second interval and `RunAtLoad=true`, without a manual trigger.
+- Python: 100 passed, 6 Windows-only skipped. JavaScript: 10 passed. Python syntax
+  and Git whitespace checks passed. Tests cover browser errors, source freshness,
+  deduplication, manual/concurrent updates, Options preservation, worker timeouts,
+  and termination/profile cleanup when stopping the service.
+- Root credentials and the production LaunchAgent plist were unchanged. Browser
+  profiles are temporary; local secrets, dependencies, and logs remain Git-ignored.
 
 ## Verification on September 21, 2026
 

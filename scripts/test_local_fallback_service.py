@@ -275,7 +275,9 @@ class WindowsServiceTests(unittest.TestCase):
         self.assertEqual(lines[-1], "line 99 \u2013 safe")
 
     def test_windows_import_does_not_require_getuid(self):
-        script = "import os, sys; sys.platform = 'win32'; hasattr(os, 'getuid') and delattr(os, 'getuid'); import local_fallback_service"
+        # Load host stdlib before simulating Windows; Python 3.13 shutil otherwise
+        # tries to import the Windows-only _winapi extension on this Mac.
+        script = "import os, sys, tempfile, zoneinfo; sys.platform = 'win32'; hasattr(os, 'getuid') and delattr(os, 'getuid'); import local_fallback_service"
         result = subprocess.run([sys.executable, "-c", script], cwd=Path(__file__).resolve().parent, capture_output=True, text=True, timeout=20)
         self.assertEqual(result.returncode, 0, result.stderr)
 

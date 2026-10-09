@@ -41,6 +41,9 @@ class FakeDB:
 
 class NewsSafetyTests(unittest.TestCase):
     def setUp(self):
+        platform = patch.object(fallback.sys, "platform", "darwin")
+        platform.start()
+        self.addCleanup(platform.stop)
         self.quiet = contextlib.redirect_stdout(io.StringIO())
         self.quiet.__enter__()
 
@@ -49,23 +52,23 @@ class NewsSafetyTests(unittest.TestCase):
 
     def test_fresh_sources_never_contact_upstream(self):
         db = FakeDB(fresh=("Reuters", "Financial Juice"))
-        with patch.object(fallback, "request_json") as request:
+        with patch.object(fallback, "fetch_news_payloads") as request:
             fallback.run_news(db)
         request.assert_not_called()
         self.assertEqual(db.writes, [])
 
     def test_dry_run_never_writes_and_reuses_both_feeds(self):
         db = FakeDB()
-        with patch.object(fallback, "request_json", return_value={"news_list": [article()]}) as request:
+        with patch.object(fallback, "fetch_news_payloads", return_value=[{"news_list": [article()]}] * 2) as request:
             fallback.run_news(db, dry_run=True)
-        self.assertEqual(request.call_count, 2)
+        request.assert_called_once_with()
         self.assertEqual(db.writes, [])
 
     def test_existing_manual_rows_and_cnbc_are_untouched(self):
         db = FakeDB(existing=(("Reuters", "manual"),))
         payload = {"news_list": [article(article_id="manual"), article(),
                                   article("financial-juice"), article("cnbc")]}
-        with patch.object(fallback, "request_json", return_value=payload):
+        with patch.object(fallback, "fetch_news_payloads", return_value=[payload, payload]):
             fallback.run_news(db)
         self.assertEqual([(x["source"], x["external_id"]) for x in db.writes],
                          [("Reuters", "new-1"), ("Financial Juice", "new-1")])
@@ -76,7 +79,7 @@ class NewsSafetyTests(unittest.TestCase):
     def test_only_stale_source_written_when_feeds_mix_sources(self):
         db = FakeDB(fresh=("Reuters",))
         payload = {"news_list": [article(), article("financial-juice")]}
-        with patch.object(fallback, "request_json", return_value=payload):
+        with patch.object(fallback, "fetch_news_payloads", return_value=[payload, payload]):
             fallback.run_news(db)
         self.assertEqual([x["source"] for x in db.writes], ["Financial Juice"])
 
@@ -84,14 +87,14 @@ class NewsSafetyTests(unittest.TestCase):
         db = FakeDB()
         def fetch(*args):
             db.fresh.update(("Reuters", "Financial Juice"))
-            return {"news_list": [article(), article("financial-juice")]}
-        with patch.object(fallback, "request_json", side_effect=fetch):
+            return [{"news_list": [article(), article("financial-juice")]}] * 2
+        with patch.object(fallback, "fetch_news_payloads", side_effect=fetch):
             fallback.run_news(db)
         self.assertEqual(db.writes, [])
 
     def test_invalid_second_feed_prevents_all_writes(self):
         db = FakeDB()
-        with patch.object(fallback, "request_json", side_effect=[{"news_list": [article()]}, {}]):
+        with patch.object(fallback, "fetch_news_payloads", return_value=[{"news_list": [article()]}, {}]):
             with self.assertRaises(fallback.SafeError):
                 fallback.run_news(db)
         self.assertEqual(db.writes, [])

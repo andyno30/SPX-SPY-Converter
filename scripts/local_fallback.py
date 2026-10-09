@@ -30,6 +30,7 @@ else:
 from sync_news import LIST_ENDPOINTS, SOURCE_LABELS, normalize_item, normalize_timestamp
 from sync_direct import normalize as normalize_options, validate_source_payload
 from options_revisions import OptionsPayload, OptionsRevisions
+from news_browser import NewsBrowserError, fetch_news_payloads
 
 ROOT = Path(__file__).resolve().parents[1]
 STALE_AFTER = timedelta(minutes=15)
@@ -430,11 +431,21 @@ def run_news(db, *, dry_run=False):
             stale.append(source)
     if not stale:
         return
+    browser_payloads = None
+    if sys.platform == 'darwin':
+        try:
+            browser_payloads = fetch_news_payloads()
+        except NewsBrowserError as error:
+            raise SafeError(str(error)) from None
     incoming = {}
     # Both endpoints contain a mix of sources. Fetch in the requested 1,6 order,
     # then filter by the independently stale source, never by label-group alone.
-    for group, endpoint in zip((1, 6), LIST_ENDPOINTS):
-        payload = request_json(endpoint, NEWS_HEADERS, f"News group {group}")
+    for index, (group, endpoint) in enumerate(zip((1, 6), LIST_ENDPOINTS)):
+        if browser_payloads is not None:
+            payload = browser_payloads[index]
+            log(f'News group {group}: Playwright HTTP 200, valid JSON')
+        else:
+            payload = request_json(endpoint, NEWS_HEADERS, f"News group {group}")
         if not isinstance(payload, dict) or not isinstance(payload.get("news_list"), list):
             raise SafeError(f"News group {group}: unexpected schema; no News writes.")
         for raw in payload["news_list"]:
