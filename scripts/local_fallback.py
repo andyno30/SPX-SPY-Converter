@@ -31,6 +31,7 @@ from sync_news import LIST_ENDPOINTS, SOURCE_LABELS, normalize_item, normalize_t
 from sync_direct import normalize as normalize_options, validate_source_payload
 from options_revisions import OptionsPayload, OptionsRevisions
 from news_browser import NewsBrowserError, fetch_news_payloads
+from options_browser import OptionsBrowserError, fetch_options_payload
 
 ROOT = Path(__file__).resolve().parents[1]
 STALE_AFTER = timedelta(minutes=15)
@@ -316,13 +317,20 @@ def fetch_options(ticker, token):
     if (not token or token.startswith(("access_token=", "cf_clearance="))
             or not re.fullmatch(r"[\x21\x23-\x2B\x2D-\x3A\x3C-\x5B\x5D-\x7E]+", token)):
         raise SafeError("Configure only the application token value in UPSTREAM_ACCESS_TOKEN.")
-    raw = request_json(
-        f"https://saveticker.com/api/stocks/api/v1/tickers/{ticker}/options",
-        {"Accept": "application/json", "Cookie": "access_token=" + token,
-         "Referer": f"https://saveticker.com/company/{ticker}",
-         "User-Agent": "SpyConverterSaveTickerEdge/1.0 (+https://spyconverter.com)"},
-        f"Options {ticker}",
-    )
+    if sys.platform == 'darwin':
+        try:
+            raw = fetch_options_payload(ticker, token)
+        except OptionsBrowserError as error:
+            raise SafeError(str(error)) from None
+        log(f'Options {ticker}: Playwright HTTP 200, valid JSON')
+    else:
+        raw = request_json(
+            f"https://saveticker.com/api/stocks/api/v1/tickers/{ticker}/options",
+            {"Accept": "application/json", "Cookie": "access_token=" + token,
+             "Referer": f"https://saveticker.com/company/{ticker}",
+             "User-Agent": "SpyConverterSaveTickerEdge/1.0 (+https://spyconverter.com)"},
+            f"Options {ticker}",
+        )
     try:
         validate_source_payload(raw, ticker)
         payload = OptionsPayload(normalize_options(raw, ticker), raw.get("gammaUpdatedAt"))

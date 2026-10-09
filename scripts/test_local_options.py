@@ -167,7 +167,8 @@ class OptionsSafetyTests(unittest.TestCase):
                 fallback.run_options(db, "fixture")
 
     def test_application_cookie_is_the_only_cookie(self):
-        with patch.object(fallback, "request_json", return_value={}) as request:
+        with patch.object(fallback.sys, "platform", "win32"), \
+                patch.object(fallback, "request_json", return_value={}) as request:
             with self.assertRaises(fallback.SafeError):
                 fallback.fetch_options("SPY", "synthetic-token")
         headers = request.call_args.args[1]

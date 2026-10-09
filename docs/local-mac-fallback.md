@@ -42,8 +42,9 @@ when the authorized application session expires:
    still contains exactly the copied token. Existing frontend files and GitHub
    secrets remain untouched. If the cookie is absent, sign in normally first.
 
-The helper does not verify the token. The updater makes ordinary HTTP requests
-with only `Cookie: access_token=…`. Initial verification passed in SPY, QQQ, SNDK,
+The helper does not verify the token. Options requests use only the application
+`access_token` cookie: a fresh Chromium context on macOS, ordinary HTTP on other
+platforms. Initial verification passed in SPY, QQQ, SNDK,
 then remaining allowlist order. A SPY request failure stops the Options loop.
 A failed run is retried at the next scheduled interval; there is no challenge
 bypass or automatic token rotation.
@@ -110,9 +111,25 @@ therefore be checked again on a later run, without rewriting old articles.
 The updater reads the ticker allowlist directly from
 `supabase/functions/fetch-spy-options/index.ts` on every run. It imports the
 existing Python validation and normalizer from `sync_direct.py`, now accepting
-an optional ticker argument with the original SPY default. Browser imports are
-lazy and are never used by the local fallback. `fetchedAt` is added to match
-the Edge response schema; `gammaPer1Pct` remains the Net GEX mapping.
+an optional ticker argument with the original SPY default. On macOS,
+`scripts/options_browser.py` retrieves each stale ticker in standard headed
+Chromium, then returns the raw JSON to that same validator and normalizer.
+Other platforms retain their existing HTTP retrieval. `fetchedAt` is added to
+match the Edge response schema; `gammaPer1Pct` remains the Net GEX mapping.
+
+Each ticker uses a fresh non-persistent browser context with only the application
+`access_token` from root `.env.local`. The worker receives this token through a
+private stdin pipe, never command arguments, environment variables, or a saved
+session. It never receives Supabase credentials. Only the exact requested API
+navigation is allowed; redirects, other origins, and subresources are blocked.
+No existing browser state, Cloudflare cookies, analytics cookies, custom browser
+fingerprints, or challenge handling are used.
+
+The worker uses the same `.venv` Playwright/Chromium installation as News. Each
+worker has a 60-second overall deadline; its process group and temporary files
+are cleaned up on success, failure, timeout, or service stop. A failed SPY fetch
+still stops the Options loop. No retry loop or production refresh-gate change
+is introduced. Browser windows may appear briefly for stale tickers.
 
 The production schema maps upstream `snapshotUpdatedAt || batchUpdatedAt` to
 `payload.sourceUpdatedAt`, preserves `asOf`, and records `payload.fetchedAt`.
@@ -208,6 +225,29 @@ git restore --source=aeae24d -- scripts/local_fallback.py
 The next run will use the previous HTTP implementation; on October 8 that
 implementation was receiving 403 responses. Existing database rows remain intact.
 
+## Verification on October 9, 2026
+
+- Options HTTP retrieval began receiving Cloudflare challenges. Standard headed
+  Chromium returned HTTP 200 and valid Options JSON for SPY, QQQ, SNDK, then all
+  remaining allowlisted tickers, using only the existing application token.
+- An isolated unattended LaunchAgent dry-run passed all 19 tickers without writes.
+  The production schedule was unchanged during testing and activation.
+- Automatic production run 1260 finished at 7:11 AM Pacific with exit code 0:
+  all 19 Options tickers updated and passed readback verification. News also
+  succeeded in the same run. The live SPY page displayed October 9 market data.
+- All 19 source timestamps advanced without regressing `asOf`; payload schemas
+  and gamma provenance were preserved. Local writes still exclude refresh-gate
+  fields. Opening the SPY page subsequently advanced its Edge refresh-attempt
+  timestamp through the existing page-triggered policy; other gate fields stayed
+  unchanged. No Edge Function, schema, refresh policy, or News code was changed.
+- A post-update dry-run skipped all 19 fresh caches with zero browser requests
+  and zero database writes.
+- Python: 111 passed, 6 Windows-only skipped. JavaScript: 10 passed. Syntax and
+  whitespace checks passed. No browser workers or temporary profiles remained.
+- The user's October 9 daily ratio update (`7e8e278`) was preserved unchanged.
+  Credentials stayed in root `.env.local`; no credential values entered code,
+  logs, command arguments, browser profiles, or the worker environment.
+
 ## Verification on October 8, 2026
 
 - Both News groups returned HTTP 200 and valid JSON in repeated fresh Chromium
@@ -262,3 +302,16 @@ Run local safety tests with:
 python3 -m unittest discover -s scripts -p 'test_*.py' -v
 node --test scripts/test_news_dates.cjs scripts/test_upstream_diagnostics.cjs
 ```
+
+
+## Mac Options browser rollback
+
+To restore the previous Options HTTP fetcher while retaining the working News
+browser integration and the existing schedule:
+
+```sh
+git restore --source=7e8e278 -- scripts/local_fallback.py
+```
+
+The previous Options HTTP path was receiving Cloudflare challenges on October 9,
+2026. This rollback does not change stored data, credentials, or the LaunchAgent.
