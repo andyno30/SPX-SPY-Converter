@@ -1,5 +1,19 @@
 [
   {
+    "id": "7de85ddf-4171-4b17-8a6e-9b448b824281",
+    "market": "options",
+    "entry_date": "2026-10-09",
+    "description": "Today, SPY tested lower band VWAP (yellow line on 1st attached image) after rejecting the VWAP (purple line on 1st attached image) at open. Lower band VWAP turned out to be the support zone and price started to increase beyond VWAP (open level). After the price surpassed VWAP I entered SPX 7810Cs, anticipating a breakout above upper band VWAP (purple line on 1st attached image), (SPY chart; SPX chart lacks volume statistic indicators like VWAP). However, the breakout wasn't strong enough for me to hold. After 7810Cs chopped between VWAP and upper band VWAP. I re-entered 7810Cs again expecting that it would surpass the upper band VWAP on this double bottom. However, 7810Cs made a third pull back before a breakout, making me exit the position for breakeven. No put side were traded today during the reversal towards EOD.\n\n15 fills; 1min 50sec; 50 sec scalps",
+    "image_paths": [
+      "journal/images/7de85ddf-4171-4b17-8a6e-9b448b824281/14e7e39d07054c0c83b93736b213696c461e2d36.png",
+      "journal/images/7de85ddf-4171-4b17-8a6e-9b448b824281/fdb7046fd2453bfea4b5c69189310a6d0e297967.png",
+      "journal/images/7de85ddf-4171-4b17-8a6e-9b448b824281/3e78abf0709f67301441702eba4fc02209395d96.png",
+      "journal/images/7de85ddf-4171-4b17-8a6e-9b448b824281/036e654f7d3dba808c349736722ad54fe83f92df.png"
+    ],
+    "created_at": "2026-10-09T20:17:00.043Z",
+    "updated_at": "2026-10-09T20:17:00.043Z"
+  },
+  {
     "id": "604b961a-6421-4e0c-a353-d531cfd68d61",
     "market": "options",
     "entry_date": "2026-10-08",
