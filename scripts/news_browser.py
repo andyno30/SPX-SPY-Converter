@@ -114,16 +114,18 @@ def _article_metadata(item):
     return result
 
 
-def _fetch_with_browser(playwright, profile, *, headless=False):
+def _fetch_with_browser(playwright, profile, *, headless=False, background=False):
     from sync_news import LIST_ENDPOINTS
 
-    context = playwright.chromium.launch_persistent_context(
+    from background_browser import BackgroundBrowser
+    launcher = BackgroundBrowser(playwright, 'news') if background else None
+    context = launcher.context if launcher else playwright.chromium.launch_persistent_context(
         profile, headless=headless, timeout=REQUEST_TIMEOUT_MS,
     )
     try:
         payloads = []
         for group, endpoint in zip((1, 6), LIST_ENDPOINTS):
-            page = context.new_page()
+            page = launcher.new_page(context) if launcher else context.new_page()
             page.set_default_timeout(REQUEST_TIMEOUT_MS)
             try:
                 response = page.goto(endpoint, wait_until='commit', timeout=REQUEST_TIMEOUT_MS)
@@ -152,14 +154,18 @@ def _fetch_with_browser(playwright, profile, *, headless=False):
                 page.close()
         return {'payloads': payloads}
     finally:
-        context.close()
+        if launcher:
+            launcher.close()
+        else:
+            context.close()
 
 
 def _worker(profile):
     try:
         from playwright.sync_api import sync_playwright
+        from background_browser import enabled
         with sync_playwright() as playwright:
-            return _fetch_with_browser(playwright, profile)
+            return _fetch_with_browser(playwright, profile, background=enabled('news'))
     except Exception:
         # Never expose browser exception strings, headers, bodies, or traces.
         return {'error': 'browser'}

@@ -209,8 +209,101 @@ All local environment files and runtime logs are Git-ignored.
 
 ## Mac News browser rollback and deployment
 
-This change activates locally as soon as the updated Python files are present;
-the LaunchAgent needs no restart or reinstall. No frontend, Edge Function, or
+### Optional background-headed Chromium on macOS
+
+`scripts/background_browser.py` and its native Swift supervisor provide a
+separate opt-in for News and Options. Both default to the original headed launch
+when `.local-fallback/background-browser.json` is absent. The settings, compiled
+helper, diagnostics, and logs are Git-ignored; no credential file is changed.
+
+Prepare the helper once before activation (Apple command line tools required):
+
+```sh
+python3 scripts/background_browser.py prepare
+.venv/bin/python -B scripts/check_background_browser.py --local-only --suite all
+.venv/bin/python -B scripts/check_background_browser.py --local-only --suite recovery
+python3 scripts/background_browser.py status
+```
+
+The local checks intercept responses with fixtures and disable external network
+resolution. They never load credentials or transmit requests to SaveTicker.
+Activate each component only after its live verification, and only verify Options
+within its existing weekday 05:30–14:00 Pacific window:
+
+```sh
+python3 scripts/background_browser.py enable news
+python3 scripts/background_browser.py enable options
+```
+
+Rollback is immediate for the next worker; no LaunchAgent restart is necessary:
+
+```sh
+python3 scripts/background_browser.py disable news
+python3 scripts/background_browser.py disable options
+```
+
+Each worker uses a fresh short-lived profile and the existing installed Chromium
+application, launched through `NSWorkspace` without activation and hidden. One
+blank window stays open until browser shutdown. All work pages are created through
+CDP with `background=true` and `focus=false`. Options retains its separate
+nonpersistent context and its single application-token cookie. No installed app
+bundle is modified, and no browser identity is spoofed.
+
+The native supervisor watches only its own browser PID. It stops the worker's
+browser on activation, a visible window, a Space change, owner exit, or deadline.
+It also removes its disposable profile after forced worker termination. Failures
+discard the fetch result and preserve cached data; there is no automatic retry
+using a visible browser. Compact credential-free cleanup/focus reports are kept
+in `.local-fallback/background-news-last.json` and `background-options-last.json`.
+
+The background path is verified against Playwright 1.63.0 and rejects other
+versions until reverified. Normal headed rollback remains available. macOS cannot
+attribute Space changes to their initiator, so a user switching Spaces during a
+fetch conservatively cancels that fetch. Current-desktop checks cannot guarantee
+every full-screen/Spaces configuration; those remain unverified. The scheduled
+next run can retry normally, preserving the existing 900-second interval and all
+freshness, manual-data, and concurrent-write guards.
+
+The pre-integration rollback revision is
+`911c35976bad6403c8dea251f08a87477eef03e8` (including the October 9 daily ratios).
+The component switches above are the preferred rollback: they preserve all
+subsequent unrelated edits and restore the previously working browser path.
+
+Verification on October 10, 2026:
+
+- News background mode was activated locally. Controlled LaunchAgent run 1353
+  correctly skipped both fresh feeds without contacting SaveTicker. The next
+  automatic run, 1354, completed at 11:46 AM Pacific with exit code 0. Both News
+  groups returned HTTP 200/valid JSON; two Reuters and one FJ articles were added.
+- The production native monitor recorded zero browser activations, visible
+  windows, or Space changes. The browser exited gracefully, its profile was
+  removed, and no browser/supervisor processes remained.
+- Read-only database hashes confirmed all 19 Options rows and all 19,202 existing
+  News rows were unchanged. Only the three new Reuters/FJ rows were added. CNBC,
+  cron commands/enabled flags, and the original Edge Function versions were
+  unchanged. The LaunchAgent plist and installed Chromium bundle were unchanged.
+- All 19 Options schemas passed local fixture checks. Options background mode
+  remains OFF because activation fell on Saturday; its original headed method
+  and weekday 05:30–14:00 Pacific restriction remain in force. Live verification
+  of all 19 background Options workers is still required during an eligible window.
+- Final tests: 121 Python tests passed, six Windows-only tests skipped; ten
+  relevant JavaScript tests and eight Journal publisher tests passed. All 32
+  final local browser cases passed, including startup failures, exceptions,
+  timeouts, SIGTERM/SIGKILL cleanup, repeated cold starts, and page reloads.
+  Full-screen/Spaces behavior remains unverified.
+- Extra implementation/testing SaveTicker requests: zero. Local fixtures never
+  contacted SaveTicker. Normal production made four confirmed API requests
+  during implementation (two per News group, all HTTP 200; zero Options, 403s,
+  failed API requests, or retries). The earlier diagnostic subtotal is 69, giving
+  73 known explicit API requests through verification. Browser background traffic
+  is not included. Further diagnostic requests stopped; normal scheduling continues.
+- This is a local Mac deployment. The user authorized pushing the implementation
+  as `10/10/26` after being informed that main-branch pushes trigger Vercel News
+  and Journal deployments. Newer remote Journal commits were preserved by
+  rebasing the updater commit. No frontend or project-setting changes are included.
+
+The updater runs directly from this checkout; the background switches take effect
+on the next worker. The LaunchAgent needs no restart or reinstall. No frontend, Edge Function, or
 database deployment is involved. This repository's main branch is connected to
 Vercel News and Journal deployments, so a local-only updater commit must not be
 pushed unless those deployment effects are intentionally addressed.

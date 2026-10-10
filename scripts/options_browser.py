@@ -88,11 +88,13 @@ def fetch_options_payload(ticker, token):
                 signal.signal(signal.SIGTERM, previous_term)
 
 
-def _fetch_with_browser(playwright, ticker, token):
+def _fetch_with_browser(playwright, ticker, token, *, background=False):
     from sync_direct import validate_source_payload
 
     endpoint = f'https://saveticker.com/api/stocks/api/v1/tickers/{ticker}/options'
-    browser = playwright.chromium.launch(headless=False, timeout=REQUEST_TIMEOUT_MS)
+    from background_browser import BackgroundBrowser
+    browser = (BackgroundBrowser(playwright, 'options') if background else
+               playwright.chromium.launch(headless=False, timeout=REQUEST_TIMEOUT_MS))
     try:
         context = browser.new_context(accept_downloads=False, service_workers='block')
         try:
@@ -111,7 +113,7 @@ def _fetch_with_browser(playwright, ticker, token):
                     route.abort()
 
             context.route('**/*', route_request)
-            page = context.new_page()
+            page = browser.new_page(context) if background else context.new_page()
             page.set_default_timeout(REQUEST_TIMEOUT_MS)
             response = page.goto(endpoint, wait_until='commit', timeout=REQUEST_TIMEOUT_MS)
             if response is None:
@@ -146,8 +148,10 @@ def _worker():
         if not isinstance(request, dict) or not _valid_input(request.get('ticker'), request.get('token')):
             return {'error': 'browser'}
         from playwright.sync_api import sync_playwright
+        from background_browser import enabled
         with sync_playwright() as playwright:
-            return _fetch_with_browser(playwright, request['ticker'], request['token'])
+            return _fetch_with_browser(playwright, request['ticker'], request['token'],
+                                       background=enabled('options'))
     except Exception:
         return {'error': 'browser'}
 
