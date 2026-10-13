@@ -1,5 +1,19 @@
 [
   {
+    "id": "25620873-6437-4441-bb8f-1755e51ba3af",
+    "market": "options",
+    "entry_date": "2026-10-13",
+    "description": "Today was a choppy day for S&P 500. However, the price movements were very small overnight so I wanted to see if premiums would get cheaper on the SPX chain and I wasn't actively scoping for an entry. After the premiums settled, I did enter 7815Cs on the power hour pump, but got stopped out at 1.85/contract since it failed to break this morning's high (moved my stop up on this SPX position when RSI/MFI both reached overbought line on 1-min SPY chart around 12:13pm PST). Did not take any more intraday positions as there is no volatility.\n\n2 fills; 6min 25sec trade",
+    "image_paths": [
+      "journal/images/25620873-6437-4441-bb8f-1755e51ba3af/9d63b72b030c87fdf4f9a6e6fdb37760dad54f71.png",
+      "journal/images/25620873-6437-4441-bb8f-1755e51ba3af/4a7259f80fdd92c30c79d62ae45b7ec224a8ae3c.png",
+      "journal/images/25620873-6437-4441-bb8f-1755e51ba3af/48fe023bb8c0310911e8bfb2c7772a1951ca45a8.png",
+      "journal/images/25620873-6437-4441-bb8f-1755e51ba3af/47e62b8698ca5506272386ed77ad52a7e3ae9c35.png"
+    ],
+    "created_at": "2026-10-13T20:19:00.232Z",
+    "updated_at": "2026-10-13T20:19:00.232Z"
+  },
+  {
     "id": "f87d4fb9-374e-40a8-a961-de6687ecb3ae",
     "market": "futures",
     "entry_date": "2026-10-12",
