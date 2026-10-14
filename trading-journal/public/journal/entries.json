@@ -1,5 +1,17 @@
 [
   {
+    "id": "7eda389b-a778-462c-a3a4-f3497e17df61",
+    "market": "options",
+    "entry_date": "2026-10-14",
+    "description": "Today, S&P 500 pulled back due to the CPI report and fear of PPI later. I wanted to enter 7750Ps this morning but it broke out before I could. However, the volatility did come back little bit (VIX closed around 16.8, +10%) today. \n\nNo trades today",
+    "image_paths": [
+      "journal/images/7eda389b-a778-462c-a3a4-f3497e17df61/dcf1b60ac2c631551e1d130e4b178508ba7392b4.png",
+      "journal/images/7eda389b-a778-462c-a3a4-f3497e17df61/f2379cb785406cbbe5d6e3b6243fc86dde0f58e5.png"
+    ],
+    "created_at": "2026-10-14T21:05:18.404Z",
+    "updated_at": "2026-10-14T21:05:18.404Z"
+  },
+  {
     "id": "a43b91f5-ae18-4e89-84c3-85860715f065",
     "market": "futures",
     "entry_date": "2026-10-13",
