@@ -1,5 +1,17 @@
 [
   {
+    "id": "6ba4bc08-f877-4f5c-91fa-f948bc2d5477",
+    "market": "futures",
+    "entry_date": "2026-10-14",
+    "description": "A good decision doesn't always lead to a good outcome. A bad decision can succeed by luck. We judge decisions by their outcomes, but that is the most dangerous illusion. As poker champion Annie Duke says, \"Life isn't chess, it's poker.\" Not all information is visible. So decisions should be evaluated based on the information and process at the time, not the result. A failed trade/startup could still have been a good decision if it was the best choice given what you knew. Winning the lottery isn't a good decision, it's luck. There is no such thing as a perfect decision. Only 1 thing matters: did you choose the option with the highest probability? Don't be swayed by outcomes. If the process was sound, that decision is already a success.\n\nI moved my stop to 2pts below breakeven on my long position and got stopped out. Right after, entered a short position overnight during the drop but I didn't move my profit line from default (18pts) so it got filled overnight too. Entered a long position on a reversal but failed so ended up scalping it for couple points.\n\n20pts; 3 round turns",
+    "image_paths": [
+      "journal/images/6ba4bc08-f877-4f5c-91fa-f948bc2d5477/9f0b564abf6440fdb33432e6958da0e0c36c2c3b.png",
+      "journal/images/6ba4bc08-f877-4f5c-91fa-f948bc2d5477/e0b7c02eade45fa7c518739b3e32eac43aa1ec30.png"
+    ],
+    "created_at": "2026-10-14T21:35:39.048Z",
+    "updated_at": "2026-10-14T21:35:39.048Z"
+  },
+  {
     "id": "7eda389b-a778-462c-a3a4-f3497e17df61",
     "market": "options",
     "entry_date": "2026-10-14",
