@@ -408,3 +408,45 @@ git restore --source=7e8e278 -- scripts/local_fallback.py
 
 The previous Options HTTP path was receiving Cloudflare challenges on October 9,
 2026. This rollback does not change stored data, credentials, or the LaunchAgent.
+
+## Chromium redirect guard (October 14, 2026)
+
+Playwright routes do not intercept subsequent redirect hops. The shared
+`scripts/browser_navigation.py` guard instead pauses Chromium
+at both request and response stages. Production callers allow one exact API
+navigation and zero redirects. A 301/302/303/307/308 is rejected before its
+destination is requested. The helper can enforce explicitly allowlisted,
+same-origin redirects with a bounded limit; neither production caller enables
+that option. Chromium retains its existing network transport and authentication.
+
+Logs contain only the News group or Options ticker, navigation attempts, HTTP
+response statuses, followed/blocked redirect counts, and accounting completeness.
+Attempts count requests released by the guard, not proven server receipts or all
+browser background traffic. A killed or failed worker that cannot return its
+accounting is reported as unavailable, never inferred to have made zero requests.
+Cloudflare challenges still stop without retries; this repair does not restore
+upstream access or change any database write/freshness behavior.
+
+Run real Chromium tests against localhost only (no production credentials):
+
+```sh
+SPY_LOCAL_BROWSER_TESTS=1 .venv/bin/python -B -m unittest discover -s scripts -p 'test_*.py'
+.venv/bin/python -B scripts/check_background_browser.py --local-only --suite all
+.venv/bin/python -B scripts/check_background_browser.py --local-only --suite recovery
+```
+
+For deployment, preserve a rollback revision and apply the
+three worker/helper files together, plus their tests and this documentation,
+between scheduled runs. Keep the existing LaunchAgent and its 900-second interval.
+No website deployment is required. Live API verification needs separate approval;
+do not use a service run command as an offline test. Roll back the two workers to
+their saved revision if verification fails; do not restore or replace local data,
+credentials, or the LaunchAgent.
+
+If SaveTicker supplies supported unattended access, change only the approved
+endpoint/authentication transport and, if needed, a response adapter in the fetch
+layer. Store any new backend credential only in root `.env.local`. Retain the
+existing normalizers, all 19 tickers, News deduplication, Options revision/manual
+and concurrent-write protections, market hours, and scheduling. Provider-side
+authorization of the existing endpoints/token may require no transport change;
+the exact minimum depends on the provider's documented access contract.

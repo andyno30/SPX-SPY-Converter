@@ -10,6 +10,7 @@ import sys
 import tempfile
 
 from news_browser import _stop_worker, _terminate_run
+from browser_navigation import NavigationGuard, emit_accounting
 
 ROOT = Path(__file__).resolve().parents[1]
 REQUEST_TIMEOUT_MS = 25000
@@ -41,6 +42,7 @@ def fetch_options_payload(ticker, token):
         # Browser temporary files stay within this private, disposable directory.
         environment['TMPDIR'] = directory
         process = None
+        accounting_emitted = False
         previous_term = signal.signal(signal.SIGTERM, _terminate_run)
         try:
             process = subprocess.Popen(
@@ -58,10 +60,13 @@ def fetch_options_payload(ticker, token):
             result = json.loads(output)
             if not isinstance(result, dict):
                 raise ValueError('invalid worker result')
+            emit_accounting(result.get('network'))
+            accounting_emitted = True
             if result.get('error'):
                 messages = {
                     'challenge': 'Cloudflare challenge; stopped without retry',
                     'http': 'HTTP request rejected',
+                    'redirect': 'redirect blocked before follow-up',
                     'content': 'expected application/json',
                     'schema': 'invalid Options JSON/schema',
                     'size': 'response exceeded size limit',
@@ -86,6 +91,8 @@ def fetch_options_payload(ticker, token):
                     _stop_worker(process)
             finally:
                 signal.signal(signal.SIGTERM, previous_term)
+                if process is not None and not accounting_emitted:
+                    emit_accounting(None)
 
 
 def _fetch_with_browser(playwright, ticker, token, *, background=False):
@@ -95,49 +102,60 @@ def _fetch_with_browser(playwright, ticker, token, *, background=False):
     from background_browser import BackgroundBrowser
     browser = (BackgroundBrowser(playwright, 'options') if background else
                playwright.chromium.launch(headless=False, timeout=REQUEST_TIMEOUT_MS))
+    network = []
+
+    def outcome(**values):
+        return dict(values, network=network)
+
     try:
         context = browser.new_context(accept_downloads=False, service_workers='block')
+        guard = page = None
         try:
             # Non-persistent context: no session/profile import and no cookie file.
             context.add_cookies([{'name': 'access_token', 'value': token,
                                  'url': 'https://saveticker.com', 'httpOnly': True,
                                  'secure': True, 'sameSite': 'Lax'}])
 
-            def route_request(route):
-                request = route.request
-                # One exact API navigation only; no redirects, analytics, or resources.
-                if (request.url == endpoint and request.resource_type == 'document'
-                        and request.redirected_from is None):
-                    route.continue_()
-                else:
-                    route.abort()
-
-            context.route('**/*', route_request)
             page = browser.new_page(context) if background else context.new_page()
             page.set_default_timeout(REQUEST_TIMEOUT_MS)
-            response = page.goto(endpoint, wait_until='commit', timeout=REQUEST_TIMEOUT_MS)
+            guard = NavigationGuard(context, page, endpoint, f'options_{ticker}')
+            response = guard.goto(REQUEST_TIMEOUT_MS)
+            if guard.failure:
+                return outcome(**guard.failure)
             if response is None:
-                return {'error': 'browser'}
+                return outcome(error='browser')
             status = response.status
             if (response.header_value('cf-mitigated') or '').lower() == 'challenge':
-                return {'error': 'challenge', 'status': status}
+                return outcome(error='challenge', status=status)
             if status != 200:
-                return {'error': 'http', 'status': status}
+                return outcome(error='http', status=status)
             kind = (response.header_value('content-type') or '').split(';', 1)[0].strip().lower()
             if kind != 'application/json':
-                return {'error': 'content', 'status': status}
+                return outcome(error='content', status=status)
             body = response.body()
             if len(body) > MAX_RESPONSE_BYTES:
-                return {'error': 'size'}
+                return outcome(error='size')
             try:
                 payload = json.loads(body)
                 validate_source_payload(payload, ticker)
                 json.dumps(payload, allow_nan=False)
             except (ValueError, TypeError, OverflowError, AttributeError):
-                return {'error': 'schema'}
-            return {'payload': payload}
+                return outcome(error='schema')
+            return outcome(payload=payload)
+        except Exception:
+            # Preserve guarded navigation accounting without exposing exceptions.
+            return outcome(error='browser')
         finally:
-            context.close()
+            try:
+                if page is not None:
+                    page.close()
+            finally:
+                try:
+                    if guard:
+                        network.append(guard.accounting())
+                        guard.close()
+                finally:
+                    context.close()
     finally:
         browser.close()
 

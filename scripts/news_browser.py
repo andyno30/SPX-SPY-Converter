@@ -8,6 +8,8 @@ import subprocess
 import sys
 import tempfile
 
+from browser_navigation import NavigationGuard, emit_accounting
+
 ROOT = Path(__file__).resolve().parents[1]
 REQUEST_TIMEOUT_MS = 25000
 WORKER_TIMEOUT_SECONDS = 90
@@ -51,6 +53,7 @@ def fetch_news_payloads():
                    if key in ('HOME', 'USER', 'LOGNAME', 'PATH', 'TMPDIR', 'LANG', 'LC_ALL')}
     with tempfile.TemporaryDirectory(prefix='spyconverter-news-browser-') as directory:
         process = None
+        accounting_emitted = False
         previous_term = signal.signal(signal.SIGTERM, _terminate_run)
         try:
             process = subprocess.Popen(
@@ -64,6 +67,8 @@ def fetch_news_payloads():
             result = json.loads(output)
             if not isinstance(result, dict):
                 raise ValueError('invalid worker result')
+            emit_accounting(result.get('network'))
+            accounting_emitted = True
             if result.get('error'):
                 code = result['error']
                 group = result.get('group')
@@ -71,6 +76,7 @@ def fetch_news_payloads():
                 messages = {
                     'challenge': 'Cloudflare challenge; stopped without retry; existing data preserved.',
                     'http': 'HTTP request rejected; existing data preserved.',
+                    'redirect': 'redirect blocked before follow-up; existing data preserved.',
                     'content': 'expected application/json; existing data preserved.',
                     'schema': 'invalid News JSON/schema; existing data preserved.',
                     'size': 'response exceeded size limit; existing data preserved.',
@@ -96,6 +102,8 @@ def fetch_news_payloads():
                     _stop_worker(process)
             finally:
                 signal.signal(signal.SIGTERM, previous_term)
+                if process is not None and not accounting_emitted:
+                    emit_accounting(None)
 
 
 def _article_metadata(item):
@@ -122,37 +130,54 @@ def _fetch_with_browser(playwright, profile, *, headless=False, background=False
     context = launcher.context if launcher else playwright.chromium.launch_persistent_context(
         profile, headless=headless, timeout=REQUEST_TIMEOUT_MS,
     )
+    network = []
+
+    def outcome(**values):
+        return dict(values, network=network)
+
     try:
         payloads = []
         for group, endpoint in zip((1, 6), LIST_ENDPOINTS):
             page = launcher.new_page(context) if launcher else context.new_page()
             page.set_default_timeout(REQUEST_TIMEOUT_MS)
+            guard = None
             try:
-                response = page.goto(endpoint, wait_until='commit', timeout=REQUEST_TIMEOUT_MS)
+                guard = NavigationGuard(context, page, endpoint, f'news_group_{group}')
+                response = guard.goto(REQUEST_TIMEOUT_MS)
+                if guard.failure:
+                    return outcome(**guard.failure, group=group)
                 if response is None:
-                    return {'error': 'browser', 'group': group}
+                    return outcome(error='browser', group=group)
                 status = response.status
                 if (response.header_value('cf-mitigated') or '').lower() == 'challenge':
-                    return {'error': 'challenge', 'group': group, 'status': status}
+                    return outcome(error='challenge', group=group, status=status)
                 if status != 200:
-                    return {'error': 'http', 'group': group, 'status': status}
+                    return outcome(error='http', group=group, status=status)
                 kind = (response.header_value('content-type') or '').split(';', 1)[0].strip().lower()
                 if kind != 'application/json':
-                    return {'error': 'content', 'group': group, 'status': status}
+                    return outcome(error='content', group=group, status=status)
                 body = response.body()
                 if len(body) > MAX_RESPONSE_BYTES:
-                    return {'error': 'size', 'group': group}
+                    return outcome(error='size', group=group)
                 try:
                     payload = json.loads(body)
                 except (ValueError, UnicodeError):
-                    return {'error': 'schema', 'group': group}
+                    return outcome(error='schema', group=group)
                 if not isinstance(payload, dict) or not isinstance(payload.get('news_list'), list):
-                    return {'error': 'schema', 'group': group}
+                    return outcome(error='schema', group=group)
                 payloads.append({'news_list': [_article_metadata(item) for item in payload['news_list']
                                               if isinstance(item, dict)]})
+            except Exception:
+                # Keep observed navigation counts even if reading the body fails.
+                return outcome(error='browser', group=group)
             finally:
-                page.close()
-        return {'payloads': payloads}
+                try:
+                    page.close()
+                finally:
+                    if guard:
+                        network.append(guard.accounting())
+                        guard.close()
+        return outcome(payloads=payloads)
     finally:
         if launcher:
             launcher.close()

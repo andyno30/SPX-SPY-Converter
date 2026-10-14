@@ -17,6 +17,7 @@ class BrowserFetchTests(unittest.TestCase):
     def setup_browser(self, *, status=200, kind='application/json', challenge=None, payload=None):
         playwright = Mock()
         context = playwright.chromium.launch_persistent_context.return_value
+        context.new_cdp_session.return_value.send.return_value = {'frameTree': {'frame': {'id': 'fixture'}}}
         page = context.new_page.return_value
         response = page.goto.return_value
         response.status = status
@@ -41,7 +42,8 @@ class BrowserFetchTests(unittest.TestCase):
     def test_challenge_stops_before_body_second_request_or_interaction(self):
         pw, context, page, response = self.setup_browser(status=403, kind='text/html', challenge='challenge')
         result = browser._fetch_with_browser(pw, 'temporary-profile')
-        self.assertEqual(result, {'error': 'challenge', 'group': 1, 'status': 403})
+        self.assertEqual({k:v for k,v in result.items() if k != 'network'},
+                         {'error': 'challenge', 'group': 1, 'status': 403})
         page.goto.assert_called_once()
         response.body.assert_not_called()
         page.close.assert_called_once()
@@ -64,7 +66,19 @@ class BrowserFetchTests(unittest.TestCase):
     def test_network_exception_closes_page_and_browser(self):
         pw, context, page, _ = self.setup_browser()
         page.goto.side_effect = RuntimeError('private diagnostic fixture')
-        with self.assertRaises(RuntimeError): browser._fetch_with_browser(pw, 'temporary-profile')
+        result = browser._fetch_with_browser(pw, 'temporary-profile')
+        self.assertEqual(result['error'], 'browser')
+        self.assertFalse(result['network'][0]['complete'])
+        page.close.assert_called_once()
+        context.close.assert_called_once()
+
+    def test_body_failure_keeps_accounting_without_exposing_exception(self):
+        pw, context, page, response = self.setup_browser()
+        response.body.side_effect = RuntimeError('private diagnostic fixture')
+        result = browser._fetch_with_browser(pw, 'temporary-profile')
+        self.assertEqual(result['error'], 'browser')
+        self.assertEqual(len(result['network']), 1)
+        self.assertNotIn('private diagnostic fixture', json.dumps(result))
         page.close.assert_called_once()
         context.close.assert_called_once()
 
@@ -107,9 +121,11 @@ class WorkerIsolationTests(unittest.TestCase):
             with patch.object(browser, 'ROOT', Path(root)), \
                     patch.dict(os.environ, {'UPSTREAM_ACCESS_TOKEN': 'private-fixture', 'SERVICE_ROLE_KEY': 'private-fixture'}), \
                     patch.object(browser.subprocess, 'Popen', return_value=process) as popen, \
-                    patch.object(browser, '_stop_worker') as stop:
+                    patch.object(browser, '_stop_worker') as stop, \
+                    patch.object(browser, 'emit_accounting') as accounting:
                 with self.assertRaisesRegex(browser.NewsBrowserError, '90-second timeout'):
                     browser.fetch_news_payloads()
+                accounting.assert_called_once_with(None)
             command = popen.call_args.args[0]
             self.assertFalse(Path(command[-1]).exists())
             self.assertNotIn('UPSTREAM_ACCESS_TOKEN', popen.call_args.kwargs['env'])

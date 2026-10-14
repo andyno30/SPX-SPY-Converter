@@ -29,6 +29,7 @@ class BrowserFetchTests(unittest.TestCase):
         playwright = Mock()
         engine = playwright.chromium.launch.return_value
         context = engine.new_context.return_value
+        context.new_cdp_session.return_value.send.return_value = {'frameTree': {'frame': {'id': 'fixture'}}}
         page = context.new_page.return_value
         response = page.goto.return_value
         response.status = 200
@@ -48,26 +49,21 @@ class BrowserFetchTests(unittest.TestCase):
         context.close.assert_called_once()
         engine.close.assert_called_once()
 
-    def test_redirects_other_origins_and_subresources_are_blocked(self):
-        pw, _, context, _, _ = self.setup_browser()
+    def test_uses_cdp_guard_instead_of_single_hop_route(self):
+        pw, _, context, page, _ = self.setup_browser()
         browser._fetch_with_browser(pw, 'SPY', 'private-fixture')
-        handler = context.route.call_args.args[1]
-        endpoint = 'https://saveticker.com/api/stocks/api/v1/tickers/SPY/options'
-        for url, kind, redirected, allowed in ((endpoint, 'document', None, True),
-                (endpoint, 'document', Mock(), False), (endpoint, 'image', None, False),
-                ('https://example.test/', 'document', None, False),
-                (endpoint.replace('SPY', 'QQQ'), 'document', None, False)):
-            route = Mock()
-            route.request.url = url; route.request.resource_type = kind; route.request.redirected_from = redirected
-            handler(route)
-            self.assertEqual(route.continue_.called, allowed)
-            self.assertEqual(route.abort.called, not allowed)
+        context.route.assert_not_called()
+        context.new_cdp_session.assert_called_once_with(page)
+        commands = [call.args[0] for call in context.new_cdp_session.return_value.send.call_args_list]
+        self.assertIn('Fetch.enable', commands)
+        page.close.assert_called_once()
 
     def test_challenge_stops_without_reading_body_or_retrying(self):
         pw, engine, context, page, response = self.setup_browser()
         response.status = 403
         response.header_value.side_effect = lambda name: 'challenge' if name == 'cf-mitigated' else 'text/html'
-        self.assertEqual(browser._fetch_with_browser(pw, 'SPY', 'private-fixture'), {'error':'challenge','status':403})
+        result = browser._fetch_with_browser(pw, 'SPY', 'private-fixture')
+        self.assertEqual({k:v for k,v in result.items() if k != 'network'}, {'error':'challenge','status':403})
         response.body.assert_not_called(); page.goto.assert_called_once()
         context.close.assert_called_once(); engine.close.assert_called_once()
 
@@ -88,8 +84,19 @@ class BrowserFetchTests(unittest.TestCase):
     def test_network_error_still_closes_context_and_browser(self):
         pw, engine, context, page, _ = self.setup_browser()
         page.goto.side_effect = RuntimeError('private fixture')
-        with self.assertRaises(RuntimeError): browser._fetch_with_browser(pw, 'SPY', 'private-fixture')
+        result = browser._fetch_with_browser(pw, 'SPY', 'private-fixture')
+        self.assertEqual(result['error'], 'browser')
+        self.assertFalse(result['network'][0]['complete'])
         context.close.assert_called_once(); engine.close.assert_called_once()
+
+    def test_body_failure_keeps_accounting_without_exposing_exception(self):
+        pw, engine, context, page, response = self.setup_browser()
+        response.body.side_effect = RuntimeError('private diagnostic fixture')
+        result = browser._fetch_with_browser(pw, 'SPY', 'private-fixture')
+        self.assertEqual(result['error'], 'browser')
+        self.assertEqual(len(result['network']), 1)
+        self.assertNotIn('private diagnostic fixture', json.dumps(result))
+        page.close.assert_called_once(); context.close.assert_called_once(); engine.close.assert_called_once()
 
     def test_mac_integration_preserves_normalization_and_gamma_revision(self):
         with patch.object(fallback.sys, 'platform', 'darwin'), \
@@ -120,9 +127,11 @@ class WorkerIsolationTests(unittest.TestCase):
         with patch.object(Path,'is_file',return_value=True), \
                 patch.dict(os.environ,{'SERVICE_ROLE_KEY':'backend-fixture','UPSTREAM_ACCESS_TOKEN':'private-fixture'}), \
                 patch.object(browser.subprocess,'Popen',return_value=process) as popen, \
-                patch.object(browser,'_stop_worker') as stop:
+                patch.object(browser,'_stop_worker') as stop, \
+                patch.object(browser,'emit_accounting') as accounting:
             with self.assertRaisesRegex(browser.OptionsBrowserError,'60-second'):
                 browser.fetch_options_payload('SPY','private-fixture')
+            accounting.assert_called_once_with(None)
         command=popen.call_args.args[0]; settings=popen.call_args.kwargs
         self.assertNotIn('private-fixture',json.dumps(command))
         self.assertNotIn('private-fixture',json.dumps(settings['env']))

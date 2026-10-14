@@ -91,8 +91,8 @@ class WorkerIntegrationTests(unittest.TestCase):
         launcher.new_page.return_value = page
         page.goto.side_effect = [response, RuntimeError('local timeout fixture')]
         with patch.object(bg, 'BackgroundBrowser', return_value=launcher):
-            with self.assertRaises(RuntimeError):
-                news_browser._fetch_with_browser(pw, 'unused', background=True)
+            result = news_browser._fetch_with_browser(pw, 'unused', background=True)
+            self.assertEqual(result['error'], 'browser')
         launcher.close.assert_called_once()
         self.assertEqual(page.close.call_count, 2)
 

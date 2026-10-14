@@ -64,10 +64,9 @@ def worker(directory, kind, ticker, fault):
 
             def create_context(**kwargs):
                 context = original_context(**kwargs)
-                real_route = context.route
-                # Worker installs its usual exact-endpoint policy; fixture responses
-                # replace transmission. Existing unit tests verify that policy.
-                context.route = lambda pattern, handler: real_route(pattern, fixtures)
+                # CDP guards the navigation; this route supplies local fixture
+                # content. DNS and proxy restrictions independently deny egress.
+                context.route('**/*', fixtures)
                 return context
             engine.new_context = create_context
         original_page = engine.new_page
@@ -82,11 +81,8 @@ def worker(directory, kind, ticker, fault):
                 if fault == 'timeout':
                     kwargs['timeout'] = 150
                 response = goto(url, **kwargs)
-                if not fault:
-                    for _ in range(2):
-                        response.body()
-                        page.wait_for_load_state('load', timeout=25000)
-                        response = page.reload(wait_until='commit', timeout=25000)
+                # Each API navigation has a one-request budget. Repeated cold
+                # starts are covered by the separate worker cases, not reloads.
                 if fault in ('sigterm', 'sigkill'):
                     (directory / 'ready-to-kill').touch()
                     while True:
@@ -104,12 +100,18 @@ def worker(directory, kind, ticker, fault):
                 patch.object(bg, 'BackgroundBrowser', side_effect=factory), sync_playwright() as playwright:
             if kind == 'news':
                 payload = news_browser._fetch_with_browser(playwright, 'unused', background=True)
+                if payload.get('error'):
+                    result['error_type'] = 'guarded_navigation_failure'
                 result['schema_ok'] = (len(payload.get('payloads', [])) == 2 and
                     all(local_fallback.normalize_news_row(p['news_list'][0]) for p in payload['payloads']))
             else:
                 payload = options_browser._fetch_with_browser(playwright, ticker, 'local-fixture-only', background=True)
-                normalized = local_fallback.normalize_options(payload['payload'], ticker)
-                result['schema_ok'] = normalized['symbol'] == ticker and 'gammaUpdatedAt' in payload['payload']
+                if payload.get('error'):
+                    result['error_type'] = 'guarded_navigation_failure'
+                    result['schema_ok'] = False
+                else:
+                    normalized = local_fallback.normalize_options(payload['payload'], ticker)
+                    result['schema_ok'] = normalized['symbol'] == ticker and 'gammaUpdatedAt' in payload['payload']
     except BaseException as error:
         result['error_type'] = type(error).__name__
     result['fixture_requests'] = count
