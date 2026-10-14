@@ -12,14 +12,19 @@ or browser automation are needed. The importer never contacts SaveTicker.
    python3 scripts/manual_json_import.py
    ```
 
-3. Paste the JSON. Input is hidden to avoid filling Terminal with the response.
+3. Paste the JSON. Input remains visible in Terminal.
    Multiline and long single-line JSON are supported.
 4. Press **Enter**, type **END** on its own line, then press **Enter** again.
+   Review the detected ticker or Reuters/FJ feed, article counts, and JSON
+   validation status. Type **y** or **yes** to import; Enter or **n** cancels.
    Ctrl-C cancels before importing while you are entering JSON.
 
 The importer detects Options by `symbol` and News by `news_list`. You do not
 need to select a ticker or News group. It reports `inserted`, `updated`,
 `skipped`, and `errors`, with reasons for Options skips and a final total.
+Malformed JSON reports its line, column and reason without quoting field names,
+values or surrounding input. Duplicate keys and non-finite numbers are rejected
+with their location as well.
 A nonzero exit status indicates an error; successfully completed items are not
 rolled back. If a network failure makes a write outcome uncertain, the report
 says so and does not retry automatically. Reimporting safely rechecks the cache
@@ -60,8 +65,9 @@ only the API JSON response body.
 Before a real import, the complete original input (including extra Options
 fields and `gammaUpdatedAt`) is saved under `.local-fallback/manual-imports/`.
 On macOS the directory is private (`0700`) and each file is owner-only (`0600`).
-The existing Git ignore covers this directory. Pasted content and credentials
-are not printed in reports. Dry-run and validate-only modes create no archive.
+The existing Git ignore covers this directory. Pasted content is visible during
+interactive entry; credentials and response contents are not repeated in
+validation or import reports. Dry-run and validate-only modes create no archive.
 You may save downloaded JSON files in this directory to keep them Git-ignored.
 Supabase receives the existing normalized schema, not the private raw archive;
 website payloads and security remain unchanged.

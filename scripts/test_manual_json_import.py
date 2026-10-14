@@ -364,44 +364,118 @@ class ImportTests(unittest.TestCase):
         self.assertIn('would_update=1',total)
         self.assertEqual(db.writes,[])
 
+    def test_json_errors_include_line_column_without_input_values(self):
+        cases=[
+            ('{\n  "news_list": []\n  "secret": "not-for-reports"\n}',3,3,"Expecting ',' delimiter"),
+            ('{\n  "news_list": [\n}',3,1,'Expecting value'),
+            ('{\n "secret-key": "not-for-reports",\n "secret-key": 2\n}',3,2,'Duplicate object key'),
+            ('{\n "x": NaN\n}',2,7,'Non-finite number'),
+            ('{\n "x": Infinity\n}',2,7,'Non-finite number'),
+            ('{\n "x": -Infinity\n}',2,7,'Non-finite number'),
+            ('{\n "x": 1e999\n}',2,7,'Non-finite number'),
+        ]
+        for text,line,column,reason in cases:
+            with self.subTest(reason=reason,text=text):
+                with self.assertRaises(fallback.SafeError) as caught:
+                    importer.decode(text)
+                message=str(caught.exception)
+                self.assertIn(f'line {line}, column {column}',message)
+                self.assertIn(reason,message)
+                self.assertNotIn('not-for-reports',message)
+                self.assertNotIn('secret-key',message)
+                code,output,credentials=self.cli(text)
+                self.assertEqual(code,1)
+                self.assertIn(f'line {line}, column {column}',output)
+                self.assertNotIn('not-for-reports',output)
+                credentials.assert_not_called()
+
+    def test_duplicate_location_respects_nested_objects_strings_and_escaped_keys(self):
+        text=r'{"outer": [{"key": "NaN, {not a key}", "k\u0065y": 2}]}'
+        with self.assertRaises(fallback.SafeError) as caught:
+            importer.decode(text)
+        position=text.index('"k'+chr(92))+1
+        self.assertIn(f'line 1, column {position}',str(caught.exception))
+        self.assertEqual(importer.decode('{"left":{"key":1},"right":{"key":2},"string":"NaN Infinity 1e999"}')[0]['right'],{'key':2})
+
+    def test_terminal_confirmation_precedes_database_and_archives(self):
+        class Terminal(io.StringIO):
+            def isatty(self): return True
+        for raw in (option(),importer.decode(FIXTURE.read_text())[0]):
+            for answer,expected in (('yes',1),('y',1),('no',0),('',0)):
+                with self.subTest(news='news_list' in raw,answer=answer):
+                    output=io.StringIO();db=MemoryDB()
+                    stream=Terminal(json.dumps(raw,indent=2)+'\nEND\n'+answer+'\n')
+                    with patch.object(importer,'paste_mode',contextlib.nullcontext), \
+                         patch.object(fallback,'single_run',contextlib.nullcontext), \
+                         patch.object(fallback,'load_credentials',return_value={}) as credentials, \
+                         patch.object(fallback,'Database',return_value=db), \
+                         patch.object(importer,'OptionsRevisions',return_value=self.revisions), \
+                         patch.object(importer,'archive') as archive:
+                        code=importer.main([],stdin=stream,stdout=output)
+                    self.assertEqual(code,0)
+                    self.assertEqual(credentials.call_count,expected)
+                    self.assertEqual(archive.call_count,expected)
+                    self.assertIn('JSON validation PASSED',output.getvalue())
+                    if 'news_list' in raw:
+                        self.assertIn('4 articles received',output.getvalue())
+                        self.assertIn('Reuters / Financial Juice News feed',output.getvalue())
+                    else:
+                        self.assertIn('detected ticker SPY',output.getvalue())
+                    if not expected: self.assertEqual(db.writes,[])
+
     @unittest.skipUnless(os.name=='posix','PTY regression requires POSIX')
-    def test_terminal_accepts_large_single_line_and_restores_settings(self):
+    def test_terminal_accepts_visible_large_pastes_and_restores_settings(self):
         import pty
         import select
         import signal
         import termios
+        import threading
         import time
-        for cancel in (False,True):
-            with self.subTest(cancel=cancel):
+        cases=[('long',json.dumps({'news_list':[], 'unused':'x'*150000}),False),
+               ('multiline',FIXTURE.read_text(),False),
+               ('cancel','',True)]
+        for name,text,cancel in cases:
+            with self.subTest(case=name):
                 master,slave=pty.openpty()
                 before=termios.tcgetattr(slave)
                 process=subprocess.Popen([sys.executable,'-B',str(Path(importer.__file__)),'--validate-only'],
                                          stdin=slave,stdout=slave,stderr=slave)
-                output=b''
+                output=bytearray()
+                writer=None
+                def drain_until(condition):
+                    end=time.monotonic()+15
+                    while not condition():
+                        if time.monotonic()>end: self.fail('Terminal fixture timed out')
+                        if select.select([master],[],[],.05)[0]: output.extend(os.read(master,65536))
                 try:
-                    end=time.monotonic()+10
-                    while b'Ctrl-C cancels before any import.' not in output and time.monotonic()<end:
-                        if select.select([master],[],[],.1)[0]: output+=os.read(master,65536)
-                    self.assertIn(b'Ctrl-C cancels before any import.',output)
+                    drain_until(lambda:b'Ctrl-C cancels before any import.' in output)
+                    self.assertIn(b'Input is visible.',output)
                     if cancel:
                         process.send_signal(signal.SIGINT)
                     else:
-                        text=json.dumps({'news_list':[], 'unused':'x'*150000}).encode()+b'\nEND\n'
-                        for offset in range(0,len(text),4096):
-                            chunk=memoryview(text[offset:offset+4096])
-                            while chunk:
-                                chunk=chunk[os.write(master,chunk):]
-                    process.wait(timeout=10)
-                    while select.select([master],[],[],.05)[0]: output+=os.read(master,65536)
-                    self.assertEqual(process.returncode,130 if cancel else 0,output.decode(errors='replace'))
+                        data=(text+'\nEND\n').encode()
+                        def write_paste():
+                            remaining=memoryview(data)
+                            while remaining:
+                                remaining=remaining[os.write(master,remaining[:4096]):]
+                        # Drain echo while writing; a real Terminal does this too.
+                        writer=threading.Thread(target=write_paste,daemon=True)
+                        writer.start()
+                    drain_until(lambda:process.poll() is not None)
+                    while select.select([master],[],[],.05)[0]: output.extend(os.read(master,65536))
+                    if writer:
+                        writer.join(timeout=1)
+                        self.assertFalse(writer.is_alive())
+                    self.assertEqual(process.returncode,130 if cancel else 0)
                     after=termios.tcgetattr(slave)
-                    # macOS sets PENDIN itself when canonical mode is restored;
-                    # it is kernel input state, not a persistent mode change.
+                    # macOS sets PENDIN itself when canonical mode is restored.
                     for settings in (before,after):
                         settings[3] &= ~getattr(termios,'PENDIN',0)
                     self.assertEqual(after,before)
-                    if not cancel: self.assertIn(b'valid; 0 eligible records',output)
-                    self.assertNotIn(b'x'*1000,output)
+                    if not cancel:
+                        self.assertIn(b'no database access',output)
+                        self.assertIn(b'"news_list"',output)
+                    if name=='long': self.assertIn(b'x'*1000,output)
                 finally:
                     if process.poll() is None:
                         process.kill();process.wait()

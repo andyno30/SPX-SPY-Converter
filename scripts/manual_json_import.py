@@ -8,8 +8,10 @@ from contextlib import contextmanager
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 import json
+import math
 import os
 from pathlib import Path
+import re
 import sys
 import tempfile
 
@@ -67,16 +69,79 @@ def _reject_constant(value):
     raise ValueError('Non-finite JSON number')
 
 
+def _strict_json_location(text):
+    """Locate duplicate keys/non-finite numbers without returning input contents.
+
+    The standard decoder remains authoritative. This scan runs only after its
+    strict hooks or finite-number check reject input without a source position.
+    Quoted strings are one token, so their contents cannot be mistaken for keys,
+    nesting, or numeric literals.
+    """
+    tokens = re.finditer(r'"(?:\\.|[^"\\])*"|[{}\[\],:]|'
+                         r'-?(?:Infinity|NaN|(?:0|[1-9][0-9]*)(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?)', text)
+    stack = []
+    for token in tokens:
+        value = token.group()
+        if value == '{':
+            stack.append({'keys': set(), 'expect_key': True})
+        elif value == '[':
+            stack.append(None)
+        elif value in ('}', ']'):
+            if stack:
+                stack.pop()
+        elif value == ',':
+            if stack and stack[-1] is not None:
+                stack[-1]['expect_key'] = True
+        elif value.startswith('"'):
+            if stack and stack[-1] is not None and stack[-1]['expect_key']:
+                key = json.loads(value)
+                if key in stack[-1]['keys']:
+                    return token.start(), 'Duplicate object key'
+                stack[-1]['keys'].add(key)
+                stack[-1]['expect_key'] = False
+        elif value != ':':
+            if any(c in value for c in '.eE') or value in ('NaN', 'Infinity', '-Infinity'):
+                if not math.isfinite(float(value)):
+                    return token.start(), 'Non-finite number is not allowed'
+            elif (limit := getattr(sys, 'get_int_max_str_digits', lambda: 0)()):
+                if len(value.lstrip('-')) > limit:
+                    return token.start(), 'Integer exceeds the JSON parser limit'
+    return None
+
+
+def _json_error(text, position, reason):
+    line = text.count('\n', 0, position) + 1
+    column = position - text.rfind('\n', 0, position)
+    # Never include a source excerpt, key, value or arbitrary exception string.
+    return fallback.SafeError(f'Invalid JSON at line {line}, column {column}: '
+                              f'{reason}. No data imported.')
+
+
 def decode(text):
     if len(text.encode('utf-8')) > MAX_BYTES:
         raise fallback.SafeError('Input exceeds the 8 MiB limit; no data imported.')
+    text = text.lstrip('\ufeff')
     try:
-        value = json.loads(text.lstrip('\ufeff'), object_pairs_hook=_unique_object,
+        value = json.loads(text, object_pairs_hook=_unique_object,
                            parse_constant=_reject_constant)
         # Reject overflow such as 1e999 as well as literal NaN/Infinity.
         json.dumps(value, allow_nan=False)
-    except (ValueError, UnicodeError, OverflowError, RecursionError):
-        raise fallback.SafeError('Invalid JSON (including duplicate keys or non-finite numbers); no data imported.') from None
+    except json.JSONDecodeError as error:
+        reasons = {
+            'Expecting value', 'Expecting property name enclosed in double quotes',
+            "Expecting ':' delimiter", "Expecting ',' delimiter", 'Extra data',
+            'Unterminated string starting at', 'Invalid \\escape',
+            'Invalid \\uXXXX escape', 'Invalid control character at',
+        }
+        reason = error.msg if error.msg in reasons else 'Invalid JSON syntax'
+        raise _json_error(text, error.pos, reason) from None
+    except ValueError:
+        location = _strict_json_location(text)
+        if location is not None:
+            raise _json_error(text, *location) from None
+        raise fallback.SafeError('Invalid JSON; parser limit exceeded. No data imported.') from None
+    except (UnicodeError, OverflowError, RecursionError):
+        raise fallback.SafeError('Invalid JSON; encoding or parser limit exceeded. No data imported.') from None
     documents = value if isinstance(value, list) else [value]
     if not documents or len(documents) > MAX_DOCUMENTS or any(not isinstance(d, dict) for d in documents):
         raise fallback.SafeError('Expected one JSON object or an array of up to 100 response objects.')
@@ -210,13 +275,13 @@ def archive(text):
 @contextmanager
 def paste_mode(stream):
     # macOS canonical TTY input truncates long single-line JSON. Turn it off only
-    # while pasting; also avoid echoing the full response into terminal scrollback.
+    # while pasting, keeping echo enabled so the pasted JSON remains visible.
     saved = None
     if stream.isatty() and os.name == 'posix':
         import termios
         saved = termios.tcgetattr(stream.fileno())
         mode = termios.tcgetattr(stream.fileno())
-        mode[3] &= ~(termios.ICANON | termios.ECHO)
+        mode[3] = (mode[3] & ~termios.ICANON) | termios.ECHO
         mode[6][termios.VMIN], mode[6][termios.VTIME] = 1, 0
         termios.tcsetattr(stream.fileno(), termios.TCSANOW, mode)
     try:
@@ -233,7 +298,7 @@ def read_input(stream, output):
         parts, length = [], 0
         with paste_mode(stream):
             output.write('Paste the complete News or Options JSON (multiline is OK).\n'
-                         'Input is hidden. After pasting, press Enter, type END on its own line, then press Enter.\n'
+                         'Input is visible. After pasting, press Enter, type END on its own line, then press Enter.\n'
                          'Ctrl-C cancels before any import.\n')
             output.flush()
             while True:
@@ -251,6 +316,27 @@ def read_input(stream, output):
     if len(text.encode('utf-8')) > MAX_BYTES:
         raise fallback.SafeError('Input exceeds the 8 MiB limit; no data imported.')
     return text
+
+
+def confirm_import(items, reports, stream, output):
+    print('Review before importing:', file=output)
+    for report in reports:
+        print(f'{report.label}: validation FAILED; excluded. {report.detail}', file=output)
+    for item in items:
+        if item.kind == 'options':
+            detail = f'detected ticker {item.payload["symbol"]}; 1 Options record'
+        else:
+            sources = ', '.join(f'{source}: {sum(row["source"] == source for row in item.rows)}'
+                                for source in fallback.SOURCE_LABELS.values())
+            detail = (f'detected Reuters / Financial Juice News feed; '
+                      f'{len(item.rows) + item.skipped} articles received, '
+                      f'{len(item.rows)} eligible ({sources}), '
+                      f'{item.skipped} filtered/duplicate articles')
+        print(f'{item.label}: JSON validation PASSED; {detail}.', file=output)
+    print('Existing Supabase freshness, duplicate and manual-data protections still apply.', file=output)
+    output.write('Import the validated inputs into Supabase? [y/N]: ')
+    output.flush()
+    return stream.readline(128).strip().lower() in ('y', 'yes')
 
 
 def main(argv=None, *, stdin=None, stdout=None):
@@ -301,6 +387,10 @@ def main(argv=None, *, stdin=None, stdout=None):
                 count = len(item.rows) if item.kind == 'news' else 1
                 reports.append(Report(item.label, skipped=item.skipped, detail=f'valid; {count} eligible records; no database access'))
         elif items:
+            if stdin.isatty() and not args.dry_run:
+                if not confirm_import(items, reports, stdin, stdout):
+                    print('Cancelled; no Supabase access or import archives created.', file=stdout)
+                    return 1 if reports else 0
             # Share the existing lock/provenance file, but never hold it while the
             # user is pasting. This does not alter or stop the scheduled updater.
             with fallback.single_run():
