@@ -7,6 +7,7 @@ import argparse
 from contextlib import contextmanager
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
+import io
 import json
 import math
 import os
@@ -274,8 +275,8 @@ def archive(text):
 
 @contextmanager
 def paste_mode(stream):
-    # macOS canonical TTY input truncates long single-line JSON. Turn it off only
-    # while pasting, keeping echo enabled so the pasted JSON remains visible.
+    # macOS canonical TTY input truncates long single-line JSON. Turn it off
+    # during the interactive session, keeping pasted JSON visible.
     saved = None
     if stream.isatty() and os.name == 'posix':
         import termios
@@ -291,26 +292,70 @@ def paste_mode(stream):
             termios.tcsetattr(stream.fileno(), termios.TCSANOW, saved)
 
 
+class JSONBoundary:
+    """Find a complete response incrementally; decode() still validates it."""
+
+    def __init__(self):
+        self.stack = []
+        self.started = self.quoted = self.escaped = False
+
+    def feed(self, text):
+        for char in text:
+            if self.quoted:
+                if char in '\r\n':
+                    return True  # Invalid raw newline: report the decoder error.
+                if self.escaped:
+                    self.escaped = False
+                elif char == '\\':
+                    self.escaped = True
+                elif char == '"':
+                    self.quoted = False
+            elif not self.started:
+                if char.isspace() or char == '\ufeff':
+                    continue
+                self.started = True
+                if char not in '{[':
+                    return True  # Response objects/arrays only; validate now.
+                self.stack.append('}' if char == '{' else ']')
+            elif char == '"':
+                self.quoted = True
+            elif char in '{[':
+                self.stack.append('}' if char == '{' else ']')
+            elif char in '}]':
+                if not self.stack or char != self.stack.pop() or not self.stack:
+                    return True
+        return False
+
+
 def read_input(stream, output):
     if not stream.isatty():
         text = stream.read(MAX_BYTES + 1)
     else:
-        parts, length = [], 0
+        parts, length, boundary = [], 0, JSONBoundary()
         with paste_mode(stream):
-            output.write('Paste the complete News or Options JSON (multiline is OK).\n'
-                         'Input is visible. After pasting, press Enter, type END on its own line, then press Enter.\n'
-                         'Ctrl-C cancels before any import.\n')
+            output.write('Paste News or Options JSON and press Enter. Input is visible.\n'
+                         'Complete responses are processed automatically; multiline JSON is supported.\n'
+                         'Paste another response after the result, or type QUIT and press Enter to exit.\n'
+                         'Ctrl-C cancels the current operation.\n')
             output.flush()
             while True:
                 line = stream.readline(MAX_BYTES + 1)
                 if not line:
-                    raise fallback.SafeError('Paste ended before END; no data imported.')
-                if line.strip() == 'END':
+                    if not parts:
+                        return None
                     break
+                if line.strip().upper() == 'QUIT':
+                    if parts:
+                        output.write('Unfinished JSON discarded.\n')
+                    return None
+                if not parts and not line.strip():
+                    continue
                 length += len(line.encode('utf-8'))
                 if length > MAX_BYTES:
                     raise fallback.SafeError('Input exceeds the 8 MiB limit; no data imported.')
                 parts.append(line)
+                if boundary.feed(line):
+                    break
         text = ''.join(parts)
         output.write('JSON received.\n')
     if len(text.encode('utf-8')) > MAX_BYTES:
@@ -318,8 +363,8 @@ def read_input(stream, output):
     return text
 
 
-def confirm_import(items, reports, stream, output):
-    print('Review before importing:', file=output)
+def show_validation(items, reports, output):
+    print('Detected input:', file=output)
     for report in reports:
         print(f'{report.label}: validation FAILED; excluded. {report.detail}', file=output)
     for item in items:
@@ -334,19 +379,9 @@ def confirm_import(items, reports, stream, output):
                       f'{item.skipped} filtered/duplicate articles')
         print(f'{item.label}: JSON validation PASSED; {detail}.', file=output)
     print('Existing Supabase freshness, duplicate and manual-data protections still apply.', file=output)
-    output.write('Import the validated inputs into Supabase? [y/N]: ')
-    output.flush()
-    return stream.readline(128).strip().lower() in ('y', 'yes')
 
 
-def main(argv=None, *, stdin=None, stdout=None):
-    stdin, stdout = stdin or sys.stdin, stdout or sys.stdout
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('files', nargs='*', type=Path, help='Local JSON files; omit to paste or pipe JSON')
-    modes = parser.add_mutually_exclusive_group()
-    modes.add_argument('--dry-run', action='store_true', help='Compare with Supabase; no writes or archives')
-    modes.add_argument('--validate-only', action='store_true', help='Validate locally; no credentials, database access or archives')
-    args = parser.parse_args(argv)
+def import_once(args, stdin, stdout, *, preview=False):
     reports, items, originals = [], [], []
     try:
         tickers = fallback.allowed_tickers()
@@ -382,15 +417,13 @@ def main(argv=None, *, stdin=None, stdout=None):
                     seen_news.add(key)
                     unique.append(row)
             item.rows = unique
+        if preview and items:
+            show_validation(items, reports, stdout)
         if args.validate_only:
             for item in items:
                 count = len(item.rows) if item.kind == 'news' else 1
                 reports.append(Report(item.label, skipped=item.skipped, detail=f'valid; {count} eligible records; no database access'))
         elif items:
-            if stdin.isatty() and not args.dry_run:
-                if not confirm_import(items, reports, stdin, stdout):
-                    print('Cancelled; no Supabase access or import archives created.', file=stdout)
-                    return 1 if reports else 0
             # Share the existing lock/provenance file, but never hold it while the
             # user is pasting. This does not alter or stop the scheduled updater.
             with fallback.single_run():
@@ -435,6 +468,47 @@ def main(argv=None, *, stdin=None, stdout=None):
     total = Report('TOTAL', **{name: sum(getattr(r, name) for r in reports) for name in fields})
     print(total.line(), file=stdout)
     return 1 if total.errors else 0
+
+
+def interactive_session(args, stdin, stdout):
+    status = 0
+    try:
+        # Stay noncanonical while importing too: a queued next paste must not
+        # be truncated by the terminal's canonical single-line input limit.
+        # No database lock is held while waiting for the next response.
+        with paste_mode(stdin):
+            while True:
+                text = read_input(stdin, stdout)
+                if text is None:
+                    print('Session ended.', file=stdout)
+                    return status
+                result = import_once(args, io.StringIO(text), stdout, preview=True)
+                stdout.flush()
+                if result == 130:
+                    return result
+                status = max(status, result)
+    except KeyboardInterrupt:
+        print('\nSession ended; unfinished JSON discarded. Completed imports remain.', file=stdout)
+        return 130
+    except fallback.SafeError as error:
+        print(str(error), file=stdout)
+        return 1
+    except (OSError, UnicodeError):
+        print('Terminal input error; session stopped.', file=stdout)
+        return 1
+
+
+def main(argv=None, *, stdin=None, stdout=None):
+    stdin, stdout = stdin or sys.stdin, stdout or sys.stdout
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('files', nargs='*', type=Path, help='Local JSON files; omit to paste or pipe JSON')
+    modes = parser.add_mutually_exclusive_group()
+    modes.add_argument('--dry-run', action='store_true', help='Compare with Supabase; no writes or archives')
+    modes.add_argument('--validate-only', action='store_true', help='Validate locally; no credentials, database access or archives')
+    args = parser.parse_args(argv)
+    if not args.files and stdin.isatty():
+        return interactive_session(args, stdin, stdout)
+    return import_once(args, stdin, stdout)
 
 
 if __name__ == '__main__':

@@ -12,12 +12,21 @@ or browser automation are needed. The importer never contacts SaveTicker.
    python3 scripts/manual_json_import.py
    ```
 
-3. Paste the JSON. Input remains visible in Terminal.
-   Multiline and long single-line JSON are supported.
-4. Press **Enter**, type **END** on its own line, then press **Enter** again.
-   Review the detected ticker or Reuters/FJ feed, article counts, and JSON
-   validation status. Type **y** or **yes** to import; Enter or **n** cancels.
-   Ctrl-C cancels before importing while you are entering JSON.
+3. Paste one complete JSON response and press **Enter**. Input stays visible.
+   Multiline and long single-line JSON are supported; the importer detects the
+   closing JSON boundary and validates the entire response before any write.
+4. Valid JSON imports immediately under the existing Supabase protections.
+   No `END` marker or confirmation is needed. The result includes the detected
+   ticker or Reuters/FJ feed, validation status and inserted/updated/skipped counts.
+5. Paste the next response and press **Enter** without restarting the command.
+   Type **QUIT** on its own line and press **Enter** to exit, or use **Ctrl-C**.
+   QUIT discards any unfinished paste; completed imports remain.
+
+Each response is handled separately. An invalid complete response reports its
+error and leaves the session ready for another paste. A response missing its
+closing brace/bracket waits for the remaining JSON. The database lock is
+released between imports, including while waiting for more input. File and
+pipe commands still process their input once and exit.
 
 The importer detects Options by `symbol` and News by `news_list`. You do not
 need to select a ticker or News group. It reports `inserted`, `updated`,

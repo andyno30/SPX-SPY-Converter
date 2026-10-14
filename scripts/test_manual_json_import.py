@@ -314,18 +314,34 @@ class ImportTests(unittest.TestCase):
             with self.subTest(raw=raw),self.assertRaises(fallback.SafeError):
                 self.prepared(raw)
 
-    def test_size_limit_and_multiline_finish(self):
+    def test_size_limit_and_automatic_multiline_finish(self):
         class Terminal(io.StringIO):
             def isatty(self): return True
         text=json.dumps(option(),indent=2)+'\n'
         output=io.StringIO()
         with patch.object(importer,'paste_mode',contextlib.nullcontext):
-            self.assertEqual(importer.read_input(Terminal(text+'END\n'),output),text)
-            with self.assertRaises(fallback.SafeError):
-                importer.read_input(Terminal(text),output)
-        self.assertIn('END on its own line',output.getvalue())
+            stream=Terminal(text+'QUIT\n')
+            self.assertEqual(importer.read_input(stream,output),text)
+            self.assertIsNone(importer.read_input(stream,output))
+            incomplete=importer.read_input(Terminal('{\n'),output)
+            with self.assertRaises(fallback.SafeError): importer.decode(incomplete)
+        self.assertIn('Complete responses are processed automatically',output.getvalue())
         with patch.object(importer,'MAX_BYTES',10):
             with self.assertRaises(fallback.SafeError): importer.decode(' '*11)
+            with patch.object(importer,'paste_mode',contextlib.nullcontext):
+                with self.assertRaises(fallback.SafeError): importer.read_input(Terminal(text),output)
+
+    def test_boundary_handles_strings_escapes_nested_arrays_and_chunk_edges(self):
+        raw={'news_list':[{'title':'Braces {} [], escaped "quotes", backslash '+chr(92), 'unicode':'번역'}]}
+        text=json.dumps(raw,ensure_ascii=False)
+        boundary=importer.JSONBoundary()
+        for char in text[:-1]: self.assertFalse(boundary.feed(char))
+        self.assertTrue(boundary.feed(text[-1]))
+        self.assertTrue(importer.JSONBoundary().feed('{"news_list":[}'))
+        self.assertTrue(importer.JSONBoundary().feed('{"bad":"raw\n'))
+        self.assertTrue(importer.JSONBoundary().feed('not json'))
+        self.assertFalse(importer.JSONBoundary().feed('{\n\n "news_list": [\n'))
+
 
     def test_no_browser_fetch_from_any_import_path(self):
         with patch.object(fallback,'fetch_options',side_effect=AssertionError('fetch forbidden')), \
@@ -397,31 +413,81 @@ class ImportTests(unittest.TestCase):
         self.assertIn(f'line 1, column {position}',str(caught.exception))
         self.assertEqual(importer.decode('{"left":{"key":1},"right":{"key":2},"string":"NaN Infinity 1e999"}')[0]['right'],{'key':2})
 
-    def test_terminal_confirmation_precedes_database_and_archives(self):
+    def run_session(self, text, *, args=(), db=None):
         class Terminal(io.StringIO):
             def isatty(self): return True
-        for raw in (option(),importer.decode(FIXTURE.read_text())[0]):
-            for answer,expected in (('yes',1),('y',1),('no',0),('',0)):
-                with self.subTest(news='news_list' in raw,answer=answer):
-                    output=io.StringIO();db=MemoryDB()
-                    stream=Terminal(json.dumps(raw,indent=2)+'\nEND\n'+answer+'\n')
-                    with patch.object(importer,'paste_mode',contextlib.nullcontext), \
-                         patch.object(fallback,'single_run',contextlib.nullcontext), \
-                         patch.object(fallback,'load_credentials',return_value={}) as credentials, \
-                         patch.object(fallback,'Database',return_value=db), \
-                         patch.object(importer,'OptionsRevisions',return_value=self.revisions), \
-                         patch.object(importer,'archive') as archive:
-                        code=importer.main([],stdin=stream,stdout=output)
-                    self.assertEqual(code,0)
-                    self.assertEqual(credentials.call_count,expected)
-                    self.assertEqual(archive.call_count,expected)
-                    self.assertIn('JSON validation PASSED',output.getvalue())
-                    if 'news_list' in raw:
-                        self.assertIn('4 articles received',output.getvalue())
-                        self.assertIn('Reuters / Financial Juice News feed',output.getvalue())
-                    else:
-                        self.assertIn('detected ticker SPY',output.getvalue())
-                    if not expected: self.assertEqual(db.writes,[])
+        output=io.StringIO();db=db or MemoryDB()
+        with patch.object(importer,'paste_mode',contextlib.nullcontext), \
+             patch.object(fallback,'single_run',contextlib.nullcontext), \
+             patch.object(fallback,'load_credentials',return_value={}) as credentials, \
+             patch.object(fallback,'Database',return_value=db), \
+             patch.object(importer,'OptionsRevisions',return_value=self.revisions), \
+             patch.object(importer,'archive') as archive:
+            code=importer.main(list(args),stdin=Terminal(text),stdout=output)
+        return code,output.getvalue(),db,credentials.call_count,archive.call_count
+
+    def test_session_imports_all_19_options_and_both_news_feeds_without_confirmation(self):
+        documents=[option(ticker) for ticker in self.tickers]+importer.decode(FIXTURE.read_text())
+        text='\n'.join(json.dumps(raw,indent=2) for raw in documents)+'\nQUIT\n'
+        code,output,db,credentials,archives=self.run_session(text)
+        self.assertEqual(code,0)
+        self.assertEqual((credentials,archives),(21,21))
+        self.assertEqual(set(db.options),set(self.tickers))
+        self.assertEqual(len(db.news),3)
+        self.assertIn('detected ticker SPY',output)
+        self.assertIn('Reuters / Financial Juice News feed',output)
+        self.assertIn('Session ended.',output)
+        self.assertNotIn('[y/N]',output)
+        self.assertNotIn('END on its own line',output)
+
+    def test_session_recovers_after_invalid_response_and_keeps_manual_fresh_data(self):
+        text='{"news_list":[}\n'+json.dumps(option())+'\n'+json.dumps(option())+'\nQUIT\n'
+        code,output,db,credentials,archives=self.run_session(text)
+        self.assertEqual(code,1)
+        self.assertEqual((credentials,archives),(2,2))
+        self.assertEqual(db.writes,['SPY'])
+        self.assertIn('Invalid JSON at line 1, column',output)
+        self.assertIn('skipped=1',output)
+
+    def test_quit_discards_incomplete_response_without_database_access(self):
+        for text in ('QUIT\n','{\n "symbol":"SPY"\nQUIT\n'):
+            code,output,db,credentials,archives=self.run_session(text)
+            self.assertEqual(code,0)
+            self.assertEqual((credentials,archives),(0,0))
+            self.assertEqual(db.writes,[])
+
+    def test_session_dry_run_and_validation_modes_preserve_no_write_contract(self):
+        for mode,expected_reads in (('--dry-run',2),('--validate-only',0)):
+            text=json.dumps(option())+'\n'+json.dumps(importer.decode(FIXTURE.read_text())[0])+'\nQUIT\n'
+            code,output,db,credentials,archives=self.run_session(text,args=[mode])
+            self.assertEqual(code,0)
+            self.assertEqual((credentials,archives),(expected_reads,0))
+            self.assertEqual(db.writes,[])
+
+    def test_session_does_not_hold_run_lock_while_waiting_for_input(self):
+        locked=False
+        class Terminal(io.StringIO):
+            def isatty(self): return True
+            def readline(inner,*args):
+                self.assertFalse(locked)
+                return super().readline(*args)
+        @contextlib.contextmanager
+        def lock():
+            nonlocal locked
+            self.assertFalse(locked)
+            locked=True
+            try: yield
+            finally: locked=False
+        def credentials():
+            self.assertTrue(locked)
+            return {}
+        text=json.dumps(option())+'\n'+json.dumps(option('QQQ'))+'\nQUIT\n'
+        with patch.object(importer,'paste_mode',contextlib.nullcontext), \
+             patch.object(fallback,'single_run',lock),patch.object(fallback,'load_credentials',side_effect=credentials), \
+             patch.object(fallback,'Database',return_value=MemoryDB()), \
+             patch.object(importer,'OptionsRevisions',return_value=self.revisions),patch.object(importer,'archive'):
+            self.assertEqual(importer.main([],stdin=Terminal(text),stdout=io.StringIO()),0)
+        self.assertFalse(locked)
 
     @unittest.skipUnless(os.name=='posix','PTY regression requires POSIX')
     def test_terminal_accepts_visible_large_pastes_and_restores_settings(self):
@@ -433,6 +499,7 @@ class ImportTests(unittest.TestCase):
         import time
         cases=[('long',json.dumps({'news_list':[], 'unused':'x'*150000}),False),
                ('multiline',FIXTURE.read_text(),False),
+               ('multiple',json.dumps({'news_list':[]})+'\n'+json.dumps({'news_list':[], 'unused':'z'*150000}),False),
                ('cancel','',True)]
         for name,text,cancel in cases:
             with self.subTest(case=name):
@@ -448,12 +515,12 @@ class ImportTests(unittest.TestCase):
                         if time.monotonic()>end: self.fail('Terminal fixture timed out')
                         if select.select([master],[],[],.05)[0]: output.extend(os.read(master,65536))
                 try:
-                    drain_until(lambda:b'Ctrl-C cancels before any import.' in output)
+                    drain_until(lambda:b'Ctrl-C cancels the current operation.' in output)
                     self.assertIn(b'Input is visible.',output)
                     if cancel:
                         process.send_signal(signal.SIGINT)
                     else:
-                        data=(text+'\nEND\n').encode()
+                        data=(text+'\nQUIT\n').encode()
                         def write_paste():
                             remaining=memoryview(data)
                             while remaining:
@@ -476,10 +543,72 @@ class ImportTests(unittest.TestCase):
                         self.assertIn(b'no database access',output)
                         self.assertIn(b'"news_list"',output)
                     if name=='long': self.assertIn(b'x'*1000,output)
+                    if name=='multiple':
+                        self.assertIn(b'z'*1000,output)
+                        self.assertEqual(output.count(b'valid; 0 eligible records; no database access'),2)
                 finally:
                     if process.poll() is None:
                         process.kill();process.wait()
                     os.close(master);os.close(slave)
+
+
+    @unittest.skipUnless(os.name=='posix','PTY regression requires POSIX')
+    def test_terminal_imports_queued_responses_during_slow_database_write(self):
+        import pty
+        import select
+        import termios
+        import threading
+        import time
+        child="""
+import contextlib,sys,time
+from unittest.mock import patch
+sys.path.insert(0,'scripts')
+import manual_json_import as m
+from test_manual_json_import import MemoryDB,NOW
+class SlowDB(MemoryDB):
+    def save_options(self,*args):
+        time.sleep(.15)
+        return super().save_options(*args)
+db=SlowDB()
+with patch.object(m,'utcnow',return_value=NOW),patch.object(m.fallback,'single_run',contextlib.nullcontext),patch.object(m.fallback,'load_credentials',return_value={}),patch.object(m.fallback,'Database',return_value=db),patch.object(m,'archive'),patch.object(m,'OptionsRevisions') as revisions:
+    revisions.return_value.matching_gamma.return_value=None
+    revisions.return_value.cache_changed.return_value=False
+    code=m.main([])
+    assert set(db.options)=={'SPY','QQQ'}, 'Missing fixture import'
+    assert db.writes==['SPY','QQQ'], 'Unexpected fixture writes'
+    print('FIXTURE_IMPORTS_OK',flush=True)
+    sys.exit(code)
+"""
+        master,slave=pty.openpty();before=termios.tcgetattr(slave)
+        process=subprocess.Popen([sys.executable,'-B','-c',child],stdin=slave,stdout=slave,stderr=slave)
+        output=bytearray()
+        def drain_until(condition):
+            end=time.monotonic()+15
+            while not condition():
+                if time.monotonic()>end: self.fail('Queued terminal fixture timed out')
+                if select.select([master],[],[],.05)[0]: output.extend(os.read(master,65536))
+        try:
+            drain_until(lambda:b'Ctrl-C cancels the current operation.' in output)
+            raw=option('QQQ');raw['extra']='q'*150000
+            data=(json.dumps(option())+'\n'+json.dumps(raw)+'\nQUIT\n').encode()
+            def write_paste():
+                left=memoryview(data)
+                while left: left=left[os.write(master,left[:4096]):]
+            writer=threading.Thread(target=write_paste,daemon=True);writer.start()
+            drain_until(lambda:process.poll() is not None)
+            while select.select([master],[],[],.05)[0]: output.extend(os.read(master,65536))
+            writer.join(timeout=1)
+            self.assertFalse(writer.is_alive())
+            self.assertEqual(process.returncode,0)
+            self.assertIn(b'FIXTURE_IMPORTS_OK',output)
+            self.assertIn(b'q'*1000,output)
+            self.assertNotIn(b'[y/N]',output)
+            after=termios.tcgetattr(slave)
+            for settings in (before,after): settings[3]&=~getattr(termios,'PENDIN',0)
+            self.assertEqual(before,after)
+        finally:
+            if process.poll() is None: process.kill();process.wait()
+            os.close(master);os.close(slave)
 
 
 if __name__=='__main__':
