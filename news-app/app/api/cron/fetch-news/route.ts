@@ -7,7 +7,7 @@ async function triggerFetchNews(req: Request) {
   const authHeader = req.headers.get("authorization") ?? "";
 
   // Protect route so only Vercel cron (or you) can call it.
-  if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
+  if (!cronSecret || authHeader !== `Bearer ${cronSecret}`) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -23,7 +23,7 @@ async function triggerFetchNews(req: Request) {
     "Content-Type": "application/json",
   };
 
-  // Optional pass-through secret if edge function enforces it.
+  // Pass through the separate Edge Function ingestion secret when configured.
   if (process.env.FETCH_NEWS_SECRET) {
     headers["x-news-cron-secret"] = process.env.FETCH_NEWS_SECRET;
   }

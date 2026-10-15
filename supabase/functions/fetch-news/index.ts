@@ -18,7 +18,7 @@ if (!PROJECT_URL || !SERVICE_ROLE_KEY) {
   throw new Error("Missing PROJECT_URL or SERVICE_ROLE_KEY edge function secrets.");
 }
 
-// Optional endpoint secrets for scheduler calls.
+// Required endpoint secret for scheduler calls.
 const FETCH_NEWS_SECRET = Deno.env.get("FETCH_NEWS_SECRET") ?? "";
 const BOT_USER_AGENT =
   Deno.env.get("NEWS_BOT_USER_AGENT")?.trim() ||
@@ -948,7 +948,7 @@ async function fetchRssSource(config: SourceConfig): Promise<FetchResult> {
 }
 
 function isAuthorized(req: Request): boolean {
-  if (!FETCH_NEWS_SECRET) return true;
+  if (!FETCH_NEWS_SECRET) return false;
 
   const headerSecret =
     req.headers.get("x-news-cron-secret") ||
