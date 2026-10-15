@@ -1,4 +1,5 @@
-import { fetchProPrices } from './pro_prices_api.js?v=20261005-endpoint';
+import { fetchProPrices } from './pro_prices_api.js?v=20261015-quota';
+import { bindCooldownRetry } from './premium-request-cooldown.js?v=20261015-quota';
 
 let prices = {};     // Holds the latest market prices
 let lastPrices = {}; // Holds the last known valid prices
@@ -21,6 +22,7 @@ let activeRequest = null;
 let esLoading = true;
 const contractSelect = document.getElementById('es-contract');
 const contractStatus = document.getElementById('es-contract-status');
+const cooldownRetry = bindCooldownRetry(contractStatus, () => updateProRatios({ manualProbe: true }));
 const finitePrice = value => typeof value === 'number' && Number.isFinite(value) && value > 0;
 
 function selectedContractLabel() {
@@ -54,7 +56,7 @@ function updateContractOptions(contracts) {
 
 // Contract changes use the server's shared snapshot, but update only ES locally.
 // Abort + generation checking prevent a slower old selection replacing a new one.
-async function updateProRatios({ esOnly = false } = {}) {
+async function updateProRatios({ esOnly = false, manualProbe = false } = {}) {
   const version = ++requestVersion;
   const contract = selectedESContract;
   activeRequest?.abort();
@@ -67,7 +69,7 @@ async function updateProRatios({ esOnly = false } = {}) {
   updateRatioDisplay();
   recalculateESConversion();
   try {
-    const data = await fetchProPrices(contract, activeRequest.signal);
+    const data = await fetchProPrices(contract, activeRequest.signal, { manualProbe });
     if (version !== requestVersion) return;
     if (!data?.Prices) throw new Error('Invalid price response.');
     // Auto also accepts the old payload during a staged frontend-first release.
@@ -98,12 +100,16 @@ async function updateProRatios({ esOnly = false } = {}) {
     esLoading = false;
     contractStatus.textContent = finitePrice(prices.ES) ? '' : 'ES quote unavailable. Choose another contract or try again.';
     contractStatus.hidden = finitePrice(prices.ES);
+    cooldownRetry.show(null);
   } catch (error) {
     if (version !== requestVersion || error.name === 'AbortError') return;
-    clearES();
+    // Keep the last good quote during a quota/service cooldown. A contract
+    // change already cleared ES above, so another contract is never reused.
+    if (!error.isCooldown) clearES();
     esLoading = false;
     contractStatus.hidden = false;
-    contractStatus.textContent = `ES: ${selectedContractLabel()} · ${error.message}`;
+    contractStatus.textContent = error.isCooldown ? error.message : `ES: ${selectedContractLabel()} · ${error.message}`;
+    cooldownRetry.show(error);
     if (error.status === 401 || error.status === 403) {
       prices = {}; lastPrices = {}; ratios = {};
       document.getElementById('convert-output').textContent = error.message;

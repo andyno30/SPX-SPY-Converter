@@ -1,6 +1,7 @@
 import { createAuthorizer } from './authorization.ts';
 import { createHandler } from './handler.ts';
 import { createSnapshotReader, type SnapshotRecord } from './snapshot.ts';
+import type { QuotaDecision } from '../_shared/premium-quota.ts';
 
 export type AccessSnapshot = SnapshotRecord & { is_subscribed: boolean };
 
@@ -9,12 +10,17 @@ export type AccessSnapshot = SnapshotRecord & { is_subscribed: boolean };
 export function createRequestHandler(deps: {
   userId: (token: string) => Promise<string | null>;
   readAccessSnapshot: (id: string) => Promise<unknown>;
+  consumeQuota?: (verifiedUserId: string) => Promise<QuotaDecision>;
   now?: () => number;
 }) {
   return (req: Request): Promise<Response> => {
     let record: AccessSnapshot | null = null;
+    let verifiedUserId: string | null = null;
     const authorize = createAuthorizer({
-      userId: deps.userId,
+      async userId(token) {
+        verifiedUserId = await deps.userId(token);
+        return verifiedUserId;
+      },
       async subscribed(id) {
         const value = await deps.readAccessSnapshot(id);
         if (!value || typeof value !== 'object' || Array.isArray(value) ||
@@ -28,6 +34,10 @@ export function createRequestHandler(deps: {
     return createHandler({
       authorize,
       snapshot: createSnapshotReader(async () => record, deps.now),
+      consumeQuota: deps.consumeQuota ? async () => {
+        if (!verifiedUserId) throw new Error('Verified user required for quota');
+        return await deps.consumeQuota!(verifiedUserId);
+      } : undefined,
       now: deps.now,
     })(req);
   };

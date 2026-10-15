@@ -1,4 +1,5 @@
 import { parseContract, priceResponse, type Snapshot } from './pricing.ts';
+import { enforcePremiumQuota, type QuotaDecision } from '../_shared/premium-quota.ts';
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -16,6 +17,7 @@ export type Access = 'allowed' | 'unauthorized' | 'forbidden';
 export function createHandler(deps: {
   authorize: (token: string) => Promise<Access>;
   snapshot: () => Promise<Snapshot>;
+  consumeQuota?: () => Promise<QuotaDecision>;
   now?: () => number;
 }) {
   return async (req: Request): Promise<Response> => {
@@ -33,6 +35,10 @@ export function createHandler(deps: {
       if (access !== 'allowed') return json({ message: 'An active Pro subscription is required.' }, 403);
       const contract = parseContract(req.url);
       if (!contract) return json({ message: 'Invalid ES contract.' }, 400);
+      if (deps.consumeQuota) {
+        const limited = await enforcePremiumQuota(deps.consumeQuota, CORS);
+        if (limited) return limited;
+      }
       const data = priceResponse(await deps.snapshot(), contract, deps.now?.());
       if (!data) return json({ code: 'es_contract_unavailable', message: 'This ES contract is currently unavailable. Choose another contract or Auto.' }, 503);
       return json(data);

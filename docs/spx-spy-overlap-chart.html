@@ -302,7 +302,7 @@
         <desc id="chart-desc">SPX price uses the left y-axis and SPY price uses the right y-axis derived from SPX divided by the live SPX/SPY Ratio.</desc>
       </svg>
     </div>
-    <p class="status-message" id="chart-status">Checking Pro subscription...</p>
+    <p class="status-message" id="chart-status" role="status" aria-live="polite">Checking Pro subscription...</p>
   </main>
 
   <footer>
@@ -312,7 +312,8 @@
   <script type="module">
     import { supabase } from './auth.js';
 
-    import { fetchProPrices } from './pro_prices_api.js?v=20261005-endpoint';
+    import { fetchProPrices } from './pro_prices_api.js?v=20261015-quota';
+    import { bindCooldownRetry } from './premium-request-cooldown.js?v=20261015-quota';
     const CHART_STORAGE_KEY = 'spxSpyOverlapChartPoints';
     const MAX_POINTS = 390;
     const REFRESH_MS = 60_000;
@@ -322,6 +323,7 @@
     const chartElement = document.getElementById('overlap-chart');
     const svg = document.getElementById('overlap-svg');
     const statusElement = document.getElementById('chart-status');
+    const cooldownRetry = bindCooldownRetry(statusElement, () => fetchLivePoint({ manualProbe: true }));
     const pointCountElement = document.getElementById('point-count');
     const spxPriceElement = document.getElementById('spx-price');
     const spyPriceElement = document.getElementById('spy-price');
@@ -753,7 +755,7 @@
       updateStats(livePoints.at(-1));
     }
 
-    function appendLivePoint(data) {
+    function appendLivePoint(data, { reset = false } = {}) {
       const spx = data?.Prices?.SPX;
       const spy = data?.Prices?.SPY;
       const ratio = safeRatioFromPayload(data);
@@ -762,6 +764,7 @@
         throw new Error('Live payload did not include valid SPX, SPY, and SPX/SPY Ratio values.');
       }
 
+      if (reset) livePoints = [];
       liveRatio = ratio;
       const isoTime = data.Datetime || new Date().toISOString();
       const time = Math.floor(new Date(isoTime).getTime() / 1000);
@@ -782,15 +785,18 @@
       renderChart();
     }
 
-    async function fetchLivePoint() {
+    async function fetchLivePoint({ reset = false, manualProbe = false } = {}) {
       try {
         setStatus('Fetching live SPX/SPY Ratio and prices...');
-        const data = await fetchProPrices();
-        appendLivePoint(data);
+        const data = await fetchProPrices('AUTO', undefined, { manualProbe });
+        // A denied refresh must not erase the last usable chart history.
+        appendLivePoint(data, { reset });
         setStatus('Live overlap chart updated. The SPY right axis is derived from SPX ÷ live SPX/SPY Ratio.');
+        cooldownRetry.show(null);
       } catch (error) {
         console.error('SPX/SPY overlap chart error:', error);
         setStatus(error.message || 'Unable to update chart data.', true);
+        cooldownRetry.show(error);
       }
     }
 
@@ -824,11 +830,7 @@
     });
 
     resetButton.addEventListener('click', () => {
-      localStorage.removeItem(CHART_STORAGE_KEY);
-      livePoints = [];
-      renderChart();
-      setStatus('Local chart history reset. Fetching a fresh live point...');
-      fetchLivePoint();
+      fetchLivePoint({ reset: true });
     });
 
     async function initialize() {

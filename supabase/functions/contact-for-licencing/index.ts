@@ -1,6 +1,7 @@
 /// <reference lib="deno.ns" />
 import { createClient } from 'npm:@supabase/supabase-js@2';
 import { createRequestHandler } from '../get-live-price-pro/request.ts';
+import { createRuntimeQuotaConsumer } from '../_shared/premium-quota.ts';
 
 const supabase = createClient(
   Deno.env.get('PROJECT_URL') ?? Deno.env.get('SUPABASE_URL')!,
@@ -8,6 +9,24 @@ const supabase = createClient(
   { auth: { persistSession: false, autoRefreshToken: false } },
 );
 Deno.serve(createRequestHandler({
+  // Off by default. Enable only after the approved SQL migration and smoke tests.
+  consumeQuota: Deno.env.get('PRO_PRICE_QUOTAS_ENABLED') === 'true'
+    ? createRuntimeQuotaConsumer({
+      async readControl() {
+        const { data, error } = await supabase.rpc('read_premium_api_quota_control', {
+          p_resource: 'pro-prices',
+        }).abortSignal(AbortSignal.timeout(2_000));
+        if (error) throw new Error('Quota control lookup failed');
+        return data;
+      },
+      async consume(id) {
+        const { data, error } = await supabase.rpc('consume_premium_api_quota', {
+          p_user_id: id, p_resource: 'pro-prices',
+        }).abortSignal(AbortSignal.timeout(5_000));
+        if (error) throw new Error('Premium quota lookup failed');
+        return data;
+      },
+    }) : undefined,
   async userId(token) {
     const { data: { user }, error } = await supabase.auth.getUser(token);
     if (error || !user || user.is_anonymous) return null;

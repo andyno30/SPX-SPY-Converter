@@ -2,6 +2,8 @@
 
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { fetchSaveTickerJson } from "../_shared/provider.ts";
+import { createOptionsAccessGuard } from "./access.ts";
+import { createRuntimeQuotaConsumer } from "../_shared/premium-quota.ts";
 
 const PROJECT_URL = Deno.env.get("PROJECT_URL")!;
 const SERVICE_ROLE_KEY = Deno.env.get("SERVICE_ROLE_KEY")!;
@@ -71,27 +73,36 @@ function withinPacificRefreshWindow(now = new Date()): boolean {
     && minutes < REFRESH_WINDOW_END_MINUTES;
 }
 
-async function hasProAccess(req: Request): Promise<"allowed" | "missing-auth" | "pro-required"> {
-  const authorization = req.headers.get("authorization") || "";
-  const token = authorization.match(/^Bearer\s+(.+)$/i)?.[1];
-  if (!token) return "missing-auth";
-
-  const { data: { user }, error: userError } = await supabase.auth.getUser(token);
-  if (userError || !user) return "missing-auth";
-
-  const { data: profile, error: profileError } = await supabase
-    .from("profiles")
-    .select("is_subscribed")
-    .eq("id", user.id)
-    .maybeSingle();
-
-  if (profileError) {
-    console.error("Options subscription lookup failed.", profileError.message);
-    return "pro-required";
-  }
-
-  return profile?.is_subscribed ? "allowed" : "pro-required";
-}
+const checkPremiumAccess = createOptionsAccessGuard({
+  async userId(token) {
+    const { data: { user }, error } = await supabase.auth.getUser(token);
+    return error || !user || user.is_anonymous ? null : user.id;
+  },
+  async subscribed(id) {
+    const { data: profile, error } = await supabase.from("profiles")
+      .select("is_subscribed").eq("id", id).maybeSingle();
+    if (error) console.error("Options subscription lookup failed.");
+    return !error && profile?.is_subscribed === true;
+  },
+  // This gate is independent of Pro prices so each endpoint can roll back alone.
+  consumeQuota: Deno.env.get("PREMIUM_OPTIONS_QUOTAS_ENABLED") === "true"
+    ? createRuntimeQuotaConsumer({
+      async readControl() {
+        const { data, error } = await supabase.rpc("read_premium_api_quota_control", {
+          p_resource: "premium-options",
+        }).abortSignal(AbortSignal.timeout(2_000));
+        if (error) throw new Error("Quota control lookup failed");
+        return data;
+      },
+      async consume(id) {
+        const { data, error } = await supabase.rpc("consume_premium_api_quota", {
+          p_user_id: id, p_resource: "premium-options",
+        }).abortSignal(AbortSignal.timeout(5_000));
+        if (error) throw new Error("Premium quota lookup failed");
+        return data;
+      },
+    }) : undefined,
+});
 
 function compactNumber(value: unknown): string | null {
   if (value === null || value === undefined) return null;
@@ -351,25 +362,8 @@ Deno.serve(async (req) => {
   }
 
   const isPremiumTicker = ticker !== PUBLIC_TICKER;
-  if (isPremiumTicker) {
-    const access = await hasProAccess(req);
-    if (access === "missing-auth") {
-      return jsonResponse(
-        { error: "Sign in to access this options ticker.", code: "AUTH_REQUIRED" },
-        401,
-        {},
-        true,
-      );
-    }
-    if (access === "pro-required") {
-      return jsonResponse(
-        { error: "SpyConverter Pro is required for this options ticker.", code: "PRO_REQUIRED" },
-        403,
-        {},
-        true,
-      );
-    }
-  }
+  const accessDenied = await checkPremiumAccess(req, ticker);
+  if (accessDenied) return accessDenied;
 
   const apiUrl = `https://saveticker.com/api/stocks/api/v1/tickers/${ticker}/options`;
   const referer = `https://saveticker.com/company/${ticker}`;

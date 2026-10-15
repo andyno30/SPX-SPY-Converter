@@ -1,4 +1,5 @@
 import { supabase } from "../docs/auth.js";
+import { premiumRequestCooldown } from "../docs/premium-request-cooldown.js?v=20261015-quota";
 
 const OPTIONS_FUNCTION_URL =
   "https://isvzhpqrmjtqnqyyidxr.supabase.co/functions/v1/fetch-spy-options";
@@ -255,11 +256,13 @@ function showLoadingState() {
   $("updated-at").textContent = "—";
 }
 
-async function fetchTickerData(ticker) {
+async function fetchTickerData(ticker, { manualProbe = false } = {}) {
   const url = new URL(OPTIONS_FUNCTION_URL);
   url.searchParams.set("ticker", ticker);
 
   const headers = { Accept: "application/json" };
+  let requestUserId;
+  let probe;
   if (ticker !== PUBLIC_TICKER) {
     const { data: { session } } = await supabase.auth.getSession();
     const token = session?.access_token;
@@ -269,16 +272,23 @@ async function fetchTickerData(ticker) {
       throw error;
     }
     headers.Authorization = `Bearer ${token}`;
+    requestUserId = session.user?.id;
+    probe = await premiumRequestCooldown.begin(requestUserId, 'options', { manualProbe });
   }
 
   try {
     const response = await fetch(url, { cache: "no-store", headers });
     const payload = await response.json().catch(() => ({}));
+    if (ticker !== PUBLIC_TICKER) {
+      const cooldownError = await premiumRequestCooldown.responseError(requestUserId, 'options', response, payload);
+      if (cooldownError) throw cooldownError;
+    }
     if (!response.ok) {
       const error = new Error(payload.error || `HTTP ${response.status}`);
       error.code = payload.code || "REQUEST_FAILED";
       throw error;
     }
+    if (ticker !== PUBLIC_TICKER) await premiumRequestCooldown.completeProbe(probe);
     return payload;
   } catch (error) {
     if (ticker !== PUBLIC_TICKER || error.code) throw error;
@@ -291,16 +301,17 @@ async function fetchTickerData(ticker) {
   return await fallback.json();
 }
 
-async function loadData(ticker = activeTicker) {
+async function loadData(ticker = activeTicker, { manualProbe = false } = {}) {
   const requestId = ++latestRequestId;
 
   const refresh = $("refresh-data");
   const error = $("load-error");
+  let refreshLabel = 'Refresh data';
   refresh.disabled = true;
   refresh.textContent = "Loading…";
 
   try {
-    const data = await fetchTickerData(ticker);
+    const data = await fetchTickerData(ticker, { manualProbe });
     if (requestId !== latestRequestId || ticker !== activeTicker) return;
     render(data, ticker);
     error.hidden = true;
@@ -314,10 +325,11 @@ async function loadData(ticker = activeTicker) {
     }
     error.textContent = `Could not load the latest ${ticker} options data: ${reason.message}`;
     error.hidden = false;
+    if (reason.isCooldown && reason.canRetry) refreshLabel = 'Retry now';
   } finally {
     if (requestId === latestRequestId) {
       refresh.disabled = false;
-      refresh.textContent = "Refresh data";
+      refresh.textContent = refreshLabel;
     }
   }
 }
@@ -391,7 +403,7 @@ async function initializeOptions() {
 $("ticker-select").addEventListener("change", (event) => {
   void selectTicker(event.currentTarget.value);
 });
-$("refresh-data").addEventListener("click", () => void loadData());
+$("refresh-data").addEventListener("click", () => void loadData(activeTicker, { manualProbe: true }));
 $("toggle-bottom-ad").addEventListener("click", toggleBottomAd);
 SIDE_AD_MEDIA.addEventListener?.("change", initializeSideAds);
 window.addEventListener("load", () => {

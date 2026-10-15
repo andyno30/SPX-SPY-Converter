@@ -1,4 +1,7 @@
-import { fetchProPrices } from './pro_prices_api.js?v=20261005-endpoint';
+import { fetchProPrices } from './pro_prices_api.js?v=20261015-quota';
+import { bindCooldownRetry } from './premium-request-cooldown.js?v=20261015-quota';
+
+const cooldownRetry = bindCooldownRetry(document.getElementById('price-refresh-status'), () => updateDowRussellRatios({ manualProbe: true }));
 
 let prices = {};
 let lastPrices = {};
@@ -39,7 +42,8 @@ function setCachedData(nextRatios) {
   );
 }
 
-function updateDowRussellRatios() {
+function updateDowRussellRatios({ manualProbe = false } = {}) {
+  const status = document.getElementById('price-refresh-status');
   document.getElementById("conversionDate").textContent = "Loading...";
 
   const cachedRatios = getCachedData();
@@ -50,7 +54,7 @@ function updateDowRussellRatios() {
     document.getElementById("conversionDate").textContent = lastValidDate;
   }
 
-  fetchProPrices()
+  return fetchProPrices('AUTO', undefined, { manualProbe })
     .then(data => {
       if (!data || !data.Prices) {
         throw new Error("Invalid data format received from backend.");
@@ -87,11 +91,19 @@ function updateDowRussellRatios() {
       document.getElementById("conversionDate").textContent = lastValidDate;
 
       setCachedData(ratios);
+      status.hidden = true;
+      status.textContent = '';
+      cooldownRetry.show(null);
+      updateRatioDisplay();
+      updatePriceDisplay();
       updateDropdownOptions();
     })
     .catch(error => {
       console.error("Error fetching Dow/Russell data:", error);
       document.getElementById("conversionDate").textContent = lastValidDate;
+      status.textContent = error.message || 'Unable to refresh prices. Try again later.';
+      status.hidden = false;
+      cooldownRetry.show(error);
     });
 }
 

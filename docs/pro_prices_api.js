@@ -1,33 +1,51 @@
 import { supabase } from './auth.js';
+import { premiumRequestCooldown } from './premium-request-cooldown.js?v=20261015-quota';
 
 const proBackendURL = 'https://isvzhpqrmjtqnqyyidxr.functions.supabase.co/contact-for-licencing';
 
 // getSession refreshes expiring sessions through the existing Supabase client.
 // The backend validates the JWT and subscription; client state grants no access.
-export async function fetchProPrices(esContract = 'AUTO', signal) {
+export async function fetchProPrices(esContract = 'AUTO', signal, { manualProbe = false } = {}) {
   const { data, error } = await supabase.auth.getSession();
   let session = error ? null : data.session;
   const url = new URL(proBackendURL);
   if (esContract !== 'AUTO') url.searchParams.set('esContract', esContract);
-  const request = () => fetch(url, {
-    headers: { Authorization: `Bearer ${session.access_token}` },
-    // The API's private, no-store response prevents price caching. Default mode
-    // lets browsers reuse CORS preflight permission without caching Pro access.
-    cache: 'default', signal,
-  });
+  let probe;
+  let probeUserId;
+  const request = async () => {
+    // The existing one-time 401 token refresh is part of the same probe. Its
+    // first request was unauthenticated and must not consume a second lease.
+    if (!probe || probeUserId !== session.user?.id) {
+      probe = await premiumRequestCooldown.begin(session.user?.id, 'pro_prices', { manualProbe });
+      probeUserId = session.user?.id;
+    }
+    return fetch(url, {
+      headers: { Authorization: `Bearer ${session.access_token}` },
+      // The API's private, no-store response prevents price caching. Default mode
+      // lets browsers reuse CORS preflight permission without caching Pro access.
+      cache: 'default', signal,
+    });
+  };
   if (!session) {
     window.location.href = 'login.html';
     throw Object.assign(new Error('Sign in to access Pro prices.'), { status: 401 });
   }
+  let requestUserId = session.user?.id;
   let response = await request();
   if (response.status === 401) {
     const refreshed = await supabase.auth.refreshSession();
     session = refreshed.data.session;
-    if (!refreshed.error && session) response = await request();
+    if (!refreshed.error && session) {
+      requestUserId = session.user?.id;
+      response = await request();
+    }
   }
   if (response.status === 401) window.location.href = 'login.html';
   if (response.status === 403) window.location.href = 'dashboard.html';
-  const body = await response.json();
+  const body = await response.json().catch(() => ({}));
+  const cooldownError = await premiumRequestCooldown.responseError(requestUserId, 'pro_prices', response, body);
+  if (cooldownError) throw cooldownError;
   if (!response.ok) throw Object.assign(new Error(body.message || 'Unable to refresh Pro prices.'), { status: response.status });
+  await premiumRequestCooldown.completeProbe(probe);
   return body;
 }

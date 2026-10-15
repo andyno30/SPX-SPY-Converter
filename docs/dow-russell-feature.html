@@ -34,6 +34,7 @@
   <div class="premium-container">
     <h1>Dow Jones and Russell 2000 Converter</h1>
     <p>Conversion data last updated: <span id="conversionDate">Loading...</span></p>
+    <p id="price-refresh-status" role="status" aria-live="polite" hidden></p>
 
     <div id="premium-conversion">
       <div class="conversion-controls">
@@ -105,7 +106,7 @@
 
   <script src="pro_feature_ads.js?v=20260902"></script>
 
-  <script type="module" src="dow_russell_script.js?v=20261005-endpoint"></script>
+  <script type="module" src="dow_russell_script.js?v=20261015-quota"></script>
 
   <script type="module">
     import { supabase } from './auth.js';

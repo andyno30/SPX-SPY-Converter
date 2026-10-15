@@ -24,7 +24,8 @@ async function setup() {
   let fetcher = async contract => payload(contract);
   const context = {document:win.document,window:{},Option:function(text,value){const o=win.document.createElement('option');o.textContent=text;o.value=value;return o;},AbortController,console,
     fetchProPrices:(...args)=>fetcher(...args),setInterval:()=>0};
-  const script=readFileSync(path.join(__dirname,'../docs/pro_script.js'),'utf8').replace(/^import .*\n/,'');
+  runInNewContext(readFileSync(path.join(__dirname,'../docs/premium-request-cooldown.js'),'utf8').replace(/^export /gm,''),context);
+  const script=readFileSync(path.join(__dirname,'../docs/pro_script.js'),'utf8').replace(/^import .*\n/gm,'');
   runInNewContext(script,context); await flush();
   const el=id=>win.document.getElementById(id);
   const select=async (id,value)=>{el(id).value=value;el(id).dispatchEvent(new win.Event('change'));await flush();};
@@ -84,7 +85,8 @@ function apiContext(session, statuses=[200]) {
   const context={URL,Error,window:{location:{href:''}},supabase:{auth:{
     getSession:async()=>({data:{session},error:null}),refreshSession:async()=>{refreshed++;return {data:{session:{access_token:'renewed'}},error:null};}
   }},fetch:async(url,opts)=>{calls.push({url:String(url),...opts});const status=statuses.shift()||200;return {status,ok:status===200,json:async()=>status===200?payload('ESZ26'):{message:'Denied'}};}};
-  const script=readFileSync(path.join(__dirname,'../docs/pro_prices_api.js'),'utf8').replace(/^import .*\n/,'').replace('export async function','async function');
+  runInNewContext(readFileSync(path.join(__dirname,'../docs/premium-request-cooldown.js'),'utf8').replace(/^export /gm,''),context);
+  const script=readFileSync(path.join(__dirname,'../docs/pro_prices_api.js'),'utf8').replace(/^import .*\n/gm,'').replace('export async function','async function');
   runInNewContext(script,context);
   return {context,calls,refreshed:()=>refreshed,request:()=>runInNewContext("fetchProPrices('ESZ26')",context)};
 }
