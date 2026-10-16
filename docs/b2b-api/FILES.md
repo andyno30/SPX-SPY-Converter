@@ -1,6 +1,6 @@
 # B2B and authorized website-security file inventory
 
-120 created files and 11 modified original files relative to production baseline 1201ef5. Four original Free pages add server-controlled calculation handling; the prior seven changes are the authorized Pro guard. The remaining 272 original tracked files are unchanged. Credentials, tokens, private inspection, payment URLs and raw API keys are excluded.
+124 created files and 11 modified original files relative to production baseline 1201ef5. Four Free pages add server-controlled calculation handling; the prior seven changes are the authorized Pro guard. The remaining 272 original tracked files are unchanged. Credentials, tokens, private inspection, payment URLs and raw API keys are excluded.
 
 ## Modified original files
 
@@ -18,6 +18,7 @@
 
 ## Created files
 
+- scripts/b2b-api/evidence/live-launch-health.json
 - B2B/api/assets/api.css
 - B2B/api/assets/app.js
 - B2B/api/assets/config.js
@@ -44,7 +45,10 @@
 - scripts/b2b-api/evidence/dashboard-desktop.jpg
 - scripts/b2b-api/evidence/dashboard-mobile.jpg
 - scripts/b2b-api/evidence/final-page-verification.json
+- scripts/b2b-api/evidence/free-browser-verification.json
+- scripts/b2b-api/evidence/free-deployment-verification.json
 - scripts/b2b-api/evidence/free-frontend-tests.txt
+- scripts/b2b-api/evidence/free-invalid-verification.json
 - scripts/b2b-api/evidence/free-production-verification.json
 - scripts/b2b-api/evidence/free-security-tests.txt
 - scripts/b2b-api/evidence/free-typecheck.txt

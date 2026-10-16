@@ -1,0 +1,16 @@
+{
+  "checked_at": "2026-10-16T19:47:23.955073+00:00",
+  "production_main": "https://spyconverter.com/",
+  "normal_input": 7000,
+  "normal_output": "SPY Value: 697.76",
+  "eleventh_request_opened_turnstile": true,
+  "cloudflare_managed_completion": "Automatically completed by Cloudflare; no CAPTCHA checkbox was clicked by the agent",
+  "server_verified_completion": true,
+  "calculation_returned_after_completion": true,
+  "subsequent_calculations_succeeded": true,
+  "duplicate_callback_fix_tested": true,
+  "mobile_main_viewport": 375,
+  "mobile_main_document_width": 391,
+  "mobile_note": "Existing page/ad layout retained. New dialog uses border-box sizing and a compact widget below 390px; narrow-dialog DOM tests pass.",
+  "additional_yahoo_requests_from_new_calculator": 0
+}

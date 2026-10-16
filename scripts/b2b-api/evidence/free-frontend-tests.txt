@@ -2,84 +2,89 @@ TAP version 13
 # Subtest: B2B navigation never appears in an existing website page or script
 ok 1 - B2B navigation never appears in an existing website page or script
   ---
-  duration_ms: 961.462125
+  duration_ms: 951.460541
   ...
 # Subtest: all five isolated pages preserve native assets, internal routes and launch disclosures
 ok 2 - all five isolated pages preserve native assets, internal routes and launch disclosures
   ---
-  duration_ms: 207.770666
+  duration_ms: 207.013125
   ...
 # Subtest: both pricing displays contain exactly the approved monthly tiers
 ok 3 - both pricing displays contain exactly the approved monthly tiers
   ---
-  duration_ms: 9.340542
+  duration_ms: 8.948333
   ...
 # Subtest: dashboard renders account state safely and reveals generated keys only until dismissed
 ok 4 - dashboard renders account state safely and reveals generated keys only until dismissed
   ---
-  duration_ms: 75.864125
+  duration_ms: 69.863834
   ...
 # Subtest: Terms checkbox starts unchecked, links the full agreement, and sends explicit versioned consent only
 ok 5 - Terms checkbox starts unchecked, links the full agreement, and sends explicit versioned consent only
   ---
-  duration_ms: 22.058041
+  duration_ms: 21.964125
   ...
 # Subtest: member dashboard disables organization mutations and billing controls
 ok 6 - member dashboard disables organization mutations and billing controls
   ---
-  duration_ms: 15.824958
+  duration_ms: 14.806084
   ...
 # Subtest: checkout return requires authenticated verified payment, handles pending/cancelled, and labels sandbox payments
 ok 7 - checkout return requires authenticated verified payment, handles pending/cancelled, and labels sandbox payments
   ---
-  duration_ms: 88.508
+  duration_ms: 89.903791
   ...
 # Subtest: production registration uses Google without confirmation email and preserves existing password login
 ok 8 - production registration uses Google without confirmation email and preserves existing password login
   ---
-  duration_ms: 17.884916
+  duration_ms: 17.689958
   ...
 # Subtest: all 16 Free calculation handlers await a server result and preserve their output formatting
 ok 9 - all 16 Free calculation handlers await a server result and preserve their output formatting
   ---
-  duration_ms: 28.340666
+  duration_ms: 31.448875
   ...
 # Subtest: challenge only after server denial, retry only after server-verified success
 ok 10 - challenge only after server denial, retry only after server-verified success
   ---
-  duration_ms: 9.455833
+  duration_ms: 11.774167
   ...
 # Subtest: failed verification or cancel never retries calculation or uses local math
 ok 11 - failed verification or cancel never retries calculation or uses local math
   ---
-  duration_ms: 6.418083
+  duration_ms: 9.085791
   ...
 # Subtest: manual ratios, source schedules and pre-existing numerical output remain identical on all Free pages
 ok 12 - manual ratios, source schedules and pre-existing numerical output remain identical on all Free pages
   ---
-  duration_ms: 68.578
+  duration_ms: 68.480166
+  ...
+# Subtest: narrow-screen verification uses a compact widget inside the viewport
+ok 13 - narrow-screen verification uses a compact widget inside the viewport
+  ---
+  duration_ms: 4.583459
   ...
 # Subtest: challenge shows only on demand, validates server-side, and closes after confirmed success
-ok 13 - challenge shows only on demand, validates server-side, and closes after confirmed success
+ok 14 - challenge shows only on demand, validates server-side, and closes after confirmed success
   ---
-  duration_ms: 17.01025
+  duration_ms: 18.1015
   ...
 # Subtest: cancel, changed identity and unsuccessful verification never grant a retry
-ok 14 - cancel, changed identity and unsuccessful verification never grant a retry
+ok 15 - cancel, changed identity and unsuccessful verification never grant a retry
   ---
-  duration_ms: 14.989875
+  duration_ms: 20.394334
   ...
 # Subtest: price API retries once after verified challenge and never changes normal responses or polling
-ok 15 - price API retries once after verified challenge and never changes normal responses or polling
+ok 16 - price API retries once after verified challenge and never changes normal responses or polling
   ---
-  duration_ms: 1.406875
+  duration_ms: 1.318167
   ...
-1..15
-# tests 15
+1..16
+# tests 16
 # suites 0
-# pass 15
+# pass 16
 # fail 0
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 1460.692667
+# duration_ms 1481.016166

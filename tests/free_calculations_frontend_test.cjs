@@ -46,3 +46,5 @@ test('manual ratios, source schedules and pre-existing numerical output remain i
   await win1.happyDOM.close();await win2.happyDOM.close();
  }
 });
+
+test('narrow-screen verification uses a compact widget inside the viewport',async()=>{const s=setup();try{s.win.innerWidth=375;const p=s.win.FreeCalculator.calculate(10,2,'divide');await flush();assert.equal(s.options().size,'compact');assert.equal(s.win.document.querySelector('dialog').style.boxSizing,'border-box');await s.options().callback('synthetic');assert.equal(await p,12.34);}finally{await s.win.happyDOM.close();}});

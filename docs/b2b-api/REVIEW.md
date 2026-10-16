@@ -17,7 +17,7 @@ The approved API-only Cloudflare upstream User-Agent rule fixes Python urllib er
 | Validation | Result |
 | --- | --- |
 | Current B2B backend suite | 12 tests / 48 steps passed |
-| Current frontend DOM suite | 15 passed (B2B, Pro verification and Free calculator) |
+| Current frontend DOM suite | 16 passed (B2B, Pro verification and Free calculator) |
 | Production Edge type checks | Three B2B functions passed |
 | Existing website regression suite | 49 Deno tests / 12 steps; 66 Node regressions plus 20 SQL tests passed |
 | Real hosted Terms/payment/key flow | Developer, Pro, Business all passed |

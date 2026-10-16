@@ -1,0 +1,52 @@
+{
+  "operations": {
+    "b2b_bytes": 999424,
+    "checked_at": "2026-10-16T19:46:49.975402+00:00",
+    "provenance": "owner_authorized",
+    "cache_health": {
+      "id": true,
+      "failures": 0,
+      "successes": 84,
+      "last_error": null,
+      "last_digest": "dc91d584cf55fc84c6d35ac8bdaa1bacfa1ed84f601d2f8ea8bb55b3bcbcb247",
+      "last_attempt_at": "2026-10-16T19:46:10.794403+00:00",
+      "last_success_at": "2026-10-16T19:46:10.794403+00:00"
+    },
+    "database_bytes": 129625235,
+    "live_snapshots": 5,
+    "source_age_seconds": 48.456402,
+    "recent_server_errors": 0,
+    "active_paid_organizations": 0
+  },
+  "pro_enabled": true,
+  "free_enabled": true,
+  "original_cron": [
+    {
+      "name": "news_daily_cleanup",
+      "schedule": "0 3 * * *",
+      "command_md5": "a804d203f06c59e86ac32b28e0339114"
+    },
+    {
+      "name": "news_trim_20000",
+      "schedule": "0 3 * * *",
+      "command_md5": "b1e518eefd7e0ae1c8658626562a2ff8"
+    },
+    {
+      "name": "news_vacuum_analyze",
+      "schedule": "10 3 * * *",
+      "command_md5": "0c246edc160af7be8c0d4f171004305d"
+    },
+    {
+      "name": "news_fetch_every_15m",
+      "schedule": "*/15 * * * *",
+      "command_md5": "a1db15b0c72114224c948148e629ef9c"
+    },
+    {
+      "name": "pro_price_refresh_every_minute",
+      "schedule": "* * * * *",
+      "command_md5": "82a50929f873a9b586fea5dc9337ceff"
+    }
+  ],
+  "verified_networks": 1,
+  "blocked_test_fixtures": 1
+}

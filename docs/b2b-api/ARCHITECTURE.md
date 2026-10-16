@@ -1,6 +1,6 @@
 # SpyConverter B2B API architecture
 
-This implementation is additive on `codex/b2b-api-platform`. The initial B2B release preserved all 283 original tracked files. The separately authorized Pro human-verification release now changes seven security-related files; 276 remain unchanged and the preservation check reports no unexpected changes. The new Cloudflare API gateway, private Supabase B2B schema/functions, live Stripe products, portal and webhook have been deployed under user authorization. Commercial checkout and live delivery remain disabled pending the remaining activation prerequisites. See RUNBOOK.md and REVIEW.md for current status; existing upstream schedules are unchanged.
+This implementation is additive on `codex/b2b-api-platform`. The initial B2B release preserved all 283 original tracked files. The separately authorized Free/Pro human-verification integration changes eleven original files; 272 remain unchanged and the preservation check reports no unexpected changes. The new Cloudflare API gateway, private Supabase B2B schema/functions, live Stripe products, portal and webhook have been deployed under user authorization. Commercial Checkout and owner-authorized live delivery are enabled by the owner’s explicit October 16 activation instruction. Third-party licensing is not marked verified. See RUNBOOK.md and REVIEW.md for current status; existing upstream schedules are unchanged.
 
 ## Existing services and routing
 
@@ -55,7 +55,7 @@ flowchart TD
 
 There is no path from the customer handler, meter or cache reader to Yahoo, yfinance, the original HTTP endpoint, the refresh function, or a cache-copy operation. The scheduled copy reads an already-created DB record. A failed read does not refresh or retry upstream. The source reader role has execute permission on one read-only RPC and no permission to invoke refresh functions or write the source table. The customer gateway role cannot publish snapshots. The cache writer is separate.
 
-The dedicated Supabase cache-copy function is active once per minute, with a ten-second copy-only offset after the unchanged updater. Until data rights are confirmed, copied snapshots carry pending_review provenance and cannot be delivered to customers. The earlier all-in-Worker adapter remains an alternative, not the deployed topology. That is a database copy, never a new price polling job. If the production source differs from this audited code or a read-only path cannot be established, keep the copy disabled and stop: do not fall back to polling the HTTP endpoint.
+The dedicated Supabase cache-copy function is active once per minute, with a ten-second copy-only offset after the unchanged updater. Production snapshots now use owner_authorized provenance bound to the explicit owner instruction; a separately documented licensed mode remains supported. Pending-review snapshots still cannot be delivered to customers. The earlier all-in-Worker adapter remains an alternative, not the deployed topology. That is a database copy, never a new price polling job. If the production source differs from this audited code or a read-only path cannot be established, keep the copy disabled and stop: do not fall back to polling the HTTP endpoint.
 
 ## Freshness and unavailable data
 

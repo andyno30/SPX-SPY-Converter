@@ -8,9 +8,9 @@
     "supabase/functions/contact-for-licencing/index.ts": "2cabb8d29f6d2f266db791ce876904ab22daa6434cbca7eaf9f34559b72d643b",
     "supabase/functions/get-live-price-pro/handler.ts": "17fade2729b649baacd8c66858ef6e4ff3dde9bc3368edfe54a4622058a47291",
     "supabase/functions/get-live-price-pro/request.ts": "e8eb7611cb40a0f0468b5ccd52f93c18dd82d0de2e277b533e1be40caa4690ff",
-    "index.html": "209aeba4ad9c42ecad7e1fc0c7a64d09b5a85e69a6adf80fd7a3c98c46cef318",
-    "converter.html": "c195f9387e04b7e80a3ca272269d9235188a08ad38adc5210371ee2aeb3131d5",
-    "EStoSPX.html": "d16e1ac55ed072fde8d527cb0d06744c92f704dff410dc4af98c6ce0253f63f6",
-    "RUSSELL2000andDOW.html": "a44d596653249da0ec6cc91baa7cc401373208b082e1ebe3ff1d6188feff3650"
+    "index.html": "32130e0ff531fbd94cb3750f1618a401cd1370f3639caf2228d4cd3171c4e705",
+    "converter.html": "0cb3d0b63a7021dfc2117140c4565bac44d0c338da7b12f9c992e4536d1678bb",
+    "EStoSPX.html": "918193d96bb66c049c4dbd23b3b5e0c9cd622763605b36cb803447c056f8716d",
+    "RUSSELL2000andDOW.html": "d579074b3cd7f390dc98326e46c63170b7c5322a8738483837780d1657cdd055"
   }
 }

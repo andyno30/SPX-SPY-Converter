@@ -1,0 +1,8 @@
+{
+  "checked_at": "2026-10-16T19:42:42.180271+00:00",
+  "scope": "Disposable operator-controlled network fixture; no real visitor state changed",
+  "production_invalid_turnstile_rejected": true,
+  "following_calculation_blocked": true,
+  "retry_after_seconds": 300,
+  "additional_yahoo_requests": 0
+}
