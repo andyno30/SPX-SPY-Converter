@@ -1,0 +1,19 @@
+{
+  "baseline": {
+    "quoteCalls": 3,
+    "yahooHttp": 9,
+    "copies": 3,
+    "sourceReads": 3,
+    "admitted": 0
+  },
+  "loaded": {
+    "quoteCalls": 3,
+    "yahooHttp": 9,
+    "copies": 3,
+    "sourceReads": 3,
+    "admitted": 390
+  },
+  "additionalYahooHTTP": 0,
+  "customerRequests": 600,
+  "actualNetworkRequests": 0
+}

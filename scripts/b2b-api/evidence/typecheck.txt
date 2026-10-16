@@ -1,0 +1,3 @@
+Check file:///Users/andyno/Desktop/Spyconverter (2026)/supabase/functions/b2b-platform/index.ts
+Check file:///Users/andyno/Desktop/Spyconverter (2026)/supabase/functions/b2b-platform-test/index.ts
+Check file:///Users/andyno/Desktop/Spyconverter (2026)/supabase/functions/b2b-cache-copy/index.ts

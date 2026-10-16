@@ -1,0 +1,16 @@
+{
+  "synthetic": true,
+  "checks": [
+    "Sign in",
+    "Create key",
+    "Show key once",
+    "Test request HTTP 200",
+    "Usage increments",
+    "Create Business organization",
+    "Checkout blocked before approval",
+    "Synthetic signature and manual approval",
+    "Local checkout",
+    "Signed mock webhook activates Business"
+  ],
+  "passed": true
+}

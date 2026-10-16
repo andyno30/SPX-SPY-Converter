@@ -1,0 +1,26 @@
+{
+  "environment": "real Supabase and Stripe TEST",
+  "real_money": false,
+  "pro_and_business": [
+    {
+      "plan": "pro",
+      "requests": 40,
+      "responses": {
+        "200": 30,
+        "429": 10
+      },
+      "automatic_key": true
+    },
+    {
+      "plan": "business",
+      "requests": 130,
+      "responses": {
+        "200": 120,
+        "429": 10
+      },
+      "automatic_key": true
+    }
+  ],
+  "shared_snapshot_across_organizations": true,
+  "source_requests": 0
+}

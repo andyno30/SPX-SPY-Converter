@@ -1,0 +1,277 @@
+TAP version 13
+# Subtest: billing preflight is a bodyless 204 with usable CORS headers, without authentication or Stripe calls
+ok 1 - billing preflight is a bodyless 204 with usable CORS headers, without authentication or Stripe calls
+  ---
+  duration_ms: 382.072667
+  ...
+# Subtest: billing rejects absent and invalid authentication and disallowed methods
+ok 2 - billing rejects absent and invalid authentication and disallowed methods
+  ---
+  duration_ms: 59.904417
+  ...
+# Subtest: billing uses authenticated profile, ignoring caller-supplied customer IDs
+ok 3 - billing uses authenticated profile, ignoring caller-supplied customer IDs
+  ---
+  duration_ms: 9.238291
+  ...
+# Subtest: billing recovers legacy customer ID from the owned subscription
+ok 4 - billing recovers legacy customer ID from the owned subscription
+  ---
+  duration_ms: 54.522708
+  ...
+# Subtest: missing billing profile and Stripe outage return readable CORS errors
+ok 5 - missing billing profile and Stripe outage return readable CORS errors
+  ---
+  duration_ms: 127.527584
+  ...
+# Subtest: checkout ignores stale redirect secrets and points both plans to existing static pages
+ok 6 - checkout ignores stale redirect secrets and points both plans to existing static pages
+  ---
+  duration_ms: 224.773792
+  ...
+# Subtest: confirmation verifies account access and handles webhook delay before showing Active
+ok 7 - confirmation verifies account access and handles webhook delay before showing Active
+  ---
+  duration_ms: 4.228958
+  ...
+# Subtest: confirmation leaves login available when signed out and never claims Active for pending or error states
+ok 8 - confirmation leaves login available when signed out and never claims Active for pending or error states
+  ---
+  duration_ms: 2.575375
+  ...
+# Subtest: inactive subscribers retain billing access and receive their Stripe portal redirect
+ok 9 - inactive subscribers retain billing access and receive their Stripe portal redirect
+  ---
+  duration_ms: 5.400833
+  ...
+# Subtest: billing UI recovers from request failures and rejects untrusted redirect URLs
+ok 10 - billing UI recovers from request failures and rejects untrusted redirect URLs
+  ---
+  duration_ms: 2.190958
+  ...
+# Subtest: Edge ingestion rejects missing or empty configuration before upstream or database work
+ok 11 - Edge ingestion rejects missing or empty configuration before upstream or database work
+  ---
+  duration_ms: 838.216417
+  ...
+# Subtest: Edge ingestion rejects absent and incorrect credentials when configured
+ok 12 - Edge ingestion rejects absent and incorrect credentials when configured
+  ---
+  duration_ms: 77.732417
+  ...
+# Subtest: Edge ingestion retains all existing authorized credential transports
+ok 13 - Edge ingestion retains all existing authorized credential transports
+  ---
+  duration_ms: 180.219375
+  ...
+# Subtest: Edge preflight and unsupported-method behavior are unchanged without a secret
+ok 14 - Edge preflight and unsupported-method behavior are unchanged without a secret
+  ---
+  duration_ms: 370.481791
+  ...
+# Subtest: Vercel bridge fails closed for missing configuration and incorrect credentials
+ok 15 - Vercel bridge fails closed for missing configuration and incorrect credentials
+  ---
+  duration_ms: 48.778666
+  ...
+# Subtest: Vercel bridge retains authorized GET and POST forwarding with the separate ingestion secret
+ok 16 - Vercel bridge retains authorized GET and POST forwarding with the separate ingestion secret
+  ---
+  duration_ms: 255.463875
+  ...
+# Subtest: Vercel bridge preserves authorized configuration and upstream error responses
+ok 17 - Vercel bridge preserves authorized configuration and upstream error responses
+  ---
+  duration_ms: 44.231083
+  ...
+# Subtest: Retry-After seconds/date parsing is bounded and invalid headers fall back safely
+ok 18 - Retry-After seconds/date parsing is bounded and invalid headers fall back safely
+  ---
+  duration_ms: 74.443125
+  ...
+# Subtest: Shared cooldowns survive tabs/reloads, isolate user/resource and never store credentials
+ok 19 - Shared cooldowns survive tabs/reloads, isolate user/resource and never store credentials
+  ---
+  duration_ms: 10.895958
+  ...
+# Subtest: Disabled/corrupt storage uses in-memory suppression and a later response cannot shorten cooldown
+ok 20 - Disabled/corrupt storage uses in-memory suppression and a later response cannot shorten cooldown
+  ---
+  duration_ms: 7.684791
+  ...
+# Subtest: Pro consumer keeps prices/calculations on 429/503 and resumes only after cooldown
+ok 21 - Pro consumer keeps prices/calculations on 429/503 and resumes only after cooldown
+  ---
+  duration_ms: 1203.027875
+  ...
+# Subtest: Pro contract changes during cooldown never reuse another ES contract or issue requests
+ok 22 - Pro contract changes during cooldown never reuse another ES contract or issue requests
+  ---
+  duration_ms: 75.456417
+  ...
+# Subtest: Dow/Russell shows visible quota/outage feedback and retains last data through recovery
+ok 23 - Dow/Russell shows visible quota/outage feedback and retains last data through recovery
+  ---
+  duration_ms: 13.874541
+  ...
+# Subtest: Actual Pro API shares a cooldown with warm Dow tab and reload, but not another account
+ok 24 - Actual Pro API shares a cooldown with warm Dow tab and reload, but not another account
+  ---
+  duration_ms: 170.819041
+  ...
+# Subtest: Chart polling and manual reset preserve history on 429/503 and recover without rapid retries
+ok 25 - Chart polling and manual reset preserve history on 429/503 and recover without rapid retries
+  ---
+  duration_ms: 42.25375
+  ...
+# Subtest: Options manual/normal refreshes retain data on 429/503, share all premium tickers, leave SPY public
+ok 26 - Options manual/normal refreshes retain data on 429/503, share all premium tickers, leave SPY public
+  ---
+  duration_ms: 50.754209
+  ...
+# Subtest: Options shares cooldown across reloads/accounts correctly and Pro quota stays independent
+ok 27 - Options shares cooldown across reloads/accounts correctly and Pro quota stays independent
+  ---
+  duration_ms: 580.022375
+  ...
+# Subtest: In-flight response records only the captured request user after an account switch
+ok 28 - In-flight response records only the captured request user after an account switch
+  ---
+  duration_ms: 28.213667
+  ...
+# Subtest: One hour of real polling functions across six tabs plus reloads/manual requests retains quota headroom
+ok 29 - One hour of real polling functions across six tabs plus reloads/manual requests retains quota headroom
+  ---
+  duration_ms: 1156.910417
+  ...
+# 60 minutes, same user: Pro + Dow + chart = 183/1200 requests, peak 4/60 per minute; three premium Options tabs = 16/600 requests, peak 3/60 per minute. Includes two reloads, one ES switch, one chart reset, two Options refreshes, and one ticker switch.
+# Subtest: Concurrent manual probes claim one shared 15-second lease; failed probes retain backoff
+ok 30 - Concurrent manual probes claim one shared 15-second lease; failed probes retain backoff
+  ---
+  duration_ms: 3.266
+  ...
+# Subtest: Successful explicit probe clears warm-tab memory, but cannot erase a newer denial
+ok 31 - Successful explicit probe clears warm-tab memory, but cannot erase a newer denial
+  ---
+  duration_ms: 1.742
+  ...
+# Subtest: Unsupported lock coordination or unwritable storage never permits an unbounded manual probe
+ok 32 - Unsupported lock coordination or unwritable storage never permits an unbounded manual probe
+  ---
+  duration_ms: 1.110667
+  ...
+# Subtest: Visible Dow Retry now probes restore warm Pro and chart tabs before a one-hour deadline
+ok 33 - Visible Dow Retry now probes restore warm Pro and chart tabs before a one-hour deadline
+  ---
+  duration_ms: 34.357791
+  ...
+# Subtest: Options explicit Retry now restores another premium tab after emergency recovery
+ok 34 - Options explicit Retry now restores another premium tab after emergency recovery
+  ---
+  duration_ms: 55.168875
+  ...
+# Subtest: Pro manual probe reuses its lease across the existing single 401 token refresh
+ok 35 - Pro manual probe reuses its lease across the existing single 401 token refresh
+  ---
+  duration_ms: 13.098083
+  ...
+# Subtest: Billing safeguard blocks self-upgrade and billing-ID edits, preserves profile edits and Stripe writes
+ok 36 - Billing safeguard blocks self-upgrade and billing-ID edits, preserves profile edits and Stripe writes
+  ---
+  duration_ms: 4065.001625
+  ...
+# Subtest: retired Pro endpoint never serves prices or redirects, even with authorization
+ok 37 - retired Pro endpoint never serves prices or redirects, even with authorization
+  ---
+  duration_ms: 191.811
+  ...
+# Subtest: Auto and explicit selection immediately recalculate both ES conversions without changing unrelated ratios or To
+ok 38 - Auto and explicit selection immediately recalculate both ES conversions without changing unrelated ratios or To
+  ---
+  duration_ms: 1450.4915
+  ...
+# Subtest: Contract-only responses preserve base prices even across a new backend snapshot
+ok 39 - Contract-only responses preserve base prices even across a new backend snapshot
+  ---
+  duration_ms: 15.129666
+  ...
+# Subtest: Rapid switches ignore late responses and unavailable contracts cannot reuse Auto or previous ES
+ok 40 - Rapid switches ignore late responses and unavailable contracts cannot reuse Auto or previous ES
+  ---
+  duration_ms: 95.5535
+  ...
+# Subtest: Periodic refresh keeps selected conversion and contract; old Auto payload remains compatible
+ok 41 - Periodic refresh keeps selected conversion and contract; old Auto payload remains compatible
+  ---
+  duration_ms: 73.248
+  ...
+# Subtest: Pricing API sends session, refreshes expired tokens once, redirects missing/non-Pro sessions
+ok 42 - Pricing API sends session, refreshes expired tokens once, redirects missing/non-Pro sessions
+  ---
+  duration_ms: 65.317208
+  ...
+# Subtest: combined snapshot read preserves subscription decisions and private permissions
+ok 43 - combined snapshot read preserves subscription decisions and private permissions
+  ---
+  duration_ms: 4119.807334
+  ...
+# Subtest: Pro cache PostgreSQL migration and scheduler invariants
+    # Subtest: cache and refresh RPCs reject anon/authenticated; service role can read but cannot write directly
+    ok 1 - cache and refresh RPCs reject anon/authenticated; service role can read but cannot write directly
+      ---
+      duration_ms: 31.335416
+      ...
+    # Subtest: only one claim is admitted in a burst and its bucket is UTC despite the session timezone
+    ok 2 - only one claim is admitted in a burst and its bucket is UTC despite the session timezone
+      ---
+      duration_ms: 25.816791
+      ...
+    # Subtest: failed refresh releases its lease without clearing the snapshot or minute cooldown
+    ok 3 - failed refresh releases its lease without clearing the snapshot or minute cooldown
+      ---
+      duration_ms: 22.657542
+      ...
+    # Subtest: active lease blocks a later minute; an expired lease is reclaimed with a new fence token
+    ok 4 - active lease blocks a later minute; an expired lease is reclaimed with a new fence token
+      ---
+      duration_ms: 17.056208
+      ...
+    # Subtest: expired finish is rejected even when its token has not been superseded
+    ok 5 - expired finish is rejected even when its token has not been superseded
+      ---
+      duration_ms: 7.479209
+      ...
+    # Subtest: invalid quote transport cannot publish or consume the current valid claim
+    ok 6 - invalid quote transport cannot publish or consume the current valid claim
+      ---
+      duration_ms: 21.356375
+      ...
+    # Subtest: reapplying the migration preserves the published snapshot and attempt history
+    ok 7 - reapplying the migration preserves the published snapshot and attempt history
+      ---
+      duration_ms: 7.244375
+      ...
+    # Subtest: scheduler configuration is owner-only and rejects invalid targets or absent Vault credentials
+    ok 8 - scheduler configuration is owner-only and rejects invalid targets or absent Vault credentials
+      ---
+      duration_ms: 8.802416
+      ...
+    # Subtest: configuration replaces only its own job and keeps the credential out of stored cron SQL
+    ok 9 - configuration replaces only its own job and keeps the credential out of stored cron SQL
+      ---
+      duration_ms: 10.831
+      ...
+    1..9
+ok 44 - Pro cache PostgreSQL migration and scheduler invariants
+  ---
+  duration_ms: 3807.397959
+  ...
+1..44
+# tests 53
+# suites 0
+# pass 53
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4371.074583

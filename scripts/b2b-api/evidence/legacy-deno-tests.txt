@@ -1,0 +1,131 @@
+Check tests/pro_price_request_test.ts
+Check tests/pro_prices_test.ts
+Check tests/pro_price_updater_test.ts
+Check tests/pro_price_yahoo_test.ts
+Check tests/premium_quota_test.ts
+running 3 tests from ./tests/pro_price_request_test.ts
+one combined read per valid GET; preflight caching never caches subscription access ... ok (23ms)
+concurrent requests cannot reuse another request's subscription or snapshot ... ok (1ms)
+combined read rejects malformed access, missing/stale prices, and database failures ...
+------- output -------
+get-live-price-pro: authorization or quote lookup failed
+get-live-price-pro: authorization or quote lookup failed
+get-live-price-pro: authorization or quote lookup failed
+get-live-price-pro: authorization or quote lookup failed
+get-live-price-pro: authorization or quote lookup failed
+get-live-price-pro: authorization or quote lookup failed
+get-live-price-pro: authorization or quote lookup failed
+----- output end -----
+combined read rejects malformed access, missing/stale prices, and database failures ... ok (5ms)
+running 14 tests from ./tests/pro_prices_test.ts
+Auto preserves generic fields and reports Yahoo underlying expiration ... ok (2ms)
+December and March use distinct quotes for both ES ratios; all unrelated values stay equal ... ok (4ms)
+Allowlist rejects arbitrary, duplicate, empty, unlisted and malformed symbols ... ok (12ms)
+Unavailable, expired, wrong-expiration and nonfinite quotes are omitted with no fallback ... ok (0ms)
+Shared snapshot reader accepts data through two minutes and rejects anything older ... ok (0ms)
+Shared snapshot reader rejects missing, malformed, and future database records ... ok (0ms)
+Shared snapshot reader tolerates five seconds of database clock skew and partial instruments ... ok (0ms)
+Database serialization preserves all prices, ratios, contracts, and quote datetimes ... ok (3ms)
+Snapshot reads see database changes and fail closed on database outages without old-data fallback ... ok (7ms)
+Authorizer trusts verified user identity and exact server subscription boolean only ... ok (1ms)
+Every endpoint GET requires valid Pro access before reading the shared snapshot ... ok (6ms)
+A burst across independent GET handlers only authorizes and reads the same stored quotes ... ok (11ms)
+Pro GET returns unavailable for missing or expired shared snapshots ...
+------- post-test output -------
+get-live-price-pro: authorization or quote lookup failed
+get-live-price-pro: authorization or quote lookup failed
+----- post-test output end -----
+Pro GET returns unavailable for missing or expired shared snapshots ... ok (7ms)
+Subscription lookup failures fail closed; missing explicit quote returns 503 ...
+------- post-test output -------
+get-live-price-pro: authorization or quote lookup failed
+----- post-test output end -----
+Subscription lookup failures fail closed; missing explicit quote returns 503 ... ok (1ms)
+running 8 tests from ./tests/pro_price_updater_test.ts
+Updater rejects unauthorized callers before claiming, fetching, or writing ... ok (1ms)
+Private updater only accepts POST, including rejecting browser preflight ... ok (0ms)
+A denied refresh claim skips provider access and storage writes ... ok (0ms)
+One winning shared claim permits one provider batch across independent concurrent updaters ... ok (24ms)
+Provider failure releases its claim once without automatic retry or replacing stored prices ...
+------- post-test output -------
+refresh-pro-prices: refresh failed
+----- post-test output end -----
+Provider failure releases its claim once without automatic retry or replacing stored prices ... ok (0ms)
+Snapshot persistence failure releases the winning claim without a second provider fetch ...
+------- post-test output -------
+refresh-pro-prices: refresh failed
+----- post-test output end -----
+Snapshot persistence failure releases the winning claim without a second provider fetch ... ok (0ms)
+Claim failure never contacts the provider or attempts to release an unowned claim ...
+------- post-test output -------
+refresh-pro-prices: refresh failed
+----- post-test output end -----
+Claim failure never contacts the provider or attempts to release an unowned claim ... ok (0ms)
+Cleanup failure still returns a generic unavailable response without retrying ... ok (0ms)
+running 8 tests from ./tests/pro_price_yahoo_test.ts
+Yahoo HTTP budget counts session setup and stops before another fetch ... ok (1ms)
+Yahoo wrapper rejects unapproved URLs before any network request ... ok (1ms)
+Yahoo session redirects and cookie-bearing 404s are preserved with manual redirects ... ok (0ms)
+Yahoo quote errors and request logs omit query secrets and response bodies ... ok (0ms)
+Yahoo expired deadline rejects without using the network ... ok (9ms)
+Yahoo refresh uses one quote call and preserves supported quote filtering ... ok (7ms)
+Yahoo library failures are sanitized and never retried within an attempt ... ok (0ms)
+Yahoo overall deadline ends a hung quote and aborts its shared signal ... ok (9ms)
+running 13 tests from ./tests/premium_quota_test.ts
+Pro quota only charges verified subscribers and valid GET selections ... ok (4ms)
+Pro uses verified identity across refreshed tokens and concurrent requests ... ok (1ms)
+quota database failures and malformed decisions fail closed without exposing details ...
+------- post-test output -------
+premium_api_quota_unavailable
+premium_api_quota_unavailable
+premium_api_quota_unavailable
+premium_api_quota_unavailable
+premium_api_quota_unavailable
+premium_api_quota_unavailable
+premium_api_quota_unavailable
+premium_api_quota_unavailable
+----- post-test output end -----
+quota database failures and malformed decisions fail closed without exposing details ... ok (5ms)
+Pro revocation is checked before quotas and disabled quotas preserve the existing response ... ok (1ms)
+public SPY bypasses authentication and quotas, including during limiter failures ... ok (0ms)
+all premium tickers share the verified user budget after authorization ... ok (0ms)
+premium Options limiter outage returns 503; omitted limiter preserves authorized access ...
+------- post-test output -------
+premium_api_quota_unavailable
+----- post-test output end -----
+premium Options limiter outage returns 503; omitted limiter preserves authorized access ... ok (0ms)
+disabled, missing, malformed or unavailable runtime control bypasses quota without consuming ...
+------- post-test output -------
+premium_api_quota_control_unverified
+premium_api_quota_control_unverified
+premium_api_quota_control_unverified
+premium_api_quota_control_unverified
+premium_api_quota_control_unverified
+premium_api_quota_control_unverified
+premium_api_quota_control_unverified
+premium_api_quota_control_unverified
+----- post-test output end -----
+disabled, missing, malformed or unavailable runtime control bypasses quota without consuming ... ok (0ms)
+same long-lived Pro and Options handlers honor runtime disable without reconstruction ... ok (0ms)
+concurrent long-lived requests recheck runtime control after an in-flight denial ... ok (1ms)
+limiter failure rechecks control: disabled or unverified recovers, verified enabled remains 503 ...
+------- post-test output -------
+premium_api_quota_control_unverified
+premium_api_quota_control_unverified
+premium_api_quota_unavailable
+----- post-test output end -----
+limiter failure rechecks control: disabled or unverified recovers, verified enabled remains 503 ... ok (2ms)
+malformed limiter response with confirmed enabled runtime control returns 503 ...
+------- post-test output -------
+premium_api_quota_unavailable
+----- post-test output end -----
+malformed limiter response with confirmed enabled runtime control returns 503 ... ok (0ms)
+unknown control never bypasses JWT, current membership, or public SPY isolation ...
+------- post-test output -------
+premium_api_quota_control_unverified
+premium_api_quota_control_unverified
+----- post-test output end -----
+unknown control never bypasses JWT, current membership, or public SPY isolation ... ok (1ms)
+
+ok | 46 passed | 0 failed (578ms)
+

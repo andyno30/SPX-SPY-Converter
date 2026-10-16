@@ -1,0 +1,64 @@
+running 1 test from ./tests/b2b/agreement_test.ts
+completed signature evidence requires provider completion, identity, version and private PDF ... ok (1ms)
+running 1 test from ./tests/b2b/billing_test.ts
+Stripe test adapter: signatures, gates, exact prices and canonical event reconciliation ...
+  disabled flags, live secret keys and missing signatures prevent checkout ... ok (2ms)
+  mispriced plan cannot create a checkout ... ok (1ms)
+  checkout retries after a lost database acknowledgment retain identical Stripe parameters ... ok (2ms)
+  concurrent checkouts create one API customer/session with no Pro metadata ... ok (19ms)
+  raw-body HMAC rejects invalid, stale and modified signatures ... ok (3ms)
+  payment activates only through verified webhook and duplicate delivery is idempotent ... ok (5ms)
+  test billing cannot mutate a live organization, including direct reconciliation ... ok (3ms)
+  scheduled cancellation preserves paid access until expiration ... ok (3ms)
+  failed invoice blocks; out-of-order failure cannot replace canonical paid state ... ok (5ms)
+  refund suspends access; subsequent paid event cannot clear suspension ... ok (2ms)
+  a dispute resolves its charge and invoice and requires manual reactivation even when closed ... ok (3ms)
+  canonical termination blocks access ... ok (1ms)
+  webhook sync lease fences concurrent writes and expired tokens ... ok (2ms)
+  portal is scoped to separate API customer/configuration and existing Pro events are ignored ... ok (1ms)
+Stripe test adapter: signatures, gates, exact prices and canonical event reconciliation ... ok (384ms)
+running 1 test from ./tests/b2b/gateway_test.ts
+Cloudflare gateway fails closed with JSON and never exposes a CAPTCHA or origin secret ... ok (2ms)
+running 1 test from ./tests/b2b/integration_test.ts
+B2B PostgreSQL and gateway integration (synthetic fixtures, network denied) ...
+  exact $25/$50/$150 monthly prices and quotas ... ok (0ms)
+  Business requires manual approval before key activation ... ok (13ms)
+  organization listing and dashboard route return account-scoped state ... ok (2ms)
+  stored response matches original handler bytes for every available contract ... ok (8ms)
+  nulls, nested metadata and unavailable contracts retain original semantics ... ok (5ms)
+  invalid and revoked credentials cannot read cached data ... ok (2ms)
+  key rotation is atomic and full secrets are absent from dashboard ... ok (2ms)
+  organization isolation, owner permissions and last-owner protection ... ok (19ms)
+  operator records provider evidence; customers cannot self-approve or write agreements ... ok (11ms)
+  minute limits are exact under concurrent requests and shared across organization keys ... ok (272ms)
+  independent customers do not share rate counters ... ok (4ms)
+  monthly quota admits precisely the last remaining request ... ok (16ms)
+  billing period change resets quota without changing history; expiration and failed payment block ... ok (4ms)
+  internal metering retries are idempotent; caller request IDs cannot bypass accounting ... ok (3ms)
+  120-second source TTL survives copies; stale and future source records fail closed ... ok (6ms)
+  live licensing flag blocks both market delivery and key creation ... ok (6ms)
+  a snapshot expiring during accounting is never returned as fresh ... ok (1ms)
+  cache advances atomically and old copies cannot overwrite new snapshots ... ok (3ms)
+  restricted gateway cannot publish cache or read tables; source role cannot refresh ... ok (5ms)
+  zero extra provider calls: same 3 synthetic updater ticks, 0 vs 600 B2B GETs ...
+------- post-test output -------
+ZERO-UPSTREAM EVIDENCE {"baseline":{"quoteCalls":3,"yahooHttp":9,"copies":3,"sourceReads":3,"admitted":0},"loaded":{"quoteCalls":3,"yahooHttp":9,"copies":3,"sourceReads":3,"admitted":390},"additionalYahooHTTP":0,"customerRequests":600,"actualNetworkRequests":0}
+----- post-test output end -----
+  zero extra provider calls: same 3 synthetic updater ticks, 0 vs 600 B2B GETs ... ok (157ms)
+B2B PostgreSQL and gateway integration (synthetic fixtures, network denied) ... ok (836ms)
+running 1 test from ./tests/b2b/provisioning_test.ts
+automatic first-key provisioning is authorized, atomic and shown once ... ok (395ms)
+running 2 tests from ./tests/b2b/release_test.ts
+JSON parity with downloaded production v3 serializer, including nulls and expirations ... ok (3ms)
+additive migration rollback removes only B2B objects and can be reapplied ... ok (207ms)
+running 1 test from ./tests/b2b/signing_flow_test.ts
+Provider signing: authenticated identity, concurrency, private artifact and idempotent completion ...
+  configuration, verified identity, and organization ownership are required ... ok (2ms)
+  simultaneous starts create one provider envelope, with reusable signing view ... ok (33ms)
+  a return URL cannot mark an unfinished agreement as signed ... ok (1ms)
+  provider completion archives the PDF and signature atomically, duplicate callbacks are safe ... ok (7ms)
+  a lost provider acknowledgment is recovered without another envelope ... ok (3ms)
+Provider signing: authenticated identity, concurrency, private artifact and idempotent completion ... ok (341ms)
+
+ok | 8 passed (39 steps) | 0 failed (2s)
+
