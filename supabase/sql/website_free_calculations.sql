@@ -41,6 +41,9 @@ begin
   end if;
   return jsonb_build_object('allowed',false,'code','HUMAN_VERIFICATION_REQUIRED','challenge',r.challenge,'retry',60);
  end if;
+ -- Parallel browser replies can arrive after another request already verified this network.
+ -- Return existing server clearance without reusing a Turnstile token or increasing any limit.
+ if p_action='claim' and r.verified_until>t then return jsonb_build_object('allowed',true,'already_verified',true);end if;
  if r.challenge is null or p_challenge is distinct from r.challenge or r.challenge_expires<=t then
   return jsonb_build_object('allowed',false,'code','INVALID_CHALLENGE','retry',60);
  end if;

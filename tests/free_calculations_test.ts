@@ -23,11 +23,11 @@ Deno.test({name:'Free calculations: exact atomic 10/minute, verification, 20/min
    assert.equal((await app(req(undefined,other))).status,200);assert.equal(network,0);
    assert.equal((await rs.find(r=>r.status===200)!.json()).value,7000/10.03214930);
   });
-  await t.step('forged cross-network challenge fails; verified result gives only ten more; replay fails',async()=>{
+  await t.step('forged cross-network challenge fails; verified result gives only ten more; duplicate completion reuses existing clearance',async()=>{
    const body={action:'verify',challenge,response:'synthetic'};
    assert.equal((await app(req(body,other))).status,429);assert.equal(network,0);
    assert.equal((await app(req(body))).status,200);assert.equal(network,1);
-   assert.equal((await app(req(body))).status,429);assert.equal(network,1);
+   assert.equal((await app(req(body))).status,200);assert.equal(network,1);
    const rs=await Promise.all(Array.from({length:30},()=>app(req())));assert.equal(rs.filter(r=>r.status===200).length,10);
    assert.equal((await rs.find(r=>r.status===429)!.json()).code,'RATE_LIMITED');
   });
