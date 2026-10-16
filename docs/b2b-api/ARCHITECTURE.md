@@ -1,6 +1,6 @@
 # SpyConverter B2B API architecture
 
-This implementation is additive on `codex/b2b-api-platform`. All 283 original tracked files remain byte-for-byte unchanged. The new Cloudflare API gateway, private Supabase B2B schema/functions, live Stripe products, portal and webhook have been deployed under user authorization. Commercial checkout and live delivery remain disabled pending the remaining activation prerequisites. See RUNBOOK.md and REVIEW.md for current status; existing upstream schedules are unchanged.
+This implementation is additive on `codex/b2b-api-platform`. The initial B2B release preserved all 283 original tracked files. The separately authorized Pro human-verification release now changes seven security-related files; 276 remain unchanged and the preservation check reports no unexpected changes. The new Cloudflare API gateway, private Supabase B2B schema/functions, live Stripe products, portal and webhook have been deployed under user authorization. Commercial checkout and live delivery remain disabled pending the remaining activation prerequisites. See RUNBOOK.md and REVIEW.md for current status; existing upstream schedules are unchanged.
 
 ## Existing services and routing
 
@@ -11,7 +11,7 @@ This implementation is additive on `codex/b2b-api-platform`. All 283 original tr
 | Trading Journal | Separate `trading-journal` Vercel application | Untouched |
 | Identity | Existing Supabase browser authentication in `docs/auth.js` | Production frontend reuses its session; gateway independently validates `/auth/v1/user` |
 | SpyConverter Pro | Existing `profiles.is_subscribed`, Pro quotas and Stripe handling | No B2B access to these entitlements; separate schema, customers, prices and metadata |
-| Market cache | Existing `public.pro_price_cache`, scheduled `refresh-pro-prices` function | Restricted SELECT-only bridge deployed; copy disabled; updater unchanged |
+| Market cache | Existing `public.pro_price_cache`, scheduled `refresh-pro-prices` function | Restricted SELECT-only bridge deployed; copy active with pending-review provenance; updater unchanged |
 | Domain | Read-only DNS/HTTP audit showed Cloudflare proxying | Separate api hostname and Pages gateway created; existing DNS and security rules unchanged |
 
 Directory indexes fit the existing static hosting layout without a framework migration or root rewrite. `/B2B/api` may receive the host's normal trailing-slash redirect to `/B2B/api/`; all navigation stays within this namespace. The older request for `/api/dashboard` is superseded by the explicit `/B2B/api/` isolation requirement. No old navigation links were edited. Server code, tests and evidence are under directories already excluded from Pages; new Markdown documentation matches its existing exclusions.
@@ -20,7 +20,7 @@ Authenticated console review confirmed GitHub Pages for the existing website and
 
 ## The source of truth
 
-The unchanged `contact-for-licencing/index.ts` calls the existing Pro request handler. That handler validates a Supabase identity and calls the existing access-snapshot RPC. It does **not** fetch Yahoo prices per customer GET. It reads a single cached quotes/timestamp record and uses the pure `priceResponse` serializer. Calling the original HTTP endpoint can involve the existing Pro authorization/quota path, so B2B never polls or proxies it.
+The `contact-for-licencing/index.ts` endpoint calls the existing Pro request handler, now extended with the separately authorized website-only human-verification guard. Its successful conversion response remains unchanged. That handler validates a Supabase identity and calls the existing access-snapshot RPC. It does **not** fetch Yahoo prices per customer GET. It reads a single cached quotes/timestamp record and uses the pure `priceResponse` serializer. Calling the original HTTP endpoint can involve the existing Pro authorization/quota path, so B2B never polls or proxies it.
 
 The existing `refresh-pro-prices` implementation uses `yahoo-finance2`, admits one quote batch on the existing minute schedule, and bounds actual Yahoo HTTP requests, including session/crumb traffic. A separate legacy Python yfinance dependency also exists. Neither implementation, the refresh claim, nor any schedule has been changed. Unavailable backend source for other services cannot be audited beyond what is in this checkout.
 
@@ -44,7 +44,7 @@ The existing `refresh-pro-prices` implementation uses `yahoo-finance2`, admits o
 flowchart TD
   U[Existing scheduled updater unchanged] --> Y[Existing Yahoo request budget unchanged]
   Y --> S[Existing pro_price_cache]
-  S --> R[New read-only SELECT bridge after approval]
+  S --> R[Restricted read-only SELECT bridge]
   R --> C[Scheduled copy and unchanged pure serializer]
   C --> B[Private B2B serialized snapshots]
   K[Customer API key] --> W[Cloudflare-compatible gateway]
@@ -55,7 +55,7 @@ flowchart TD
 
 There is no path from the customer handler, meter or cache reader to Yahoo, yfinance, the original HTTP endpoint, the refresh function, or a cache-copy operation. The scheduled copy reads an already-created DB record. A failed read does not refresh or retry upstream. The source reader role has execute permission on one read-only RPC and no permission to invoke refresh functions or write the source table. The customer gateway role cannot publish snapshots. The cache writer is separate.
 
-The dedicated Supabase cache-copy function is deployed but has **no configured cron** and its copy flag defaults false. The earlier all-in-Worker adapter remains an alternative, not the deployed topology. After approval and rights clearance, a once-per-minute copy may align with the existing source cadence. That is a database copy, never a new price polling job. If the production source differs from this audited code or a read-only path cannot be established, keep the copy disabled and stop: do not fall back to polling the HTTP endpoint.
+The dedicated Supabase cache-copy function is active once per minute, with a ten-second copy-only offset after the unchanged updater. Until data rights are confirmed, copied snapshots carry pending_review provenance and cannot be delivered to customers. The earlier all-in-Worker adapter remains an alternative, not the deployed topology. That is a database copy, never a new price polling job. If the production source differs from this audited code or a read-only path cannot be established, keep the copy disabled and stop: do not fall back to polling the HTTP endpoint.
 
 ## Freshness and unavailable data
 
@@ -85,6 +85,6 @@ Quota is reserved at admission. A later transport failure or expiry during accou
 
 The Stripe adapter enforces mode-matched live or test credentials and exact USD monthly prices. Each subscription has an immutable billing environment checked by checkout, portal, webhooks, key provisioning and request metering; test payments cannot authorize live credentials. Verified webhooks reconcile canonical subscription/paid-invoice state under a fenced database lease. No browser redirect activates access. Failed payments block access; scheduled cancellation retains paid access until expiration; refunds/disputes cause sticky suspension. Initial key provisioning is automatic from the authenticated dashboard after all gates pass.
 
-New subscriptions use explicit Terms acceptance instead of DocuSign. The authenticated owner submits an initially unchecked checkbox with the current immutable agreement version and SHA-256 digest. Server-side SQL checks verified identity, ownership, live approval and exact content, then records an idempotent receipt and audit event. Acceptance cannot be supplied by a checkout redirect or forged client identity. Historical signing records and adapter code remain for audit compatibility. The current Terms are awaiting owner approval; test-only catalog approval cannot authorize a live organization.
+New subscriptions use explicit Terms acceptance instead of DocuSign. The authenticated owner submits an initially unchecked checkbox with the current immutable agreement version and SHA-256 digest. Server-side SQL checks verified identity, ownership, live approval and exact content, then records an idempotent receipt and audit event. Acceptance cannot be supplied by a checkout redirect or forged client identity. Historical signing records and adapter code remain for audit compatibility. The owner approved the exact current Terms version on October 16. Its immutable catalog approval and production acceptance are active; test-only acceptance still cannot authorize a live organization.
 
 The actual deployment is Cloudflare Pages advanced-mode API gateway → Supabase B2B Edge function → restricted transaction-pooler login → private PostgreSQL RPCs. Cache source and writer use separate roles. Existing website hosting, authentication configuration, Pro billing and updater remain unchanged.

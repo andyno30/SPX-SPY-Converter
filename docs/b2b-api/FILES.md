@@ -1,6 +1,18 @@
-# B2B file inventory
+# B2B and authorized website-security file inventory
 
-83 B2B files. No original website files changed in this B2B release. Private credentials, payment URLs and raw API keys stay outside Git.
+104 created files and 7 modified original files relative to production baseline 1201ef5. The seven original-file modifications are the explicitly authorized Pro human-verification integration; all other 276 original tracked files are unchanged. Credentials, authentication codes, payment URLs, private source inspection and raw API keys are excluded from Git.
+
+## Modified original files
+
+- docs/dow_russell_script.js
+- docs/pro_prices_api.js
+- docs/pro_script.js
+- docs/spx-spy-overlap-chart.html
+- supabase/functions/contact-for-licencing/index.ts
+- supabase/functions/get-live-price-pro/handler.ts
+- supabase/functions/get-live-price-pro/request.ts
+
+## Created files
 
 - B2B/api/assets/api.css
 - B2B/api/assets/app.js
@@ -17,6 +29,8 @@
 - docs/b2b-api/LICENSING.md
 - docs/b2b-api/REVIEW.md
 - docs/b2b-api/RUNBOOK.md
+- docs/b2b-api/WEBSITE-SECURITY.md
+- docs/human-verification.js
 - scripts/b2b-api/build-pages.py
 - scripts/b2b-api/evidence/b2b-tests.txt
 - scripts/b2b-api/evidence/billing-desktop.jpg
@@ -24,12 +38,16 @@
 - scripts/b2b-api/evidence/cache-operations.json
 - scripts/b2b-api/evidence/dashboard-desktop.jpg
 - scripts/b2b-api/evidence/dashboard-mobile.jpg
+- scripts/b2b-api/evidence/final-page-verification.json
 - scripts/b2b-api/evidence/frontend-tests.txt
+- scripts/b2b-api/evidence/function-security-preservation.json
 - scripts/b2b-api/evidence/hosted-terms-flow.json
 - scripts/b2b-api/evidence/hosted-tier-tests.json
 - scripts/b2b-api/evidence/landing-desktop.jpg
 - scripts/b2b-api/evidence/legacy-deno-tests.txt
 - scripts/b2b-api/evidence/legacy-node-tests.txt
+- scripts/b2b-api/evidence/live-approved-terms.jpg
+- scripts/b2b-api/evidence/live-checkout-confirmation.jpg
 - scripts/b2b-api/evidence/live-responsive-checks.json
 - scripts/b2b-api/evidence/live-stripe-readiness.json
 - scripts/b2b-api/evidence/original-files-sha256.json
@@ -37,10 +55,20 @@
 - scripts/b2b-api/evidence/preservation.json
 - scripts/b2b-api/evidence/pricing-mobile.jpg
 - scripts/b2b-api/evidence/production-verification.json
+- scripts/b2b-api/evidence/release-readiness.json
 - scripts/b2b-api/evidence/responsive-checks.json
+- scripts/b2b-api/evidence/security-activation.json
 - scripts/b2b-api/evidence/sql-driver-tests.txt
 - scripts/b2b-api/evidence/terms-accepted-local.jpg
 - scripts/b2b-api/evidence/typecheck.txt
+- scripts/b2b-api/evidence/website-human-frontend.txt
+- scripts/b2b-api/evidence/website-human-typecheck.txt
+- scripts/b2b-api/evidence/website-regression-deno.txt
+- scripts/b2b-api/evidence/website-regression-sql.txt
+- scripts/b2b-api/evidence/website-release-verification.json
+- scripts/b2b-api/evidence/website-security-approved-files.json
+- scripts/b2b-api/evidence/website-security-hosted.json
+- scripts/b2b-api/evidence/website-security-release.json
 - scripts/b2b-api/evidence/zero-upstream.json
 - scripts/b2b-api/local-database.cjs
 - scripts/b2b-api/mock-stripe.mjs
@@ -63,9 +91,11 @@
 - supabase/b2b-api/terms.mjs
 - supabase/b2b-api/worker.ts
 - supabase/b2b-api/wrangler.toml
+- supabase/functions/_shared/website-human-verification.ts
 - supabase/functions/b2b-cache-copy/index.ts
 - supabase/functions/b2b-platform-test/index.ts
 - supabase/functions/b2b-platform/index.ts
+- supabase/functions/website-verification/index.ts
 - supabase/sql/b2b_api_billing_environment.sql
 - supabase/sql/b2b_api_operations.sql
 - supabase/sql/b2b_api_review.sql
@@ -74,6 +104,7 @@
 - supabase/sql/b2b_api_signing.sql
 - supabase/sql/b2b_api_source_reader.sql
 - supabase/sql/b2b_api_terms.sql
+- supabase/sql/website_human_verification.sql
 - tests/b2b/agreement_test.ts
 - tests/b2b/billing_test.ts
 - tests/b2b/fixtures/deployed-serializer-20261016.mjs
@@ -85,3 +116,5 @@
 - tests/b2b/signing_flow_test.ts
 - tests/b2b/sql_driver_test.ts
 - tests/b2b/terms_flow_test.ts
+- tests/website_human_frontend_test.cjs
+- tests/website_human_verification_test.ts

@@ -1,0 +1,20 @@
+{
+  "direct_pro_invalid": 401,
+  "direct_pro_non_subscriber": 403,
+  "private_source_anonymous": 401,
+  "private_source_authenticated": 403,
+  "client_cannot_forge_clearance": 403,
+  "non_subscriber_cannot_verify": 401,
+  "hosted_atomic_control": {
+    "requests": 70,
+    "admitted": 30,
+    "challenged": 40,
+    "one_identity_bound_nonce": true,
+    "other_identity_allowed": true,
+    "fixture": "two existing disposable test users; no Pro entitlement granted"
+  },
+  "checked_at": "2026-10-16T19:08:00.064386+00:00",
+  "market_data_refreshes": 0,
+  "updater_invocations": 0,
+  "cloudflare_token_completion": "Mocked in local tests; no human CAPTCHA solved automatically."
+}

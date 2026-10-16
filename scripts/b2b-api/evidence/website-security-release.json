@@ -1,0 +1,32 @@
+[
+  {
+    "path": "docs/pro_prices_api.js?v=20261016-human",
+    "status": 200,
+    "matches": true,
+    "cache_control": "max-age=14400"
+  },
+  {
+    "path": "docs/human-verification.js?v=20261016",
+    "status": 200,
+    "matches": true,
+    "cache_control": "max-age=14400"
+  },
+  {
+    "path": "docs/pro_script.js?v=20261015-quota",
+    "status": 200,
+    "matches": true,
+    "cache_control": "max-age=14400"
+  },
+  {
+    "path": "docs/dow_russell_script.js?v=20261015-quota",
+    "status": 200,
+    "matches": true,
+    "cache_control": "max-age=14400"
+  },
+  {
+    "path": "docs/spx-spy-overlap-chart.html",
+    "status": 200,
+    "matches": true,
+    "cache_control": "max-age=600"
+  }
+]

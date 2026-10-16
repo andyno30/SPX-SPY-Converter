@@ -12,7 +12,7 @@ The verifier and limiter contain no market-data fetching capability. Successful 
 
 ## Deployment state
 
-The private schema and verifier are installed. The extended price endpoint is deployed. The new control is disabled until the frontend is published and checked. Record activation and hosted checks in the release evidence after that sequence.
+The private schema, verifier and extended price endpoint are deployed. GitHub Pages build cce0d42 succeeded, and all five affected static assets byte-match the reviewed release after a ten-URL cache purge. The control was then enabled at 2026-10-16 19:07 UTC. Hosted tests admitted exactly 30 of 70 concurrent disposable-user control requests and challenged the remaining 40 with one identity-bound nonce; a separate identity remained independent. Invalid users receive 401, non-subscribers 403, and direct public/authenticated cache and forged-verification RPC access are denied. Real human completion of a production Turnstile challenge was not automated; token-completion cases passed with mocks. Evidence is in website-security-hosted.json and security-activation.json.
 
 SQL migration source: supabase/sql/website_human_verification.sql. New private rows contain only bounded timestamps, nonce and verification state for an existing auth user. No IP address, raw Turnstile token, JWT, payment detail or market data is retained. SQL tables are inaccessible to browser roles; only the service role can execute the controlled function. Historical billing and agreement records remain intact.
 
@@ -22,11 +22,13 @@ SQL migration source: supabase/sql/website_human_verification.sql. New private r
 
 Tests exercise concurrent 30/70 admission, independent users, nonce binding, rejected direct RPC access, incorrect hostname/action/cData, expired token, replay, bounded clearance, hard quotas, cancellation and changed identity. The unchanged source response and lack of quote-refresh calls are asserted. The separate B2B suite and 600-request zero-extra-Yahoo instrumentation remain in evidence.
 
-## Free origin blocker
+## Free pages and the existing Supabase backend
 
-Google Cloud SDK login was renewed with the owner's specific approval. Project utility-trees-399601 is ACTIVE, but billingEnabled=false and billingAccountName is empty. Google App Engine denies version reads with a billing-association error. Existing staging/source buckets are empty; the remaining artifact bucket is not a verified deployment source. A local folder found outside this repository is a Hello World sample and must never replace the production backend.
+The legacy App Engine reference is outside the active-backend scope. Investigation stopped; no Google project billing, deployments, resources or source references were changed. The actual production backend is the existing Supabase project.
 
-No Free endpoint was polled, no Yahoo request was made, and no billing account was attached. Restore the project's existing billing association or provide the active replacement backend/source before modifying the Free origin. Preserve its updater, Mac fallback, caching and response contract. A website-only Cloudflare challenge is insufficient because callers can directly reach the App Engine URL.
+The Free pages retain their manual/static ratios and existing source references. Do not connect Free users to live Pro data. Their attempted unauthenticated Supabase fallback is denied; public and authenticated direct access to pro_price_cache is denied. The existing spy-ingest source was read only and still requires its private ingestion secret; the Mac fallback and automation were not invoked or modified.
+
+The five existing Cloudflare WAF rules remain active and unchanged. No new 10/minute Free-page challenge was installed. The current Free pages do not have an unrestricted live Supabase price route to which that market-data threshold could safely be added. Cloudflare's standard Free rate-limiting rule supports a ten-second window and does not implement the requested one-minute human-challenge workflow. Replacing the existing static Free experience or exposing Pro data would violate the preservation requirement. See [Cloudflare rate-limit availability](https://developers.cloudflare.com/waf/rate-limiting-rules/) for plan constraints. This limitation is separate from the deployed Pro control and B2B quota enforcement.
 
 ## Rollback
 

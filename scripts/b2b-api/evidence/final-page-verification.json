@@ -1,0 +1,34 @@
+{
+  "checked_at": "2026-10-16T19:10:46.897257+00:00",
+  "release_commit": "cce0d42001ea4b022b34da42253de4f356f54eaa",
+  "pages": [
+    {
+      "path": "B2B/api",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "path": "B2B/api/pricing",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "path": "B2B/api/docs",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "path": "B2B/api/dashboard",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "path": "B2B/api/terms",
+      "status": 200,
+      "matches": true
+    }
+  ],
+  "test_harness_disabled": 503,
+  "commercial_activation": false,
+  "upstream_requests": 0
+}

@@ -1,0 +1,79 @@
+{
+  "note": "Only contact-for-licencing received the authorized website-security extension. Project-wide secret changes can increment original function runtime versions without changing code or update timestamps. spy-ingest, updaters, News and Options were not redeployed.",
+  "original_functions": [
+    {
+      "name": "subscribe",
+      "authorized_security_extension": false,
+      "changed_metadata_except_runtime_version": [],
+      "prior_runtime_version": 41,
+      "runtime_version": 45
+    },
+    {
+      "name": "webhook",
+      "authorized_security_extension": false,
+      "changed_metadata_except_runtime_version": [],
+      "prior_runtime_version": 41,
+      "runtime_version": 45
+    },
+    {
+      "name": "delete-account",
+      "authorized_security_extension": false,
+      "changed_metadata_except_runtime_version": [],
+      "prior_runtime_version": 36,
+      "runtime_version": 40
+    },
+    {
+      "name": "get-live-price-pro",
+      "authorized_security_extension": false,
+      "changed_metadata_except_runtime_version": [],
+      "prior_runtime_version": 43,
+      "runtime_version": 47
+    },
+    {
+      "name": "fetch-news",
+      "authorized_security_extension": false,
+      "changed_metadata_except_runtime_version": [],
+      "prior_runtime_version": 37,
+      "runtime_version": 41
+    },
+    {
+      "name": "customer-portal",
+      "authorized_security_extension": false,
+      "changed_metadata_except_runtime_version": [],
+      "prior_runtime_version": 14,
+      "runtime_version": 18
+    },
+    {
+      "name": "fetch-spy-options",
+      "authorized_security_extension": false,
+      "changed_metadata_except_runtime_version": [],
+      "prior_runtime_version": 23,
+      "runtime_version": 27
+    },
+    {
+      "name": "refresh-pro-prices",
+      "authorized_security_extension": false,
+      "changed_metadata_except_runtime_version": [],
+      "prior_runtime_version": 12,
+      "runtime_version": 16
+    },
+    {
+      "name": "contact-for-licencing",
+      "authorized_security_extension": true,
+      "changed_metadata_except_runtime_version": [
+        "entrypoint_path",
+        "ezbr_sha256",
+        "updated_at"
+      ],
+      "prior_runtime_version": 12,
+      "runtime_version": 17
+    },
+    {
+      "name": "spy-ingest",
+      "authorized_security_extension": false,
+      "changed_metadata_except_runtime_version": [],
+      "prior_runtime_version": 11,
+      "runtime_version": 15
+    }
+  ]
+}

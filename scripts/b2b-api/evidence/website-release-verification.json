@@ -1,0 +1,27 @@
+[
+  {
+    "url": "https://spyconverter.com/B2B/api/",
+    "status": 200,
+    "matches_release": true
+  },
+  {
+    "url": "https://spyconverter.com/B2B/api/pricing/",
+    "status": 200,
+    "matches_release": true
+  },
+  {
+    "url": "https://spyconverter.com/B2B/api/docs/",
+    "status": 200,
+    "matches_release": true
+  },
+  {
+    "url": "https://spyconverter.com/B2B/api/dashboard/",
+    "status": 200,
+    "matches_release": true
+  },
+  {
+    "url": "https://spyconverter.com/B2B/api/terms/",
+    "status": 200,
+    "matches_release": true
+  }
+]
