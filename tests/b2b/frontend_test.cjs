@@ -16,9 +16,9 @@ test('B2B navigation never appears in an existing website page or script',()=>{
   assert.deepEqual(current.match(/B2B\/api/gi)||[],before.match(/B2B\/api/gi)||[],name);
  }
 });
-async function windowFor(page){
+async function windowFor(page,url=`http://127.0.0.1:8799/B2B/api/${page}/`){
  const {Window}=await import(pathToFileURL(require.resolve('happy-dom')).href);
- const win=new Window({url:`http://127.0.0.1:8799/B2B/api/${page}/`,settings:{disableCSSFileLoading:true,disableJavaScriptFileLoading:true,disableJavaScriptEvaluation:true}});
+ const win=new Window({url,settings:{disableCSSFileLoading:true,disableJavaScriptFileLoading:true,disableJavaScriptEvaluation:true}});
  win.document.write(fs.readFileSync(path.join(root,'B2B/api',page,'index.html'),'utf8').replace(/<script\b[^>]*>[\s\S]*?<\/script>/g,''));
  return win;
 }
@@ -42,15 +42,15 @@ test('both pricing displays contain exactly the approved monthly tiers',async()=
  }finally{await w.happyDOM.close();}}
 });
 async function dashboard(role='owner',options={}){
- const w=await windowFor('dashboard'),org='d603d247-cc2f-4254-9809-8f87c16ec21e';
+ const w=await windowFor('dashboard',options.production?'https://spyconverter.com/B2B/api/dashboard/':undefined),org='d603d247-cc2f-4254-9809-8f87c16ec21e';
  if(options.query)w.location.search=options.query;
  const state={role,organization:{name:'<img src=x onerror=alert(1)>',legal_name:'Synthetic',email:'test@example.test',business_approved:false},subscription:{plan:'developer',status:'active'},usage:{used:5,quota:10000,remaining:9995,per_minute:10},applications:[],agreements:[],keys:[],members:[],daily_usage:[],history:[]};
  Object.assign(state.subscription,options.subscription||{});
  if(options.signedOut!==true)w.sessionStorage.setItem('sc-b2b-demo-token','synthetic-session');w.sessionStorage.setItem('sc-b2b-demo-user',JSON.stringify({email:'test@example.test'}));
  const key='sc_test_'+'a'.repeat(64),calls=[];
  const fetch=async(url,opts={})=>{calls.push({url,opts});const p=new URL(url).pathname;return Response.json(p==='/platform/config'?{plans:{developer:{name:'Developer',cents:2500}}}:p==='/platform/organizations'?{organizations:options.noOrganizations?[]:[{id:org,name:'Synthetic'}]}:p==='/platform/dashboard'?state:p==='/platform/keys'?{key,record:{}}:{error:{message:'Unexpected synthetic request'}});};
- const source=fs.readFileSync(path.join(root,'B2B/api/assets/app.js'),'utf8').replace(/^import .*\n/,'');
- const context={API_ORIGIN:'',document:w.document,location:w.location,sessionStorage:w.sessionStorage,Node:w.Node,FormData:w.FormData,URL,fetch,Response,navigator:w.navigator,confirm:()=>true,setTimeout:()=>0,console};
+ const source=fs.readFileSync(path.join(root,'B2B/api/assets/app.js'),'utf8').replace(/^import .*\n/,'').replaceAll("await import('/docs/auth.js')",'await Promise.resolve(TEST_AUTH)');
+ const context={API_ORIGIN:options.production?'https://api.spyconverter.com':'',TEST_AUTH:options.authMock,document:w.document,location:w.location,sessionStorage:w.sessionStorage,Node:w.Node,FormData:w.FormData,URL,fetch,Response,navigator:w.navigator,confirm:()=>true,setTimeout:()=>0,console};
  await runInNewContext(`(async()=>{${source}})()`,context);await flush();
  return{w,state,key,calls,el:id=>w.document.getElementById(id)};
 }
@@ -83,4 +83,28 @@ test('checkout return requires authenticated verified payment, handles pending/c
   assert.equal(s.el('checkout-confirmation').hidden,false);assert.equal(s.el('confirmation-title').textContent,scenario.title);assert.equal(s.el('checkout-confirmation').dataset.state,scenario.status);
   if(scenario.signedOut)assert.equal(s.calls.filter(c=>c.url.includes('/platform/dashboard')).length,0);
  }finally{await s.w.happyDOM.close();}}
+});
+
+test('production registration uses Google without confirmation email and preserves existing password login',async()=>{
+ const calls=[];
+ const authMock={supabase:{auth:{
+  getSession:async()=>({data:{session:null}}),
+  signInWithOAuth:async data=>{calls.push(['oauth',data]);return{data:{},error:null};},
+  signInWithPassword:async data=>{calls.push(['password',data]);return{data:{session:{access_token:'synthetic'},user:{email:data.email}},error:null};},
+  signUp:async()=>{throw new Error('Password signup must not be invoked');},
+  resetPasswordForEmail:async(email,options)=>{calls.push(['recovery',email,options]);return{error:{code:'over_email_send_rate_limit'}};},
+ }}};
+ const s=await dashboard('owner',{production:true,signedOut:true,authMock});try{
+  assert.equal(s.el('register').hidden,true);assert.equal(s.el('resend-confirmation').hidden,true);
+  assert.match(s.el('auth-message').textContent,/No confirmation email is required/);
+  s.el('google-login').click();await flush();await flush();
+  assert.deepEqual(JSON.parse(JSON.stringify(calls[0])),['oauth',{provider:'google',options:{redirectTo:'https://spyconverter.com/B2B/api/dashboard/'}}]);
+  const form=s.el('auth-form');form.elements.email.value='existing@example.test';form.elements.password.value='eight123';
+  assert.equal(form.elements.password.hasAttribute('minlength'),false);
+  form.dispatchEvent(new s.w.SubmitEvent('submit',{bubbles:true,cancelable:true,submitter:form.querySelector('button[type=submit]')}));await flush();await flush();
+  assert.equal(calls[1][0],'password');assert.equal(calls[1][1].password,'eight123');
+  s.el('forgot-password').click();await flush();await flush();
+  assert.equal(calls[2][0],'recovery');assert.equal(calls[2][2].redirectTo,'https://spyconverter.com/docs/reset-password.html');
+  assert.match(s.el('dashboard-message').textContent,/temporarily reached its email limit/);
+ }finally{await s.w.happyDOM.close();}
 });
