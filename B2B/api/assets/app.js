@@ -76,7 +76,7 @@ function render(){
  $('checkout').disabled=!cfg.billing_enabled||state.role!=='owner'||['active','past_due','unpaid','incomplete'].includes(s.status);$('portal').disabled=state.role!=='owner'||!s.stripe_customer_id;
  const accepted=state.agreements.some(a=>a.provider==='terms-acceptance'&&a.version===cfg.agreement_version&&a.document_sha256===cfg.agreement_sha256);
  $('agreement-status').textContent=accepted?'Terms accepted. Your receipt is securely recorded.':'Review and accept the current Terms before checkout.';
- $('terms-version').textContent=`Version ${cfg.agreement_version||'pending approval'}${cfg.terms_acceptance_enabled?'':' · acceptance opens after approval'}`;
+ $('terms-version').textContent=`Version ${String(cfg.agreement_version||'pending approval').replace(/^(\d{4})-\d{2}-\d{2}-v\d+$/,'$1')}${cfg.terms_acceptance_enabled?'':' · acceptance opens after approval'}`;
  $('terms-accepted').checked=false;$('terms-accepted').disabled=accepted||state.role!=='owner'||!cfg.terms_acceptance_enabled;$('accept-terms').disabled=$('terms-accepted').disabled;
  $('checkout').disabled||=!accepted||(s.plan==='business'&&!o.business_approved);$('business-status').textContent=o.business_approved?'Business review: approved in this environment.':'Business review: pending if Business is selected.';
  show('simulate-approval',local&&s.plan==='business');$('simulate-approval').disabled=state.role!=='owner';
