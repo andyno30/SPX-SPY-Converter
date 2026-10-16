@@ -4,12 +4,12 @@ Updated 2026-10-16. The user authorized production infrastructure, GitHub push a
 
 ## Actual deployed work
 
-- Cloudflare Pages advanced-mode API gateway and new `api.spyconverter.com` hostname. Public DNS/TLS verified; Python and cURL receive HTTP 401 JSON without a key, never CAPTCHA.
+- Cloudflare Pages advanced-mode API gateway and new `api.spyconverter.com` hostname. Public DNS/TLS verified; cURL and Python Requests receive HTTP 401 JSON without a key. Python urllib's default user agent still receives an upstream Cloudflare 1010 response; see the limitation below.
 - Private Supabase B2B schema, least-privilege database roles, real authentication/organization APIs, usage/key/subscription RPCs, production signing adapter and disabled SELECT-only cache copier.
 - Exact live Stripe products `B2B API $25`, `B2B API $50`, `B2B API $150`; separate monthly prices, approved restricted credential, dedicated Customer Portal and signature-verified webhook. See RUNBOOK.md for IDs.
-- A separate restricted hosted integration harness uses real Supabase identity/storage, real Stripe TEST Checkout/webhooks/test clocks and synthetic data only. It is not a simulation of Stripe transport.
+- A separate restricted hosted integration harness exercised real Supabase identity/storage, Stripe TEST Checkout/webhooks/test clocks and synthetic data only. It is now disabled after verification.
 
-All five website routes are live under `/B2B/api/` and returned HTTP 200, including `/B2B/api/dashboard/?checkout=complete`. GitHub Pages deployment [38938039368](https://github.com/andyno30/SPX-SPY-Converter/actions/runs/38938039368) succeeded for initial commit `c673b572ff12d91b308dcac6569de81ac1b7bf3d`. Production paid checkout and live-data delivery are still disabled. A live signing account/template and approved agreement have not been configured; no synthetic signature can activate production.
+All five website routes are live under `/B2B/api/` and returned HTTP 200, including `/B2B/api/dashboard/?checkout=complete`. GitHub Pages deployment [38938686442](https://github.com/andyno30/SPX-SPY-Converter/actions/runs/38938686442) succeeded for website commit `fe024de1885be9ec4d87edb93df2b101fba71d8d`. Production paid checkout and live-data delivery are still disabled. A live signing account/template and approved agreement have not been configured; no synthetic signature can activate production.
 
 ## Verified tests
 
@@ -28,6 +28,8 @@ All five website routes are live under `/B2B/api/` and returned HTTP 200, includ
 | Real Stripe test-clock lifecycle | Successful renewal advanced billing period; failed payment changed entitlement to past_due; period-end termination changed it to canceled |
 | Live webhook signature rejection | Production endpoint returns HTTP 400 / invalid_signature for a forged request |
 | Business approval gate | Authenticated checkout rejected before manual review; test Checkout created only after operator approval |
+| Production responsive review | All five routes captured at 1366px desktop and 390px mobile; no horizontal page overflow |
+| Original homepage | HTTP 200; downloaded HTML byte-identical to the saved baseline |
 | Original-file preservation | 283 unchanged; no original navigation, styling, Pro billing, updater or auth code changes |
 
 The first hosted tests found two issues that local mocks did not expose: postgres.js double-encoded JSONB inputs, and the new role's connection cap was smaller than the transaction pooler's pool. Both were fixed and verified against real infrastructure. Queries reserve a connection to prevent unsafe pipelining; the B2B-only backend login cap is 20. Existing global database settings are unchanged.
@@ -49,8 +51,9 @@ The JSON parity test imports the unchanged production serializer, compares it wi
 
 ## Remaining before commercial activation
 
+- The user-approved Browser Integrity Check exception is deployed and active only for `api.spyconverter.com/v1/*` (rule `791fdc8cb0bb453d96df92fcbf6c9ce3`). Default `Python-urllib/3.13` still receives HTTP 403 / Cloudflare 1010 on both the custom hostname and the underlying Pages hostname. Python Requests and cURL receive JSON 401. This indicates an additional Pages-level check, but its exact cause is not yet established. The Cloudflare dashboard subsequently returned `error.internal_issues`, preventing further inspection. Resolve and retest this compatibility issue before claiming all machine clients receive JSON. Existing website security rules were not changed.
 - Configure the real signing provider account, JWT consent and approved versioned agreement template. Current draft/provider configuration cannot complete a production signature.
-- Hosted sandbox checks passed for all three paid tiers and automatic keys; renewal, failed payment and termination webhooks were verified. Final website browser checks follow publication.
+- Hosted sandbox checks passed for all three paid tiers and automatic keys; renewal, failed payment and termination webhooks were verified. All five published pages were also inspected in desktop and mobile views.
 - Website publication succeeded. The actual production dashboard recognizes the existing Supabase session; customer data remains scoped to that user. Checkout return parameters never prove payment; unrelated account/organization returns show an explicit account mismatch.
 - Activate the controlled DB-copy path only with its documented provenance configuration; preserve the source schedule and request budget.
 - Review Free-plan hosting capacity, monitoring, usage-record retention and backups. No paid hosting upgrade was purchased.

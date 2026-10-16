@@ -1,0 +1,79 @@
+[
+  {
+    "page": "overview",
+    "viewport": "desktop",
+    "file": "/private/tmp/spyconverter-interface-review-20261016/live-overview-desktop.jpg"
+  },
+  {
+    "page": "pricing",
+    "viewport": "desktop",
+    "file": "/private/tmp/spyconverter-interface-review-20261016/live-pricing-desktop.jpg",
+    "scrollWidth": 1366,
+    "title": "Predictable pricing.Clear boundaries.",
+    "width": 1366
+  },
+  {
+    "page": "docs",
+    "viewport": "desktop",
+    "file": "/private/tmp/spyconverter-interface-review-20261016/live-docs-desktop.jpg",
+    "scrollWidth": 1366,
+    "title": "Start with one request.",
+    "width": 1366
+  },
+  {
+    "page": "dashboard",
+    "viewport": "desktop",
+    "file": "/private/tmp/spyconverter-interface-review-20261016/live-dashboard-desktop.jpg",
+    "scrollWidth": 1366,
+    "title": "Your API workspace",
+    "width": 1366
+  },
+  {
+    "page": "terms",
+    "viewport": "desktop",
+    "file": "/private/tmp/spyconverter-interface-review-20261016/live-terms-desktop.jpg",
+    "scrollWidth": 1366,
+    "title": "Proposed API License Agreement",
+    "width": 1366
+  },
+  {
+    "page": "overview",
+    "viewport": "mobile",
+    "file": "/private/tmp/spyconverter-interface-review-20261016/live-overview-mobile.jpg",
+    "scrollWidth": 390,
+    "title": "SpyConverter API",
+    "width": 390
+  },
+  {
+    "page": "pricing",
+    "viewport": "mobile",
+    "file": "/private/tmp/spyconverter-interface-review-20261016/live-pricing-mobile.jpg",
+    "scrollWidth": 390,
+    "title": "Predictable pricing.Clear boundaries.",
+    "width": 390
+  },
+  {
+    "page": "docs",
+    "viewport": "mobile",
+    "file": "/private/tmp/spyconverter-interface-review-20261016/live-docs-mobile.jpg",
+    "scrollWidth": 390,
+    "title": "Start with one request.",
+    "width": 390
+  },
+  {
+    "page": "dashboard",
+    "viewport": "mobile",
+    "file": "/private/tmp/spyconverter-interface-review-20261016/live-dashboard-mobile.jpg",
+    "scrollWidth": 390,
+    "title": "Your API workspace",
+    "width": 390
+  },
+  {
+    "page": "terms",
+    "viewport": "mobile",
+    "file": "/private/tmp/spyconverter-interface-review-20261016/live-terms-mobile.jpg",
+    "scrollWidth": 390,
+    "title": "Proposed API License Agreement",
+    "width": 390
+  }
+]

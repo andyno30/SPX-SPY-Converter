@@ -1,0 +1,60 @@
+{
+  "website_release": "fe024de1885be9ec4d87edb93df2b101fba71d8d",
+  "stripe_environment": "TEST",
+  "real_money_charged": false,
+  "upstream_market_data_requests": 0,
+  "subscriptions": [
+    {
+      "plan": "developer",
+      "stripe_status": "canceled",
+      "application_status": "canceled",
+      "billing_environment_live": false,
+      "automatic_key_records": 1,
+      "paid_invoices": 2,
+      "unpaid_invoices": 1
+    },
+    {
+      "plan": "pro",
+      "stripe_status": "active",
+      "application_status": "active",
+      "billing_environment_live": false,
+      "automatic_key_records": 1,
+      "paid_invoices": 1,
+      "unpaid_invoices": 0
+    },
+    {
+      "plan": "business",
+      "stripe_status": "active",
+      "application_status": "active",
+      "billing_environment_live": false,
+      "automatic_key_records": 1,
+      "paid_invoices": 1,
+      "unpaid_invoices": 0
+    }
+  ],
+  "public_machine_api_unauthenticated": 401,
+  "live_webhook_invalid_signature": 400,
+  "original_homepage_byte_identical": true,
+  "temporary_stripe_test_webhook": "disabled",
+  "temporary_test_harness": "disabled",
+  "default_python_client": {
+    "user_agent": "Python-urllib/3.13",
+    "custom_domain_status": 403,
+    "pages_domain_status": 403,
+    "error": "Cloudflare 1010 before gateway",
+    "requests_user_agent_status": 401,
+    "remaining_diagnosis": "Possible Pages-level integrity check; exact cause unconfirmed. Dashboard returned error.internal_issues during follow-up."
+  },
+  "responsive_checks": "All five routes at 1366px and 390px; no horizontal document overflow",
+  "live_checkout_enabled": false,
+  "live_market_data_enabled": false,
+  "cloudflare_api_bic_exception": {
+    "approved": true,
+    "deployed": true,
+    "active": true,
+    "rule_id": "791fdc8cb0bb453d96df92fcbf6c9ce3",
+    "expression": "(http.host eq \"api.spyconverter.com\" and starts_with(http.request.uri.path, \"/v1/\"))",
+    "bic": false,
+    "existing_website_security_changed": false
+  }
+}

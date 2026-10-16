@@ -1,6 +1,6 @@
 # Complete B2B file inventory
 
-69 new files at initial publication; subsequent changes are confined to these additions. Modified or deleted original files: **0**. Development branch: `codex/b2b-api-platform`. Credentials and generated credential migrations remain outside Git.
+72 new files in total, including 69 at initial publication and three final verification records. Modified or deleted original files: **0**. Development branch: `codex/b2b-api-platform`. Credentials and generated credential migrations remain outside Git.
 
 - `B2B/api/assets/api.css`
 - `B2B/api/assets/app.js`
@@ -27,10 +27,13 @@
 - `scripts/b2b-api/evidence/landing-desktop.jpg`
 - `scripts/b2b-api/evidence/legacy-deno-tests.txt`
 - `scripts/b2b-api/evidence/legacy-node-tests.txt`
+- `scripts/b2b-api/evidence/live-responsive-checks.json`
 - `scripts/b2b-api/evidence/original-files-sha256.json`
 - `scripts/b2b-api/evidence/preservation.json`
 - `scripts/b2b-api/evidence/pricing-mobile.jpg`
+- `scripts/b2b-api/evidence/production-verification.json`
 - `scripts/b2b-api/evidence/responsive-checks.json`
+- `scripts/b2b-api/evidence/sql-driver-tests.txt`
 - `scripts/b2b-api/evidence/typecheck.txt`
 - `scripts/b2b-api/evidence/zero-upstream.json`
 - `scripts/b2b-api/local-database.cjs`

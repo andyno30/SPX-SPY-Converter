@@ -1,0 +1,5 @@
+running 1 test from ../../../Users/andyno/Desktop/Spyconverter (2026)/tests/b2b/sql_driver_test.ts
+production SQL driver preserves JSONB objects and nested values ... ok (280ms)
+
+ok | 1 passed | 0 failed (286ms)
+
