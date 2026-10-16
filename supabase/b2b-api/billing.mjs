@@ -1,3 +1,4 @@
+import {TERMS_VERSION,acceptedTerms} from './terms.mjs';
 import {ApiError,PLANS,enabled,liveAllowed,requireValue,hmac,constantEqual,readLimited,validId} from './core.mjs';
 export const STRIPE_API_VERSION='2024-06-20';
 export const stripeLiveMode=env=>env.API_ENVIRONMENT==='production';
@@ -33,10 +34,10 @@ export function createBilling(env,store,stripe=null,now=Date.now){
    requireValue(state.subscription.livemode===stripeLiveMode(env),403,'billing_mode_mismatch','This organization belongs to a different billing environment.');
    requireValue(!state.organization.suspended,403,'suspended','This organization is suspended.');
    requireValue(plan!=='business'||state.organization.business_approved,403,'business_review_required','Business requires manual approval.');
-   requireValue(state.agreements.some(a=>a.version===env.API_AGREEMENT_VERSION&&a.document_sha256?.length===64&&a.envelope_id&&a.document_reference&&['docusign','adobe-sign','synthetic-test'].includes(a.provider)&&(!['synthetic-test'].includes(a.provider)||(!stripeLiveMode(env)&&enabled(env.API_SYNTHETIC_TEST_MODE)))),403,'signature_required','Complete the approved electronic signature workflow first.');
+   requireValue(env.API_AGREEMENT_VERSION===TERMS_VERSION?acceptedTerms(state.agreements,TERMS_VERSION):(!stripeLiveMode(env)&&enabled(env.API_SYNTHETIC_TEST_MODE)&&state.agreements.some(a=>a.version===env.API_AGREEMENT_VERSION&&a.document_sha256?.length===64&&a.envelope_id&&a.document_reference&&['docusign','adobe-sign','synthetic-test'].includes(a.provider))),403,'terms_acceptance_required','Accept the current approved API Terms before checkout.');
    const id=priceId(env,plan);requireValue(/^price_/.test(id||''),503,'price_configuration_required','The API test price is not configured.');
    const price=await call(`prices/${encodeURIComponent(id)}`);requireValue(validPrice(price,plan,env),503,'price_mismatch','The configured price does not match the monthly USD API plan.');
-   const lease=await store.billing('checkout.reserve',org,{plan});requireValue(lease.allowed,409,'checkout_exists','A subscription or checkout already exists. Use billing management.');
+   const lease=await store.billing('checkout.reserve',org,{plan,agreement_version:env.API_AGREEMENT_VERSION});requireValue(lease.allowed,409,'checkout_exists','A subscription or checkout already exists. Use billing management.');
    if(lease.session_id){const existing=await call(`checkout/sessions/${lease.session_id}`);if(existing.status==='open')return{url:existing.url};throw new ApiError(409,'checkout_pending','Checkout has completed or expired. Await webhook confirmation or support review.');}
    let customer=lease.customer_id;
    if(!customer){const c=await call('customers','POST',{email:state.organization.email,name:state.organization.legal_name,'metadata[namespace]':'b2b_api','metadata[organization_id]':org},`b2b-customer-${org}`);customer=c.id;}

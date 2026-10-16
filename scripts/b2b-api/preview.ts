@@ -9,12 +9,14 @@ import {createBilling} from '../../supabase/b2b-api/billing.mjs';
 import {ApiError,readJson,sha256,hex,constantEqual,requireValue} from '../../supabase/b2b-api/core.mjs';
 import {materialize} from '../../supabase/b2b-api/mirror.ts';
 import {syntheticSnapshot} from '../../supabase/b2b-api/fixtures.ts';
+import {TERMS_TEXT,TERMS_VERSION,TERMS_DIGEST} from '../../supabase/b2b-api/terms.mjs';
 import {createMockStripe} from './mock-stripe.mjs';
 const require=createRequire(import.meta.url),{createLocalDatabase}=require('./local-database.cjs');
 const root=fileURLToPath(new URL('../..',import.meta.url)),origin='http://127.0.0.1:8799';
 const db=await createLocalDatabase('preview');
 const store=createStore(async(n:string,a:any)=>{try{return await db.rpc(n,a);}catch(e){if(e.code==='42501')throw new ApiError(403,'forbidden','Access is not allowed for this account.');throw new ApiError(400,'operation_rejected','The operation could not be completed. Check your account state and input.');}});
-const env={API_LOCAL_ONLY:'true',API_ENVIRONMENT:'test',API_SITE_ORIGIN:origin,API_AUTH_MODE:'local',API_SYNTHETIC_TEST_MODE:'true',API_LIVE_MARKET_DATA_ENABLED:'false',API_DATA_LICENSE_APPROVED:'false',API_KEY_PEPPER:hex(crypto.getRandomValues(new Uint8Array(32))),API_STRIPE_TEST_ENABLED:'true',API_LEGAL_APPROVED:'true',API_AGREEMENT_VERSION:'synthetic-review-only',STRIPE_API_WEBHOOK_SECRET:hex(crypto.getRandomValues(new Uint8Array(32))),STRIPE_API_PRICE_DEVELOPER:'price_test_developer',STRIPE_API_PRICE_PRO:'price_test_pro',STRIPE_API_PRICE_BUSINESS:'price_test_business',STRIPE_API_PORTAL_CONFIGURATION:'bpc_synthetic'};
+const env={API_LOCAL_ONLY:'true',API_ENVIRONMENT:'test',API_SITE_ORIGIN:origin,API_AUTH_MODE:'local',API_SYNTHETIC_TEST_MODE:'true',API_LIVE_MARKET_DATA_ENABLED:'false',API_DATA_LICENSE_APPROVED:'false',API_KEY_PEPPER:hex(crypto.getRandomValues(new Uint8Array(32))),API_STRIPE_TEST_ENABLED:'true',API_LEGAL_APPROVED:'true',API_AGREEMENT_VERSION:TERMS_VERSION,STRIPE_API_WEBHOOK_SECRET:hex(crypto.getRandomValues(new Uint8Array(32))),STRIPE_API_PRICE_DEVELOPER:'price_test_developer',STRIPE_API_PRICE_PRO:'price_test_pro',STRIPE_API_PRICE_BUSINESS:'price_test_business',STRIPE_API_PORTAL_CONFIGURATION:'bpc_synthetic'};
+await db.pool.query('insert into b2b_private.terms_versions(version,document_text,document_sha256,test_enabled) values($1,$2,$3,true)',[TERMS_VERSION,TERMS_TEXT,TERMS_DIGEST]);
 const mock=createMockStripe(origin),billing=createBilling(env,store,mock.transport),users=new Map(),sessions=new Map();
 async function passwordHash(password:string,salt:string){const key=await crypto.subtle.importKey('raw',new TextEncoder().encode(password),'PBKDF2',false,['deriveBits']);return hex(await crypto.subtle.deriveBits({name:'PBKDF2',hash:'SHA-256',salt:new TextEncoder().encode(salt),iterations:210000},key,256));}
 async function addUser(email:string,password:string){const salt=hex(crypto.getRandomValues(new Uint8Array(16)));const user={id:crypto.randomUUID(),email,salt,hash:await passwordHash(password,salt)};users.set(email,user);await db.pool.query('insert into auth.users(id) values($1)',[user.id]);return user;}
@@ -38,7 +40,7 @@ const server=Deno.serve({hostname:'127.0.0.1',port:8799,onListen:()=>console.log
    const d=await readJson(req);requireValue(typeof d.email==='string'&&d.email.endsWith('@example.test')&&typeof d.password==='string'&&d.password.length>=10&&d.password.length<=128,400,'invalid_credentials','Use an @example.test address and at least 10 characters.');
    let user=users.get(d.email);if(d.action==='register'){requireValue(!user,409,'account_exists','This synthetic account already exists.');user=await addUser(d.email,d.password);}
    requireValue(user&&constantEqual(user.hash,await passwordHash(d.password,user.salt)),401,'invalid_credentials','Incorrect synthetic account credentials.');
-   const token=hex(crypto.getRandomValues(new Uint8Array(32)));sessions.set(token,{user:{id:user.id,email:user.email},expires:Date.now()+3600000});return json({token,user:{id:user.id,email:user.email}});
+   const token=hex(crypto.getRandomValues(new Uint8Array(32)));sessions.set(token,{user:{id:user.id,email:user.email,email_confirmed_at:new Date().toISOString()},expires:Date.now()+3600000});return json({token,user:{id:user.id,email:user.email}});
   }
   if(url.pathname==='/local/logout'&&req.method==='POST'){sessions.delete(req.headers.get('authorization')?.replace(/^Bearer /,''));return json({ok:true});}
   if(['/local/agreement','/local/business-approval'].includes(url.pathname)&&req.method==='POST'){

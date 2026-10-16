@@ -18,6 +18,7 @@ const operations={
  b2b_api_key:['p_hash'],b2b_api_meter:['p_hash','p_request_id','p_fingerprint','p_billable'],
  b2b_api_response:['p_hash','p_request_id','p_status'],b2b_api_cache_read:['p_mode','p_selection'],
  b2b_api_billing:['p_action','p_org','p_data'],
+ b2b_api_terms:['p_action','p_actor','p_org','p_data'],
  b2b_api_signing:['p_action','p_actor','p_org','p_data'],
 };
 export function sqlStore(sql){

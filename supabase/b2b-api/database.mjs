@@ -7,6 +7,7 @@ export function createStore(rpc){return{
  snapshot:(mode,selection)=>rpc('b2b_api_cache_read',{p_mode:mode,p_selection:selection}),
  publish:rows=>rpc('b2b_api_cache_publish',{p_mode:rows[0].mode,p_rows:rows}),
  billing:(action,org,data={})=>rpc('b2b_api_billing',{p_action:action,p_org:org,p_data:data}),
+ terms:(action,actor,org,data={})=>rpc('b2b_api_terms',{p_action:action,p_actor:actor,p_org:org,p_data:data}),
  signing:(action,actor,org,data={})=>rpc('b2b_api_signing',{p_action:action,p_actor:actor,p_org:org,p_data:data}),
 };}
 export function remoteStore(env,fetcher=fetch){

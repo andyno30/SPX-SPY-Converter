@@ -81,10 +81,10 @@ These exact counters do not rely on IP addresses or approximate Cloudflare count
 
 Quota is reserved at admission. A later transport failure or expiry during accounting can still count; the handler checks freshness again before constructing the response and never serves the expired body. Requests already stale at initial validation consume no monthly unit. This accounting policy is disclosed in the API documentation.
 
-## Billing and signing
+## Billing and Terms acceptance
 
 The Stripe adapter enforces mode-matched live or test credentials and exact USD monthly prices. Each subscription has an immutable billing environment checked by checkout, portal, webhooks, key provisioning and request metering; test payments cannot authorize live credentials. Verified webhooks reconcile canonical subscription/paid-invoice state under a fenced database lease. No browser redirect activates access. Failed payments block access; scheduled cancellation retains paid access until expiration; refunds/disputes cause sticky suspension. Initial key provisioning is automatic from the authenticated dashboard after all gates pass.
 
-The production signing adapter uses DocuSign JWT authentication, an approved template, embedded signing and server verification. Completed PDF artifacts and signature evidence are stored atomically in private tables. Provider configuration remains missing; the draft is not represented as an approved agreement. Local and restricted integration fixtures are explicitly nonlegal and cannot satisfy production checkout.
+New subscriptions use explicit Terms acceptance instead of DocuSign. The authenticated owner submits an initially unchecked checkbox with the current immutable agreement version and SHA-256 digest. Server-side SQL checks verified identity, ownership, live approval and exact content, then records an idempotent receipt and audit event. Acceptance cannot be supplied by a checkout redirect or forged client identity. Historical signing records and adapter code remain for audit compatibility. The current Terms are awaiting owner approval; test-only catalog approval cannot authorize a live organization.
 
 The actual deployment is Cloudflare Pages advanced-mode API gateway → Supabase B2B Edge function → restricted transaction-pooler login → private PostgreSQL RPCs. Cache source and writer use separate roles. Existing website hosting, authentication configuration, Pro billing and updater remain unchanged.

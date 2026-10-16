@@ -48,7 +48,7 @@ async function dashboard(role='owner',options={}){
  Object.assign(state.subscription,options.subscription||{});
  if(options.signedOut!==true)w.sessionStorage.setItem('sc-b2b-demo-token','synthetic-session');w.sessionStorage.setItem('sc-b2b-demo-user',JSON.stringify({email:'test@example.test'}));
  const key='sc_test_'+'a'.repeat(64),calls=[];
- const fetch=async(url,opts={})=>{calls.push({url,opts});const p=new URL(url).pathname;return Response.json(p==='/platform/config'?{plans:{developer:{name:'Developer',cents:2500}}}:p==='/platform/organizations'?{organizations:options.noOrganizations?[]:[{id:org,name:'Synthetic'}]}:p==='/platform/dashboard'?state:p==='/platform/keys'?{key,record:{}}:{error:{message:'Unexpected synthetic request'}});};
+ const fetch=async(url,opts={})=>{calls.push({url,opts});const p=new URL(url).pathname;if(p==='/platform/agreement'){const accepted=JSON.parse(opts.body);state.agreements.push({provider:'terms-acceptance',version:accepted.version,document_sha256:accepted.document_sha256});}return Response.json(p==='/platform/config'?{plans:{developer:{name:'Developer',cents:2500}},...options.config}:p==='/platform/organizations'?{organizations:options.noOrganizations?[]:[{id:org,name:'Synthetic'}]}:p==='/platform/dashboard'?state:p==='/platform/keys'?{key,record:{}}:p==='/platform/agreement'?{accepted:true}:{error:{message:'Unexpected synthetic request'}});};
  const source=fs.readFileSync(path.join(root,'B2B/api/assets/app.js'),'utf8').replace(/^import .*\n/,'').replaceAll("await import('/docs/auth.js')",'await Promise.resolve(TEST_AUTH)');
  const context={API_ORIGIN:options.production?'https://api.spyconverter.com':'',TEST_AUTH:options.authMock,document:w.document,location:w.location,sessionStorage:w.sessionStorage,Node:w.Node,FormData:w.FormData,URL,fetch,Response,navigator:w.navigator,confirm:()=>true,setTimeout:()=>0,console};
  await runInNewContext(`(async()=>{${source}})()`,context);await flush();
@@ -64,6 +64,20 @@ test('dashboard renders account state safely and reveals generated keys only unt
   for(let i=0;i<s.w.sessionStorage.length;i++)assert.ok(!s.w.sessionStorage.getItem(s.w.sessionStorage.key(i)).includes(s.key));
   s.el('dismiss-key').click();assert.equal(s.el('new-key-value').textContent,'');assert.equal(s.el('key-reveal').hidden,true);
   s.w.document.querySelector('[data-panel="usage"]').click();assert.equal(s.w.document.querySelector('[data-section="usage"]').hidden,false);
+ }finally{await s.w.happyDOM.close();}
+});
+
+test('Terms checkbox starts unchecked, links the full agreement, and sends explicit versioned consent only',async()=>{
+ const s=await dashboard('owner',{config:{terms_acceptance_enabled:true,agreement_version:'test-version',agreement_sha256:'a'.repeat(64),billing_enabled:true}});
+ try{
+  const box=s.el('terms-accepted'),form=s.el('terms-form');assert.equal(box.checked,false);assert.equal(box.required,true);
+  assert.equal(form.querySelector('a').getAttribute('href'),'/B2B/api/terms/');assert.equal(s.el('checkout').disabled,true);
+  const submit=()=>form.dispatchEvent(new s.w.SubmitEvent('submit',{bubbles:true,cancelable:true,submitter:s.el('accept-terms')}));
+  submit();await flush();assert.equal(s.calls.filter(c=>c.url.endsWith('/platform/agreement')).length,0);
+  box.checked=true;submit();await flush();await flush();
+  const requests=s.calls.filter(c=>c.url.endsWith('/platform/agreement'));assert.equal(requests.length,1);
+  const body=JSON.parse(requests[0].opts.body);assert.equal(body.accepted,true);assert.equal(body.version,'test-version');assert.equal(body.document_sha256,'a'.repeat(64));
+  assert.deepEqual(Object.keys(body).sort(),['accepted','document_sha256','organization_id','version']);assert.equal(s.el('accept-terms').disabled,true);assert.match(s.el('agreement-status').textContent,/Terms accepted/);
  }finally{await s.w.happyDOM.close();}
 });
 test('member dashboard disables organization mutations and billing controls',async()=>{

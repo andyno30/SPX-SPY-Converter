@@ -1,0 +1,76 @@
+{
+  "mode": "live",
+  "real_money_charge_created": false,
+  "prices": [
+    {
+      "name": "B2B API $25",
+      "product_id": "prod_VS7ivkxtizz7Vv",
+      "price_id": "price_1URDSj2mY7zktgIWMD0TwY5r",
+      "cents": 2500,
+      "verified": true
+    },
+    {
+      "name": "B2B API $50",
+      "product_id": "prod_VS7iqQlig25uaf",
+      "price_id": "price_1URDTO2mY7zktgIWgqhl0vpM",
+      "cents": 5000,
+      "verified": true
+    },
+    {
+      "name": "B2B API $150",
+      "product_id": "prod_VS7kvYzr7mpOBf",
+      "price_id": "price_1URDUa2mY7zktgIWE5unv5go",
+      "cents": 15000,
+      "verified": true
+    }
+  ],
+  "portal": {
+    "id": "bpc_1URDxt2mY7zktgIWCk090Hv0",
+    "active": true,
+    "features": {
+      "customer_update": {
+        "allowed_updates": [
+          "email",
+          "name"
+        ],
+        "enabled": true
+      },
+      "invoice_history": {
+        "enabled": true
+      },
+      "payment_method_update": {
+        "enabled": true,
+        "payment_method_configuration": null
+      },
+      "subscription_cancel": {
+        "cancellation_reason": {
+          "enabled": false,
+          "feedback_options": [],
+          "options": [
+            "too_expensive",
+            "missing_features",
+            "switched_service",
+            "unused",
+            "other"
+          ]
+        },
+        "enabled": true,
+        "mode": "at_period_end",
+        "proration_behavior": "none"
+      },
+      "subscription_pause": {
+        "enabled": false
+      },
+      "subscription_update": {
+        "billing_cycle_anchor": "unchanged",
+        "default_allowed_updates": [],
+        "enabled": false,
+        "proration_behavior": "none",
+        "schedule_at_period_end": {
+          "conditions": []
+        },
+        "trial_update_behavior": "end_trial"
+      }
+    }
+  }
+}

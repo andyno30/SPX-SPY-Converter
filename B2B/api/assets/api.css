@@ -10,3 +10,5 @@
 .b2b pre .button{display:block;margin-top:14px;white-space:normal}
 
 .b2b .checkout-confirmation{border-color:#9bbd90;background:#fbfdf9;padding:28px}.b2b .confirmation-icon{display:flex;width:42px;height:42px;border-radius:50%;align-items:center;justify-content:center;background:#e9f2e3;color:#287336;font-size:25px;font-weight:700;margin-bottom:18px}.b2b .checkout-confirmation h2{font-size:29px}.b2b .checkout-confirmation .actions{margin-bottom:12px}
+
+.terms-consent{display:flex!important;align-items:flex-start;gap:12px;margin:20px 0}.terms-consent input{width:20px;min-width:20px;height:20px;margin-top:3px}.prose section{margin:28px 0}.prose code{overflow-wrap:anywhere}

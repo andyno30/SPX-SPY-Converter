@@ -11,10 +11,10 @@ exports.createLocalDatabase=async function(label='test'){
  await control.query(`create database ${name}`);
  const pool=new Pool({...runtime.getConfig(name),max:32});
  try{
-  await pool.query('create schema auth; create table auth.users(id uuid primary key)');
+  await pool.query("create schema auth; create table auth.users(id uuid primary key,email text default 'fixture@example.test',email_confirmed_at timestamptz default now())");
   // Exercise the permissive public-function defaults found in Supabase projects.
   await pool.query("do $$ declare r text; begin foreach r in array array['anon','authenticated','service_role'] loop if not exists(select from pg_roles where rolname=r) then execute format('create role %I nologin',r); end if; end loop; end $$; alter default privileges in schema public grant execute on functions to anon,authenticated,service_role");
-  await pool.query(fs.readFileSync(path.join(__dirname,'../../supabase/sql/b2b_api_setup.sql'),'utf8'));await pool.query(fs.readFileSync(path.join(__dirname,'../../supabase/sql/b2b_api_review.sql'),'utf8'));await pool.query(fs.readFileSync(path.join(__dirname,'../../supabase/sql/b2b_api_signing.sql'),'utf8'));
+  await pool.query(fs.readFileSync(path.join(__dirname,'../../supabase/sql/b2b_api_setup.sql'),'utf8'));await pool.query(fs.readFileSync(path.join(__dirname,'../../supabase/sql/b2b_api_review.sql'),'utf8'));await pool.query(fs.readFileSync(path.join(__dirname,'../../supabase/sql/b2b_api_signing.sql'),'utf8'));await pool.query(fs.readFileSync(path.join(__dirname,'../../supabase/sql/b2b_api_terms.sql'),'utf8'));await pool.query(fs.readFileSync(path.join(__dirname,'../../supabase/sql/b2b_api_operations.sql'),'utf8'));
  }
  catch(e){await pool.end();await control.query(`drop database ${name} with(force)`);await control.end();throw e;}
  return{pool,name,

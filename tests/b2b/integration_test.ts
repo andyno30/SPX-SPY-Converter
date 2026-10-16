@@ -110,7 +110,14 @@ Deno.test({name:'B2B PostgreSQL and gateway integration (synthetic fixtures, net
   await t.step('live licensing flag blocks both market delivery and key creation',async()=>{
    await assert.rejects(key(pro,'live'),e=>e.status===403);
    await db.pool.query('update b2b_private.subscriptions set livemode=true where organization_id=$1',[pro.id]);
-   try{const live=await key(pro,'live');assert.equal((await api(live.key)).status,503);assert.equal((await control('keys',{organization_id:pro.id,label:'live',mode:'live'})).status,503);
+   try{await assert.rejects(key(pro,'live'),e=>e.status===403);
+    // A pre-existing live credential fixture still cannot bypass launch gates.
+    const live=await generateKey('live',env.API_KEY_PEPPER);
+    await db.pool.query("insert into b2b_private.keys(organization_id,key_hash,prefix,label,mode) values($1,$2,$3,'synthetic legacy fixture','live')",[pro.id,live.hash,live.prefix]);
+    assert.equal((await api(live.key)).status,503);assert.equal((await control('keys',{organization_id:pro.id,label:'live',mode:'live'})).status,503);
+    await store.publish(await materialize(source,clock,'pending_review'));
+    const gated=createApp({env:{...env,API_LIVE_MARKET_DATA_ENABLED:'true',API_DATA_LICENSE_APPROVED:'true',API_DATA_LICENSE_REFERENCE:'synthetic-test-reference'},store,resolveUser:async()=>null,billing:{},now:()=>clock});
+    const denied=await gated(new Request('http://127.0.0.1/v1/conversions',{headers:{Authorization:'Bearer '+live.key}}));assert.equal(denied.status,503);assert.equal((await denied.json()).error.code,'unauthorized_source');
     const decision=await store.meter(kp.hash,crypto.randomUUID(),'cross-environment',true);assert.equal(decision.allowed,false);assert.equal(decision.status,403);
    }finally{await db.pool.query('update b2b_private.subscriptions set livemode=false where organization_id=$1',[pro.id]);}
   });

@@ -1,0 +1,75 @@
+{
+  "note": "Setting B2B-prefixed project secrets increments runtime versions across Edge Functions. Original code-update timestamps and all other returned function metadata remain unchanged; only B2B functions were deployed.",
+  "functions": [
+    {
+      "name": "subscribe",
+      "version_before": 41,
+      "version_after": 42,
+      "code_updated_at_unchanged": true,
+      "metadata_unchanged_except_runtime_version": true
+    },
+    {
+      "name": "webhook",
+      "version_before": 41,
+      "version_after": 42,
+      "code_updated_at_unchanged": true,
+      "metadata_unchanged_except_runtime_version": true
+    },
+    {
+      "name": "delete-account",
+      "version_before": 36,
+      "version_after": 37,
+      "code_updated_at_unchanged": true,
+      "metadata_unchanged_except_runtime_version": true
+    },
+    {
+      "name": "get-live-price-pro",
+      "version_before": 43,
+      "version_after": 44,
+      "code_updated_at_unchanged": true,
+      "metadata_unchanged_except_runtime_version": true
+    },
+    {
+      "name": "fetch-news",
+      "version_before": 37,
+      "version_after": 38,
+      "code_updated_at_unchanged": true,
+      "metadata_unchanged_except_runtime_version": true
+    },
+    {
+      "name": "customer-portal",
+      "version_before": 14,
+      "version_after": 15,
+      "code_updated_at_unchanged": true,
+      "metadata_unchanged_except_runtime_version": true
+    },
+    {
+      "name": "fetch-spy-options",
+      "version_before": 23,
+      "version_after": 24,
+      "code_updated_at_unchanged": true,
+      "metadata_unchanged_except_runtime_version": true
+    },
+    {
+      "name": "refresh-pro-prices",
+      "version_before": 12,
+      "version_after": 13,
+      "code_updated_at_unchanged": true,
+      "metadata_unchanged_except_runtime_version": true
+    },
+    {
+      "name": "contact-for-licencing",
+      "version_before": 12,
+      "version_after": 13,
+      "code_updated_at_unchanged": true,
+      "metadata_unchanged_except_runtime_version": true
+    },
+    {
+      "name": "spy-ingest",
+      "version_before": 11,
+      "version_after": 12,
+      "code_updated_at_unchanged": true,
+      "metadata_unchanged_except_runtime_version": true
+    }
+  ]
+}

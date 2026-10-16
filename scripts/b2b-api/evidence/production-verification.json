@@ -1,5 +1,5 @@
 {
-  "website_release": "fe024de1885be9ec4d87edb93df2b101fba71d8d",
+  "website_release": "Terms release: see Git history and website-release-verification.json after deployment.",
   "stripe_environment": "TEST",
   "real_money_charged": false,
   "upstream_market_data_requests": 0,
@@ -38,12 +38,9 @@
   "temporary_stripe_test_webhook": "disabled",
   "temporary_test_harness": "disabled",
   "default_python_client": {
-    "user_agent": "Python-urllib/3.13",
-    "custom_domain_status": 403,
-    "pages_domain_status": 403,
-    "error": "Cloudflare 1010 before gateway",
-    "requests_user_agent_status": 401,
-    "remaining_diagnosis": "Possible Pages-level integrity check; exact cause unconfirmed. Dashboard returned error.internal_issues during follow-up."
+    "status": 401,
+    "json": true,
+    "code": "invalid_key"
   },
   "responsive_checks": "All five routes at 1366px and 390px; no horizontal document overflow",
   "live_checkout_enabled": false,
@@ -56,5 +53,56 @@
     "expression": "(http.host eq \"api.spyconverter.com\" and starts_with(http.request.uri.path, \"/v1/\"))",
     "bic": false,
     "existing_website_security_changed": false
-  }
+  },
+  "terms_version": "2026-10-16-v1",
+  "terms_sha256": "9ed08e7617aff2e3f26dda2914cbd37d84622695f0b4ad9f58e313909669570b",
+  "direct_origin": {
+    "status": 403,
+    "json": true,
+    "code": "origin_denied"
+  },
+  "terms_flow_all_tiers": {
+    "mode": "stripe_test",
+    "real_money_charge": false,
+    "results": [
+      {
+        "plan": "developer",
+        "terms_receipt": true,
+        "stripe_verified_active": true,
+        "key_automatically_available": true,
+        "one_time_key": true,
+        "api_status": 200,
+        "quota": 10000,
+        "per_minute": 10,
+        "usage": 1,
+        "portal_ready": true
+      },
+      {
+        "plan": "pro",
+        "terms_receipt": true,
+        "stripe_verified_active": true,
+        "key_automatically_available": true,
+        "one_time_key": true,
+        "api_status": 200,
+        "quota": 100000,
+        "per_minute": 30,
+        "usage": 1,
+        "portal_ready": true
+      },
+      {
+        "plan": "business",
+        "terms_receipt": true,
+        "stripe_verified_active": true,
+        "key_automatically_available": true,
+        "one_time_key": true,
+        "api_status": 200,
+        "quota": 500000,
+        "per_minute": 120,
+        "usage": 1,
+        "portal_ready": true
+      }
+    ]
+  },
+  "private_cache_copy_enabled": true,
+  "live_webhook_ui_status": "Active; nine events; zero failed deliveries observed"
 }

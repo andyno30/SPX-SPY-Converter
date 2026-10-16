@@ -1,0 +1,42 @@
+{
+  "mode": "stripe_test",
+  "real_money_charge": false,
+  "results": [
+    {
+      "plan": "developer",
+      "terms_receipt": true,
+      "stripe_verified_active": true,
+      "key_automatically_available": true,
+      "one_time_key": true,
+      "api_status": 200,
+      "quota": 10000,
+      "per_minute": 10,
+      "usage": 1,
+      "portal_ready": true
+    },
+    {
+      "plan": "pro",
+      "terms_receipt": true,
+      "stripe_verified_active": true,
+      "key_automatically_available": true,
+      "one_time_key": true,
+      "api_status": 200,
+      "quota": 100000,
+      "per_minute": 30,
+      "usage": 1,
+      "portal_ready": true
+    },
+    {
+      "plan": "business",
+      "terms_receipt": true,
+      "stripe_verified_active": true,
+      "key_automatically_available": true,
+      "one_time_key": true,
+      "api_status": 200,
+      "quota": 500000,
+      "per_minute": 120,
+      "usage": 1,
+      "portal_ready": true
+    }
+  ]
+}

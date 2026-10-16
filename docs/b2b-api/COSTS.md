@@ -12,6 +12,8 @@ Verified provider pricing on 2026-10-16. The actual existing Supabase project an
 
 [Supabase pricing](https://supabase.com/pricing) lists Pro from $25/month, including 8 GB database disk and 250 GB egress. Edge-function invocation allowance, existing Pro/News traffic, compute and retained event rows must be included in a capacity review. The B2B backend uses the existing project, with a separate restricted pooler role; it does not create another paid project.
 
+Free-plan headroom is insufficient for a fully used Business plan: 500,000 paid requests plus 43,200 copy invocations already exceed the Supabase Free allowance, before existing Pro/News traffic. One Business organization can also use 172,800 requests/day at 120/minute, above Workers Free’s 100,000/day. Paid hosting from $30/month is therefore a launch prerequisite, not merely an optional upgrade. No paid hosting purchase has been made.
+
 At one million conversion requests/month, expect roughly four to five database RPCs and one Edge invocation per request, plus control requests. A one-minute cache-copy cadence adds about 43,200 SELECTs and publications per 30-day month, independent of customer traffic. These are DB operations, never Yahoo requests. Per-request audit storage can dominate the tiny shared snapshot; benchmark retention and indexes before promising capacity.
 
-These are estimates, not a bill or guaranteed spare capacity. Stripe transaction/Billing fees, electronic-signature service, legal work, data rights and taxes are additional. No subscription plan includes unlimited requests or automatic overage billing.
+These are estimates, not a bill or guaranteed spare capacity. Stripe transaction/Billing fees, legal work, data rights and taxes are additional. No subscription plan includes unlimited requests or automatic overage billing.

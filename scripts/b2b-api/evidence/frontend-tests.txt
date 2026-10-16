@@ -2,39 +2,49 @@ TAP version 13
 # Subtest: B2B navigation never appears in an existing website page or script
 ok 1 - B2B navigation never appears in an existing website page or script
   ---
-  duration_ms: 1174.425583
+  duration_ms: 774.441292
   ...
 # Subtest: all five isolated pages preserve native assets, internal routes and launch disclosures
 ok 2 - all five isolated pages preserve native assets, internal routes and launch disclosures
   ---
-  duration_ms: 243.930792
+  duration_ms: 565.867625
   ...
 # Subtest: both pricing displays contain exactly the approved monthly tiers
 ok 3 - both pricing displays contain exactly the approved monthly tiers
   ---
-  duration_ms: 10.46275
+  duration_ms: 14.006791
   ...
 # Subtest: dashboard renders account state safely and reveals generated keys only until dismissed
 ok 4 - dashboard renders account state safely and reveals generated keys only until dismissed
   ---
-  duration_ms: 150.795959
+  duration_ms: 83.842583
+  ...
+# Subtest: Terms checkbox starts unchecked, links the full agreement, and sends explicit versioned consent only
+ok 5 - Terms checkbox starts unchecked, links the full agreement, and sends explicit versioned consent only
+  ---
+  duration_ms: 22.379709
   ...
 # Subtest: member dashboard disables organization mutations and billing controls
-ok 5 - member dashboard disables organization mutations and billing controls
+ok 6 - member dashboard disables organization mutations and billing controls
   ---
-  duration_ms: 175.635584
+  duration_ms: 14.521208
   ...
 # Subtest: checkout return requires authenticated verified payment, handles pending/cancelled, and labels sandbox payments
-ok 6 - checkout return requires authenticated verified payment, handles pending/cancelled, and labels sandbox payments
+ok 7 - checkout return requires authenticated verified payment, handles pending/cancelled, and labels sandbox payments
   ---
-  duration_ms: 139.784375
+  duration_ms: 81.86475
   ...
-1..6
-# tests 6
+# Subtest: production registration uses Google without confirmation email and preserves existing password login
+ok 8 - production registration uses Google without confirmation email and preserves existing password login
+  ---
+  duration_ms: 16.665708
+  ...
+1..8
+# tests 8
 # suites 0
-# pass 6
+# pass 8
 # fail 0
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 1966.363042
+# duration_ms 1637.311708

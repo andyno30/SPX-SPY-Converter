@@ -2,6 +2,10 @@
 -- billing, audit and usage records before destructive removal. Requires approval.
 -- This file touches no existing Pro functions, source cache, auth users or schedules.
 begin;
+drop function if exists public.b2b_api_cache_copy_result(boolean,text,text);
+drop function if exists public.b2b_api_operations();
+drop function if exists public.b2b_api_prune_requests(int,int);
+drop function if exists public.b2b_api_terms(text,uuid,uuid,jsonb);
 drop function if exists public.b2b_api_signing(text,uuid,uuid,jsonb);
 drop function if exists public.b2b_api_source_snapshot();
 drop function if exists public.b2b_api_review(uuid,text,text,jsonb);

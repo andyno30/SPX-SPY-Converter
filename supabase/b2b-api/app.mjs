@@ -1,13 +1,13 @@
 import {ApiError,PLANS,enabled,liveAllowed,requireValue,textField,validId,keyHash,generateKey,readJson,assertFresh,FAMILIES} from './core.mjs';
 import {parseContract} from '../functions/get-live-price-pro/pricing.ts';
 import {billingEnabled} from './billing.mjs';
-import {createSigning,signingEnabled} from './signing.mjs';
+import {createTerms,termsEnabled,TERMS_VERSION,TERMS_DIGEST} from './terms.mjs';
 
 const security={'Cache-Control':'private, no-store','X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer'};
 const json=(value,status=200,headers={})=>new Response(JSON.stringify(value),{status,headers:{...security,'Content-Type':'application/json',...headers}});
-function publicConfig(env){return{environment:env.API_ENVIRONMENT||'unconfigured',synthetic:enabled(env.API_SYNTHETIC_TEST_MODE),live_market_data_enabled:liveAllowed(env),billing_enabled:billingEnabled(env),agreement_signing_enabled:signingEnabled(env),agreement_version:env.API_AGREEMENT_VERSION||null,auth_mode:env.API_AUTH_MODE||'supabase',supabase_url:env.SUPABASE_URL||'',supabase_publishable_key:env.SUPABASE_PUBLISHABLE_KEY||'',plans:PLANS};}
+function publicConfig(env){return{environment:env.API_ENVIRONMENT||'unconfigured',synthetic:enabled(env.API_SYNTHETIC_TEST_MODE),live_market_data_enabled:liveAllowed(env),billing_enabled:billingEnabled(env),terms_acceptance_enabled:termsEnabled(env),agreement_version:TERMS_VERSION,agreement_sha256:TERMS_DIGEST,auth_mode:env.API_AUTH_MODE||'supabase',supabase_url:env.SUPABASE_URL||'',supabase_publishable_key:env.SUPABASE_PUBLISHABLE_KEY||'',plans:PLANS};}
 
-export function createApp({env,store,resolveUser,billing,signing=createSigning(env,store),now=Date.now}){
+export function createApp({env,store,resolveUser,billing,terms=createTerms(env,store),now=Date.now}){
  return async(request)=>{
   const requestId=crypto.randomUUID();let hash=null;let metered=false;let result;
   const url=new URL(request.url),origin=request.headers.get('origin');
@@ -50,7 +50,7 @@ export function createApp({env,store,resolveUser,billing,signing=createSigning(e
      if(d.mode==='live')requireValue(liveAllowed(env),503,'market_data_disabled','Live API keys are unavailable pending licensing approval.');
      if(d.rotate_key_id)requireValue(validId(d.rotate_key_id),400,'invalid_key','Choose a valid key to rotate.');
      const key=await generateKey(d.mode,env.API_KEY_PEPPER);
-     const record=await store.account('key.create',user.id,org,{key_hash:key.hash,prefix:key.prefix,label,mode:d.mode,rotate_key_id:d.rotate_key_id||null});
+     const record=await store.account('key.create',user.id,org,{key_hash:key.hash,prefix:key.prefix,label,mode:d.mode,rotate_key_id:d.rotate_key_id||null,agreement_version:env.API_AGREEMENT_VERSION});
      return json({key:key.key,record},201,cors);
     }
     if(url.pathname==='/platform/keys/revoke'){requireValue(validId(d.key_id),400,'invalid_key','Choose a valid key.');return json(await store.account('key.revoke',user.id,org,{key_id:d.key_id}),200,cors);}
@@ -61,7 +61,7 @@ export function createApp({env,store,resolveUser,billing,signing=createSigning(e
     if(url.pathname==='/platform/applications'){requireValue(PLANS[d.plan],400,'invalid_plan','Choose a valid plan.');return json(await store.account('application',user.id,org,{plan:d.plan,intended_use:textField(d.intended_use,'intended use',2000)}),201,cors);}
     if(url.pathname==='/platform/checkout')return json(await billing.checkout(org,d.plan),200,cors);
     if(url.pathname==='/platform/portal')return json(await billing.portal(org),200,cors);
-    if(url.pathname==='/platform/agreement')return json(await signing(user,org,d),200,cors);
+    if(url.pathname==='/platform/agreement')return json(await terms(user,org,d,requestId,request),200,cors);
     throw new ApiError(404,'not_found','Endpoint not found.');
    }
    requireValue(['/v1/conversions','/v1/convert','/v1/status','/v1/usage'].includes(url.pathname),404,'not_found','Endpoint not found.');

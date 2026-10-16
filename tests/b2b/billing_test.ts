@@ -17,7 +17,7 @@ Deno.test({name:'Stripe test adapter: signatures, gates, exact prices and canoni
   await t.step('disabled flags, live secret keys and missing signatures prevent checkout',async()=>{
    await assert.rejects(createBilling({...env,API_STRIPE_TEST_ENABLED:'false'},store,mock.transport).checkout(org.id,'developer'),e=>e.code==='billing_disabled');
    assert.throws(()=>stripeClient({STRIPE_SECRET_KEY:'sk_live_NOT_A_REAL_KEY'}),e=>e.code==='test_configuration_required');
-   await assert.rejects(billing.checkout(org.id,'developer'),e=>e.code==='signature_required');
+   await assert.rejects(billing.checkout(org.id,'developer'),e=>e.code==='terms_acceptance_required');
    await assert.rejects(billing.checkout(org.id,'business'),e=>e.code==='business_review_required');
   });
   await db.pool.query("insert into b2b_private.agreements(organization_id,version,signer_id,signer_email,signed_at,provider,envelope_id,document_sha256,document_reference) values($1,'test-v1',$2,'test@example.test',now(),'synthetic-test','synthetic-envelope',$3,'fixture:document')",[org.id,actor,await sha256('Synthetic signed document')]);
