@@ -1,11 +1,11 @@
-import {ApiError,PLANS,enabled,liveAllowed,requireValue,textField,validId,keyHash,generateKey,readJson,assertFresh,FAMILIES} from './core.mjs';
+import {ApiError,PLANS,enabled,liveAllowed,deliveryAuthorization,authorizedLiveSnapshot,requireValue,textField,validId,keyHash,generateKey,readJson,assertFresh,FAMILIES} from './core.mjs';
 import {parseContract} from '../functions/get-live-price-pro/pricing.ts';
 import {billingEnabled} from './billing.mjs';
 import {createTerms,termsEnabled,TERMS_VERSION,TERMS_DIGEST} from './terms.mjs';
 
 const security={'Cache-Control':'private, no-store','X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer'};
 const json=(value,status=200,headers={})=>new Response(JSON.stringify(value),{status,headers:{...security,'Content-Type':'application/json',...headers}});
-function publicConfig(env){return{environment:env.API_ENVIRONMENT||'unconfigured',synthetic:enabled(env.API_SYNTHETIC_TEST_MODE),live_market_data_enabled:liveAllowed(env),billing_enabled:billingEnabled(env),terms_acceptance_enabled:termsEnabled(env),agreement_version:TERMS_VERSION,agreement_sha256:TERMS_DIGEST,auth_mode:env.API_AUTH_MODE||'supabase',supabase_url:env.SUPABASE_URL||'',supabase_publishable_key:env.SUPABASE_PUBLISHABLE_KEY||'',plans:PLANS};}
+function publicConfig(env){return{environment:env.API_ENVIRONMENT||'unconfigured',synthetic:enabled(env.API_SYNTHETIC_TEST_MODE),live_market_data_enabled:liveAllowed(env),data_authorization:deliveryAuthorization(env)?.provenance||null,billing_enabled:billingEnabled(env),terms_acceptance_enabled:termsEnabled(env),agreement_version:TERMS_VERSION,agreement_sha256:TERMS_DIGEST,auth_mode:env.API_AUTH_MODE||'supabase',supabase_url:env.SUPABASE_URL||'',supabase_publishable_key:env.SUPABASE_PUBLISHABLE_KEY||'',plans:PLANS};}
 
 export function createApp({env,store,resolveUser,billing,terms=createTerms(env,store),now=Date.now}){
  return async(request)=>{
@@ -47,7 +47,7 @@ export function createApp({env,store,resolveUser,billing,terms=createTerms(env,s
     }
     if(url.pathname==='/platform/keys'){
      const label=textField(d.label,'key label',80);requireValue(['test','live'].includes(d.mode),400,'invalid_key_mode','Choose test or live.');
-     if(d.mode==='live')requireValue(liveAllowed(env),503,'market_data_disabled','Live API keys are unavailable pending licensing approval.');
+     if(d.mode==='live')requireValue(liveAllowed(env),503,'market_data_disabled','Live API keys are currently unavailable.');
      if(d.rotate_key_id)requireValue(validId(d.rotate_key_id),400,'invalid_key','Choose a valid key to rotate.');
      const key=await generateKey(d.mode,env.API_KEY_PEPPER);
      const record=await store.account('key.create',user.id,org,{key_hash:key.hash,prefix:key.prefix,label,mode:d.mode,rotate_key_id:d.rotate_key_id||null,agreement_version:env.API_AGREEMENT_VERSION});
@@ -72,13 +72,13 @@ export function createApp({env,store,resolveUser,billing,terms=createTerms(env,s
    requireValue(key&&!key.revoked_at&&token.startsWith(`sc_${key.mode}_`),401,'invalid_key','The API key is invalid or revoked.');
    let prepared,requestError=null,snapshot=null;
    try{
-    if(key.mode==='live')requireValue(liveAllowed(env),503,'market_data_disabled','Market-derived access is disabled pending licensing approval.');
+    if(key.mode==='live')requireValue(liveAllowed(env),503,'market_data_disabled','Live conversion delivery is currently disabled.');
     if(key.mode==='test')requireValue(enabled(env.API_SYNTHETIC_TEST_MODE),503,'test_data_disabled','Synthetic API access is not enabled.');
     if(url.pathname==='/v1/conversions'||url.pathname==='/v1/convert'){
      const selection=parseContract(request.url);requireValue(selection,400,'invalid_contract','Invalid ES contract.');
      requireValue([...url.searchParams.keys()].every(k=>(url.pathname==='/v1/convert'?['from','to','amount','esContract']:['esContract']).includes(k)),400,'invalid_parameter','Unsupported query parameter.');
      snapshot=await store.snapshot(key.mode,selection);assertFresh(snapshot,now());
-     requireValue(snapshot.mode===key.mode&&((key.mode==='test'&&snapshot.provenance==='synthetic')||(key.mode==='live'&&snapshot.provenance==='licensed'&&snapshot.license_reference===env.API_DATA_LICENSE_REFERENCE)),503,'unauthorized_source','The cached source is not authorized.');
+     requireValue(snapshot.mode===key.mode&&((key.mode==='test'&&snapshot.provenance==='synthetic')||(key.mode==='live'&&authorizedLiveSnapshot(snapshot,env))),503,'unauthorized_source','The cached source is not authorized.');
      prepared=snapshot.body;
      if(url.pathname==='/v1/convert'){
       const from=url.searchParams.get('from'),to=url.searchParams.get('to'),raw=url.searchParams.get('amount');

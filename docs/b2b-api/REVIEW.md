@@ -16,8 +16,8 @@ The approved API-only Cloudflare upstream User-Agent rule fixes Python urllib er
 
 | Validation | Result |
 | --- | --- |
-| Current B2B backend suite | 10 tests / 45 steps passed |
-| Current frontend DOM suite | 8 passed |
+| Current B2B backend suite | 12 tests / 48 steps passed |
+| Current frontend DOM suite | 15 passed (B2B, Pro verification and Free calculator) |
 | Production Edge type checks | Three B2B functions passed |
 | Existing website regression suite | 49 Deno tests / 12 steps; 66 Node regressions plus 20 SQL tests passed |
 | Real hosted Terms/payment/key flow | Developer, Pro, Business all passed |
@@ -25,23 +25,25 @@ The approved API-only Cloudflare upstream User-Agent rule fixes Python urllib er
 | Real Stripe test-clock lifecycle | Renewal, failed payment and scheduled cancellation verified |
 | Key security | Hash-only storage, one-time display, rotation/revocation, organization isolation |
 | Launch restrictions | Unapproved Terms, unchecked acceptance and restricted data fail closed |
-| Original tracked files | 276/283 unchanged; seven explicitly authorized website-security changes; no unexpected changes |
+| Original tracked files | 272/283 unchanged; eleven explicitly authorized Free/Pro security changes; no unexpected changes |
 | Original production functions | Original functions preserved except the authorized Pro human-verification guard in contact-for-licencing; B2B secret changes increment project-wide runtime versions |
 
 ## Zero additional upstream requests
 
 The private copier now runs once per minute, ten seconds after the unchanged minute-boundary updater. It only SELECTs existing database snapshots and writes the private B2B cache. It cannot call Yahoo, the original HTTP endpoint or an updater. All original cron commands and schedules are unchanged.
 
-The production monitoring sample recorded 13 successful copies, zero failures, a source age of 44.5 seconds, five private snapshot variants and no API server errors. Snapshots are explicitly pending_review, so they cannot be served commercially. The source freshness limit remains 120 seconds. Customers receive the stored JSON text verbatim; metadata is carried in headers.
+Production snapshots now carry owner_authorized provenance, bound to owner-activation-2026-10-16-codex. All five variants were compared byte-for-byte against the original serializer from the same SELECT-only source record. No source refresh was invoked. The source freshness limit remains 120 seconds. Customers receive the stored JSON text verbatim; metadata is carried in headers.
 
 The instrumented synthetic comparison exercised 600 customer requests with the same three updater ticks. Baseline and loaded runs both made three quote batches and nine simulated Yahoo HTTP calls: **zero additional Yahoo requests**. Actual external network access was disabled. Source snapshot updates are reflected after copying, and customers share the same snapshots.
 
 ## Commercial activation status
 
-Commercial checkout and live-data delivery remain disabled. The current Terms version is 2026-10-16-v1, SHA-256 9ed08e7617aff2e3f26dda2914cbd37d84622695f0b4ad9f58e313909669570b. The owner approved this exact Terms version on October 16; immutable catalog approval and the production Terms-acceptance flag are now active. Confirmed upstream redistribution rights and final activation approval are still required.
+Commercial checkout and owner-authorized live JSON delivery are enabled at the owner's explicit instruction on October 16. Third-party licensing has not been independently verified and API_DATA_LICENSE_APPROVED remains false. The owner is handling licensing separately; activation is recorded distinctly in the audit log. Default configuration stays disabled until explicitly activated. The exact Terms version 2026-10-16-v1 and SHA-256 9ed08e7617aff2e3f26dda2914cbd37d84622695f0b4ad9f58e313909669570b remain owner-approved.
+
+All three actual LIVE Stripe prices created Checkout sessions at their exact monthly amounts; every technical-verification session was immediately expired unpaid. Customer Portal is active with period-end cancellation. The nine-event LIVE webhook remains Active. No live payment or paid entitlement was fabricated. Full paid payment → webhook → key → API flow was verified in Stripe TEST mode; a real-money production transaction has not been performed. Business subscriptions still require manual approval.
 
 Capacity review measured approximately 129 MB database usage and under 1 MB of B2B tables. Supabase Free and Workers Free cannot support a fully used Business allocation plus existing traffic. The owner explicitly chose to keep Free plans on October 16. No upgrade was purchased. Sufficient commercial capacity, backups/restore validation and alert routing remain unresolved; quotas and advertised prices were not reduced. See COSTS.md and RUNBOOK.md.
 
 Website Pro human verification is deployed and enabled after exact static-asset verification. Hosted atomic controls admitted 30 of 70 requests, challenged 40 and kept a second user independent. Direct Supabase cache reads and forged verification were denied. The five existing WAF rules, source updater and Mac ingestion remain unchanged. Production CAPTCHA completion itself remains a manual QA check; all token-validation cases passed with mocks.
 
-The legacy Google Cloud reference is outside the active backend scope. No Google changes were made and investigation stopped. Existing manual Free ratios and source references remain untouched. No new Free-page 10/minute human challenge was installed: the current Free pages do not expose a live Supabase price feed, and Free WAF rate-limit features do not provide that exact one-minute challenge workflow. See WEBSITE-SECURITY.md.
+The legacy Google Cloud reference remains untouched and is not an active-backend dependency. Free/Main calculation buttons now use a separate server calculation endpoint with the unchanged displayed ratio. Atomic anonymous network counters enforce ten calculations per rolling minute, server-verified Turnstile grants five minutes of clearance capped at twenty/minute, and failed verification blocks five minutes. See WEBSITE-SECURITY.md. No original WAF rule, automatic price schedule, ratio, Pro quota or B2B allowance changed.

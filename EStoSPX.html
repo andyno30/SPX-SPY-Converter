@@ -357,16 +357,22 @@
         }
 
         // Conversion functions for ES/SPX
-        function convertEsToSpx() {
+        async function convertEsToSpx() {
+            try {
             const esValue = parseFloat(document.getElementById("esToSpxInput").value);
-            const spxValue = (esValue / es_spx_ratio).toFixed(2);
+            if (!Number.isFinite(esValue)) { document.getElementById("esToSpxOutput").innerText = "SPX Value: NaN"; return; }
+            const spxValue = (await FreeCalculator.calculate(esValue, es_spx_ratio, "divide")).toFixed(2);
             document.getElementById("esToSpxOutput").innerText = `SPX Value: ${spxValue}`;
+            } catch (error) { document.getElementById("esToSpxOutput").innerText = error.message || "Calculation unavailable. Please retry."; }
         }
 
-        function convertSpxToEs() {
+        async function convertSpxToEs() {
+            try {
             const spxValue = parseFloat(document.getElementById("spxToEsInput").value);
-            const esValue = (spxValue * es_spx_ratio).toFixed(2);
+            if (!Number.isFinite(spxValue)) { document.getElementById("spxToEsOutput").innerText = "/ES Value: NaN"; return; }
+            const esValue = (await FreeCalculator.calculate(spxValue, es_spx_ratio, "multiply")).toFixed(2);
             document.getElementById("spxToEsOutput").innerText = `/ES Value: ${esValue}`;
+            } catch (error) { document.getElementById("spxToEsOutput").innerText = error.message || "Calculation unavailable. Please retry."; }
         }
 
         // Function to switch between conversion sections
@@ -390,5 +396,6 @@
             updateLocalDateTime();
         });
     </script>
+  <script src="free-calculations.js?v=20261016"></script>
 </body>
 </html>

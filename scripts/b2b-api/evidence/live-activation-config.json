@@ -1,0 +1,54 @@
+{
+  "python_urllib": {
+    "status": 401,
+    "json": true,
+    "code": "invalid_key"
+  },
+  "direct_origin": {
+    "status": 403,
+    "json": true,
+    "code": "origin_denied"
+  },
+  "invalid_webhook_signature": {
+    "status": 400,
+    "code": "invalid_signature"
+  },
+  "production_config": {
+    "environment": "production",
+    "synthetic": false,
+    "live_market_data_enabled": true,
+    "data_authorization": "owner_authorized",
+    "billing_enabled": true,
+    "terms_acceptance_enabled": true,
+    "agreement_version": "2026-10-16-v1",
+    "agreement_sha256": "9ed08e7617aff2e3f26dda2914cbd37d84622695f0b4ad9f58e313909669570b",
+    "auth_mode": "supabase",
+    "supabase_url": "https://isvzhpqrmjtqnqyyidxr.supabase.co",
+    "supabase_publishable_key": "sb_publishable_f5EYFGZ8NNT7dczGGyBnCA_T1uOvDaf",
+    "plans": {
+      "developer": {
+        "name": "Developer",
+        "cents": 2500,
+        "quota": 10000,
+        "perMinute": 10,
+        "applications": 1
+      },
+      "pro": {
+        "name": "Pro",
+        "cents": 5000,
+        "quota": 100000,
+        "perMinute": 30,
+        "applications": 1
+      },
+      "business": {
+        "name": "Business",
+        "cents": 15000,
+        "quota": 500000,
+        "perMinute": 120,
+        "applications": null
+      }
+    }
+  },
+  "live_webhook_api_read": "Restricted production key intentionally lacks webhook-management permission; inspect the existing endpoint in Stripe dashboard.",
+  "checked_at": "2026-10-16T19:30:45.833120+00:00"
+}

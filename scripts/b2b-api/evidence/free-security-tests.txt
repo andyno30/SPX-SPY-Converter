@@ -1,0 +1,23 @@
+running 1 test from ./tests/b2b/gateway_test.ts
+Cloudflare gateway fails closed with JSON and never exposes a CAPTCHA or origin secret ... ok (3ms)
+running 2 tests from ./tests/free_calculations_test.ts
+Free calculations: exact atomic 10/minute, verification, 20/minute ceiling, failed block, no Yahoo ...
+  direct-origin and forged RPC cannot bypass controls ... ok (4ms)
+  concurrent load admits exactly ten; same network shares nonce, other network independent ... ok (59ms)
+  forged cross-network challenge fails; verified result gives only ten more; replay fails ... ok (9ms)
+  rolling window resets, clearance expires, failed verification immediately blocks ... ok (4ms)
+  calculation values and manual ratio updates retained; zero price requests ... ok (1ms)
+Free calculations: exact atomic 10/minute, verification, 20/minute ceiling, failed block, no Yahoo ... ok (302ms)
+Free Cloudflare gateway binds trusted IP, ignores spoofed identities, groups IPv6 /64; B2B unchanged ... ok (2ms)
+running 2 tests from ./tests/website_human_verification_test.ts
+Website human verification is atomic, identity-bound and independent of B2B/updaters ...
+  disabled is backward compatible; public callers cannot forge verification ... ok (1ms)
+  30 concurrent requests pass; excess gets JSON challenge, separate users remain independent ... ok (42ms)
+  wrong origin, forged identity, cross-user challenge and malformed requests cannot reach Siteverify ... ok (2ms)
+  wrong hostname and replay fail; successful verification permits only bounded retries ... ok (13ms)
+  expired clearance and malformed verification fail closed; no market-data fetch exists ... ok (3ms)
+Website human verification is atomic, identity-bound and independent of B2B/updaters ... ok (261ms)
+Pro guard runs only after existing authentication and never bypasses hard quotas or alters JSON ... ok (0ms)
+
+ok | 5 passed (10 steps) | 0 failed (668ms)
+

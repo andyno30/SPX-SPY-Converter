@@ -18,7 +18,20 @@ export async function keyHash(key,pepper){requireValue(typeof pepper==='string'&
 export async function generateKey(mode,pepper){requireValue(['test','live'].includes(mode),400,'invalid_key_mode','Choose test or live.');const key=`sc_${mode}_${hex(crypto.getRandomValues(new Uint8Array(32)))}`;return{key,hash:await keyHash(key,pepper),prefix:key.slice(0,16)};}
 export async function readLimited(request,limit=16384){requireValue(Number(request.headers.get('content-length')||0)<=limit,413,'body_too_large','Request body is too large.');if(!request.body)return '';const reader=request.body.getReader(),parts=[];let size=0;while(true){const{done,value}=await reader.read();if(done)break;size+=value.length;if(size>limit){await reader.cancel();throw new ApiError(413,'body_too_large','Request body is too large.');}parts.push(value);}const bytes=new Uint8Array(size);let offset=0;for(const part of parts){bytes.set(part,offset);offset+=part.length;}return new TextDecoder().decode(bytes);}
 export async function readJson(request){requireValue((request.headers.get('content-type')||'').split(';')[0]==='application/json',415,'json_required','Use application/json.');try{const value=JSON.parse(await readLimited(request));requireValue(value&&typeof value==='object'&&!Array.isArray(value),400,'invalid_json','A JSON object is required.');return value;}catch(e){if(e instanceof ApiError)throw e;throw new ApiError(400,'invalid_json','A JSON object is required.');}}
-export function liveAllowed(env){return enabled(env.API_LIVE_MARKET_DATA_ENABLED)&&enabled(env.API_DATA_LICENSE_APPROVED)&&!!env.API_DATA_LICENSE_REFERENCE;}
+// Owner-directed activation is distinct from verified third-party licensing.
+// Both paths are server-only, explicitly configured, and disabled by default.
+/** @returns {{provenance:'licensed'|'owner_authorized',reference:string}|null} */
+export function deliveryAuthorization(env){
+ if(enabled(env.API_DATA_LICENSE_APPROVED)&&env.API_DATA_LICENSE_REFERENCE)return{provenance:'licensed',reference:env.API_DATA_LICENSE_REFERENCE};
+ if(env.API_ENVIRONMENT==='production'&&enabled(env.API_OWNER_DELIVERY_AUTHORIZED)&&env.API_OWNER_AUTHORIZATION_REFERENCE)return{provenance:'owner_authorized',reference:env.API_OWNER_AUTHORIZATION_REFERENCE};
+ return null;
+}
+export function liveAllowed(env){return enabled(env.API_LIVE_MARKET_DATA_ENABLED)&&deliveryAuthorization(env)!==null;}
+export function authorizedLiveSnapshot(snapshot,env){
+ const authorization=deliveryAuthorization(env);
+ return authorization!==null&&snapshot.provenance===authorization.provenance&&
+  (authorization.provenance==='licensed'?snapshot.license_reference:snapshot.owner_authorization_reference)===authorization.reference;
+}
 export function assertFresh(snapshot,now){requireValue(snapshot,503,'cache_unavailable','No cached snapshot is available.');const age=now-Date.parse(snapshot.source_fetched_at);requireValue(Number.isFinite(age)&&age>=-5000&&age<=120000&&snapshot.evaluation_day===new Date(now).toISOString().slice(0,10),503,'stale_cache','The source snapshot is unavailable or older than 120 seconds.');}
 export const safeKey = ({id,prefix,label,mode,created_at,revoked_at})=>({id,prefix,label,mode,created_at,revoked_at});
 export const FAMILIES=[['SPX','SPY','ES'],['QQQ','NQ','NDX'],['DJI','DIA','YM'],['RUT','IWM','RTY']];

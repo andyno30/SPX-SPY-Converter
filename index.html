@@ -445,26 +445,31 @@
       requestVisibleSideAds();
     })();
 
-    function convertSpxToSpy() {
+    async function convertSpxToSpy() {
+        try {
       const spxValue = parseFloat(document.getElementById("spxInput").value);
       if (isNaN(spxValue)) {
         document.getElementById("spxToSpyOutput").innerHTML = "Please enter a valid SPX value.";
         return;
       }
-      const spyValue = (spxValue / ratio).toFixed(2);
+      const spyValue = (await FreeCalculator.calculate(spxValue, ratio, "divide")).toFixed(2);
       document.getElementById("spxToSpyOutput").innerHTML = `SPY Value: ${spyValue}`;
+        } catch (error) { document.getElementById("spxToSpyOutput").innerText = error.message || "Calculation unavailable. Please retry."; }
     }
 
-    function convertSpyToSpx() {
+    async function convertSpyToSpx() {
+        try {
       const spyValue = parseFloat(document.getElementById("spyInput").value);
       if (isNaN(spyValue)) {
         document.getElementById("spyToSpxOutput").innerHTML = "Please enter a valid SPY value.";
         return;
       }
-      const spxValue = (spyValue * ratio).toFixed(2);
+      const spxValue = (await FreeCalculator.calculate(spyValue, ratio, "multiply")).toFixed(2);
       document.getElementById("spyToSpxOutput").innerHTML = `SPX Value: ${spxValue}`;
+        } catch (error) { document.getElementById("spyToSpxOutput").innerText = error.message || "Calculation unavailable. Please retry."; }
     }
   </script>
   <script type="module" src="docs/header-auth.js"></script>
+  <script src="free-calculations.js?v=20261016"></script>
 </body>
 </html>

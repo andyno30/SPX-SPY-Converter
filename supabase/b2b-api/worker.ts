@@ -1,7 +1,7 @@
 import {createApp} from './app.mjs';
 import {remoteStore,resolveSupabaseUser} from './database.mjs';
 import {createBilling} from './billing.mjs';
-import {enabled,liveAllowed,requireValue} from './core.mjs';
+import {enabled,liveAllowed,deliveryAuthorization,requireValue} from './core.mjs';
 import {synchronize} from './mirror.ts';
 
 // Alternative all-in-Worker adapter for isolated evaluation. The actual deployed
@@ -24,6 +24,7 @@ export default {
    requireValue(res.ok,503,'cache_copy_failed','Source cache read failed.');return res.json();
   };
   const writer=remoteStore({...env,B2B_BACKEND_TOKEN:env.B2B_CACHE_WRITER_TOKEN});
-  await synchronize(readSource,writer.publish,Date.now(),'licensed',env.API_DATA_LICENSE_REFERENCE);
+  const authorization=deliveryAuthorization(env)!;
+  await synchronize(readSource,writer.publish,Date.now(),authorization.provenance,authorization.reference);
  },
 };

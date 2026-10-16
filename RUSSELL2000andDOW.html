@@ -292,45 +292,63 @@
         }
         
         // Conversion functions for DJI/DIA
-        function convertDjiToDia() {
+        async function convertDjiToDia() {
+            try {
             const djiValue = parseFloat(document.getElementById("djiInput").value);
-            const diaValue = djiValue / dji_dia_ratio;
+            if (!Number.isFinite(djiValue)) { document.getElementById("djiToDiaOutput").innerText = "DIA Value: N/A"; return; }
+            const diaValue = await FreeCalculator.calculate(djiValue, dji_dia_ratio, "divide");
             document.getElementById("djiToDiaOutput").innerText = `DIA Value: ${formatConvertedValue(diaValue)}`;
+            } catch (error) { document.getElementById("djiToDiaOutput").innerText = error.message || "Calculation unavailable. Please retry."; }
         }
         
         // Conversion functions for YM/DIA
-        function convertYmToDia() {
+        async function convertYmToDia() {
+            try {
             const ymValue = parseFloat(document.getElementById("ymToDiaInput").value);
-            const diaValue = ymValue / ym_dia_ratio;
+            if (!Number.isFinite(ymValue)) { document.getElementById("ymToDiaOutput").innerText = "DIA Value: N/A"; return; }
+            const diaValue = await FreeCalculator.calculate(ymValue, ym_dia_ratio, "divide");
             document.getElementById("ymToDiaOutput").innerText = `DIA Value: ${formatConvertedValue(diaValue)}`;
+            } catch (error) { document.getElementById("ymToDiaOutput").innerText = error.message || "Calculation unavailable. Please retry."; }
         }
         
         // Conversion functions for YM/DJI
-        function convertYmToDji() {
+        async function convertYmToDji() {
+            try {
             const ymValue = parseFloat(document.getElementById("ymToDjiInput").value);
-            const djiValue = ymValue / ym_dji_ratio;
+            if (!Number.isFinite(ymValue)) { document.getElementById("ymToDjiOutput").innerText = "DJI Value: N/A"; return; }
+            const djiValue = await FreeCalculator.calculate(ymValue, ym_dji_ratio, "divide");
             document.getElementById("ymToDjiOutput").innerText = `DJI Value: ${formatConvertedValue(djiValue)}`;
+            } catch (error) { document.getElementById("ymToDjiOutput").innerText = error.message || "Calculation unavailable. Please retry."; }
         }
 
         // Conversion functions for RUT/IWM
-        function convertRutToIwm() {
+        async function convertRutToIwm() {
+            try {
             const rutValue = parseFloat(document.getElementById("rutInput").value);
-            const iwmValue = rutValue / rut_iwm_ratio;
+            if (!Number.isFinite(rutValue)) { document.getElementById("rutToIwmOutput").innerText = "IWM Value: N/A"; return; }
+            const iwmValue = await FreeCalculator.calculate(rutValue, rut_iwm_ratio, "divide");
             document.getElementById("rutToIwmOutput").innerText = `IWM Value: ${formatConvertedValue(iwmValue)}`;
+            } catch (error) { document.getElementById("rutToIwmOutput").innerText = error.message || "Calculation unavailable. Please retry."; }
         }
         
         // Conversion functions for RTY/IWM
-        function convertRtyToIwm() {
+        async function convertRtyToIwm() {
+            try {
             const rtyValue = parseFloat(document.getElementById("rtyToIwmInput").value);
-            const iwmValue = rtyValue / rty_iwm_ratio;
+            if (!Number.isFinite(rtyValue)) { document.getElementById("rtyToIwmOutput").innerText = "IWM Value: N/A"; return; }
+            const iwmValue = await FreeCalculator.calculate(rtyValue, rty_iwm_ratio, "divide");
             document.getElementById("rtyToIwmOutput").innerText = `IWM Value: ${formatConvertedValue(iwmValue)}`;
+            } catch (error) { document.getElementById("rtyToIwmOutput").innerText = error.message || "Calculation unavailable. Please retry."; }
         }
         
         // Conversion functions for RTY/RUT
-        function convertRtyToRut() {
+        async function convertRtyToRut() {
+            try {
             const rtyValue = parseFloat(document.getElementById("rtyToRutInput").value);
-            const rutValue = rtyValue / rty_rut_ratio;
+            if (!Number.isFinite(rtyValue)) { document.getElementById("rtyToRutOutput").innerText = "RUT Value: N/A"; return; }
+            const rutValue = await FreeCalculator.calculate(rtyValue, rty_rut_ratio, "divide");
             document.getElementById("rtyToRutOutput").innerText = `RUT Value: ${formatConvertedValue(rutValue)}`;
+            } catch (error) { document.getElementById("rtyToRutOutput").innerText = error.message || "Calculation unavailable. Please retry."; }
         }
         
         // Call the functions when the page loads
@@ -339,5 +357,6 @@
         liveTimeUpdate();
     </script>
     <script src="side-ads.js?v=20260830"></script>
-        </body>
+          <script src="free-calculations.js?v=20261016"></script>
+</body>
         </html>

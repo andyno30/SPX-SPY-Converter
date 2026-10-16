@@ -6,23 +6,23 @@ import { sha256, requireValue } from './core.mjs';
 export type CachedBody = {
   mode: 'test'|'live'; selection: string; body: string; digest: string;
   source_fetched_at: string; copied_at: string; evaluation_day: string;
-  provenance: 'synthetic'|'licensed'|'pending_review'; license_reference: string|null;
+  provenance: 'synthetic'|'licensed'|'pending_review'|'owner_authorized'; license_reference: string|null; owner_authorization_reference: string|null;
 };
 // This module has NO network dependency and NO provider/updater capability.
 // Source is one atomic quotes+fetched_at record, already fetched by the original backend.
-export async function materialize(record: {quotes: unknown; fetched_at: unknown}, now: number, provenance: 'synthetic'|'licensed'|'pending_review', licenseReference: string|null=null): Promise<CachedBody[]> {
-  requireValue(provenance==='synthetic'||provenance==='pending_review'||(provenance==='licensed'&&licenseReference),503,'license_required','A documented license is required.');
+export async function materialize(record: {quotes: unknown; fetched_at: unknown}, now: number, provenance: 'synthetic'|'licensed'|'pending_review'|'owner_authorized', authorizationReference: string|null=null): Promise<CachedBody[]> {
+  requireValue(provenance==='synthetic'||provenance==='pending_review'||(['licensed','owner_authorized'].includes(provenance)&&authorizationReference),503,'authorization_required','An explicit source authorization reference is required.');
   const snapshot: Snapshot=await createSnapshotReader(async()=>record,()=>now)();
   const results: CachedBody[]=[];
   for(const selection of ['AUTO',...ES_CONTRACTS.map(c=>c.contract)]){
     const value=priceResponse(snapshot,selection,now);
     if(!value)continue;
     const body=JSON.stringify(value);
-    results.push({mode:provenance==='synthetic'?'test':'live',selection,body,digest:await sha256(body),source_fetched_at:snapshot.fetchedAt,copied_at:new Date(now).toISOString(),evaluation_day:new Date(now).toISOString().slice(0,10),provenance,license_reference:licenseReference});
+    results.push({mode:provenance==='synthetic'?'test':'live',selection,body,digest:await sha256(body),source_fetched_at:snapshot.fetchedAt,copied_at:new Date(now).toISOString(),evaluation_day:new Date(now).toISOString().slice(0,10),provenance,license_reference:provenance==='licensed'?authorizationReference:null,owner_authorization_reference:provenance==='owner_authorized'?authorizationReference:null});
   }
   return results;
 }
-export async function synchronize(readSource:()=>Promise<{quotes:unknown;fetched_at:unknown}>,publish:(rows:CachedBody[])=>Promise<unknown>,now:number,provenance:'synthetic'|'licensed'|'pending_review',reference:string|null=null){
+export async function synchronize(readSource:()=>Promise<{quotes:unknown;fetched_at:unknown}>,publish:(rows:CachedBody[])=>Promise<unknown>,now:number,provenance:'synthetic'|'licensed'|'pending_review'|'owner_authorized',reference:string|null=null){
   // Called only by a cache-copy timer, never by the customer request handler.
   // A failed copy leaves the last successful body intact; serving still applies source TTL.
   const rows=await materialize(await readSource(),now,provenance,reference);

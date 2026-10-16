@@ -54,9 +54,10 @@ All application settings in the deployed Edge adapter use the `B2B_` prefix. Nev
 | B2B_STRIPE_API_PRICE_DEVELOPER / PRO / BUSINESS | Exact live price IDs above |
 | B2B_STRIPE_API_PORTAL_CONFIGURATION | Dedicated portal ID |
 | B2B_STRIPE_API_WEBHOOK_SECRET | Dedicated endpoint signing secret |
-| B2B_API_STRIPE_LIVE_ENABLED | Checkout activation switch; currently false |
-| B2B_API_LIVE_MARKET_DATA_ENABLED | Live-data kill switch; currently false |
+| B2B_API_STRIPE_LIVE_ENABLED | Checkout activation switch; enabled by owner on October 16 |
+| B2B_API_LIVE_MARKET_DATA_ENABLED | Live-data kill switch; enabled by owner on October 16 |
 | B2B_API_DATA_LICENSE_APPROVED / REFERENCE | Upstream provenance configuration; no legal verification is inferred from software ownership |
+| B2B_API_OWNER_DELIVERY_AUTHORIZED / OWNER_AUTHORIZATION_REFERENCE | Explicit owner activation; distinct from verified licensing. Both required, production only. |
 | B2B_API_CACHE_COPY_ENABLED | Allows SELECT-and-copy, never a price fetch |
 | B2B_API_LEGAL_APPROVED / AGREEMENT_VERSION | Approved production agreement/version |
 | Legacy B2B_DOCUSIGN_* variables | Historical workflow only; not used by new subscriptions |
@@ -99,7 +100,7 @@ Disable B2B checkout, live delivery and copying first. Keep billing/signature/au
 
 `b2b_api_rollback.sql` is destructive and is only for a separately reviewed B2B cleanup after export; never run it automatically on an error. Preserve all signed documents and Stripe records required by retention policy.
 
-Before commercial activation: confirm upstream rights, resolve hosting capacity/backups, then obtain final activation approval. Exact Terms are owner-approved. Keep Free plans as requested; do not silently reduce Business quotas or purchase capacity. The default-urllib issue is resolved and the controlled copy is active. Verify live-mode configuration without a real-money test charge. Hosted Stripe sandbox payment, provisioning, renewal, failure and cancellation checks have passed. The Pro website human-verification control is deployed and enabled; see WEBSITE-SECURITY.md. The legacy Google Cloud reference is not a deployment dependency. Preserve manual Free ratios, source references and the existing Mac/Supabase automation. No new Free-page challenge is claimed.
+The owner explicitly authorized commercial activation and handles licensing separately. Owner-authorized live delivery and Checkout are enabled; provider licensing is not marked verified. Hosting capacity/backups remain operational limitations on the requested Free plans. Exact Terms are owner-approved. Keep Free plans as requested; do not silently reduce Business quotas or purchase capacity. The default-urllib issue is resolved and the controlled copy is active. Verify live-mode configuration without a real-money test charge. Hosted Stripe sandbox payment, provisioning, renewal, failure and cancellation checks have passed. The Pro website human-verification control is deployed and enabled; see WEBSITE-SECURITY.md. The legacy Google Cloud reference is not a deployment dependency. Preserve manual Free ratios, source references and the existing Mac/Supabase automation. Free calculation enforcement is deployed separately; see WEBSITE-SECURITY.md.
 
 ## Capacity, monitoring and backups
 
@@ -107,6 +108,14 @@ The October 16 read-only capacity sample measured approximately 129 MB total dat
 
 `select public.b2b_api_operations();` is operator-only and reports source age, private copy attempts/successes/failures, snapshot provenance, database/B2B bytes, recent API 5xx counts and active paid organizations. `b2b_private.cache_health` keeps one bounded status row. Cron job history and Edge logs show invocation failures; no keys, JWTs or raw provider data should be placed in application logs. Alert on repeated copy failures or no successful copy for 120 seconds during expected update windows, sustained API 5xx, failed Stripe event delivery, and 80% capacity. An external notification destination and managed daily backup coverage must be verified during paid-hosting activation; do not claim these are already enabled on Free.
 
-The operator-only `b2b_api_prune_requests(90,10000)` permits bounded cleanup of request detail older than 90 days; it is not scheduled and has not deleted records. Billing counters, Stripe events, agreements, historical signatures and audit logs are preserved. Retention/legal review should set the final policy. Supabase Free does not include managed automatic backups. Before commercial activation, enable managed backups on Pro and perform an encrypted private export/restore drill. Never store database backups in Git or public website directories.
+The operator-only `b2b_api_prune_requests(90,10000)` permits bounded cleanup of request detail older than 90 days; it is not scheduled and has not deleted records. Billing counters, Stripe events, agreements, historical signatures and audit logs are preserved. Retention/legal review should set the final policy. Supabase Free does not include managed automatic backups. Managed backups and an encrypted private export/restore drill remain outstanding while the owner retains Free hosting. Never store database backups in Git or public website directories.
 
 Rollback copying with `select cron.unschedule('b2b_cache_copy_every_minute');` and disable the B2B copy flag. Never unschedule `pro_price_refresh_every_minute`. Keep all Terms acceptance and billing evidence on rollback.
+
+## October 16 owner activation and Free calculator
+
+Apply b2b_api_owner_activation.sql after the existing B2B migrations. It adds a distinct owner authorization reference and preserves licensed/synthetic provenance constraints. The scheduled copy and customer API require matching mode/reference. The production authorization audit records the explicit owner instruction without declaring licensing verified.
+
+Apply website_free_calculations.sql after website_human_verification.sql. Deploy website-free-calculations with gateway JWT verification off: the handler requires the private gateway secret and overwritten HMAC network identity. The new gateway route /v1/website/free-calculations accepts browser-origin POST only and never inherits B2B entitlements. Deploy gateway before the four Free page handler changes and free-calculations.js. Activate website_security.control.free_enabled only after tests. No shared Auth, WAF, DNS, updater or source changes are required.
+
+Rollback Free limiting with free_enabled=false, retaining server calculation and original math. On an endpoint outage, revert the four Free page handler changes to restore the original local calculations; do not alter original ratio sources. Roll back B2B by setting B2B_API_STRIPE_LIVE_ENABLED=false and B2B_API_LIVE_MARKET_DATA_ENABLED=false; preserve paid customer, acceptance and audit records.

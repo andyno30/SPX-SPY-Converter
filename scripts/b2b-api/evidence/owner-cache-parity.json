@@ -1,0 +1,46 @@
+{
+  "same_source_json_byte_identical": true,
+  "selections": [
+    "AUTO",
+    "ESZ26",
+    "ESH27",
+    "ESM27",
+    "ESU27"
+  ],
+  "source_fetched_at": "2026-10-16T19:27:01.862439+00:00",
+  "scheduled_copy_at": "2026-10-16T19:27:11.043+00:00",
+  "provenance": "owner_authorized",
+  "original_cron": [
+    {
+      "name": "news_daily_cleanup",
+      "jobid": 1,
+      "schedule": "0 3 * * *",
+      "command_md5": "a804d203f06c59e86ac32b28e0339114"
+    },
+    {
+      "name": "news_trim_20000",
+      "jobid": 3,
+      "schedule": "0 3 * * *",
+      "command_md5": "b1e518eefd7e0ae1c8658626562a2ff8"
+    },
+    {
+      "name": "news_vacuum_analyze",
+      "jobid": 4,
+      "schedule": "10 3 * * *",
+      "command_md5": "0c246edc160af7be8c0d4f171004305d"
+    },
+    {
+      "name": "news_fetch_every_15m",
+      "jobid": 5,
+      "schedule": "*/15 * * * *",
+      "command_md5": "a1db15b0c72114224c948148e629ef9c"
+    },
+    {
+      "name": "pro_price_refresh_every_minute",
+      "jobid": 6,
+      "schedule": "* * * * *",
+      "command_md5": "82a50929f873a9b586fea5dc9337ceff"
+    }
+  ],
+  "market_data_refreshes_triggered": 0
+}

@@ -1,13 +1,17 @@
 # B2B and authorized website-security file inventory
 
-104 created files and 7 modified original files relative to production baseline 1201ef5. The seven original-file modifications are the explicitly authorized Pro human-verification integration; all other 276 original tracked files are unchanged. Credentials, authentication codes, payment URLs, private source inspection and raw API keys are excluded from Git.
+120 created files and 11 modified original files relative to production baseline 1201ef5. Four original Free pages add server-controlled calculation handling; the prior seven changes are the authorized Pro guard. The remaining 272 original tracked files are unchanged. Credentials, tokens, private inspection, payment URLs and raw API keys are excluded.
 
 ## Modified original files
 
+- EStoSPX.html
+- RUSSELL2000andDOW.html
+- converter.html
 - docs/dow_russell_script.js
 - docs/pro_prices_api.js
 - docs/pro_script.js
 - docs/spx-spy-overlap-chart.html
+- index.html
 - supabase/functions/contact-for-licencing/index.ts
 - supabase/functions/get-live-price-pro/handler.ts
 - supabase/functions/get-live-price-pro/request.ts
@@ -31,6 +35,7 @@
 - docs/b2b-api/RUNBOOK.md
 - docs/b2b-api/WEBSITE-SECURITY.md
 - docs/human-verification.js
+- free-calculations.js
 - scripts/b2b-api/build-pages.py
 - scripts/b2b-api/evidence/b2b-tests.txt
 - scripts/b2b-api/evidence/billing-desktop.jpg
@@ -39,6 +44,10 @@
 - scripts/b2b-api/evidence/dashboard-desktop.jpg
 - scripts/b2b-api/evidence/dashboard-mobile.jpg
 - scripts/b2b-api/evidence/final-page-verification.json
+- scripts/b2b-api/evidence/free-frontend-tests.txt
+- scripts/b2b-api/evidence/free-production-verification.json
+- scripts/b2b-api/evidence/free-security-tests.txt
+- scripts/b2b-api/evidence/free-typecheck.txt
 - scripts/b2b-api/evidence/frontend-tests.txt
 - scripts/b2b-api/evidence/function-security-preservation.json
 - scripts/b2b-api/evidence/hosted-terms-flow.json
@@ -46,12 +55,16 @@
 - scripts/b2b-api/evidence/landing-desktop.jpg
 - scripts/b2b-api/evidence/legacy-deno-tests.txt
 - scripts/b2b-api/evidence/legacy-node-tests.txt
+- scripts/b2b-api/evidence/live-activation-config.json
 - scripts/b2b-api/evidence/live-approved-terms.jpg
 - scripts/b2b-api/evidence/live-checkout-confirmation.jpg
 - scripts/b2b-api/evidence/live-responsive-checks.json
 - scripts/b2b-api/evidence/live-stripe-readiness.json
+- scripts/b2b-api/evidence/live-unpaid-verification.json
 - scripts/b2b-api/evidence/original-files-sha256.json
 - scripts/b2b-api/evidence/original-function-preservation.json
+- scripts/b2b-api/evidence/owner-activation-tests.txt
+- scripts/b2b-api/evidence/owner-cache-parity.json
 - scripts/b2b-api/evidence/preservation.json
 - scripts/b2b-api/evidence/pricing-mobile.jpg
 - scripts/b2b-api/evidence/production-verification.json
@@ -91,19 +104,23 @@
 - supabase/b2b-api/terms.mjs
 - supabase/b2b-api/worker.ts
 - supabase/b2b-api/wrangler.toml
+- supabase/functions/_shared/free-calculations.ts
 - supabase/functions/_shared/website-human-verification.ts
 - supabase/functions/b2b-cache-copy/index.ts
 - supabase/functions/b2b-platform-test/index.ts
 - supabase/functions/b2b-platform/index.ts
+- supabase/functions/website-free-calculations/index.ts
 - supabase/functions/website-verification/index.ts
 - supabase/sql/b2b_api_billing_environment.sql
 - supabase/sql/b2b_api_operations.sql
+- supabase/sql/b2b_api_owner_activation.sql
 - supabase/sql/b2b_api_review.sql
 - supabase/sql/b2b_api_rollback.sql
 - supabase/sql/b2b_api_setup.sql
 - supabase/sql/b2b_api_signing.sql
 - supabase/sql/b2b_api_source_reader.sql
 - supabase/sql/b2b_api_terms.sql
+- supabase/sql/website_free_calculations.sql
 - supabase/sql/website_human_verification.sql
 - tests/b2b/agreement_test.ts
 - tests/b2b/billing_test.ts
@@ -111,10 +128,13 @@
 - tests/b2b/frontend_test.cjs
 - tests/b2b/gateway_test.ts
 - tests/b2b/integration_test.ts
+- tests/b2b/owner_activation_test.ts
 - tests/b2b/provisioning_test.ts
 - tests/b2b/release_test.ts
 - tests/b2b/signing_flow_test.ts
 - tests/b2b/sql_driver_test.ts
 - tests/b2b/terms_flow_test.ts
+- tests/free_calculations_frontend_test.cjs
+- tests/free_calculations_test.ts
 - tests/website_human_frontend_test.cjs
 - tests/website_human_verification_test.ts

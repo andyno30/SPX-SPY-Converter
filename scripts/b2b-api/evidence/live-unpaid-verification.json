@@ -1,0 +1,37 @@
+{
+  "checked_at": "2026-10-16T19:29:05.606721+00:00",
+  "mode": "live",
+  "real_money_charges": 0,
+  "customer_entitlements_created": 0,
+  "sessions": [
+    {
+      "plan": "developer",
+      "price": "price_1URDSj2mY7zktgIWMD0TwY5r",
+      "checkout_id": "cs_live_a1Z1Eb2AKB87IUe6lPoZQstYlWNstmrZx6QS8zdh8yfiQNOZsumZ3IJStO",
+      "amount": 2500,
+      "created": true,
+      "expired_unpaid": true
+    },
+    {
+      "plan": "pro",
+      "price": "price_1URDTO2mY7zktgIWgqhl0vpM",
+      "checkout_id": "cs_live_a1tDT5f0Yto7K1S109oUeeyTuAdUOQvq9cEq7K6A5AjpgbTRFAi6W6cKnM",
+      "amount": 5000,
+      "created": true,
+      "expired_unpaid": true
+    },
+    {
+      "plan": "business",
+      "price": "price_1URDUa2mY7zktgIWE5unv5go",
+      "checkout_id": "cs_live_a1Jc1kyxg0lLnwoPjm1M85dYdUW5j6drAaGmrP40rOcDhOdMGfhzdKH8G2",
+      "amount": 15000,
+      "created": true,
+      "expired_unpaid": true
+    }
+  ],
+  "portal": {
+    "id": "bpc_1URDxt2mY7zktgIWCk090Hv0",
+    "active": true,
+    "cancel_at_period_end": true
+  }
+}

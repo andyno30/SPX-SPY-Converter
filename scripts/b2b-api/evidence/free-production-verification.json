@@ -1,0 +1,11 @@
+{
+  "checked_at": "2026-10-16T19:33:18.557113+00:00",
+  "concurrent_requests": 12,
+  "admitted": 10,
+  "challenged": 2,
+  "exact_value_preserved": true,
+  "spoofed_identity_denied": true,
+  "direct_origin_denied": true,
+  "market_data_refreshes_requested": 0,
+  "real_turnstile_completed": false
+}

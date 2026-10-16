@@ -1,5 +1,5 @@
 {
-  "authorization": "Owner explicitly authorized backward-compatible Free/Pro human verification and direct-origin protection; no other original website changes.",
+  "authorization": "Owner explicitly authorized Free/Main server-verified 10/minute calculations on 2026-10-16, in addition to prior Pro human verification. Only calculation handlers and the Free script reference change on four Free pages.",
   "files": {
     "docs/dow_russell_script.js": "67c349c16b9cc4dfc80eac803c6eadb820213b5790e05b029235cd853d66ff53",
     "docs/pro_prices_api.js": "07472f80d90c54396f202ab237d571f5f1e38cbf698598d770620e95ce69cbc4",
@@ -7,6 +7,10 @@
     "docs/spx-spy-overlap-chart.html": "67a36757eb9728c47604ef1825e7f919254794567f675a8d021345e57098e39a",
     "supabase/functions/contact-for-licencing/index.ts": "2cabb8d29f6d2f266db791ce876904ab22daa6434cbca7eaf9f34559b72d643b",
     "supabase/functions/get-live-price-pro/handler.ts": "17fade2729b649baacd8c66858ef6e4ff3dde9bc3368edfe54a4622058a47291",
-    "supabase/functions/get-live-price-pro/request.ts": "e8eb7611cb40a0f0468b5ccd52f93c18dd82d0de2e277b533e1be40caa4690ff"
+    "supabase/functions/get-live-price-pro/request.ts": "e8eb7611cb40a0f0468b5ccd52f93c18dd82d0de2e277b533e1be40caa4690ff",
+    "index.html": "b4879e3eab9e90793cc95a00edeb5129d6f96f6d6cc9b051b2b8238b213751b4",
+    "converter.html": "a296fafb8263ceb4c652ce1ccaad180df236f474e6139f1bf1483b3381714a6d",
+    "EStoSPX.html": "c70b20ff952eb8d5d33ef4a001ec5169aa514b0976832030f9378031e7757f03",
+    "RUSSELL2000andDOW.html": "d97b87758c9d83a098a880d5e5f9d8d3c882aa680fb26a61c8245c2d9c9d01b7"
   }
 }

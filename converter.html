@@ -174,41 +174,59 @@
         }    
         
         // Conversion functions for ES/SPY
-        function convertEsToSpy() {
+        async function convertEsToSpy() {
+            try {
             const esValue = parseFloat(document.getElementById("esInput").value);
-            const spyValue = (esValue / es_spy_ratio).toFixed(2);
+            if (!Number.isFinite(esValue)) { document.getElementById("esToSpyOutput").innerText = "SPY Value: NaN"; return; }
+            const spyValue = (await FreeCalculator.calculate(esValue, es_spy_ratio, "divide")).toFixed(2);
             document.getElementById("esToSpyOutput").innerText = `SPY Value: ${spyValue}`;
+            } catch (error) { document.getElementById("esToSpyOutput").innerText = error.message || "Calculation unavailable. Please retry."; }
         }
         
-        function convertSpyToEs() {
+        async function convertSpyToEs() {
+            try {
             const spyValue = parseFloat(document.getElementById("spyToEsInput").value);
-            const esValue = (spyValue * es_spy_ratio).toFixed(2);
+            if (!Number.isFinite(spyValue)) { document.getElementById("spyToEsOutput").innerText = "/ES Value: NaN"; return; }
+            const esValue = (await FreeCalculator.calculate(spyValue, es_spy_ratio, "multiply")).toFixed(2);
             document.getElementById("spyToEsOutput").innerText = `/ES Value: ${esValue}`;
+            } catch (error) { document.getElementById("spyToEsOutput").innerText = error.message || "Calculation unavailable. Please retry."; }
         }
         
         // Conversion functions for QQQ to /NQ
-        function convertQqqToNq() {
+        async function convertQqqToNq() {
+            try {
             const qqqValue = parseFloat(document.getElementById("qqqInput").value);
-            const nqValue = (qqqValue * nq_qqq_ratio).toFixed(2);
+            if (!Number.isFinite(qqqValue)) { document.getElementById("qqqToNqOutput").innerText = "/NQ Value: NaN"; return; }
+            const nqValue = (await FreeCalculator.calculate(qqqValue, nq_qqq_ratio, "multiply")).toFixed(2);
             document.getElementById("qqqToNqOutput").innerText = `/NQ Value: ${nqValue}`;
+            } catch (error) { document.getElementById("qqqToNqOutput").innerText = error.message || "Calculation unavailable. Please retry."; }
         }
         
-        function convertNdxToQqq() {
+        async function convertNdxToQqq() {
+            try {
             const ndxValue = parseFloat(document.getElementById("ndxToQqqInput").value);
-            const qqqValue = (ndxValue / ndx_qqq_ratio).toFixed(2);
+            if (!Number.isFinite(ndxValue)) { document.getElementById("ndxToQqqOutput").innerText = "QQQ Value: NaN"; return; }
+            const qqqValue = (await FreeCalculator.calculate(ndxValue, ndx_qqq_ratio, "divide")).toFixed(2);
             document.getElementById("ndxToQqqOutput").innerText = `QQQ Value: ${qqqValue}`;
+            } catch (error) { document.getElementById("ndxToQqqOutput").innerText = error.message || "Calculation unavailable. Please retry."; }
         }
         
-        function convertQqqToNdx() {
+        async function convertQqqToNdx() {
+            try {
             const qqqValue = parseFloat(document.getElementById("qqqToNdxInput1").value);
-            const ndxValue = (qqqValue * ndx_qqq_ratio).toFixed(2);
+            if (!Number.isFinite(qqqValue)) { document.getElementById("qqqToNdxOutput1").innerText = "NDX Value: NaN"; return; }
+            const ndxValue = (await FreeCalculator.calculate(qqqValue, ndx_qqq_ratio, "multiply")).toFixed(2);
             document.getElementById("qqqToNdxOutput1").innerText = `NDX Value: ${ndxValue}`;
+            } catch (error) { document.getElementById("qqqToNdxOutput1").innerText = error.message || "Calculation unavailable. Please retry."; }
         }
         
-        function convertNqToQqq() {
+        async function convertNqToQqq() {
+            try {
             const nqValue = parseFloat(document.getElementById("nqToQqqInput").value);
-            const qqqValue = (nqValue / nq_qqq_ratio).toFixed(2);
+            if (!Number.isFinite(nqValue)) { document.getElementById("nqToQqqOutput").innerText = "QQQ Value: NaN"; return; }
+            const qqqValue = (await FreeCalculator.calculate(nqValue, nq_qqq_ratio, "divide")).toFixed(2);
             document.getElementById("nqToQqqOutput").innerText = `QQQ Value: ${qqqValue}`;
+            } catch (error) { document.getElementById("nqToQqqOutput").innerText = error.message || "Calculation unavailable. Please retry."; }
         }
         
         // Call the functions when the page loads
@@ -216,5 +234,6 @@
         liveTimeUpdate();
     </script>
     <script src="side-ads.js?v=20260830"></script>
-        </body>
+          <script src="free-calculations.js?v=20261016"></script>
+</body>
         </html>

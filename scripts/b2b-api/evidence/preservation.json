@@ -1,5 +1,5 @@
 {
-  "verified_at": "2026-10-16T19:12:26.575177+00:00",
+  "verified_at": "2026-10-16T19:29:28.858653+00:00",
   "branch": "codex/b2b-api-platform",
   "baseline_commit": "1201ef5d9ac7ad2f3633690e8893d20e1793184b",
   "inherited_production_updates_since_original_review": [
@@ -8,12 +8,16 @@
     "script.js"
   ],
   "original_tracked_files": 283,
-  "unchanged": 276,
+  "unchanged": 272,
   "authorized_security_changes": [
+    "EStoSPX.html",
+    "RUSSELL2000andDOW.html",
+    "converter.html",
     "docs/dow_russell_script.js",
     "docs/pro_prices_api.js",
     "docs/pro_script.js",
     "docs/spx-spy-overlap-chart.html",
+    "index.html",
     "supabase/functions/contact-for-licencing/index.ts",
     "supabase/functions/get-live-price-pro/handler.ts",
     "supabase/functions/get-live-price-pro/request.ts"
