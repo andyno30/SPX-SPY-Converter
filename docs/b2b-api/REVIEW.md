@@ -19,14 +19,14 @@ The approved API-only Cloudflare upstream User-Agent rule fixes Python urllib er
 | Current B2B backend suite | 10 tests / 45 steps passed |
 | Current frontend DOM suite | 8 passed |
 | Production Edge type checks | Three B2B functions passed |
-| Existing website regression suite | Previously verified 46 Deno + 53 Node tests; original files unchanged |
+| Existing website regression suite | 49 Deno tests / 12 steps; 66 Node regressions plus 20 SQL tests passed |
 | Real hosted Terms/payment/key flow | Developer, Pro, Business all passed |
 | Real hosted concurrent limits | Developer 10/20 allowed; Pro 30/40; Business 120/130; others JSON 429 |
 | Real Stripe test-clock lifecycle | Renewal, failed payment and scheduled cancellation verified |
 | Key security | Hash-only storage, one-time display, rotation/revocation, organization isolation |
 | Launch restrictions | Unapproved Terms, unchecked acceptance and restricted data fail closed |
-| Original tracked files | 283/283 match task production baseline 1201ef5 |
-| Original production functions | Code-update timestamps and metadata unchanged; B2B secret changes increment project-wide runtime versions |
+| Original tracked files | 276/283 unchanged; seven explicitly authorized website-security changes; no unexpected changes |
+| Original production functions | Original functions preserved except the authorized Pro human-verification guard in contact-for-licencing; B2B secret changes increment project-wide runtime versions |
 
 ## Zero additional upstream requests
 
@@ -38,8 +38,8 @@ The instrumented synthetic comparison exercised 600 customer requests with the s
 
 ## Commercial activation status
 
-Commercial checkout and live-data delivery remain disabled. The current Terms version is 2026-10-16-v1, SHA-256 9ed08e7617aff2e3f26dda2914cbd37d84622695f0b4ad9f58e313909669570b. Owner approval and confirmed upstream redistribution rights are still required, followed by final activation approval.
+Commercial checkout and live-data delivery remain disabled. The current Terms version is 2026-10-16-v1, SHA-256 9ed08e7617aff2e3f26dda2914cbd37d84622695f0b4ad9f58e313909669570b. The owner approved this exact Terms version on October 16; immutable catalog approval and the production Terms-acceptance flag are now active. Confirmed upstream redistribution rights and final activation approval are still required.
 
-Capacity review measured approximately 129 MB database usage and under 1 MB of B2B tables. Supabase Free and Workers Free cannot support a fully used Business allocation plus existing traffic. Suitable paid capacity, managed backups/restore validation and alert routing remain launch prerequisites; no hosting subscription was purchased. See COSTS.md and RUNBOOK.md.
+Capacity review measured approximately 129 MB database usage and under 1 MB of B2B tables. Supabase Free and Workers Free cannot support a fully used Business allocation plus existing traffic. The owner explicitly chose to keep Free plans on October 16. No upgrade was purchased. Sufficient commercial capacity, backups/restore validation and alert routing remain unresolved; quotas and advertised prices were not reduced. See COSTS.md and RUNBOOK.md.
 
-Free/Pro human verification is a separate workstream. Its status must not be inferred from the completed B2B gateway. Existing Free data requests reach an App Engine origin outside Cloudflare; a root-domain challenge alone cannot secure that direct origin.
+Website Pro human verification now has an isolated Cloudflare Turnstile widget, authenticated verification endpoint, private atomic controls and frontend handling. Deployment activation and verification are tracked in WEBSITE-SECURITY.md. Free-origin protection remains blocked: the renewed Google account can see utility-trees-399601, but billing is disabled and App Engine version access is denied. Its source buckets are empty. No Free origin request, deployment, or billing change was made; a root-domain challenge cannot protect that direct origin.

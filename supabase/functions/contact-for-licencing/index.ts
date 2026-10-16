@@ -2,6 +2,7 @@
 import { createClient } from 'npm:@supabase/supabase-js@2';
 import { createRequestHandler } from '../get-live-price-pro/request.ts';
 import { createRuntimeQuotaConsumer } from '../_shared/premium-quota.ts';
+import { createWebsiteHumanGuard } from '../_shared/website-human-verification.ts';
 
 const supabase = createClient(
   Deno.env.get('PROJECT_URL') ?? Deno.env.get('SUPABASE_URL')!,
@@ -9,6 +10,10 @@ const supabase = createClient(
   { auth: { persistSession: false, autoRefreshToken: false } },
 );
 Deno.serve(createRequestHandler({
+  humanCheck: Deno.env.get('WEBSITE_TURNSTILE_SITEKEY') ? createWebsiteHumanGuard(async(id,action)=>{
+    const {data,error}=await supabase.rpc('website_pro_human_control',{p_user_id:id,p_action:action}).abortSignal(AbortSignal.timeout(5000));
+    if(error)throw new Error('Website verification lookup failed');return data;
+  },Deno.env.get('WEBSITE_TURNSTILE_SITEKEY')!) : undefined,
   // Off by default. Enable only after the approved SQL migration and smoke tests.
   consumeQuota: Deno.env.get('PRO_PRICE_QUOTAS_ENABLED') === 'true'
     ? createRuntimeQuotaConsumer({

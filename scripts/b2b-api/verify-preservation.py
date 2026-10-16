@@ -13,7 +13,10 @@ EVIDENCE = ROOT / 'scripts/b2b-api/evidence'
 BASELINE = EVIDENCE / 'original-files-sha256.json'
 before = json.loads(BASELINE.read_text())
 production_base = '1201ef5'
+approved_path = EVIDENCE / 'website-security-approved-files.json'
+approved = json.loads(approved_path.read_text())['files'] if approved_path.exists() else {}
 changed = []
+authorized_security_changes = []
 inherited_updates = []
 for name, digest in before.items():
     file = ROOT / name
@@ -22,7 +25,11 @@ for name, digest in before.items():
     if production_digest != digest:
         inherited_updates.append(name)
     if not file.is_file() or hashlib.sha256(file.read_bytes()).hexdigest() != production_digest:
-        changed.append(name)
+        actual = hashlib.sha256(file.read_bytes()).hexdigest() if file.is_file() else None
+        if actual is not None and approved.get(name) == actual:
+            authorized_security_changes.append(name)
+        else:
+            changed.append(name)
 branch = subprocess.check_output(['git', 'branch', '--show-current'], cwd=ROOT, text=True).strip()
 report = {
     'verified_at': datetime.now(timezone.utc).isoformat(),
@@ -30,8 +37,9 @@ report = {
     'baseline_commit': subprocess.check_output(['git', 'rev-parse', production_base], cwd=ROOT, text=True).strip(),
     'inherited_production_updates_since_original_review': inherited_updates,
     'original_tracked_files': len(before),
-    'unchanged': len(before) - len(changed),
-    'modified_or_missing': changed,
+    'unchanged': len(before) - len(changed) - len(authorized_security_changes),
+    'authorized_security_changes': authorized_security_changes,
+    'unexpected_modified_or_missing': changed,
     'scope': 'Local file integrity; no production requests or hosted configuration assertions.',
 }
 EVIDENCE.mkdir(parents=True, exist_ok=True)

@@ -1,0 +1,2 @@
+Check supabase/functions/contact-for-licencing/index.ts
+Check supabase/functions/website-verification/index.ts

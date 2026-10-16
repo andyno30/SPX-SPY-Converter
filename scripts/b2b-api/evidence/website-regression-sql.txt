@@ -1,0 +1,112 @@
+TAP version 13
+# Subtest: durable premium quotas: permissions, limits, reset, retention and rollback
+    # Subtest: runtime control is default-disabled, rechecked inside consume, and owner-only mutable
+    ok 1 - runtime control is default-disabled, rechecked inside consume, and owner-only mutable
+      ---
+      duration_ms: 64.976166
+      ...
+    # Subtest: public/authenticated cannot invoke RPC or access counters, service cannot change raw counters
+    ok 2 - public/authenticated cannot invoke RPC or access counters, service cannot change raw counters
+      ---
+      duration_ms: 16.406916
+      ...
+    # Subtest: parallel callers share a capped counter; resources and users stay separate
+    ok 3 - parallel callers share a capped counter; resources and users stay separate
+      ---
+      duration_ms: 105.586792
+      ...
+    # Subtest: minute reset preserves hourly quota; hourly reset admits requests again
+    ok 4 - minute reset preserves hourly quota; hourly reset admits requests again
+      ---
+      duration_ms: 5.466417
+      ...
+    # Subtest: committed emergency disable bypasses existing quotas without erasing counters or entitlements
+    ok 5 - committed emergency disable bypasses existing quotas without erasing counters or entitlements
+      ---
+      duration_ms: 6.751916
+      ...
+    # Subtest: reapplying migration preserves counts, cleanup bounds work, account deletion cascades
+    ok 6 - reapplying migration preserves counts, cleanup bounds work, account deletion cascades
+      ---
+      duration_ms: 13.669625
+      ...
+    # Subtest: scheduler and rollback touch only their own job and accounting objects
+    ok 7 - scheduler and rollback touch only their own job and accounting objects
+      ---
+      duration_ms: 10.144417
+      ...
+    1..7
+ok 1 - durable premium quotas: permissions, limits, reset, retention and rollback
+  ---
+  duration_ms: 4909.142167
+  ...
+# Subtest: Billing safeguard blocks self-upgrade and billing-ID edits, preserves profile edits and Stripe writes
+ok 2 - Billing safeguard blocks self-upgrade and billing-ID edits, preserves profile edits and Stripe writes
+  ---
+  duration_ms: 4627.639291
+  ...
+# Subtest: combined snapshot read preserves subscription decisions and private permissions
+ok 3 - combined snapshot read preserves subscription decisions and private permissions
+  ---
+  duration_ms: 4672.133625
+  ...
+# Subtest: Pro cache PostgreSQL migration and scheduler invariants
+    # Subtest: cache and refresh RPCs reject anon/authenticated; service role can read but cannot write directly
+    ok 1 - cache and refresh RPCs reject anon/authenticated; service role can read but cannot write directly
+      ---
+      duration_ms: 25.248583
+      ...
+    # Subtest: only one claim is admitted in a burst and its bucket is UTC despite the session timezone
+    ok 2 - only one claim is admitted in a burst and its bucket is UTC despite the session timezone
+      ---
+      duration_ms: 41.035167
+      ...
+    # Subtest: failed refresh releases its lease without clearing the snapshot or minute cooldown
+    ok 3 - failed refresh releases its lease without clearing the snapshot or minute cooldown
+      ---
+      duration_ms: 7.643208
+      ...
+    # Subtest: active lease blocks a later minute; an expired lease is reclaimed with a new fence token
+    ok 4 - active lease blocks a later minute; an expired lease is reclaimed with a new fence token
+      ---
+      duration_ms: 10.022208
+      ...
+    # Subtest: expired finish is rejected even when its token has not been superseded
+    ok 5 - expired finish is rejected even when its token has not been superseded
+      ---
+      duration_ms: 3.735709
+      ...
+    # Subtest: invalid quote transport cannot publish or consume the current valid claim
+    ok 6 - invalid quote transport cannot publish or consume the current valid claim
+      ---
+      duration_ms: 15.752833
+      ...
+    # Subtest: reapplying the migration preserves the published snapshot and attempt history
+    ok 7 - reapplying the migration preserves the published snapshot and attempt history
+      ---
+      duration_ms: 4.5315
+      ...
+    # Subtest: scheduler configuration is owner-only and rejects invalid targets or absent Vault credentials
+    ok 8 - scheduler configuration is owner-only and rejects invalid targets or absent Vault credentials
+      ---
+      duration_ms: 8.0565
+      ...
+    # Subtest: configuration replaces only its own job and keeps the credential out of stored cron SQL
+    ok 9 - configuration replaces only its own job and keeps the credential out of stored cron SQL
+      ---
+      duration_ms: 10.267166
+      ...
+    1..9
+ok 4 - Pro cache PostgreSQL migration and scheduler invariants
+  ---
+  duration_ms: 4808.140542
+  ...
+1..4
+# tests 20
+# suites 0
+# pass 20
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 5039.727375

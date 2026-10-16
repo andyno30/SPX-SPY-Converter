@@ -1,4 +1,4 @@
-import { fetchProPrices } from './pro_prices_api.js?v=20261015-quota';
+import { fetchProPrices } from './pro_prices_api.js?v=20261016-human';
 import { bindCooldownRetry } from './premium-request-cooldown.js?v=20261015-quota';
 
 const cooldownRetry = bindCooldownRetry(document.getElementById('price-refresh-status'), () => updateDowRussellRatios({ manualProbe: true }));

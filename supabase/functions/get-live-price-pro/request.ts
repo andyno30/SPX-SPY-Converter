@@ -11,6 +11,7 @@ export function createRequestHandler(deps: {
   userId: (token: string) => Promise<string | null>;
   readAccessSnapshot: (id: string) => Promise<unknown>;
   consumeQuota?: (verifiedUserId: string) => Promise<QuotaDecision>;
+  humanCheck?: (verifiedUserId: string) => Promise<Response | null>;
   now?: () => number;
 }) {
   return (req: Request): Promise<Response> => {
@@ -34,6 +35,10 @@ export function createRequestHandler(deps: {
     return createHandler({
       authorize,
       snapshot: createSnapshotReader(async () => record, deps.now),
+      humanCheck: deps.humanCheck ? async () => {
+        if (!verifiedUserId) throw new Error('Verified user required');
+        return await deps.humanCheck!(verifiedUserId);
+      } : undefined,
       consumeQuota: deps.consumeQuota ? async () => {
         if (!verifiedUserId) throw new Error('Verified user required for quota');
         return await deps.consumeQuota!(verifiedUserId);

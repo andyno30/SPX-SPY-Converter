@@ -1,5 +1,5 @@
 {
-  "verified_at": "2026-10-16T18:42:01.224874+00:00",
+  "verified_at": "2026-10-16T19:01:44.147594+00:00",
   "branch": "codex/b2b-api-platform",
   "baseline_commit": "1201ef5d9ac7ad2f3633690e8893d20e1793184b",
   "inherited_production_updates_since_original_review": [
@@ -8,7 +8,16 @@
     "script.js"
   ],
   "original_tracked_files": 283,
-  "unchanged": 283,
-  "modified_or_missing": [],
+  "unchanged": 276,
+  "authorized_security_changes": [
+    "docs/dow_russell_script.js",
+    "docs/pro_prices_api.js",
+    "docs/pro_script.js",
+    "docs/spx-spy-overlap-chart.html",
+    "supabase/functions/contact-for-licencing/index.ts",
+    "supabase/functions/get-live-price-pro/handler.ts",
+    "supabase/functions/get-live-price-pro/request.ts"
+  ],
+  "unexpected_modified_or_missing": [],
   "scope": "Local file integrity; no production requests or hosted configuration assertions."
 }

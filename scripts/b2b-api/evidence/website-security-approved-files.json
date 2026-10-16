@@ -1,0 +1,12 @@
+{
+  "authorization": "Owner explicitly authorized backward-compatible Free/Pro human verification and direct-origin protection; no other original website changes.",
+  "files": {
+    "docs/dow_russell_script.js": "67c349c16b9cc4dfc80eac803c6eadb820213b5790e05b029235cd853d66ff53",
+    "docs/pro_prices_api.js": "07472f80d90c54396f202ab237d571f5f1e38cbf698598d770620e95ce69cbc4",
+    "docs/pro_script.js": "cc02270467e365fb8d3a6db13b6f6b9bbc83c826ef00fe502b002cdbbdbd9f73",
+    "docs/spx-spy-overlap-chart.html": "67a36757eb9728c47604ef1825e7f919254794567f675a8d021345e57098e39a",
+    "supabase/functions/contact-for-licencing/index.ts": "2cabb8d29f6d2f266db791ce876904ab22daa6434cbca7eaf9f34559b72d643b",
+    "supabase/functions/get-live-price-pro/handler.ts": "17fade2729b649baacd8c66858ef6e4ff3dde9bc3368edfe54a4622058a47291",
+    "supabase/functions/get-live-price-pro/request.ts": "e8eb7611cb40a0f0468b5ccd52f93c18dd82d0de2e277b533e1be40caa4690ff"
+  }
+}

@@ -1,0 +1,171 @@
+running 1 test from ./tests/premium_quota_application_test.ts
+local HTTP subscribers, runtime disable, and real PostgreSQL accounting ...
+------- output -------
+Local database: PostgreSQL 18.4 on x86_64-apple-darwin24.6.0, compiled by Apple clang version 17.0.0 (clang-1700.6.3.2), 64-bit
+----- output end -----
+  default disabled admits subscribers across running instances without counters ... ok (13ms)
+  signed identities, expiry, current membership, anonymous and public SPY ... ok (15ms)
+  simultaneous requests share authenticated budget across tokens and four handlers ... ok (88ms)
+  hourly budgets are separate and all premium Options tickers share one budget ... ok (17ms)
+  emergency disable recovers exhausted users on already-running handlers ... ok (11ms)
+  actual missing counter RPC is 503 while verified enabled, then disable recovers ...
+------- output -------
+premium_api_quota_unavailable
+----- output end -----
+  actual missing counter RPC is 503 while verified enabled, then disable recovers ... ok (6ms)
+  unverifiable control bypasses only quota, preserving auth and membership ...
+------- output -------
+premium_api_quota_control_unverified
+premium_api_quota_control_unverified
+premium_api_quota_control_unverified
+premium_api_quota_control_unverified
+premium_api_quota_control_unverified
+premium_api_quota_control_unverified
+premium_api_quota_control_unverified
+premium_api_quota_control_unverified
+get-live-price-pro: authorization or quote lookup failed
+Error: Local auth dependency unavailable
+    at Object.userId (file:///Users/andyno/Desktop/Spyconverter%20(2026)/tests/premium_quota_application_test.ts:86:33)
+    at file:///Users/andyno/Desktop/Spyconverter%20(2026)/supabase/functions/fetch-spy-options/access.ts:22:39
+    at file:///Users/andyno/Desktop/Spyconverter%20(2026)/tests/premium_quota_application_test.ts:126:30
+    at mapped (ext:deno_http/00_serve.ts:386:24)
+    at mapped (ext:deno_http/00_serve.ts:489:16)
+    at ext:deno_http/00_serve.ts:782:29
+----- output end -----
+  unverifiable control bypasses only quota, preserving auth and membership ... ok (15ms)
+local HTTP subscribers, runtime disable, and real PostgreSQL accounting ... ok (361ms)
+running 13 tests from ./tests/premium_quota_test.ts
+Pro quota only charges verified subscribers and valid GET selections ... ok (2ms)
+Pro uses verified identity across refreshed tokens and concurrent requests ... ok (0ms)
+quota database failures and malformed decisions fail closed without exposing details ...
+------- post-test output -------
+premium_api_quota_unavailable
+premium_api_quota_unavailable
+premium_api_quota_unavailable
+premium_api_quota_unavailable
+premium_api_quota_unavailable
+premium_api_quota_unavailable
+premium_api_quota_unavailable
+premium_api_quota_unavailable
+----- post-test output end -----
+quota database failures and malformed decisions fail closed without exposing details ... ok (1ms)
+Pro revocation is checked before quotas and disabled quotas preserve the existing response ... ok (0ms)
+public SPY bypasses authentication and quotas, including during limiter failures ... ok (0ms)
+all premium tickers share the verified user budget after authorization ... ok (0ms)
+premium Options limiter outage returns 503; omitted limiter preserves authorized access ...
+------- post-test output -------
+premium_api_quota_unavailable
+----- post-test output end -----
+premium Options limiter outage returns 503; omitted limiter preserves authorized access ... ok (0ms)
+disabled, missing, malformed or unavailable runtime control bypasses quota without consuming ...
+------- post-test output -------
+premium_api_quota_control_unverified
+premium_api_quota_control_unverified
+premium_api_quota_control_unverified
+premium_api_quota_control_unverified
+premium_api_quota_control_unverified
+premium_api_quota_control_unverified
+premium_api_quota_control_unverified
+premium_api_quota_control_unverified
+----- post-test output end -----
+disabled, missing, malformed or unavailable runtime control bypasses quota without consuming ... ok (0ms)
+same long-lived Pro and Options handlers honor runtime disable without reconstruction ... ok (0ms)
+concurrent long-lived requests recheck runtime control after an in-flight denial ... ok (0ms)
+limiter failure rechecks control: disabled or unverified recovers, verified enabled remains 503 ...
+------- post-test output -------
+premium_api_quota_control_unverified
+premium_api_quota_control_unverified
+premium_api_quota_unavailable
+----- post-test output end -----
+limiter failure rechecks control: disabled or unverified recovers, verified enabled remains 503 ... ok (0ms)
+malformed limiter response with confirmed enabled runtime control returns 503 ...
+------- post-test output -------
+premium_api_quota_unavailable
+----- post-test output end -----
+malformed limiter response with confirmed enabled runtime control returns 503 ... ok (0ms)
+unknown control never bypasses JWT, current membership, or public SPY isolation ...
+------- post-test output -------
+premium_api_quota_control_unverified
+premium_api_quota_control_unverified
+----- post-test output end -----
+unknown control never bypasses JWT, current membership, or public SPY isolation ... ok (0ms)
+running 3 tests from ./tests/pro_price_request_test.ts
+one combined read per valid GET; preflight caching never caches subscription access ... ok (2ms)
+concurrent requests cannot reuse another request's subscription or snapshot ... ok (0ms)
+combined read rejects malformed access, missing/stale prices, and database failures ...
+------- post-test output -------
+get-live-price-pro: authorization or quote lookup failed
+get-live-price-pro: authorization or quote lookup failed
+get-live-price-pro: authorization or quote lookup failed
+get-live-price-pro: authorization or quote lookup failed
+get-live-price-pro: authorization or quote lookup failed
+get-live-price-pro: authorization or quote lookup failed
+get-live-price-pro: authorization or quote lookup failed
+----- post-test output end -----
+combined read rejects malformed access, missing/stale prices, and database failures ... ok (1ms)
+running 8 tests from ./tests/pro_price_updater_test.ts
+Updater rejects unauthorized callers before claiming, fetching, or writing ... ok (1ms)
+Private updater only accepts POST, including rejecting browser preflight ... ok (0ms)
+A denied refresh claim skips provider access and storage writes ... ok (0ms)
+One winning shared claim permits one provider batch across independent concurrent updaters ... ok (8ms)
+Provider failure releases its claim once without automatic retry or replacing stored prices ...
+------- post-test output -------
+refresh-pro-prices: refresh failed
+----- post-test output end -----
+Provider failure releases its claim once without automatic retry or replacing stored prices ... ok (0ms)
+Snapshot persistence failure releases the winning claim without a second provider fetch ...
+------- post-test output -------
+refresh-pro-prices: refresh failed
+----- post-test output end -----
+Snapshot persistence failure releases the winning claim without a second provider fetch ... ok (0ms)
+Claim failure never contacts the provider or attempts to release an unowned claim ...
+------- post-test output -------
+refresh-pro-prices: refresh failed
+----- post-test output end -----
+Claim failure never contacts the provider or attempts to release an unowned claim ... ok (0ms)
+Cleanup failure still returns a generic unavailable response without retrying ... ok (0ms)
+running 8 tests from ./tests/pro_price_yahoo_test.ts
+Yahoo HTTP budget counts session setup and stops before another fetch ... ok (1ms)
+Yahoo wrapper rejects unapproved URLs before any network request ... ok (0ms)
+Yahoo session redirects and cookie-bearing 404s are preserved with manual redirects ... ok (0ms)
+Yahoo quote errors and request logs omit query secrets and response bodies ... ok (0ms)
+Yahoo expired deadline rejects without using the network ... ok (7ms)
+Yahoo refresh uses one quote call and preserves supported quote filtering ... ok (1ms)
+Yahoo library failures are sanitized and never retried within an attempt ... ok (0ms)
+Yahoo overall deadline ends a hung quote and aborts its shared signal ... ok (7ms)
+running 14 tests from ./tests/pro_prices_test.ts
+Auto preserves generic fields and reports Yahoo underlying expiration ... ok (0ms)
+December and March use distinct quotes for both ES ratios; all unrelated values stay equal ... ok (0ms)
+Allowlist rejects arbitrary, duplicate, empty, unlisted and malformed symbols ... ok (7ms)
+Unavailable, expired, wrong-expiration and nonfinite quotes are omitted with no fallback ... ok (0ms)
+Shared snapshot reader accepts data through two minutes and rejects anything older ... ok (0ms)
+Shared snapshot reader rejects missing, malformed, and future database records ... ok (0ms)
+Shared snapshot reader tolerates five seconds of database clock skew and partial instruments ... ok (0ms)
+Database serialization preserves all prices, ratios, contracts, and quote datetimes ... ok (0ms)
+Snapshot reads see database changes and fail closed on database outages without old-data fallback ... ok (0ms)
+Authorizer trusts verified user identity and exact server subscription boolean only ... ok (0ms)
+Every endpoint GET requires valid Pro access before reading the shared snapshot ... ok (1ms)
+A burst across independent GET handlers only authorizes and reads the same stored quotes ... ok (4ms)
+Pro GET returns unavailable for missing or expired shared snapshots ...
+------- post-test output -------
+get-live-price-pro: authorization or quote lookup failed
+get-live-price-pro: authorization or quote lookup failed
+----- post-test output end -----
+Pro GET returns unavailable for missing or expired shared snapshots ... ok (0ms)
+Subscription lookup failures fail closed; missing explicit quote returns 503 ...
+------- post-test output -------
+get-live-price-pro: authorization or quote lookup failed
+----- post-test output end -----
+Subscription lookup failures fail closed; missing explicit quote returns 503 ... ok (0ms)
+running 2 tests from ./tests/website_human_verification_test.ts
+Website human verification is atomic, identity-bound and independent of B2B/updaters ...
+  disabled is backward compatible; public callers cannot forge verification ... ok (2ms)
+  30 concurrent requests pass; excess gets JSON challenge, separate users remain independent ... ok (50ms)
+  wrong origin, forged identity, cross-user challenge and malformed requests cannot reach Siteverify ... ok (3ms)
+  wrong hostname and replay fail; successful verification permits only bounded retries ... ok (13ms)
+  expired clearance and malformed verification fail closed; no market-data fetch exists ... ok (4ms)
+Website human verification is atomic, identity-bound and independent of B2B/updaters ... ok (383ms)
+Pro guard runs only after existing authentication and never bypasses hard quotas or alters JSON ... ok (1ms)
+
+ok | 49 passed (12 steps) | 0 failed (1s)
+

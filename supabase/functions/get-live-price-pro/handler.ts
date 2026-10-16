@@ -18,6 +18,7 @@ export function createHandler(deps: {
   authorize: (token: string) => Promise<Access>;
   snapshot: () => Promise<Snapshot>;
   consumeQuota?: () => Promise<QuotaDecision>;
+  humanCheck?: () => Promise<Response | null>;
   now?: () => number;
 }) {
   return async (req: Request): Promise<Response> => {
@@ -35,6 +36,10 @@ export function createHandler(deps: {
       if (access !== 'allowed') return json({ message: 'An active Pro subscription is required.' }, 403);
       const contract = parseContract(req.url);
       if (!contract) return json({ message: 'Invalid ES contract.' }, 400);
+      if (deps.humanCheck) {
+        const challenge = await deps.humanCheck();
+        if (challenge) return challenge;
+      }
       if (deps.consumeQuota) {
         const limited = await enforcePremiumQuota(deps.consumeQuota, CORS);
         if (limited) return limited;

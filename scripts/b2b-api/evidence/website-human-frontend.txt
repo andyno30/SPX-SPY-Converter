@@ -1,0 +1,141 @@
+TAP version 13
+# Subtest: Retry-After seconds/date parsing is bounded and invalid headers fall back safely
+ok 1 - Retry-After seconds/date parsing is bounded and invalid headers fall back safely
+  ---
+  duration_ms: 7.839125
+  ...
+# Subtest: Shared cooldowns survive tabs/reloads, isolate user/resource and never store credentials
+ok 2 - Shared cooldowns survive tabs/reloads, isolate user/resource and never store credentials
+  ---
+  duration_ms: 3.568125
+  ...
+# Subtest: Disabled/corrupt storage uses in-memory suppression and a later response cannot shorten cooldown
+ok 3 - Disabled/corrupt storage uses in-memory suppression and a later response cannot shorten cooldown
+  ---
+  duration_ms: 1.587584
+  ...
+# Subtest: Pro consumer keeps prices/calculations on 429/503 and resumes only after cooldown
+ok 4 - Pro consumer keeps prices/calculations on 429/503 and resumes only after cooldown
+  ---
+  duration_ms: 282.420583
+  ...
+# Subtest: Pro contract changes during cooldown never reuse another ES contract or issue requests
+ok 5 - Pro contract changes during cooldown never reuse another ES contract or issue requests
+  ---
+  duration_ms: 11.970875
+  ...
+# Subtest: Dow/Russell shows visible quota/outage feedback and retains last data through recovery
+ok 6 - Dow/Russell shows visible quota/outage feedback and retains last data through recovery
+  ---
+  duration_ms: 8.950667
+  ...
+# Subtest: Actual Pro API shares a cooldown with warm Dow tab and reload, but not another account
+ok 7 - Actual Pro API shares a cooldown with warm Dow tab and reload, but not another account
+  ---
+  duration_ms: 21.074708
+  ...
+# Subtest: Chart polling and manual reset preserve history on 429/503 and recover without rapid retries
+ok 8 - Chart polling and manual reset preserve history on 429/503 and recover without rapid retries
+  ---
+  duration_ms: 18.385375
+  ...
+# Subtest: Options manual/normal refreshes retain data on 429/503, share all premium tickers, leave SPY public
+ok 9 - Options manual/normal refreshes retain data on 429/503, share all premium tickers, leave SPY public
+  ---
+  duration_ms: 20.735125
+  ...
+# Subtest: Options shares cooldown across reloads/accounts correctly and Pro quota stays independent
+ok 10 - Options shares cooldown across reloads/accounts correctly and Pro quota stays independent
+  ---
+  duration_ms: 28.682166
+  ...
+# Subtest: In-flight response records only the captured request user after an account switch
+ok 11 - In-flight response records only the captured request user after an account switch
+  ---
+  duration_ms: 9.995542
+  ...
+# Subtest: One hour of real polling functions across six tabs plus reloads/manual requests retains quota headroom
+ok 12 - One hour of real polling functions across six tabs plus reloads/manual requests retains quota headroom
+  ---
+  duration_ms: 202.12625
+  ...
+# 60 minutes, same user: Pro + Dow + chart = 183/1200 requests, peak 4/60 per minute; three premium Options tabs = 16/600 requests, peak 3/60 per minute. Includes two reloads, one ES switch, one chart reset, two Options refreshes, and one ticker switch.
+# Subtest: Concurrent manual probes claim one shared 15-second lease; failed probes retain backoff
+ok 13 - Concurrent manual probes claim one shared 15-second lease; failed probes retain backoff
+  ---
+  duration_ms: 2.0695
+  ...
+# Subtest: Successful explicit probe clears warm-tab memory, but cannot erase a newer denial
+ok 14 - Successful explicit probe clears warm-tab memory, but cannot erase a newer denial
+  ---
+  duration_ms: 0.994416
+  ...
+# Subtest: Unsupported lock coordination or unwritable storage never permits an unbounded manual probe
+ok 15 - Unsupported lock coordination or unwritable storage never permits an unbounded manual probe
+  ---
+  duration_ms: 0.821834
+  ...
+# Subtest: Visible Dow Retry now probes restore warm Pro and chart tabs before a one-hour deadline
+ok 16 - Visible Dow Retry now probes restore warm Pro and chart tabs before a one-hour deadline
+  ---
+  duration_ms: 20.404792
+  ...
+# Subtest: Options explicit Retry now restores another premium tab after emergency recovery
+ok 17 - Options explicit Retry now restores another premium tab after emergency recovery
+  ---
+  duration_ms: 22.277959
+  ...
+# Subtest: Pro manual probe reuses its lease across the existing single 401 token refresh
+ok 18 - Pro manual probe reuses its lease across the existing single 401 token refresh
+  ---
+  duration_ms: 5.842584
+  ...
+# Subtest: Auto and explicit selection immediately recalculate both ES conversions without changing unrelated ratios or To
+ok 19 - Auto and explicit selection immediately recalculate both ES conversions without changing unrelated ratios or To
+  ---
+  duration_ms: 295.789625
+  ...
+# Subtest: Contract-only responses preserve base prices even across a new backend snapshot
+ok 20 - Contract-only responses preserve base prices even across a new backend snapshot
+  ---
+  duration_ms: 9.329458
+  ...
+# Subtest: Rapid switches ignore late responses and unavailable contracts cannot reuse Auto or previous ES
+ok 21 - Rapid switches ignore late responses and unavailable contracts cannot reuse Auto or previous ES
+  ---
+  duration_ms: 9.39725
+  ...
+# Subtest: Periodic refresh keeps selected conversion and contract; old Auto payload remains compatible
+ok 22 - Periodic refresh keeps selected conversion and contract; old Auto payload remains compatible
+  ---
+  duration_ms: 8.621084
+  ...
+# Subtest: Pricing API sends session, refreshes expired tokens once, redirects missing/non-Pro sessions
+ok 23 - Pricing API sends session, refreshes expired tokens once, redirects missing/non-Pro sessions
+  ---
+  duration_ms: 3.096083
+  ...
+# Subtest: challenge shows only on demand, validates server-side, and closes after confirmed success
+ok 24 - challenge shows only on demand, validates server-side, and closes after confirmed success
+  ---
+  duration_ms: 16.716459
+  ...
+# Subtest: cancel, changed identity and unsuccessful verification never grant a retry
+ok 25 - cancel, changed identity and unsuccessful verification never grant a retry
+  ---
+  duration_ms: 18.211667
+  ...
+# Subtest: price API retries once after verified challenge and never changes normal responses or polling
+ok 26 - price API retries once after verified challenge and never changes normal responses or polling
+  ---
+  duration_ms: 0.99325
+  ...
+1..26
+# tests 26
+# suites 0
+# pass 26
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 733.134708

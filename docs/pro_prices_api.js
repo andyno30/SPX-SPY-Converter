@@ -1,5 +1,6 @@
 import { supabase } from './auth.js';
 import { premiumRequestCooldown } from './premium-request-cooldown.js?v=20261015-quota';
+import { verifyWebsiteHuman } from './human-verification.js?v=20261016';
 
 const proBackendURL = 'https://isvzhpqrmjtqnqyyidxr.functions.supabase.co/contact-for-licencing';
 
@@ -42,7 +43,18 @@ export async function fetchProPrices(esContract = 'AUTO', signal, { manualProbe 
   }
   if (response.status === 401) window.location.href = 'login.html';
   if (response.status === 403) window.location.href = 'dashboard.html';
-  const body = await response.json().catch(() => ({}));
+  let body = await response.json().catch(() => ({}));
+  if(response.status===429 && body.code==='HUMAN_VERIFICATION_REQUIRED'){
+    const verifiedUser=requestUserId;
+    await verifyWebsiteHuman(body,async()=>{
+      const current=await supabase.auth.getSession();
+      return !current.error&&current.data.session?.user?.id===verifiedUser?current.data.session.access_token:null;
+    },signal);
+    // One controlled retry. Existing hard quotas and authentication still apply.
+    const current=await supabase.auth.getSession();
+    if(current.error||current.data.session?.user?.id!==verifiedUser)throw new Error('Your session changed. Sign in and retry.');
+    session=current.data.session;response=await request();body=await response.json().catch(()=>({}));
+  }
   const cooldownError = await premiumRequestCooldown.responseError(requestUserId, 'pro_prices', response, body);
   if (cooldownError) throw cooldownError;
   if (!response.ok) throw Object.assign(new Error(body.message || 'Unable to refresh Pro prices.'), { status: response.status });
