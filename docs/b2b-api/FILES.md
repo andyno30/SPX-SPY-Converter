@@ -1,6 +1,6 @@
 # Complete B2B file inventory
 
-69 new files at initial publication. Modified or deleted original files: **0**. Development branch: `codex/b2b-api-platform`. Credentials and generated credential migrations remain outside Git.
+69 new files at initial publication; subsequent changes are confined to these additions. Modified or deleted original files: **0**. Development branch: `codex/b2b-api-platform`. Credentials and generated credential migrations remain outside Git.
 
 - `B2B/api/assets/api.css`
 - `B2B/api/assets/app.js`

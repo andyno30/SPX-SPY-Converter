@@ -48,7 +48,7 @@ async function dashboard(role='owner',options={}){
  Object.assign(state.subscription,options.subscription||{});
  if(options.signedOut!==true)w.sessionStorage.setItem('sc-b2b-demo-token','synthetic-session');w.sessionStorage.setItem('sc-b2b-demo-user',JSON.stringify({email:'test@example.test'}));
  const key='sc_test_'+'a'.repeat(64),calls=[];
- const fetch=async(url,opts={})=>{calls.push({url,opts});const p=new URL(url).pathname;return Response.json(p==='/platform/config'?{plans:{developer:{name:'Developer',cents:2500}}}:p==='/platform/organizations'?{organizations:[{id:org,name:'Synthetic'}]}:p==='/platform/dashboard'?state:p==='/platform/keys'?{key,record:{}}:{error:{message:'Unexpected synthetic request'}});};
+ const fetch=async(url,opts={})=>{calls.push({url,opts});const p=new URL(url).pathname;return Response.json(p==='/platform/config'?{plans:{developer:{name:'Developer',cents:2500}}}:p==='/platform/organizations'?{organizations:options.noOrganizations?[]:[{id:org,name:'Synthetic'}]}:p==='/platform/dashboard'?state:p==='/platform/keys'?{key,record:{}}:{error:{message:'Unexpected synthetic request'}});};
  const source=fs.readFileSync(path.join(root,'B2B/api/assets/app.js'),'utf8').replace(/^import .*\n/,'');
  const context={API_ORIGIN:'',document:w.document,location:w.location,sessionStorage:w.sessionStorage,Node:w.Node,FormData:w.FormData,URL,fetch,Response,navigator:w.navigator,confirm:()=>true,setTimeout:()=>0,console};
  await runInNewContext(`(async()=>{${source}})()`,context);await flush();
@@ -76,6 +76,8 @@ test('checkout return requires authenticated verified payment, handles pending/c
   {query:'?checkout=complete',subscription:{status:'pending'},title:'Confirming your subscription',status:'pending'},
   {query:'?checkout=complete',subscription:{status:'active',stripe_subscription_id:'sub_synthetic',paid_through:new Date(Date.now()+86400000).toISOString(),livemode:true},title:'Payment confirmed',status:'confirmed'},
   {query:'?checkout=complete',subscription:{status:'active',stripe_subscription_id:'sub_synthetic',paid_through:new Date(Date.now()+86400000).toISOString(),livemode:false},title:'Test payment confirmed',status:'confirmed'},
+  {query:'?checkout=complete',noOrganizations:true,title:'No payment linked to this account',status:'pending'},
+  {query:'?checkout=complete&organization_id=00000000-0000-0000-0000-000000000001',title:'No payment linked to this account',status:'pending'},
   {query:'?checkout=cancelled',title:'Checkout cancelled',status:'cancelled'},
  ]){const s=await dashboard('owner',scenario);try{
   assert.equal(s.el('checkout-confirmation').hidden,false);assert.equal(s.el('confirmation-title').textContent,scenario.title);assert.equal(s.el('checkout-confirmation').dataset.state,scenario.status);

@@ -13,9 +13,9 @@ function date(value){return value?new Date(value).toLocaleDateString('en-US',{mo
 function renderConfirmation(timedOut=false){
  if(!$('checkout-confirmation')||!['complete','cancelled'].includes(checkoutReturn))return false;
  show('checkout-confirmation');
- const s=state?.subscription,paid=!!(user&&s?.status==='active'&&s.stripe_subscription_id&&Date.parse(s.paid_through)>Date.now());
- $('confirmation-title').textContent=checkoutReturn==='cancelled'?'Checkout cancelled':!user?'Confirm your subscription':paid?(s.livemode===false?'Test payment confirmed':'Payment confirmed'):timedOut?'Payment confirmation is taking longer':'Confirming your subscription';
- $('confirmation-message').textContent=checkoutReturn==='cancelled'?'You returned without completing this checkout. You can review your plan and continue from Billing.':!user?'Sign in to the account you used for checkout to securely confirm your subscription and receive your API key.':paid?`${cfg.plans?.[s.plan]?.name||s.plan} · $${(cfg.plans?.[s.plan]?.cents||0)/100}/month USD. Your payment has been verified. ${revealed?'Your API key is ready below. Copy it now and store it securely.':state.keys.some(k=>!k.revoked_at)?'Your API keys are available in this workspace.':'Your API key will appear automatically when activation is complete.'}`:timedOut?'We have not received verified payment confirmation yet. You do not need to pay again. Check the status below or contact support if this continues.':'We are waiting for verified payment confirmation from Stripe. Your API key will appear automatically after activation. You do not need to pay again.';
+ const s=state?.subscription,unmatched=!!user&&(!org||(returnParams.get('organization_id')&&returnParams.get('organization_id')!==org)),paid=!!(!unmatched&&user&&s?.status==='active'&&s.stripe_subscription_id&&Date.parse(s.paid_through)>Date.now());
+ $('confirmation-title').textContent=checkoutReturn==='cancelled'?'Checkout cancelled':!user?'Confirm your subscription':unmatched?'No payment linked to this account':paid?(s.livemode===false?'Test payment confirmed':'Payment confirmed'):timedOut?'Payment confirmation is taking longer':'Confirming your subscription';
+ $('confirmation-message').textContent=checkoutReturn==='cancelled'?'You returned without completing this checkout. You can review your plan and continue from Billing.':!user?'Sign in to the account you used for checkout to securely confirm your subscription and receive your API key.':unmatched?'We could not find this B2B checkout in your signed-in account. Use the account that started checkout, or contact support before paying again.':paid?`${cfg.plans?.[s.plan]?.name||s.plan} · $${(cfg.plans?.[s.plan]?.cents||0)/100}/month USD. Your payment has been verified. ${revealed?'Your API key is ready below. Copy it now and store it securely.':state.keys.some(k=>!k.revoked_at)?'Your API keys are available in this workspace.':'Your API key will appear automatically when activation is complete.'}`:timedOut?'We have not received verified payment confirmation yet. You do not need to pay again. Check the status below or contact support if this continues.':'We are waiting for verified payment confirmation from Stripe. Your API key will appear automatically after activation. You do not need to pay again.';
  $('checkout-confirmation').dataset.state=paid?'confirmed':checkoutReturn==='cancelled'?'cancelled':'pending';
  $('confirmation-icon').textContent=paid?'✓':checkoutReturn==='cancelled'?'↩':'…';
  show('confirmation-check',!!user&&checkoutReturn==='complete'&&!paid);
@@ -24,7 +24,7 @@ function renderConfirmation(timedOut=false){
 }
 async function watchConfirmation(){
  const run=++confirmationPoll,expectedOrg=org;
- if(checkoutReturn!=='complete'||!user||!org||renderConfirmation())return;
+ if(checkoutReturn!=='complete'||!user||!org||(returnParams.get('organization_id')&&returnParams.get('organization_id')!==org)||renderConfirmation())return;
  for(let attempt=0;attempt<24;attempt++){
   await new Promise(resolve=>setTimeout(resolve,5000));
   if(run!==confirmationPoll||!user||org!==expectedOrg)return;

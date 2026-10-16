@@ -8,7 +8,7 @@ Production infrastructure changes and website publication were authorized in the
 - New hostname `api.spyconverter.com` points to that project. The gateway holds only encrypted `B2B_GATEWAY_SECRET`, forwards to the fixed Supabase B2B function, strips cookies, and returns JSON on upstream errors. Machine clients never receive application CAPTCHA.
 - Supabase project `isvzhpqrmjtqnqyyidxr`: new private `b2b_private` schema; `b2b-platform`, `b2b-cache-copy`, and temporary restricted `b2b-platform-test` functions. Existing functions, tables, authentication settings and schedules are unchanged.
 - Three new restricted database logins have only their respective B2B RPC permissions. The backend uses the existing transaction pooler on port 6543, with prepared statements disabled and one outstanding query per reserved connection. Its connection cap is 20 to accommodate the pooler's pool; source and writer caps are 12. No global database setting was changed.
-- Website files are additive directory indexes under `/B2B/api`. See `REVIEW.md` for publication status. No links are added to existing navigation, footer, converters or Pro.
+- The five website routes are published as additive directory indexes under `/B2B/api/`. The checkout return URL is a confirmation view; signed-out users must sign in and an unrelated account cannot see payment confirmation. No links are added to existing navigation, footer, converters or Pro.
 
 ## Current activation state
 

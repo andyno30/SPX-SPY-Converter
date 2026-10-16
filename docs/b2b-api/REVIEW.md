@@ -9,7 +9,7 @@ Updated 2026-10-16. The user authorized production infrastructure, GitHub push a
 - Exact live Stripe products `B2B API $25`, `B2B API $50`, `B2B API $150`; separate monthly prices, approved restricted credential, dedicated Customer Portal and signature-verified webhook. See RUNBOOK.md for IDs.
 - A separate restricted hosted integration harness uses real Supabase identity/storage, real Stripe TEST Checkout/webhooks/test clocks and synthetic data only. It is not a simulation of Stripe transport.
 
-Website files are ready under `/B2B/api`; publication status is recorded after GitHub Pages release verification. Production paid checkout and live-data delivery are still disabled. A live signing account/template and approved agreement have not been configured; no synthetic signature can activate production.
+All five website routes are live under `/B2B/api/` and returned HTTP 200, including `/B2B/api/dashboard/?checkout=complete`. GitHub Pages deployment [38938039368](https://github.com/andyno30/SPX-SPY-Converter/actions/runs/38938039368) succeeded for initial commit `c673b572ff12d91b308dcac6569de81ac1b7bf3d`. Production paid checkout and live-data delivery are still disabled. A live signing account/template and approved agreement have not been configured; no synthetic signature can activate production.
 
 ## Verified tests
 
@@ -26,6 +26,7 @@ Website files are ready under `/B2B/api`; publication status is recorded after G
 | Real hosted concurrent API requests | Developer: 10 allowed / 10 rejected; Pro: 30 allowed / 10 rejected; Business: 120 allowed / 10 rejected. Rejections HTTP 429; successful bodies identical |
 | Real test Customer Portal | Session opened; invoice/payment-method controls present; cancellation recorded at period end with access retained |
 | Real Stripe test-clock lifecycle | Successful renewal advanced billing period; failed payment changed entitlement to past_due; period-end termination changed it to canceled |
+| Live webhook signature rejection | Production endpoint returns HTTP 400 / invalid_signature for a forged request |
 | Business approval gate | Authenticated checkout rejected before manual review; test Checkout created only after operator approval |
 | Original-file preservation | 283 unchanged; no original navigation, styling, Pro billing, updater or auth code changes |
 
@@ -50,7 +51,7 @@ The JSON parity test imports the unchanged production serializer, compares it wi
 
 - Configure the real signing provider account, JWT consent and approved versioned agreement template. Current draft/provider configuration cannot complete a production signature.
 - Hosted sandbox checks passed for all three paid tiers and automatic keys; renewal, failed payment and termination webhooks were verified. Final website browser checks follow publication.
-- Publish the additive pages through the verified GitHub Pages workflow; verify all five routes and production auth UI.
+- Website publication succeeded. The actual production dashboard recognizes the existing Supabase session; customer data remains scoped to that user. Checkout return parameters never prove payment; unrelated account/organization returns show an explicit account mismatch.
 - Activate the controlled DB-copy path only with its documented provenance configuration; preserve the source schedule and request budget.
 - Review Free-plan hosting capacity, monitoring, usage-record retention and backups. No paid hosting upgrade was purchased.
 - B2C human verification remains separate. The Free endpoint is hosted on App Engine with source absent from this repository. Root-domain Cloudflare challenges cannot protect its direct URL. Do not represent B2B JSON limiting as B2C protection.
