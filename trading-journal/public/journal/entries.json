@@ -3,7 +3,7 @@
     "id": "85e932be-cd71-41c1-8077-d8486688053f",
     "market": "options",
     "entry_date": "2026-10-16",
-    "description": "S&P 500 gave up yesterday's gains ending the week with solid red candle. However, the premiums for SPX contracts were still pricy compare to the volatility. I tested the call side and it failed right away so scalped a put position, ending flat for the day. I expect this volatility to continue into next week but hopefully the premiums will come down a bit.\n\n6 fills; 1min 33sec trade; 44sec scalp",
+    "description": "S&P 500 gave up yesterday's gains ending the week with solid red candle. However, the premiums for SPX contracts were still pricy compare to the volatility. I tested the call side and it failed right away so scalped a put position, ending flat for the day. I expect this volatility to continue into next week but hopefully the premiums will come down a bit, presenting better opportunities.\n\n6 fills; 1min 33sec trade; 44sec scalp",
     "image_paths": [
       "journal/images/85e932be-cd71-41c1-8077-d8486688053f/879d235a499aded2c174b3be68f618c1598612bd.png",
       "journal/images/85e932be-cd71-41c1-8077-d8486688053f/abc3819f9e171182eae6a7b0be890b9fbb5c077c.png",
@@ -11,7 +11,7 @@
       "journal/images/85e932be-cd71-41c1-8077-d8486688053f/062ede36e6f781c1f5324287f1607c46c820ee85.png"
     ],
     "created_at": "2026-10-17T00:09:42.887Z",
-    "updated_at": "2026-10-17T00:09:42.887Z"
+    "updated_at": "2026-10-17T00:10:39.468Z"
   },
   {
     "id": "0fc1ce34-bb6f-426a-903a-78f78163dce3",
