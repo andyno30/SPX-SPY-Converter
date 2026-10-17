@@ -20,6 +20,7 @@
 
 - scripts/b2b-api/evidence/live-launch-health.json
 - B2B/api/assets/api.css
+- B2B/api/assets/analytics.js
 - B2B/api/assets/app.js
 - B2B/api/assets/config.js
 - B2B/api/dashboard/index.html
@@ -126,6 +127,7 @@
 - supabase/sql/b2b_api_terms.sql
 - supabase/sql/website_free_calculations.sql
 - supabase/sql/website_human_verification.sql
+- tests/b2b/analytics_test.cjs
 - tests/b2b/agreement_test.ts
 - tests/b2b/billing_test.ts
 - tests/b2b/fixtures/deployed-serializer-20261016.mjs
